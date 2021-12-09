@@ -1,5 +1,5 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
-import { IEvent } from '../store/event-store/IEvent';
+import axios from "axios";
+import { IEvent } from '../event-store/IEvent';
 import requestConfig from "./config";
 
 const BASE_URL = process.env.REACT_APP_API_ENDPOINT as string;

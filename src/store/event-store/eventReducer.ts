@@ -2,10 +2,11 @@ import { IEventState } from './IEvent';
 import EventActionTypes from './eventActionTypes';
 
 const initialState: IEventState = {
+  event: null,
   events: [],
   addEvent: null,
-  updateEvent: null,
-  removeEvent: null,
+  updatedEvent: null,
+  deletedEvent: null,
   loading: false,
   error: null
 };

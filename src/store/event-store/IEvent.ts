@@ -14,10 +14,11 @@ interface IEvent {
 
 // State Interface
 interface IEventState {
+  event: IEvent | null;
   events: IEvent[] | null;
   addEvent: IEvent | null;
-  updateEvent: IEvent | null;
-  removeEvent: IEvent | null;
+  updatedEvent: IEvent | null;
+  deletedEvent: IEvent | null;
   loading: boolean;
   error: string | null;
 }
