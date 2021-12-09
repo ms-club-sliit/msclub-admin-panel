@@ -48,6 +48,9 @@ const userReducer = (state = initialState, action: any) => {
     case `${UserActionTypes.DELETE_USER}_REJECTED`:
     case `${UserActionTypes.LOGIN_USER}_REJECTED`:
       return { ...state, loading: false, error: `${action.payload.message}`, state: initialState };
+    
+    default:
+      return state;
   }
 }
 
