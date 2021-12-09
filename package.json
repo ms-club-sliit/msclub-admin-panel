@@ -26,8 +26,8 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start:local": "cross-env REACT_APP_ENV=local env-cmd -f .env.development react-scripts start",
-    "start": "cross-env REACT_APP_ENV=production env-cmd -f .env.production serve -s build",
+    "start:local": "react-scripts start",
+    "start": "serve -s build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
