@@ -1,0 +1,60 @@
+// Primary Font Family Declaration - Start
+@font-face {
+  font-family: "Product Sans Regular";
+  src: local("Product Sans Regular"), url("./assets/fonts/product_sans/product_sans_regular.ttf")
+}
+
+@font-face {
+  font-family: "Product Sans Italic";
+  src: local("Product Sans Italic"), url("./assets/fonts/product_sans/product_sans_italic.ttf");
+}
+
+@font-face {
+  font-family: "Product Sans Bold";
+  src: local("Product Sans Bold"), url("./assets/fonts/product_sans/product_sans_bold.ttf");
+}
+
+@font-face {
+  font-family: "Product Sans Bold Italic";
+  src: local("Product Sans Bold Italic"), url("./assets/fonts/product_sans/product_sans_bold_italic.ttf");
+}
+// Primary Font Family Declaration - End
+
+// Secondary Font Family Declaration - Start
+@font-face {
+  font-family: "Roboto Light";
+  src: local("Roboto Light"), url("./assets/fonts/roboto/roboto_light.ttf");
+}
+
+@font-face {
+  font-family: "Roboto Italic";
+  src: local("Roboto Italic"), url("./assets/fonts/roboto/roboto_italic.ttf");
+}
+
+@font-face {
+  font-family: "Roboto Regular";
+  src: local("Roboto Regular"), url("./assets/fonts/roboto/roboto_regular.ttf");
+}
+
+@font-face {
+  font-family: "Roboto Medium";
+  src: local("Roboto Medium"), url("./assets/fonts/roboto/roboto_medium.ttf");
+}
+
+@font-face {
+  font-family: "Roboto Bold";
+  src: local("Roboto Bold"), url("./assets/fonts/roboto/roboto_bold.ttf");
+}
+
+@font-face {
+  font-family: "Roboto Bold Italic";
+  src: local("Roboto Bold Italic"), url("./assets/fonts/roboto/roboto_bold_italic.ttf");
+}
+// Secondary Font Family Declaration - End
+
+body {
+  margin: 0;
+  font-family: "Product Sans Regular";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
