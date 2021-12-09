@@ -1,0 +1,9 @@
+enum EventActionTypes {
+  CREATE_EVENT = 'CREATE_EVENT',
+  GET_EVENT = 'GET_EVENT',
+  GET_ALL_EVENTS = 'GET_ALL_EVENTS',
+  UPDATE_EVENT = 'UPDATE_EVENT',
+  DELETE_EVENT = 'DELETE_EVENT'
+}
+
+export default EventActionTypes;
