@@ -3,6 +3,28 @@
   If you implement stylings that belongs to individual component, use the "styles" directory to implement it
 */
 
-// Import Styles
-@import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+/**
+  MS Club of SLIIT Website - Media Query Template
+  @include media("<=phone") {}
+  @include media(">=phone", '<tablet') {}
+  @include media('>=tablet', '<smalldesktop') {}
+  @include media('>=smalldesktop', '<desktop') {}
+  @include media(">=desktop", '<largedesktop') {}
+  @include media('>=largedesktop') {}
+*/
 
+// Import Styles
+@import "./styles/breakpoints.scss";
+@import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+@import "./styles/colors.scss";
+@import "./styles/navbar.scss";
+
+.container {
+  margin-top: 70px;
+}
+
+footer {
+  bottom: 0;
+  position: absolute;
+  width: 100vw;
+}
