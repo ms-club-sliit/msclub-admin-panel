@@ -1,5 +1,29 @@
 // Primary Font Family Declaration - Start
 @font-face {
+  font-family: "Poppins Light";
+  src: local("Poppins Light"), url("./assets/fonts/poppines/poppins_light.ttf");
+}
+@font-face {
+  font-family: "Poppins Regular";
+  src: local("Poppines Regular"), url("./assets/fonts/poppines/poppins_regular.ttf");
+}
+
+@font-face {
+  font-family: "Poppins Medium";
+  src: local("Poppins Medium"), url("./assets/fonts/poppines/poppins_medium.ttf");
+}
+
+@font-face {
+  font-family: "Poppins Semi Bold";
+  src: local("Poppins Semi Bold"), url("./assets/fonts/poppines/poppins_semi_bold.ttf");
+}
+
+@font-face {
+  font-family: "Poppins Bold";
+  src: local("Poppins Bold"), url("./assets/fonts/poppines/poppins_bold.ttf");
+}
+
+@font-face {
   font-family: "Product Sans Regular";
   src: local("Product Sans Regular"), url("./assets/fonts/product_sans/product_sans_regular.ttf")
 }
@@ -54,7 +78,7 @@
 
 body {
   margin: 0;
-  font-family: "Product Sans Regular";
+  font-family: "Poppins Regular";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
