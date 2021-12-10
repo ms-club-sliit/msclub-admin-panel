@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ApplicationConstants from "../../constants";
 
 const NavBar: React.FC = () => {
   const [authToken, setAuthToken] = useState<string | null>();
@@ -40,54 +41,23 @@ const NavBar: React.FC = () => {
             </a>
             {authToken ? (
               <ul className="navbar-nav">
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Dashboard
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Events
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Webinars
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Top Speakers
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Applications
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Inquiry
-                  </a>
-                </li>
+                {ApplicationConstants.AUTH_NABAR_ITEMS.map((item) => (
+                  <li className="navbar-item nav-item" key={item.id}>
+                    <a href={item.link} className="nav-link">
+                      {item.name}
+                    </a>
+                  </li>
+                ))}
               </ul>
             ) : (
               <ul className="navbar-nav">
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Sign In
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Sign Up
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Contact Admin
-                  </a>
-                </li>
+                {ApplicationConstants.DEFAULT_NAVBAR_ITEMS.map((item) => (
+                  <li className="navbar-item nav-item" key={item.id}>
+                    <a href={item.link} className="nav-link">
+                      {item.name}
+                    </a>
+                  </li>
+                ))}
               </ul>
             )}
           </div>
@@ -115,16 +85,17 @@ const NavBar: React.FC = () => {
               className="dropdown-menu dropdown-menu-end"
               aria-labelledby="profile-dropdown"
             >
-              <li>
-                <a className="dropdown-item" href="#">
-                  My profile
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  Logout
-                </a>
-              </li>
+              {ApplicationConstants.AUTH_NAVBAR_OPTIONS.map((item) => (
+                <li key={item.id}>
+                  {item.link ? (
+                    <a href={item.link} className="dropdown-item">
+                      {item.name}
+                    </a>
+                  ) : (
+                    <span className="dropdown-item">{item.name}</span>
+                  )}
+                </li>
+              ))}
             </ul>
           </div>
         </div>
