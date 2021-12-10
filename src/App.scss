@@ -23,8 +23,13 @@
   margin-top: 70px;
 }
 
+.card {
+  border-radius: 0px;
+  padding: 15px;
+}
+
 footer {
-  bottom: 0;
-  position: absolute;
-  width: 100vw;
+  .footer-text {
+    font-family: "Roboto Regular";
+  }
 }

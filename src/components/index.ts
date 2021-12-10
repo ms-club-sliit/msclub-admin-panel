@@ -1,3 +1,4 @@
-import React from 'react';
+import NavBar from "./navbar";
+import Footer from "./footer";
 
-// Import and export components in here
+export { NavBar, Footer };
