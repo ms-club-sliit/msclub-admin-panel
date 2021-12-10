@@ -7,4 +7,5 @@ const reducers = combineReducers({
   eventReducer,
 });
 
+export type AppState = ReturnType<typeof reducers>;
 export default reducers;
