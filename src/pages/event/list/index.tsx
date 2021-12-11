@@ -44,7 +44,9 @@ const EventList: React.FC = () => {
         return (
           <div>
             {cell === "UPCOMING" ? (
-              <span className="badge rounded-pill bg-info">{cell}</span>
+              <span className="badge rounded-pill bg-primary text-light">
+                {cell}
+              </span>
             ) : null}
             {cell === "PAST" ? (
               <span className="badge rounded-pill bg-warning text-dark">
@@ -207,8 +209,9 @@ const EventList: React.FC = () => {
         </div>
         <div className="col-6">
           <div className="d-flex justify-content-end">
-            <button className="btn btn-primary btn-rounded shadow-none">
-              New Event
+            <button className="btn btn-primary btn-rounded">
+              <span className="fas fa-plus" />
+              <span className="mx-2">Add New Event</span>
             </button>
           </div>
         </div>
