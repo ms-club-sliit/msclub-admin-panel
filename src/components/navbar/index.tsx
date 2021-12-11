@@ -91,11 +91,12 @@ const NavBar: React.FC = () => {
                     <a href={item.link} className="dropdown-item">
                       {item.name}
                     </a>
-                  ) : (
-                    <span className="dropdown-item">{item.name}</span>
-                  )}
+                  ) : null}
                 </li>
               ))}
+              <li>
+                <span className="dropdown-item">Logout</span>
+              </li>
             </ul>
           </div>
         </div>

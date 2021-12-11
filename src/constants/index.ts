@@ -7,10 +7,7 @@ const ApplicationConstants = {
     { id: 5, name: "Applications", link: "/applications" },
     { id: 6, name: "Inquiry", link: "/inquries" },
   ],
-  AUTH_NAVBAR_OPTIONS: [
-    { id: 1, name: "My Profile", link: "/profile" },
-    { id: 2, name: "Logout" },
-  ],
+  AUTH_NAVBAR_OPTIONS: [{ id: 1, name: "My Profile", link: "/profile" }],
   DEFAULT_NAVBAR_ITEMS: [
     { id: 1, name: "Sign In", link: "/signin" },
     { id: 2, name: "Sign Up", link: "/signup" },
