@@ -5,17 +5,20 @@
 }
 @font-face {
   font-family: "Poppins Regular";
-  src: local("Poppines Regular"), url("./assets/fonts/poppines/poppins_regular.ttf");
+  src: local("Poppines Regular"),
+    url("./assets/fonts/poppines/poppins_regular.ttf");
 }
 
 @font-face {
   font-family: "Poppins Medium";
-  src: local("Poppins Medium"), url("./assets/fonts/poppines/poppins_medium.ttf");
+  src: local("Poppins Medium"),
+    url("./assets/fonts/poppines/poppins_medium.ttf");
 }
 
 @font-face {
   font-family: "Poppins Semi Bold";
-  src: local("Poppins Semi Bold"), url("./assets/fonts/poppines/poppins_semi_bold.ttf");
+  src: local("Poppins Semi Bold"),
+    url("./assets/fonts/poppines/poppins_semi_bold.ttf");
 }
 
 @font-face {
@@ -25,22 +28,26 @@
 
 @font-face {
   font-family: "Product Sans Regular";
-  src: local("Product Sans Regular"), url("./assets/fonts/product_sans/product_sans_regular.ttf")
+  src: local("Product Sans Regular"),
+    url("./assets/fonts/product_sans/product_sans_regular.ttf");
 }
 
 @font-face {
   font-family: "Product Sans Italic";
-  src: local("Product Sans Italic"), url("./assets/fonts/product_sans/product_sans_italic.ttf");
+  src: local("Product Sans Italic"),
+    url("./assets/fonts/product_sans/product_sans_italic.ttf");
 }
 
 @font-face {
   font-family: "Product Sans Bold";
-  src: local("Product Sans Bold"), url("./assets/fonts/product_sans/product_sans_bold.ttf");
+  src: local("Product Sans Bold"),
+    url("./assets/fonts/product_sans/product_sans_bold.ttf");
 }
 
 @font-face {
   font-family: "Product Sans Bold Italic";
-  src: local("Product Sans Bold Italic"), url("./assets/fonts/product_sans/product_sans_bold_italic.ttf");
+  src: local("Product Sans Bold Italic"),
+    url("./assets/fonts/product_sans/product_sans_bold_italic.ttf");
 }
 // Primary Font Family Declaration - End
 
@@ -72,11 +79,13 @@
 
 @font-face {
   font-family: "Roboto Bold Italic";
-  src: local("Roboto Bold Italic"), url("./assets/fonts/roboto/roboto_bold_italic.ttf");
+  src: local("Roboto Bold Italic"),
+    url("./assets/fonts/roboto/roboto_bold_italic.ttf");
 }
 // Secondary Font Family Declaration - End
 
 body {
+  background-color: #f4f7fa;
   margin: 0;
   font-family: "Poppins Regular";
   -webkit-font-smoothing: antialiased;
