@@ -12,7 +12,7 @@ const NavBar: React.FC = () => {
     } else {
       setAuthToken(null);
     }
-  });
+  },[]);
 
   return (
     <div>
@@ -66,7 +66,7 @@ const NavBar: React.FC = () => {
             {authToken ? (
               <a
                 className="dropdown-toggle d-flex align-items-center hidden-arrow profile-icon"
-                href="#"
+                href="/"
                 id="profile-dropdown"
                 role="button"
                 data-mdb-toggle="dropdown"

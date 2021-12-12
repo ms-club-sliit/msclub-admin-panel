@@ -26,7 +26,7 @@ const EventList: React.FC = () => {
   // Fetch events information
   useEffect(() => {
     dispatch(getEvents());
-  }, []);
+  }, [dispatch]);
 
   // Table column configurations
   const tableColumnData = [
@@ -79,16 +79,16 @@ const EventList: React.FC = () => {
     return (
       <span className="dropdown show">
         <span className="dropdown">
-          <a href="#" className="btn shadow-none" data-mdb-toggle="dropdown">
+          <a href="/" className="btn shadow-none" data-mdb-toggle="dropdown">
             <i className="fas fa-ellipsis-h"></i>
           </a>
           <div className="dropdown-menu dropdown-menu-right">
-            <a href="#" className="dropdown-item">
+            <a href="/" className="dropdown-item">
               <i className="far fa-eye" /> View
             </a>
             <a
               className="dropdown-item"
-              href="#"
+              href="/"
               data-mdb-toggle="modal"
               data-mdb-target="#update-exam"
             >
@@ -136,7 +136,7 @@ const EventList: React.FC = () => {
         <h5>Event Information</h5>
         <div className="row">
           <div className="col-md-4">
-            <img src={row.imageUrl} className="event-flyer" />
+            <img src={row.imageUrl} className="event-flyer" alt={row.imageUrl} />
           </div>
           <div className="col-md-8">
             <h6>
