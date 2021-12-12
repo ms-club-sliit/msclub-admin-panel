@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "msclub-admin-panel-dev",
+    "development": "msclub-admin-panel"
+  },
+  "targets": {}
+}
