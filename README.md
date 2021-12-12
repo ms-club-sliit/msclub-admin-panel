@@ -1,10 +1,11 @@
 [![Firebase CD](https://github.com/ms-club-sliit/msclubwebsite/actions/workflows/firebase-deploy.yml/badge.svg)](https://github.com/ms-club-sliit/msclubwebsite/actions/workflows/firebase-deploy.yml)
-![Pull Requests](https://badgen.net/github/open-issues/ms-club-sliit/msclubwesite-v2)
-![Contributors](https://badgen.net/github/contributors/ms-club-sliit/msclubwesite-v2)
+![Pull Requests](https://badgen.net/github/open-issues/ms-club-sliit/msclub-admin-panel)
+![Contributors](https://badgen.net/github/contributors/ms-club-sliit/msclub-admin-panel)
 
-#  MS Club of SLIIT - Website V2
+# MS Club Admin Panel
+
 Your one-stop portal to all things regarding MS Club of SLIIT🌀  
-Read further to know how **you** can start contributing to MS Club! 
+Read further to know how **you** can start contributing to MS Club!
 
 ## Quick Links
 
@@ -14,11 +15,9 @@ Read further to know how **you** can start contributing to MS Club!
 
 ## [Tech Stack](#Tech-Stack)
 
-![banner-whitebg-spacing-10px(2)](https://user-images.githubusercontent.com/73905901/126197938-6f1301fb-623f-4d0a-8bce-5b268722da1c.png)
+![tech stack](https://user-images.githubusercontent.com/42801983/145599241-658e56b6-24ed-494a-ad11-96c7d2df32be.png)
 
 <!-- Add system architecture -->
-
-
 
 ## [How to contribute](#how-to)
 
@@ -26,7 +25,7 @@ Read further to know how **you** can start contributing to MS Club!
 
 2. Clone the project to your own machine.
 
-```git clone https://github.com/<YOUR_USERNAME>/msclubwebsite.git```
+`git clone https://github.com/<YOUR_USERNAME>/msclub-admin-panel.git`
 
 3. Create a branch using the git checkout command.
 
@@ -34,9 +33,9 @@ Read further to know how **you** can start contributing to MS Club!
 
 4. Stage your changes and commit with a meaningful commit message.
 
-``` 
+```
 git add .
-git commit -m "<initial commit>" 
+git commit -m "<initial commit>"
 ```
 
 5. Push your work back up to your fork.
@@ -45,9 +44,9 @@ git commit -m "<initial commit>"
 
 6. Submit a Pull request so that we can review your changes. [Learn about creating a pull request.](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)
 
-## [I really want to contribute but where do I start?](#resources) 
+## [I really want to contribute but where do I start?](#resources)
 
-We got your back. Here are some **FREE** resources for you to strengthen your web development skills and start firing some commits 
+We got your back. Here are some **FREE** resources for you to strengthen your web development skills and start firing some commits
 
 **HTML / CSS / JS**
 
@@ -57,17 +56,17 @@ We got your back. Here are some **FREE** resources for you to strengthen your we
 - [HTML & CSS Crash Course by Scrimba](https://scrimba.com/learn/htmlcss)
 - [Learn Modern Javascript by freeCodeCamp + Scrimba](https://scrimba.com/learn/es6)
 
-
 **React.js**
 
 - [React course by freeCodeCamp](https://www.freecodecamp.org/learn/front-end-libraries/#react)
 - [Learn React by Scrimba](https://scrimba.com/learn/learnreact)
+
+**Redux.js**
+
+- [Redux documentation](https://redux.js.org/introduction/getting-started)
 
 ## Contributors
 
 <a href="https://github.com/ms-club-sliit/msclubwebsite/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=ms-club-sliit/msclubwebsite" />
 </a>
-
-
-

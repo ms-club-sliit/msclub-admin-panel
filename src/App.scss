@@ -3,6 +3,53 @@
   If you implement stylings that belongs to individual component, use the "styles" directory to implement it
 */
 
+/**
+  MS Club of SLIIT Website - Media Query Template
+  @include media("<=phone") {}
+  @include media(">=phone", '<tablet') {}
+  @include media('>=tablet', '<smalldesktop') {}
+  @include media('>=smalldesktop', '<desktop') {}
+  @include media(">=desktop", '<largedesktop') {}
+  @include media('>=largedesktop') {}
+*/
+
 // Import Styles
+@import "./styles/breakpoints.scss";
+@import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+@import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
+@import "./styles/colors.scss";
+@import "./styles/navbar.scss";
+@import "./styles/table.scss";
+@import "./styles/events.scss";
 
+.container {
+  margin-top: 70px;
+}
 
+.btn {
+  text-transform: unset !important;
+}
+
+.card {
+  border-radius: 0px;
+  padding: 15px;
+}
+
+footer {
+  .footer-text {
+    font-family: "Roboto Regular";
+  }
+}
+
+.page-title {
+  font-family: "Poppins Medium";
+  font-size: 30px;
+  font-weight: 500;
+  margin: 0px;
+}
+
+.page-description {
+  font-family: "Roboto Regular";
+  font-size: 16px;
+  margin-top: 0px;
+}

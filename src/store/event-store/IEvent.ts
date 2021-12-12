@@ -6,11 +6,11 @@ interface IEvent {
   tags: string[];
   link: string;
   eventType: string;
+  imageUrl: string;
   createdAt?: Date;
   updatedAt?: Date;
   deletedAt?: Date | null;
 }
-
 
 // State Interface
 interface IEventState {
