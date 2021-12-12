@@ -1,0 +1,55 @@
+name: MS Club Admin Panel Development CI/CD
+
+on:
+  push:
+    branches: [development]
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: Development
+    
+    strategy:
+      matrix:
+        node-version: [14.x]
+        
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.5.0
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install -g yarn
+      - name: yarn install
+        run: yarn install
+      - name: yarn build
+        env: 
+          REACT_APP_API_ENDPOINT: ${{ secrets.REACT_APP_API_ENDPOINT }}
+          REACT_APP_STORAGE_BUCKET_URL: ${{ secrets.REACT_APP_STORAGE_BUCKET_URL }}
+          REACT_APP_STORAGE_BUCKET_NAME: ${{ secrets.REACT_APP_STORAGE_BUCKET_NAME }}
+        run: yarn build
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.3.0
+        with:
+          name: build
+          path: build
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v2.1.0
+        with:
+          name: build
+          path: build
+      - name: GitHub Action for Firebase
+        uses: w9jds/firebase-action@v2.0.0
+        with:
+          args: deploy --only hosting --project development
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          
