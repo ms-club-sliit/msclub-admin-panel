@@ -4,6 +4,8 @@ import Slider from "react-rangeslider";
 
 interface CanvasProps {
   getEditedImage: (data: any) => any;
+  width: number;
+  height: number;
 }
 
 const resizeImage = (image: any, width: number, height: number) => {
@@ -20,6 +22,8 @@ const resizeImage = (image: any, width: number, height: number) => {
 /**
  * Image previewer and editor
  * @param props getEditedImage (Callback function)
+ * @param props width (Canvas width)
+ * @param props height (Canvas height)
  * @returns base64 edited image
  * @example
  * const handleImage = (data: any) => {
@@ -62,7 +66,7 @@ const ImageCanvas = (props: CanvasProps) => {
 
   const saveChanges = async (event: any) => {
     let image: any = editor.getImage();
-    image = resizeImage(image, 1920, 1080);
+    image = resizeImage(image, props.width, props.height);
     props.getEditedImage(image);
   };
 
@@ -85,8 +89,8 @@ const ImageCanvas = (props: CanvasProps) => {
               ref={configureEditor}
               image={imgSrc}
               border={0}
-              width={300}
-              height={169}
+              width={props.width}
+              height={props.height}
               borderRadius={0}
               color={[0, 0, 0, 0.6]}
               scale={zoomLevel}

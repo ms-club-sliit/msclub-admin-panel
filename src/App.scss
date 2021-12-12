@@ -17,6 +17,7 @@
 @import "./styles/breakpoints.scss";
 @import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 @import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
+@import "react-toastify/dist/ReactToastify.css";
 @import "react-rangeslider/lib/index.css";
 @import "./styles/colors.scss";
 @import "./styles/navbar.scss";
@@ -59,4 +60,23 @@ footer {
 .badge {
   font-family: "Poppins Light";
   font-size: 11px;
+}
+
+.form-control {
+  border: 1;
+  font-size: 14px;
+  height: 35px;
+  padding: 12px;
+}
+
+.form-control:focus {
+  border: 0px !important;
+  font-size: 14px;
+  height: 35px;
+  padding: 12px;
+}
+
+.form-label {
+  font-size: 14px;
+  margin-bottom: 0px;
 }

@@ -1,12 +1,12 @@
 import axios from "axios";
-import { IEvent } from '../event-store/IEvent';
+import { IEvent } from "../event-store/IEvent";
 import requestConfig from "./config";
 
 const BASE_URL = process.env.REACT_APP_API_ENDPOINT as string;
 
 class EventAPI {
   static createEvent(eventData: IEvent): Promise<IEvent> {
-    return axios.post(`${BASE_URL}/event/`, eventData, requestConfig); 
+    return axios.post(`${BASE_URL}/event/`, eventData, requestConfig);
   }
 
   static getEvent(eventId: string): Promise<IEvent> {
@@ -14,7 +14,7 @@ class EventAPI {
   }
 
   static getEvents(): Promise<IEvent[]> {
-    return axios.get(`${BASE_URL}/event/`);
+    return axios.get(`${BASE_URL}/admin/event/`, requestConfig);
   }
 
   static updateEvent(eventId: string, data: IEvent): Promise<IEvent> {

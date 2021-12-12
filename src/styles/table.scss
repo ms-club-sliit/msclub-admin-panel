@@ -1,5 +1,5 @@
 td {
-  padding-top: 4px !important;
+  padding-top: 8px !important;
   padding-bottom: 0px !important;
   padding-left: 10px !important;
   font-family: "Poppins Regular";
@@ -21,4 +21,11 @@ th {
 .table-description {
   font-size: 12px;
   margin-bottom: 0px;
+}
+
+.table-profile-img {
+  width: 25px;
+  border-radius: 50%;
+  margin-top: 0px !important;
+  margin-right: 5px;
 }
