@@ -1,6 +1,6 @@
 interface IModifiedBy {
   user: IModifyUser;
-  time: Date;
+  updatedAt: Date;
 }
 
 interface IModifyUser {

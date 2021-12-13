@@ -44,11 +44,11 @@ const EventList: React.FC = () => {
       formatter: (cell: any, row: IEvent) => actionButtonFormatter(row),
       headerStyle: { width: "90px" },
     },
-    { dataField: "title", text: "Title", headerStyle: { width: "220px" } },
+    { dataField: "title", text: "Title", headerStyle: { width: "200px" } },
     {
       dataField: "eventType",
       text: "Type",
-      headerStyle: { width: "100px" },
+      headerStyle: { width: "110px" },
       formatter: (cell: string) => {
         return (
           <div>
@@ -202,10 +202,13 @@ const EventList: React.FC = () => {
       <div>
         <h5>Event Information</h5>
         <div className="row">
-          <div className="col-md-4">
-            <img src={row.imageUrl} className="event-flyer" />
+          <div className="col-md-3 col-sm-12">
+            <img
+              src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${row.imageUrl}`}
+              className="event-flyer"
+            />
           </div>
-          <div className="col-md-8">
+          <div className="col-md-9 col-sm-12">
             <h6>
               <span className="fas fa-align-left my-2" />
               &nbsp; Description

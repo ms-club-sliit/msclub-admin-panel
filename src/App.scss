@@ -80,3 +80,15 @@ footer {
   font-size: 14px;
   margin-bottom: 0px;
 }
+
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-footer {
+  border-top: none;
+}
+
+.modal-body {
+  background-color: #f4f7fa;
+}
