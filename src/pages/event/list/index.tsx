@@ -1,19 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getEvents } from "../../../store/event-store/eventActions";
+import {
+  getEvents,
+  setViewEvent,
+} from "../../../store/event-store/eventActions";
 import { IEvent } from "../../../store/event-store/IEvent";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
-import InsertForm from "../../../components/insert-form";
+import { IModifiedBy } from "../../../store/interfaces";
+import { IEventView } from "../../../interfaces";
+import EventView from "../view";
+import AddEvent from "../add";
 
 const EventList: React.FC = () => {
-  const [selectedTab, setSelectedTab] = useState<string>("All");
-  const events: IEvent[] = useSelector((state) => state.eventReducer.events);
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.eventReducer);
+  const events: IEvent[] = state.events;
   const [selectedTypeEvents, setSelectedTypeEvents] =
     useState<IEvent[]>(events);
-  const dispatch = useDispatch();
+  const [selectedTab, setSelectedTab] = useState<string>("All");
+
+  // Table confuguration
   const { SearchBar } = Search;
   const options = {
     paginationSize: 4,
@@ -26,7 +35,7 @@ const EventList: React.FC = () => {
   // Fetch events information
   useEffect(() => {
     dispatch(getEvents());
-  }, [dispatch]);
+  }, [selectedTypeEvents]);
 
   // Table column configurations
   const tableColumnData = [
@@ -36,20 +45,22 @@ const EventList: React.FC = () => {
       formatter: (cell: any, row: IEvent) => actionButtonFormatter(row),
       headerStyle: { width: "90px" },
     },
-    { dataField: "title", text: "Title", headerStyle: { width: "220px" } },
+    { dataField: "title", text: "Title", headerStyle: { width: "200px" } },
     {
       dataField: "eventType",
       text: "Type",
-      headerStyle: { width: "100px" },
+      headerStyle: { width: "110px" },
       formatter: (cell: string) => {
         return (
           <div>
             {cell === "UPCOMING" ? (
-              <span className="badge rounded-pill bg-info">{cell}</span>
+              <span className="badge rounded-pill bg-primary text-light">
+                Upcoming Event
+              </span>
             ) : null}
             {cell === "PAST" ? (
               <span className="badge rounded-pill bg-warning text-dark">
-                {cell}
+                Past Event
               </span>
             ) : null}
           </div>
@@ -66,10 +77,40 @@ const EventList: React.FC = () => {
     },
     {
       dataField: "updatedAt",
-      text: "Last Modified",
+      text: "Last Modified At",
       headerStyle: { width: "220px" },
       formatter: (cell: string) => {
         return moment(cell).format("LLL");
+      },
+    },
+    {
+      dataField: "updatedBy",
+      text: "Last Modified By",
+      headerStyle: { width: "250px" },
+      formatter: (cell: IModifiedBy[]) => {
+        let lastModifiedUser = cell.slice(-1)[0];
+        return (
+          <div>
+            <span>
+              <img
+                src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${lastModifiedUser.user.profileImage}`}
+                className="table-profile-img"
+              />
+            </span>
+            {`${lastModifiedUser.user.firstName} ${lastModifiedUser.user.lastName}`}
+            <span className="badge rounded-pill bg-dark mx-2">
+              {lastModifiedUser.user.permissionLevel === "ROOT_ADMIN"
+                ? "Root Admin"
+                : null}
+              {lastModifiedUser.user.permissionLevel === "ADMIN"
+                ? "Administrator"
+                : null}
+              {lastModifiedUser.user.permissionLevel === "EDITOR"
+                ? "Editor"
+                : null}
+            </span>
+          </div>
+        );
       },
     },
   ];
@@ -79,11 +120,19 @@ const EventList: React.FC = () => {
     return (
       <span className="dropdown show">
         <span className="dropdown">
-          <a href="/" className="btn shadow-none" data-mdb-toggle="dropdown">
+          <a
+            href="#"
+            className="btn shadow-none btn-sm"
+            data-mdb-toggle="dropdown"
+          >
             <i className="fas fa-ellipsis-h"></i>
           </a>
           <div className="dropdown-menu dropdown-menu-right">
-            <a href="/" className="dropdown-item">
+            <a
+              href="#"
+              className="dropdown-item"
+              onClick={(e) => handleSetViewEvent(row)}
+            >
               <i className="far fa-eye" /> View
             </a>
             <a
@@ -105,6 +154,25 @@ const EventList: React.FC = () => {
         </span>
       </span>
     );
+  };
+
+  const handleSetViewEvent = (eventData: IEvent) => {
+    let viewEvent: IEventView = {
+      title: eventData.title,
+      description: eventData.description,
+      eventType: eventData.eventType,
+      dateTime: eventData.dateTime,
+      imageUrl: eventData.imageUrl,
+      link: eventData.link,
+      tags: eventData.tags,
+      createdBy: eventData.createdBy,
+      createdAt: eventData.createdAt as Date,
+      updatedBy: eventData.updatedBy,
+      updatedAt: eventData.updatedAt as Date,
+    };
+
+    dispatch(setViewEvent(viewEvent));
+    $("#eventViewModal").modal("show");
   };
 
   const expandRow = {
@@ -135,10 +203,13 @@ const EventList: React.FC = () => {
       <div>
         <h5>Event Information</h5>
         <div className="row">
-          <div className="col-md-4">
-            <img src={row.imageUrl} className="event-flyer" alt={row.imageUrl} />
+          <div className="col-md-3 col-sm-12">
+            <img
+              src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${row.imageUrl}`}
+              className="event-flyer"
+            />
           </div>
-          <div className="col-md-8">
+          <div className="col-md-9 col-sm-12">
             <h6>
               <span className="fas fa-align-left my-2" />
               &nbsp; Description
@@ -178,7 +249,6 @@ const EventList: React.FC = () => {
         return type;
       })
       .then((data) => {
-        console.log(data);
         if (data === "All") {
           setSelectedTypeEvents(events);
         } else if (data === "Upcoming") {
@@ -213,7 +283,8 @@ const EventList: React.FC = () => {
               data-mdb-toggle="modal"
               data-mdb-target="#addEventModal"
             >
-              New Event
+              <span className="fas fa-plus" />
+              <span className="mx-2">Add New Event</span>
             </button>
           </div>
         </div>
@@ -294,34 +365,8 @@ const EventList: React.FC = () => {
         )}
       </ToolkitProvider>
 
-      {/*Modal*/}
-      <div
-        className="modal fade"
-        id="addEventModal"
-        tabIndex={-1}
-        aria-labelledby="addEventModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="addEventModalLabel">
-                ADD EVENT
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-mdb-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              <InsertForm />
-            </div>
-          </div>
-        </div>
-      </div>
-      {/*End of Modal*/}
+      <AddEvent />
+      <EventView />
     </div>
   );
 };
