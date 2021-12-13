@@ -3,7 +3,7 @@ import { IEvent } from "./IEvent";
 import EventAPI from "../api/EventAPI";
 import { IEventView } from "../../interfaces";
 
-export const createEvent = (data: IEvent) => {
+export const createEvent = (data: any) => {
   return {
     type: EventActionTypes.CREATE_EVENT,
     payload: EventAPI.createEvent(data),

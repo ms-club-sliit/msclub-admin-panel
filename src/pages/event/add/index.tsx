@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { EffectCallback, useEffect, useState } from "react";
 import ImageCanvas from "../../../components/image-canvas";
 import RichTextEditor, { ToolbarConfig } from "react-rte";
 import { ToolBarConfig } from "../../../constants";
+import {
+  createEvent,
+  getEvents,
+} from "../../../store/event-store/eventActions";
+import { useDispatch, useSelector } from "react-redux";
+import { IEvent } from "../../../store/event-store/IEvent";
 
 type TAddEventFormData = {
-  imageSrc: string | null;
+  imageSrc: any | null;
   eventName: string | null;
   eventType: string | null;
   dateTime: string | null;
@@ -16,7 +22,7 @@ type TAddEventFormData = {
 
 interface IAddEventState {
   isFormNotValid: boolean;
-  imageSrc: string | null;
+  imageSrc: any;
   eventName: string | null;
   eventType: string | null;
   dateTime: string | null;
@@ -39,7 +45,7 @@ let formData: TAddEventFormData = {
 
 const initialState: IAddEventState = {
   isFormNotValid: false,
-  imageSrc: "",
+  imageSrc: null,
   eventName: "",
   eventType: "",
   dateTime: "",
@@ -50,8 +56,9 @@ const initialState: IAddEventState = {
 };
 
 const AddEvent: React.FC = () => {
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.eventReducer);
   const [editor, setEditor] = useState(() => RichTextEditor.createEmptyValue());
-
   const [
     {
       eventName,
@@ -67,7 +74,12 @@ const AddEvent: React.FC = () => {
     setState,
   ] = useState(initialState);
 
-  const closeModal = (event: any) => {
+  useEffect(() => {
+    dispatch(getEvents());
+    closeModal();
+  }, [state.addEvent]);
+
+  const closeModal = () => {
     setState({ ...initialState });
     setEditor(RichTextEditor.createEmptyValue());
     $("#addEventModal").modal("hide");
@@ -119,7 +131,7 @@ const AddEvent: React.FC = () => {
   // Form Validation
   const validateForm = () => {
     const data = {
-      imageSrc: imageSrc && imageSrc.trim().length > 0 ? imageSrc : null,
+      imageSrc: imageSrc ? imageSrc : null,
       eventName: eventName && eventName.trim().length > 0 ? eventName : null,
       eventType: eventType && eventType.trim().length > 0 ? eventType : null,
       dateTime: dateTime && dateTime.trim().length > 0 ? dateTime : null,
@@ -151,18 +163,17 @@ const AddEvent: React.FC = () => {
 
       if (!data.includes(false)) {
         setState((prevState) => ({ ...prevState, isFormNotValid: false }));
-        const eventDetails = {
-          title: eventName,
-          dateTime: dateTime,
-          description: description,
-          tags: filteredTags,
-          link: eventLink,
-          registrationLink: registrationLink,
-          eventType: eventType,
-          imageUrl: imageSrc,
-        };
 
-        console.log(eventDetails);
+        let eventFormData = new FormData();
+        eventFormData.append("eventFlyer", imageSrc);
+        eventFormData.append("title", eventName as string);
+        eventFormData.append("dateTime", dateTime as string);
+        eventFormData.append("description", description as string);
+        eventFormData.append("link", eventLink as string);
+        eventFormData.append("registrationLink", registrationLink as string);
+        eventFormData.append("eventType", eventType as string);
+
+        dispatch(createEvent(eventFormData));
       } else {
         setState((prevState) => ({ ...prevState, isFormNotValid: true }));
       }
@@ -188,7 +199,7 @@ const AddEvent: React.FC = () => {
             <button
               type="button"
               className="btn-close"
-              onClick={(e) => closeModal(e)}
+              onClick={closeModal}
             ></button>
           </div>
           <div className="modal-body add-event">
@@ -238,9 +249,7 @@ const AddEvent: React.FC = () => {
                     value={eventType as string}
                     onChange={onChange}
                   >
-                    <option disabled hidden selected>
-                      Select event type
-                    </option>
+                    <option selected>Select event type</option>
                     <option value="PAST">PAST</option>
                     <option value="UPCOMING">UPCOMING</option>
                   </select>
@@ -367,7 +376,7 @@ const AddEvent: React.FC = () => {
             <button
               type="button"
               className="btn btn-light shadow-none btn-rounded"
-              onClick={(e) => closeModal(e)}
+              onClick={closeModal}
             >
               Cancel
             </button>

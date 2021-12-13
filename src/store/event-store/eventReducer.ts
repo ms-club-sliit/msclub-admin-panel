@@ -22,8 +22,8 @@ const eventReducer = (state = initialState, action: any) => {
       return { ...state, loading: true };
 
     case `${EventActionTypes.CREATE_EVENT}_FULFILLED`:
-      let newEvent = action.payload.data;
-      return { ...state, loading: false, newEvent };
+      let addEvent = action.payload.data;
+      return { ...state, loading: false, addEvent };
     case `${EventActionTypes.GET_EVENT}_FULFILLED`:
       let event = action.payload.data;
       return { ...state, loading: false, event };

@@ -6,7 +6,7 @@ const BASE_URL = process.env.REACT_APP_API_ENDPOINT as string;
 
 class EventAPI {
   static createEvent(eventData: IEvent): Promise<IEvent> {
-    return axios.post(`${BASE_URL}/event/`, eventData, requestConfig);
+    return axios.post(`${BASE_URL}/admin/event/`, eventData, requestConfig);
   }
 
   static getEvent(eventId: string): Promise<IEvent> {

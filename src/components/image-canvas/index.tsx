@@ -1,6 +1,8 @@
 import { useState } from "react";
 import AvatarEditor from "react-avatar-editor";
 import Slider from "react-rangeslider";
+import fs from "fs";
+import axios from "axios";
 
 interface CanvasProps {
   getEditedImage: (data: any) => any;
@@ -39,7 +41,7 @@ const resizeImage = (image: any, width: number, height: number) => {
 const ImageCanvas = (props: CanvasProps) => {
   const [zoomLevel, setZoomLevel] = useState<number>(1);
   const [rotate, setRotation] = useState<number>(0);
-  const [imgSrc, setImgSrc] = useState<string>("");
+  const [imgSrc, setImgSrc] = useState<any>("");
   const [editor, setEditor] = useState<any>();
 
   const configureEditor = (editor: any) => {
@@ -67,7 +69,15 @@ const ImageCanvas = (props: CanvasProps) => {
   const saveChanges = async (event: any) => {
     let image: any = editor.getImage();
     image = resizeImage(image, props.width, props.height);
-    props.getEditedImage(image);
+
+    let binary = atob(image.split(",")[1]);
+    let arr = [];
+    for (let i = 0; i < binary.length; i++) {
+      arr.push(binary.charCodeAt(i));
+    }
+    let blob = new Blob([new Uint8Array(arr)], { type: "image/jpeg" });
+    let file = new File([blob], imgSrc.name);
+    props.getEditedImage(file);
   };
 
   return (
@@ -78,6 +88,7 @@ const ImageCanvas = (props: CanvasProps) => {
           className="text-center image-selector"
           accept="image/*"
           name="imageSrc"
+          id="imageFile"
           onChange={(e) => handleImage(e)}
         />
       </div>
