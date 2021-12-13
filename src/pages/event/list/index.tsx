@@ -12,6 +12,7 @@ import moment from "moment";
 import { IModifiedBy } from "../../../store/interfaces";
 import { IEventView } from "../../../interfaces";
 import EventView from "../view";
+import InsertForm from "../../../components/insert-form";
 
 const EventList: React.FC = () => {
   const dispatch = useDispatch();
@@ -136,7 +137,7 @@ const EventList: React.FC = () => {
             </a>
             <a
               className="dropdown-item"
-              href="#"
+              href="/"
               data-mdb-toggle="modal"
               data-mdb-target="#update-exam"
             >
@@ -277,9 +278,12 @@ const EventList: React.FC = () => {
         </div>
         <div className="col-6">
           <div className="d-flex justify-content-end">
-            <button className="btn btn-primary btn-rounded">
-              <span className="fas fa-plus" />
-              <span className="mx-2">Add New Event</span>
+            <button
+              className="btn btn-primary btn-rounded shadow-none"
+              data-mdb-toggle="modal"
+              data-mdb-target="#addEventModal"
+            >
+              New Event
             </button>
           </div>
         </div>
@@ -360,6 +364,35 @@ const EventList: React.FC = () => {
         )}
       </ToolkitProvider>
       {/* {state.viewEvent && <EventView />} */}
+
+      {/*Modal*/}
+      <div
+        className="modal fade"
+        id="addEventModal"
+        tabIndex={-1}
+        aria-labelledby="addEventModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="addEventModalLabel">
+                ADD EVENT
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-mdb-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body">
+              <InsertForm />
+            </div>
+          </div>
+        </div>
+      </div>
+      {/*End of Modal*/}
       <EventView />
     </div>
   );
