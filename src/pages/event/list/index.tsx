@@ -12,7 +12,7 @@ import moment from "moment";
 import { IModifiedBy } from "../../../store/interfaces";
 import { IEventView } from "../../../interfaces";
 import EventView from "../view";
-import InsertForm from "../../../components/insert-form";
+import AddEvent from "../add";
 
 const EventList: React.FC = () => {
   const dispatch = useDispatch();
@@ -283,7 +283,8 @@ const EventList: React.FC = () => {
               data-mdb-toggle="modal"
               data-mdb-target="#addEventModal"
             >
-              New Event
+              <span className="fas fa-plus" />
+              <span className="mx-2">Add New Event</span>
             </button>
           </div>
         </div>
@@ -363,36 +364,8 @@ const EventList: React.FC = () => {
           </div>
         )}
       </ToolkitProvider>
-      {/* {state.viewEvent && <EventView />} */}
 
-      {/*Modal*/}
-      <div
-        className="modal fade"
-        id="addEventModal"
-        tabIndex={-1}
-        aria-labelledby="addEventModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="addEventModalLabel">
-                ADD EVENT
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-mdb-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              <InsertForm />
-            </div>
-          </div>
-        </div>
-      </div>
-      {/*End of Modal*/}
+      <AddEvent />
       <EventView />
     </div>
   );

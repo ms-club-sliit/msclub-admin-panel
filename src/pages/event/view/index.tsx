@@ -113,7 +113,7 @@ const EventView: React.FC = () => {
 
                 <div className="form-group row mx-5">
                   <label className="col-sm-3 text-dark text">
-                    <i className="far fa-file-alt fa-sm" />
+                    <i className="fas fa-align-left" />
                     &nbsp;Description :
                   </label>
                   <span className="col-sm-9 text-dark text">
