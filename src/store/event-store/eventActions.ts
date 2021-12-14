@@ -24,7 +24,7 @@ export const getEvents = () => {
   };
 };
 
-export const updateEvnet = (eventId: string, data: IEvent) => {
+export const updateEvent = (eventId: string, data: FormData) => {
   return {
     type: EventActionTypes.UPDATE_EVENT,
     payload: EventAPI.updateEvent(eventId, data),
@@ -38,9 +38,9 @@ export const deleteEvent = (eventId: string) => {
   };
 };
 
-export const setViewEvent = (event: IEventView) => {
+export const setEventId = (eventId: string) => {
   return {
-    type: EventActionTypes.VIEW_EVENT,
-    payload: event,
+    type: EventActionTypes.SET_EVENT_ID,
+    payload: eventId,
   };
 };

@@ -4,7 +4,7 @@ import EventActionTypes from "./eventActionTypes";
 const initialState: IEventState = {
   event: null,
   events: [],
-  viewEvent: null,
+  selectedEventId: null,
   addEvent: null,
   updatedEvent: null,
   deletedEvent: null,
@@ -30,9 +30,9 @@ const eventReducer = (state = initialState, action: any) => {
     case `${EventActionTypes.GET_ALL_EVENTS}_FULFILLED`:
       let events = action.payload.data;
       return { ...state, loading: false, events };
-    case `${EventActionTypes.VIEW_EVENT}`:
-      let viewEvent = action.payload;
-      return { ...state, loading: false, viewEvent };
+    case `${EventActionTypes.SET_EVENT_ID}`:
+      let selectedEventId = action.payload;
+      return { ...state, loading: false, selectedEventId };
     case `${EventActionTypes.UPDATE_EVENT}_FULFILLED`:
       let updatedEvent = action.payload.data;
       return { ...state, loading: false, updatedEvent };

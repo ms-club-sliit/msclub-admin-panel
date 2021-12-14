@@ -1,13 +1,16 @@
-import React, { EffectCallback, useEffect, useState } from "react";
-import ImageCanvas from "../../../components/image-canvas";
-import RichTextEditor, { ToolbarConfig } from "react-rte";
-import { ToolBarConfig } from "../../../constants";
-import {
-  createEvent,
-  getEvents,
-} from "../../../store/event-store/eventActions";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  getEvents,
+  setEventId,
+  updateEvent,
+} from "../../../store/event-store/eventActions";
+import { IEventView } from "../../../interfaces";
 import { IEvent } from "../../../store/event-store/IEvent";
+import ImageCanvas from "../../../components/image-canvas";
+import moment from "moment";
+import RichTextEditor from "react-rte";
+import { ToolBarConfig } from "../../../constants";
 import { IEventFormData, IEventState } from "../interfaces";
 
 let formData: IEventFormData = {
@@ -34,12 +37,14 @@ const initialState: IEventState = {
   description: "",
 };
 
-const AddEvent: React.FC = () => {
+const UpdateEvent: React.FC = () => {
   const dispatch = useDispatch();
-  const state = useSelector((state) => state.eventReducer);
   const [editor, setEditor] = useState(() => RichTextEditor.createEmptyValue());
+  const state = useSelector((state) => state.eventReducer);
+  const [eventDetails, setEventDetails] = useState<IEventView>();
   const [
     {
+      eventId,
       eventName,
       eventLink,
       eventType,
@@ -54,23 +59,37 @@ const AddEvent: React.FC = () => {
   ] = useState(initialState);
 
   useEffect(() => {
+    let eventData = state.events.find(
+      (event: IEvent) => event._id === state.selectedEventId
+    );
+    console.log(eventData);
+    setEventDetails(eventData);
+    setState((prevState) => ({
+      ...prevState,
+      eventId: eventData?._id,
+      eventName: eventData?.title,
+      eventLink: eventData?.link,
+      registrationLink: eventData?.registrationLink,
+      eventType: eventData?.eventType,
+      description: eventData?.description,
+      dateTime: eventData?.dateTime,
+      filteredTags: eventData?.tags,
+    }));
+    setEditor(
+      RichTextEditor.createValueFromString(eventData?.description, "html")
+    );
+  }, [state.selectedEventId]);
+
+  useEffect(() => {
     dispatch(getEvents());
+    dispatch(setEventId(""));
     closeModal();
-  }, [state.addEvent]);
+  }, [state.updatedEvent]);
 
   const closeModal = () => {
     setState({ ...initialState });
     setEditor(RichTextEditor.createEmptyValue());
-    $("#addEventModal").modal("hide");
-  };
-
-  const onChange = (event: any) => {
-    const { name, value } = event.target;
-    setState((prevState) => ({ ...prevState, [name]: value }));
-  };
-
-  const handleImage = (data: any) => {
-    setState((prevState) => ({ ...prevState, imageSrc: data }));
+    $("#eventUpdateModal").modal("hide");
   };
 
   const handleDescription = (value: any) => {
@@ -94,6 +113,15 @@ const AddEvent: React.FC = () => {
     }
   };
 
+  const onChange = (event: any) => {
+    const { name, value } = event.target;
+    setState((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handleImage = (data: any) => {
+    setState((prevState) => ({ ...prevState, imageSrc: data }));
+  };
+
   const handleTags = (value: string) => {
     let tags = value.split(",");
     let filterdTags: string[] = [];
@@ -110,7 +138,6 @@ const AddEvent: React.FC = () => {
   // Form Validation
   const validateForm = () => {
     const data = {
-      imageSrc: imageSrc ? imageSrc : null,
       eventName: eventName && eventName.trim().length > 0 ? eventName : null,
       eventType: eventType && eventType.trim().length > 0 ? eventType : null,
       dateTime: dateTime && dateTime.trim().length > 0 ? dateTime : null,
@@ -144,7 +171,9 @@ const AddEvent: React.FC = () => {
         setState((prevState) => ({ ...prevState, isFormNotValid: false }));
 
         let eventFormData = new FormData();
-        eventFormData.append("eventFlyer", imageSrc);
+        if (imageSrc) {
+          eventFormData.append("eventFlyer", imageSrc);
+        }
         eventFormData.append("title", eventName as string);
         eventFormData.append("dateTime", dateTime as string);
         eventFormData.append("description", description as string);
@@ -153,7 +182,9 @@ const AddEvent: React.FC = () => {
         eventFormData.append("registrationLink", registrationLink as string);
         eventFormData.append("eventType", eventType as string);
 
-        dispatch(createEvent(eventFormData));
+        if (eventId) {
+          dispatch(updateEvent(eventId, eventFormData));
+        }
       } else {
         setState((prevState) => ({ ...prevState, isFormNotValid: true }));
       }
@@ -161,53 +192,67 @@ const AddEvent: React.FC = () => {
   };
 
   return (
-    <div
-      className="modal fade"
-      id="addEventModal"
-      tabIndex={-1}
-      data-mdb-backdrop="static"
-      data-mdb-keyboard="false"
-      aria-labelledby="addEventModalLabel"
-      aria-hidden="true"
-    >
-      <div className="modal-dialog modal-lg">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title" id="addEventModalLabel">
-              Add New Event
-            </h5>
-            <button
-              type="button"
-              className="btn-close"
-              onClick={closeModal}
-            ></button>
-          </div>
-          <div className="modal-body add-event">
-            <ImageCanvas
-              width={300}
-              height={300}
-              getEditedImage={handleImage}
-            />
-            <div className="d-flex justify-content-center">
-              {formData.imageSrc === null && isFormNotValid ? (
-                <span className="text-danger validation-message my-2">
-                  Event flyer is required
-                </span>
-              ) : null}
+    <div>
+      <div
+        className="modal fade"
+        id="eventUpdateModal"
+        data-mdb-backdrop="static"
+        data-mdb-keyboard="false"
+        tabIndex={-1}
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-lg">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">
+                Edit Event Document
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                onClick={closeModal}
+              ></button>
             </div>
 
-            <div className="mx-5">
-              <div className="form-group row my-3">
+            <div className="modal-body update-event">
+              <div className="row mx-5">
+                <div className="col-md-6">
+                  <span className="flyer-title">Current Event Flyer</span>
+                  <img
+                    src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${eventDetails?.imageUrl}`}
+                    className="flyer"
+                  />
+                </div>
+                <div className="col-md-6">
+                  <div className="my-3 my-lg-0">
+                    <ImageCanvas
+                      width={300}
+                      height={300}
+                      getEditedImage={handleImage}
+                    />
+                    <div className="d-flex justify-content-center">
+                      {formData.imageSrc === null && isFormNotValid ? (
+                        <span className="text-danger validation-message my-2">
+                          Event flyer is required
+                        </span>
+                      ) : null}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="form-group row mx-5 my-3">
                 <label className="col-sm-3 col-form-label form-label text-dark">
                   <i className="far fa-file-alt fa-sm" />
-                  &nbsp;Event Title
+                  &nbsp;Event Name
                 </label>
                 <div className="col-sm-9">
                   <input
                     type="text"
+                    className="form-control"
                     name="eventName"
                     value={eventName as string}
-                    className="form-control"
                     onChange={onChange}
                   />
                   {formData.eventName === null && isFormNotValid ? (
@@ -218,9 +263,10 @@ const AddEvent: React.FC = () => {
                 </div>
               </div>
 
-              <div className="form-group row my-3">
+              <div className="form-group row mx-5 my-3">
                 <label className="col-sm-3 col-form-label form-label text-dark">
-                  Event Type
+                  <i className="fas fa-check fa-sm" />
+                  &nbsp;Event Type
                 </label>
                 <div className="col-sm-9">
                   <select
@@ -241,7 +287,7 @@ const AddEvent: React.FC = () => {
                 </div>
               </div>
 
-              <div className="form-group row my-3">
+              <div className="form-group row my-3 mx-5">
                 <label className="col-sm-3 col-form-label form-label text-dark">
                   <i className="far fa-clock fa-sm" />
                   &nbsp;Date & Time
@@ -249,11 +295,10 @@ const AddEvent: React.FC = () => {
                 <div className="col-sm-9">
                   <input
                     type="datetime-local"
-                    id="dateTime"
                     name="dateTime"
-                    value={dateTime as string}
-                    className="form-control"
+                    value={moment(dateTime).format("YYYY-MM-DDTHH:mm")}
                     onChange={onChange}
+                    className="form-control"
                   />
                   {formData.dateTime === null && isFormNotValid ? (
                     <span className="text-danger validation-message">
@@ -263,7 +308,28 @@ const AddEvent: React.FC = () => {
                 </div>
               </div>
 
-              <div className="form-group row my-3">
+              <div className="form-group row my-3 mx-5">
+                <label className="col-sm-3 col-form-label form-label text-dark">
+                  <i className="fas fa-link fa-sm" />
+                  &nbsp;Event Link
+                </label>
+                <div className="col-sm-9">
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="registrationLink"
+                    value={eventLink as string}
+                    onChange={onChange}
+                  />
+                  {formData.eventLink === null && isFormNotValid ? (
+                    <span className="text-danger validation-message">
+                      Event type is required
+                    </span>
+                  ) : null}
+                </div>
+              </div>
+
+              <div className="form-group row my-3 mx-5">
                 <label className="col-sm-3 col-form-label form-label text-dark">
                   <i className="fas fa-link fa-sm" />
                   &nbsp;Registration Link
@@ -284,28 +350,7 @@ const AddEvent: React.FC = () => {
                 </div>
               </div>
 
-              <div className="form-group row my-3">
-                <label className="col-sm-3 col-form-label form-label text-dark">
-                  <i className="fas fa-link fa-sm" />
-                  &nbsp;Event Link
-                </label>
-                <div className="col-sm-9">
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="eventLink"
-                    value={eventLink as string}
-                    onChange={onChange}
-                  />
-                  {formData.eventLink === null && isFormNotValid ? (
-                    <span className="text-danger validation-message">
-                      Event type is required
-                    </span>
-                  ) : null}
-                </div>
-              </div>
-
-              <div className="form-group row my-3">
+              <div className="form-group row my-3 mx-5">
                 <label className="col-sm-3 col-form-label form-label text-dark">
                   <i className="fas fa-tags fa-sm" />
                   &nbsp;Tags
@@ -314,7 +359,7 @@ const AddEvent: React.FC = () => {
                   <input
                     type="text"
                     className="form-control"
-                    value={filteredTags as string[]}
+                    value={filteredTags?.map((tag) => tag)}
                     onChange={(e) => handleTags(e.target.value)}
                   />
                   <small className="text-muted tag-text">
@@ -330,7 +375,7 @@ const AddEvent: React.FC = () => {
                 </div>
               </div>
 
-              <div className="form-group row my-3">
+              <div className="form-group row my-3 mx-5">
                 <label className="col-sm-12 col-form-label form-label text-dark">
                   <i className="fas fa-align-left" />
                   &nbsp;Description
@@ -343,30 +388,26 @@ const AddEvent: React.FC = () => {
                     editorClassName="description"
                     toolbarConfig={ToolBarConfig}
                   />
-                  {formData.description === null && isFormNotValid ? (
-                    <span className="text-danger validation-message">
-                      Description is required
-                    </span>
-                  ) : null}
                 </div>
               </div>
             </div>
-          </div>
-          <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-light shadow-none btn-rounded"
-              onClick={closeModal}
-            >
-              Cancel
-            </button>
-            <button
-              type="button"
-              className="btn btn-primary shadow-none btn-rounded"
-              onClick={onSubmit}
-            >
-              Submit
-            </button>
+
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-light shadow-none btn-rounded"
+                onClick={closeModal}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="btn btn-primary shadow-none btn-rounded"
+                onClick={onSubmit}
+              >
+                Update
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -374,4 +415,4 @@ const AddEvent: React.FC = () => {
   );
 };
 
-export default AddEvent;
+export default UpdateEvent;

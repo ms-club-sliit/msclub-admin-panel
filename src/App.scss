@@ -34,7 +34,7 @@
 }
 
 .card {
-  border-radius: 0px;
+  border-radius: 4px;
   padding: 15px;
 }
 
@@ -92,6 +92,12 @@ footer {
 
 .modal-body {
   background-color: #f4f7fa;
+}
+
+.modal-content {
+  -webkit-border-radius: 0px !important;
+  -moz-border-radius: 0px !important;
+  border-radius: 4px !important;
 }
 
 .validation-message {

@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getEvents,
-  setViewEvent,
-} from "../../../store/event-store/eventActions";
+import { getEvents, setEventId } from "../../../store/event-store/eventActions";
 import { IEvent } from "../../../store/event-store/IEvent";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
@@ -13,6 +10,7 @@ import { IModifiedBy } from "../../../store/interfaces";
 import { IEventView } from "../../../interfaces";
 import EventView from "../view";
 import AddEvent from "../add";
+import UpdateEvent from "../update";
 
 const EventList: React.FC = () => {
   const dispatch = useDispatch();
@@ -131,15 +129,14 @@ const EventList: React.FC = () => {
             <a
               href="#"
               className="dropdown-item"
-              onClick={(e) => handleSetViewEvent(row)}
+              onClick={(e) => handleSetViewEvent(row._id)}
             >
               <i className="far fa-eye" /> View
             </a>
             <a
               className="dropdown-item"
-              href="/"
-              data-mdb-toggle="modal"
-              data-mdb-target="#update-exam"
+              href="#"
+              onClick={(e) => handleSetUpdateEvent(row._id)}
             >
               <i className="far fa-edit" /> Edit
             </a>
@@ -156,23 +153,14 @@ const EventList: React.FC = () => {
     );
   };
 
-  const handleSetViewEvent = (eventData: IEvent) => {
-    let viewEvent: IEventView = {
-      title: eventData.title,
-      description: eventData.description,
-      eventType: eventData.eventType,
-      dateTime: eventData.dateTime,
-      imageUrl: eventData.imageUrl,
-      link: eventData.link,
-      tags: eventData.tags,
-      createdBy: eventData.createdBy,
-      createdAt: eventData.createdAt as Date,
-      updatedBy: eventData.updatedBy,
-      updatedAt: eventData.updatedAt as Date,
-    };
-
-    dispatch(setViewEvent(viewEvent));
+  const handleSetViewEvent = (eventId: string) => {
+    dispatch(setEventId(eventId));
     $("#eventViewModal").modal("show");
+  };
+
+  const handleSetUpdateEvent = (eventId: string) => {
+    dispatch(setEventId(eventId));
+    $("#eventUpdateModal").modal("show");
   };
 
   const expandRow = {
@@ -366,6 +354,7 @@ const EventList: React.FC = () => {
       </ToolkitProvider>
 
       <AddEvent />
+      <UpdateEvent />
       <EventView />
     </div>
   );

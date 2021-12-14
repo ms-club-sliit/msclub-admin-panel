@@ -17,8 +17,8 @@ class EventAPI {
     return axios.get(`${BASE_URL}/admin/event/`, requestConfig);
   }
 
-  static updateEvent(eventId: string, data: IEvent): Promise<IEvent> {
-    return axios.put(`${BASE_URL}/event/${eventId}`, data, requestConfig);
+  static updateEvent(eventId: string, data: FormData): Promise<IEvent> {
+    return axios.put(`${BASE_URL}/admin/event/${eventId}`, data, requestConfig);
   }
 
   static deleteEvent(eventId: string): Promise<IEvent> {

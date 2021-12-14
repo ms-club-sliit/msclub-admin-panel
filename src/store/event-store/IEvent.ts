@@ -6,6 +6,7 @@ interface IEvent {
   dateTime: Date;
   tags: string[];
   link: string;
+  registrationLink: string;
   eventType: string;
   imageUrl: string;
   createdAt?: Date;
@@ -20,7 +21,7 @@ interface IEvent {
 interface IEventState {
   event: IEvent | null;
   events: IEvent[] | null;
-  viewEvent: IEvent | null;
+  selectedEventId: string | null;
   addEvent: IEvent | null;
   updatedEvent: IEvent | null;
   deletedEvent: IEvent | null;

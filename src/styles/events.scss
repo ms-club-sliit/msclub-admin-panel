@@ -83,3 +83,22 @@
     font-family: "Poppins Regular";
   }
 }
+
+.update-event {
+  .flyer {
+    width: 300px;
+    border-radius: 0px;
+    margin-top: 18px;
+  }
+
+  .flyer-title {
+    display: flex;
+    justify-content: start;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+
+  .tag-text {
+    font-size: 13px;
+  }
+}

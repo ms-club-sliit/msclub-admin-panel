@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { IEventView } from "../../../interfaces";
+import { IEvent } from "../../../store/event-store/IEvent";
 
 const EventView: React.FC = () => {
+  const HtmlToReactParser = require("html-to-react").Parser;
   const state = useSelector((state) => state.eventReducer);
-  const eventDetails = state.viewEvent as IEventView;
+  const [eventDetails, setEventDetails] = useState<IEventView>();
+
+  const convertToPlain = (html: string) => {
+    const htmlToParser = new HtmlToReactParser();
+    const reactElement = htmlToParser.parse(html);
+    return reactElement;
+  };
+
+  useEffect(() => {
+    let eventData = state.events.find(
+      (event: IEvent) => state.selectedEventId === event._id
+    );
+    setEventDetails(eventData);
+  }, [state.selectedEventId]);
 
   return (
     <div>
@@ -40,7 +55,7 @@ const EventView: React.FC = () => {
                     &nbsp;Event Title :
                   </label>
                   <span className="col-sm-9 text-dark text">
-                    {eventDetails && eventDetails.title}
+                    {eventDetails?.title}
                   </span>
                 </div>
 
@@ -50,8 +65,7 @@ const EventView: React.FC = () => {
                     &nbsp;Date & Time :
                   </label>
                   <span className="col-sm-9 text-dark text">
-                    {eventDetails &&
-                      moment(eventDetails.dateTime).format("LLL")}
+                    {moment(eventDetails?.dateTime).format("LLL")}
                   </span>
                 </div>
 
@@ -117,7 +131,7 @@ const EventView: React.FC = () => {
                     &nbsp;Description :
                   </label>
                   <span className="col-sm-9 text-dark text">
-                    {eventDetails && eventDetails.description}
+                    {eventDetails && convertToPlain(eventDetails.description)}
                   </span>
                 </div>
 
