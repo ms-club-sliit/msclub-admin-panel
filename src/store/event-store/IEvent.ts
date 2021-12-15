@@ -21,6 +21,7 @@ interface IEvent {
 interface IEventState {
   event: IEvent | null;
   events: IEvent[] | null;
+  deletedEvents: IEvent[] | null;
   selectedEventId: string | null;
   addEvent: IEvent | null;
   updatedEvent: IEvent | null;

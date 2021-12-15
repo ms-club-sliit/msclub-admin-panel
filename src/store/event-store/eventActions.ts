@@ -22,6 +22,13 @@ export const getEvents = () => {
   };
 };
 
+export const getDeletedEvents = () => {
+  return {
+    type: EventActionTypes.GET_DELETED_EVENTS,
+    payload: EventAPI.getDeletedEvents(),
+  };
+};
+
 export const updateEvent = (eventId: string, data: FormData) => {
   return {
     type: EventActionTypes.UPDATE_EVENT,

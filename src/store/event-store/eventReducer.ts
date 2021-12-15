@@ -4,6 +4,7 @@ import EventActionTypes from "./eventActionTypes";
 const initialState: IEventState = {
   event: null,
   events: [],
+  deletedEvents: [],
   selectedEventId: null,
   addEvent: null,
   updatedEvent: null,
@@ -17,6 +18,7 @@ const eventReducer = (state = initialState, action: any) => {
     case `${EventActionTypes.CREATE_EVENT}_PENDING`:
     case `${EventActionTypes.GET_EVENT}_PENDING`:
     case `${EventActionTypes.GET_ALL_EVENTS}_PENDING`:
+    case `${EventActionTypes.GET_DELETED_EVENTS}_PENDING`:
     case `${EventActionTypes.UPDATE_EVENT}_PENDING`:
     case `${EventActionTypes.DELETE_EVENT}_PENDING`:
       return { ...state, loading: true };
@@ -30,6 +32,9 @@ const eventReducer = (state = initialState, action: any) => {
     case `${EventActionTypes.GET_ALL_EVENTS}_FULFILLED`:
       let events = action.payload.data;
       return { ...state, loading: false, events };
+    case `${EventActionTypes.GET_DELETED_EVENTS}_FULFILLED`:
+      let deletedEvents = action.payload.data;
+      return { ...state, loading: false, deletedEvents };
     case `${EventActionTypes.SET_EVENT_ID}`:
       let selectedEventId = action.payload;
       return { ...state, loading: false, selectedEventId };
@@ -43,6 +48,7 @@ const eventReducer = (state = initialState, action: any) => {
     case `${EventActionTypes.CREATE_EVENT}_REJECTED`:
     case `${EventActionTypes.GET_EVENT}_REJECTED`:
     case `${EventActionTypes.GET_ALL_EVENTS}_REJECTED`:
+    case `${EventActionTypes.GET_DELETED_EVENTS}_REJECTED`:
     case `${EventActionTypes.UPDATE_EVENT}_REJECTED`:
     case `${EventActionTypes.DELETE_EVENT}_REJECTED`:
       return {
