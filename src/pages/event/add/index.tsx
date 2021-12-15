@@ -1,13 +1,12 @@
-import React, { EffectCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ImageCanvas from "../../../components/image-canvas";
-import RichTextEditor, { ToolbarConfig } from "react-rte";
+import RichTextEditor from "react-rte";
 import { ToolBarConfig } from "../../../constants";
 import {
   createEvent,
   getEvents,
 } from "../../../store/event-store/eventActions";
 import { useDispatch, useSelector } from "react-redux";
-import { IEvent } from "../../../store/event-store/IEvent";
 import { IEventFormData, IEventState } from "../interfaces";
 
 let formData: IEventFormData = {
@@ -56,7 +55,7 @@ const AddEvent: React.FC = () => {
   useEffect(() => {
     dispatch(getEvents());
     closeModal();
-  }, [state.addEvent]);
+  }, [state.addEvent, dispatch]);
 
   const closeModal = () => {
     setState({ ...initialState });

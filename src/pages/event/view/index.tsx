@@ -20,7 +20,7 @@ const EventView: React.FC = () => {
       (event: IEvent) => state.selectedEventId === event._id
     );
     setEventDetails(eventData);
-  }, [state.selectedEventId]);
+  }, [state.selectedEventId, state.events]);
 
   return (
     <div>
@@ -78,6 +78,7 @@ const EventView: React.FC = () => {
                     href={eventDetails && eventDetails.link}
                     target="_blank"
                     className="col-sm-9 text"
+                    rel="noreferrer"
                   >
                     {eventDetails && eventDetails.link}
                   </a>
@@ -173,6 +174,7 @@ const EventView: React.FC = () => {
                             <img
                               src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${user.user.profileImage}`}
                               className="profile-img"
+                              alt="event-flyer"
                             />
                             <p className="mt-0 pt-0 text-dark">
                               {user.user.firstName} {user.user.lastName}

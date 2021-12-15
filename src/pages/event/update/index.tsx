@@ -78,13 +78,13 @@ const UpdateEvent: React.FC = () => {
     setEditor(
       RichTextEditor.createValueFromString(eventData?.description, "html")
     );
-  }, [state.selectedEventId]);
+  }, [state.selectedEventId, state.events]);
 
   useEffect(() => {
     dispatch(getEvents());
     dispatch(setEventId(""));
     closeModal();
-  }, [state.updatedEvent]);
+  }, [state.updatedEvent, dispatch]);
 
   const closeModal = () => {
     setState({ ...initialState });
@@ -222,6 +222,7 @@ const UpdateEvent: React.FC = () => {
                   <img
                     src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${eventDetails?.imageUrl}`}
                     className="flyer"
+                    alt="event-flyer"
                   />
                 </div>
                 <div className="col-md-6">

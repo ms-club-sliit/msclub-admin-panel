@@ -7,7 +7,6 @@ import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
 import { IModifiedBy } from "../../../store/interfaces";
-import { IEventView } from "../../../interfaces";
 import EventView from "../view";
 import AddEvent from "../add";
 import UpdateEvent from "../update";
@@ -33,7 +32,7 @@ const EventList: React.FC = () => {
   // Fetch events information
   useEffect(() => {
     dispatch(getEvents());
-  }, [selectedTypeEvents]);
+  }, [selectedTypeEvents, dispatch]);
 
   // Table column configurations
   const tableColumnData = [
@@ -93,6 +92,7 @@ const EventList: React.FC = () => {
               <img
                 src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${lastModifiedUser.user.profileImage}`}
                 className="table-profile-img"
+                alt="updated-by-user"
               />
             </span>
             {`${lastModifiedUser.user.firstName} ${lastModifiedUser.user.lastName}`}
@@ -118,28 +118,22 @@ const EventList: React.FC = () => {
     return (
       <span className="dropdown show">
         <span className="dropdown">
-          <a
-            href="#"
-            className="btn shadow-none btn-sm"
-            data-mdb-toggle="dropdown"
-          >
+          <span className="btn shadow-none btn-sm" data-mdb-toggle="dropdown">
             <i className="fas fa-ellipsis-h"></i>
-          </a>
+          </span>
           <div className="dropdown-menu dropdown-menu-right">
-            <a
-              href="#"
+            <span
               className="dropdown-item"
               onClick={(e) => handleSetViewEvent(row._id)}
             >
               <i className="far fa-eye" /> View
-            </a>
-            <a
+            </span>
+            <span
               className="dropdown-item"
-              href="#"
               onClick={(e) => handleSetUpdateEvent(row._id)}
             >
               <i className="far fa-edit" /> Edit
-            </a>
+            </span>
             <button
               className="dropdown-item"
               data-mdb-toggle="modal"
@@ -195,6 +189,7 @@ const EventList: React.FC = () => {
             <img
               src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${row.imageUrl}`}
               className="event-flyer"
+              alt="event-flyer"
             />
           </div>
           <div className="col-md-9 col-sm-12">

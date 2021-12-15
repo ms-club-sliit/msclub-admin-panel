@@ -1,7 +1,5 @@
 import EventActionTypes from "./eventActionTypes";
-import { IEvent } from "./IEvent";
 import EventAPI from "../api/EventAPI";
-import { IEventView } from "../../interfaces";
 
 export const createEvent = (data: any) => {
   return {
