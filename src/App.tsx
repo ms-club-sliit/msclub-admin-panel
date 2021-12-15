@@ -6,7 +6,7 @@ import "./App.scss";
 const App: React.FC = () => (
   <div>
     <AppRoutes />
-    <ToastContainer />
+    <ToastContainer bodyClassName="toastBody" />
   </div>
 );
 

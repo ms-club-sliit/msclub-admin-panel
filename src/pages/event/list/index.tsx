@@ -10,14 +10,22 @@ import { IModifiedBy } from "../../../store/interfaces";
 import EventView from "../view";
 import AddEvent from "../add";
 import UpdateEvent from "../update";
+import DeleteEvent from "../delete";
 
 const EventList: React.FC = () => {
   const dispatch = useDispatch();
+  const HtmlToReactParser = require("html-to-react").Parser;
   const state = useSelector((state) => state.eventReducer);
   const events: IEvent[] = state.events;
   const [selectedTypeEvents, setSelectedTypeEvents] =
     useState<IEvent[]>(events);
   const [selectedTab, setSelectedTab] = useState<string>("All");
+
+  const convertToPlain = (html: string) => {
+    const htmlToParser = new HtmlToReactParser();
+    const reactElement = htmlToParser.parse(html);
+    return reactElement;
+  };
 
   // Table confuguration
   const { SearchBar } = Search;
@@ -136,8 +144,7 @@ const EventList: React.FC = () => {
             </span>
             <button
               className="dropdown-item"
-              data-mdb-toggle="modal"
-              data-mdb-target="#delete-exam"
+              onClick={(e) => handleSetDeleteEvent(row._id)}
             >
               <i className="far fa-trash-alt" /> Delete
             </button>
@@ -155,6 +162,11 @@ const EventList: React.FC = () => {
   const handleSetUpdateEvent = (eventId: string) => {
     dispatch(setEventId(eventId));
     $("#eventUpdateModal").modal("show");
+  };
+
+  const handleSetDeleteEvent = (eventId: string) => {
+    dispatch(setEventId(eventId));
+    $("#eventDeleteModal").modal("show");
   };
 
   const expandRow = {
@@ -197,7 +209,7 @@ const EventList: React.FC = () => {
               <span className="fas fa-align-left my-2" />
               &nbsp; Description
             </h6>
-            <p>{row.description}</p>
+            <p>{convertToPlain(row.description)}</p>
 
             <h6>
               <span className="fas fa-link" /> &nbsp; Event Link
@@ -209,6 +221,7 @@ const EventList: React.FC = () => {
                 <h6>
                   <span className="fas fa-tags" /> Tags &nbsp;
                 </h6>
+                {console.log(row.tags)}
                 {row.tags.map((tag, index) => (
                   <div
                     className="badge rounded-pill bg-dark tag-badge"
@@ -350,6 +363,7 @@ const EventList: React.FC = () => {
 
       <AddEvent />
       <UpdateEvent />
+      <DeleteEvent />
       <EventView />
     </div>
   );

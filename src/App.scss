@@ -86,6 +86,10 @@ footer {
   border-bottom: none;
 }
 
+.modal-title {
+  font-size: 16px;
+}
+
 .modal-footer {
   border-top: none;
 }
@@ -104,4 +108,9 @@ footer {
   font-size: 12px;
   margin: 0px !important;
   padding: 0px !important;
+}
+
+.toastBody {
+  font-family: "Poppins Regular";
+  font-size: 14px;
 }

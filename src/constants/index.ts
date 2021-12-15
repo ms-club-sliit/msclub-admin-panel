@@ -1,4 +1,5 @@
 import { ToolbarConfig } from "react-rte";
+import { toast } from "react-toastify";
 
 const ApplicationConstants = {
   AUTH_NABAR_ITEMS: [
@@ -42,4 +43,38 @@ const ToolBarConfig: ToolbarConfig = {
   ],
 };
 
-export { ApplicationConstants, ToolBarConfig };
+const toastNotification = (message: string, status: string) => {
+  if (status === "success") {
+    toast.success(message, {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  } else if (status === "error") {
+    toast.error(message, {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  } else {
+    toast.info(message, {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  }
+};
+
+export { ApplicationConstants, ToolBarConfig, toastNotification };

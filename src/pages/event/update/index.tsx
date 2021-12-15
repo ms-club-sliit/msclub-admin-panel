@@ -62,7 +62,7 @@ const UpdateEvent: React.FC = () => {
     let eventData = state.events.find(
       (event: IEvent) => event._id === state.selectedEventId
     );
-    console.log(eventData);
+
     setEventDetails(eventData);
     setState((prevState) => ({
       ...prevState,
@@ -130,7 +130,7 @@ const UpdateEvent: React.FC = () => {
       for (let tag of tags) {
         filterdTags.push(tag.trim());
       }
-
+      console.log(filterdTags);
       setState((prevState) => ({ ...prevState, filteredTags: filterdTags }));
     }
   };
@@ -178,7 +178,7 @@ const UpdateEvent: React.FC = () => {
         eventFormData.append("dateTime", dateTime as string);
         eventFormData.append("description", description as string);
         eventFormData.append("link", eventLink as string);
-        eventFormData.append("tags", JSON.stringify(filteredTags));
+        filteredTags?.forEach((tag) => eventFormData.append("tags", tag));
         eventFormData.append("registrationLink", registrationLink as string);
         eventFormData.append("eventType", eventType as string);
 

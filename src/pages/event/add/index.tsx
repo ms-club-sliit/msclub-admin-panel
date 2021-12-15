@@ -101,8 +101,9 @@ const AddEvent: React.FC = () => {
       for (let tag of tags) {
         filterdTags.push(tag.trim());
       }
-
+      console.log(filterdTags);
       setState((prevState) => ({ ...prevState, filteredTags: filterdTags }));
+      console.log(filteredTags);
     }
   };
 
@@ -148,7 +149,7 @@ const AddEvent: React.FC = () => {
         eventFormData.append("dateTime", dateTime as string);
         eventFormData.append("description", description as string);
         eventFormData.append("link", eventLink as string);
-        eventFormData.append("tags", JSON.stringify(filteredTags));
+        filteredTags?.forEach((tag) => eventFormData.append("tags", tag));
         eventFormData.append("registrationLink", registrationLink as string);
         eventFormData.append("eventType", eventType as string);
 
