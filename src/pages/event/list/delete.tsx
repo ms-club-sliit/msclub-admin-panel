@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getDeletedEvents,
-  setEventId,
-} from "../../../store/event-store/eventActions";
+import { getDeletedEvents } from "../../../store/event-store/eventActions";
 import { IEvent } from "../../../store/event-store/IEvent";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
@@ -79,8 +76,8 @@ const DeletedEventList: React.FC = () => {
       },
     },
     {
-      dataField: "updatedAt",
-      text: "Last Modified At",
+      dataField: "deletedAt",
+      text: "Deleted At",
       headerStyle: { width: "220px" },
       formatter: (cell: string) => {
         return moment(cell).format("LLL");
@@ -88,7 +85,7 @@ const DeletedEventList: React.FC = () => {
     },
     {
       dataField: "updatedBy",
-      text: "Last Modified By",
+      text: "Deleted By",
       headerStyle: { width: "250px" },
       formatter: (cell: IModifiedBy[]) => {
         let lastModifiedUser = cell.slice(-1)[0];
@@ -128,14 +125,8 @@ const DeletedEventList: React.FC = () => {
             <i className="fas fa-ellipsis-h"></i>
           </span>
           <div className="dropdown-menu dropdown-menu-right">
-            <span
-              className="dropdown-item"
-              onClick={(e) => handleSetViewEvent(row._id)}
-            >
-              <i className="far fa-eye" /> View
-            </span>
             <span className="dropdown-item">
-              <i className="far fa-edit" /> Recover
+              <i className="fas fa-undo" /> Recover
             </span>
             <button className="dropdown-item">
               <i className="far fa-trash-alt" /> Delete Permanently
@@ -144,11 +135,6 @@ const DeletedEventList: React.FC = () => {
         </span>
       </span>
     );
-  };
-
-  const handleSetViewEvent = (eventId: string) => {
-    dispatch(setEventId(eventId));
-    $("#eventViewModal").modal("show");
   };
 
   const expandRow = {
@@ -187,33 +173,40 @@ const DeletedEventList: React.FC = () => {
             />
           </div>
           <div className="col-md-9 col-sm-12">
-            <h6>
+            <h6 className="row-header">
+              <span className="fas fa-link" /> &nbsp; Event Link
+            </h6>
+            <a href={row.link} target="_blank" rel="noreferrer">
+              {row.link}
+            </a>
+
+            <h6 className="row-header my-3">
+              <span className="fas fa-link" /> &nbsp; Registration Link
+            </h6>
+            <a href={row.registrationLink} target="_blank" rel="noreferrer">
+              {row.registrationLink}
+            </a>
+
+            {row.tags && row.tags.length > 0 ? (
+              <div>
+                <h6 className="row-header my-3">
+                  <span className="fas fa-tags" /> Tags &nbsp;
+                </h6>
+                <div className="d-flex">
+                  {row.tags.map((tag, index) => (
+                    <div className="tag-badge" key={index}>
+                      #{tag}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            <h6 className="row-header">
               <span className="fas fa-align-left my-2" />
               &nbsp; Description
             </h6>
             <p>{convertToPlain(row.description)}</p>
-
-            <h6>
-              <span className="fas fa-link" /> &nbsp; Event Link
-            </h6>
-            <p>{row.link}</p>
-
-            {row.tags && row.tags.length > 0 ? (
-              <div>
-                <h6>
-                  <span className="fas fa-tags" /> Tags &nbsp;
-                </h6>
-                {console.log(row.tags)}
-                {row.tags.map((tag, index) => (
-                  <div
-                    className="badge rounded-pill bg-dark tag-badge"
-                    key={index}
-                  >
-                    {tag}
-                  </div>
-                ))}
-              </div>
-            ) : null}
           </div>
         </div>
       </div>

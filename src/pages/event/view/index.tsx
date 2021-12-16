@@ -169,7 +169,7 @@ const EventView: React.FC = () => {
                     {eventDetails &&
                       eventDetails.updatedBy &&
                       eventDetails.updatedBy.map((user, index) => (
-                        <li key={index}>
+                        <li key={index} className="modify-user-item">
                           <span className="d-flex my-0">
                             <img
                               src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${user.user.profileImage}`}
@@ -180,7 +180,21 @@ const EventView: React.FC = () => {
                               {user.user.firstName} {user.user.lastName}
                             </p>
                             <p>
-                              <span className="badge rounded-pill bg-dark">
+                              <span
+                                className={`badge rounded-pill ${
+                                  user.user.permissionLevel === "ROOT_ADMIN"
+                                    ? "bg-primary"
+                                    : null
+                                } ${
+                                  user.user.permissionLevel === "ADMIN"
+                                    ? "bg-info text-dark"
+                                    : null
+                                } ${
+                                  user.user.permissionLevel === "EDITOR"
+                                    ? "bg-secondary"
+                                    : null
+                                }`}
+                              >
                                 {user.user.permissionLevel === "ROOT_ADMIN"
                                   ? "Root Admin"
                                   : null}

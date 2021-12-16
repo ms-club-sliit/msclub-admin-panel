@@ -5,7 +5,8 @@
 }
 
 .tag-badge {
-  margin-right: 8px;
+  margin-right: 5px;
+  font-weight: 600;
 }
 
 .event-view {
@@ -70,6 +71,10 @@
     width: 15px;
     height: 15px;
     z-index: 400;
+  }
+
+  .modify-user-item {
+    margin-bottom: 5px;
   }
 }
 

@@ -207,33 +207,40 @@ const EventList: React.FC = () => {
             />
           </div>
           <div className="col-md-9 col-sm-12">
-            <h6>
+            <h6 className="row-header">
+              <span className="fas fa-link" /> &nbsp; Event Link
+            </h6>
+            <a href={row.link} target="_blank" rel="noreferrer">
+              {row.link}
+            </a>
+
+            <h6 className="row-header my-3">
+              <span className="fas fa-link" /> &nbsp; Registration Link
+            </h6>
+            <a href={row.registrationLink} target="_blank" rel="noreferrer">
+              {row.registrationLink}
+            </a>
+
+            {row.tags && row.tags.length > 0 ? (
+              <div>
+                <h6 className="row-header my-3">
+                  <span className="fas fa-tags" /> Tags &nbsp;
+                </h6>
+                <div className="d-flex">
+                  {row.tags.map((tag, index) => (
+                    <div className="tag-badge" key={index}>
+                      #{tag}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            <h6 className="row-header">
               <span className="fas fa-align-left my-2" />
               &nbsp; Description
             </h6>
             <p>{convertToPlain(row.description)}</p>
-
-            <h6>
-              <span className="fas fa-link" /> &nbsp; Event Link
-            </h6>
-            <p>{row.link}</p>
-
-            {row.tags && row.tags.length > 0 ? (
-              <div>
-                <h6>
-                  <span className="fas fa-tags" /> Tags &nbsp;
-                </h6>
-                {console.log(row.tags)}
-                {row.tags.map((tag, index) => (
-                  <div
-                    className="badge rounded-pill bg-dark tag-badge"
-                    key={index}
-                  >
-                    {tag}
-                  </div>
-                ))}
-              </div>
-            ) : null}
           </div>
         </div>
       </div>

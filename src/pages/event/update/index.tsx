@@ -84,11 +84,13 @@ const UpdateEvent: React.FC = () => {
     dispatch(getEvents());
     dispatch(setEventId(""));
     closeModal();
+    // eslint-disable-next-line
   }, [state.updatedEvent, dispatch]);
 
   const closeModal = () => {
     setState({ ...initialState });
     setEditor(RichTextEditor.createEmptyValue());
+    dispatch(setEventId(""));
     $("#eventUpdateModal").modal("hide");
   };
 
