@@ -200,7 +200,6 @@ const EventList: React.FC = () => {
         <h5>Event Information</h5>
         <div className="row">
           <div className="col-md-3 col-sm-12">
-            {console.log("Bucket: ", process.env.REACT_APP_STORAGE_BUCKET_URL)}
             <img
               src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${row.imageUrl}`}
               className="event-flyer"
