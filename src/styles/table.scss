@@ -19,7 +19,7 @@ th {
 }
 
 .table-description {
-  font-size: 12px;
+  font-size: 13px;
   margin-bottom: 0px;
 }
 
@@ -28,4 +28,9 @@ th {
   border-radius: 50%;
   margin-top: 0px !important;
   margin-right: 5px;
+}
+
+.row-header {
+  margin-bottom: 2px !important;
+  font-size: 13px;
 }

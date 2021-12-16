@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { IEventView } from "../../../interfaces";
+import { IEvent } from "../../../store/event-store/IEvent";
 
 const EventView: React.FC = () => {
+  const HtmlToReactParser = require("html-to-react").Parser;
   const state = useSelector((state) => state.eventReducer);
-  const eventDetails = state.viewEvent as IEventView;
+  const [eventDetails, setEventDetails] = useState<IEventView>();
+
+  const convertToPlain = (html: string) => {
+    const htmlToParser = new HtmlToReactParser();
+    const reactElement = htmlToParser.parse(html);
+    return reactElement;
+  };
+
+  useEffect(() => {
+    let eventData = state.events.find(
+      (event: IEvent) => state.selectedEventId === event._id
+    );
+    setEventDetails(eventData);
+  }, [state.selectedEventId, state.events]);
 
   return (
     <div>
@@ -40,7 +55,7 @@ const EventView: React.FC = () => {
                     &nbsp;Event Title :
                   </label>
                   <span className="col-sm-9 text-dark text">
-                    {eventDetails && eventDetails.title}
+                    {eventDetails?.title}
                   </span>
                 </div>
 
@@ -50,8 +65,7 @@ const EventView: React.FC = () => {
                     &nbsp;Date & Time :
                   </label>
                   <span className="col-sm-9 text-dark text">
-                    {eventDetails &&
-                      moment(eventDetails.dateTime).format("LLL")}
+                    {moment(eventDetails?.dateTime).format("LLL")}
                   </span>
                 </div>
 
@@ -64,6 +78,7 @@ const EventView: React.FC = () => {
                     href={eventDetails && eventDetails.link}
                     target="_blank"
                     className="col-sm-9 text"
+                    rel="noreferrer"
                   >
                     {eventDetails && eventDetails.link}
                   </a>
@@ -117,7 +132,7 @@ const EventView: React.FC = () => {
                     &nbsp;Description :
                   </label>
                   <span className="col-sm-9 text-dark text">
-                    {eventDetails && eventDetails.description}
+                    {eventDetails && convertToPlain(eventDetails.description)}
                   </span>
                 </div>
 
@@ -154,17 +169,32 @@ const EventView: React.FC = () => {
                     {eventDetails &&
                       eventDetails.updatedBy &&
                       eventDetails.updatedBy.map((user, index) => (
-                        <li key={index}>
+                        <li key={index} className="modify-user-item">
                           <span className="d-flex my-0">
                             <img
                               src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${user.user.profileImage}`}
                               className="profile-img"
+                              alt="event-flyer"
                             />
                             <p className="mt-0 pt-0 text-dark">
                               {user.user.firstName} {user.user.lastName}
                             </p>
                             <p>
-                              <span className="badge rounded-pill bg-dark">
+                              <span
+                                className={`badge rounded-pill ${
+                                  user.user.permissionLevel === "ROOT_ADMIN"
+                                    ? "bg-primary"
+                                    : null
+                                } ${
+                                  user.user.permissionLevel === "ADMIN"
+                                    ? "bg-info text-dark"
+                                    : null
+                                } ${
+                                  user.user.permissionLevel === "EDITOR"
+                                    ? "bg-secondary"
+                                    : null
+                                }`}
+                              >
                                 {user.user.permissionLevel === "ROOT_ADMIN"
                                   ? "Root Admin"
                                   : null}

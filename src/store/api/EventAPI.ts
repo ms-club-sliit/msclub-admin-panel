@@ -10,19 +10,28 @@ class EventAPI {
   }
 
   static getEvent(eventId: string): Promise<IEvent> {
-    return axios.get(`${BASE_URL}/event/${eventId}`);
+    return axios.get(`${BASE_URL}/admin/event/${eventId}`);
   }
 
   static getEvents(): Promise<IEvent[]> {
     return axios.get(`${BASE_URL}/admin/event/`, requestConfig);
   }
 
-  static updateEvent(eventId: string, data: IEvent): Promise<IEvent> {
-    return axios.put(`${BASE_URL}/event/${eventId}`, data, requestConfig);
+  static getDeletedEvents(): Promise<IEvent[]> {
+    return axios.get(`${BASE_URL}/admin/event/delete/`, requestConfig);
+  }
+
+  static updateEvent(eventId: string, data: FormData): Promise<IEvent> {
+    return axios.put(`${BASE_URL}/admin/event/${eventId}`, data, requestConfig);
   }
 
   static deleteEvent(eventId: string): Promise<IEvent> {
-    return axios.put(`${BASE_URL}/event/delete/${eventId}`, requestConfig);
+    console.log(requestConfig);
+    return axios.put(
+      `${BASE_URL}/admin/event/delete/${eventId}`,
+      null,
+      requestConfig
+    );
   }
 }
 

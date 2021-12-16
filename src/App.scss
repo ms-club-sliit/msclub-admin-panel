@@ -29,12 +29,17 @@
   margin-top: 80px;
 }
 
+p {
+  margin-bottom: 5px;
+  line-height: 19px;
+}
+
 .btn {
   text-transform: unset !important;
 }
 
 .card {
-  border-radius: 0px;
+  border-radius: 4px;
   padding: 15px;
 }
 
@@ -86,6 +91,10 @@ footer {
   border-bottom: none;
 }
 
+.modal-title {
+  font-size: 16px;
+}
+
 .modal-footer {
   border-top: none;
 }
@@ -94,8 +103,19 @@ footer {
   background-color: #f4f7fa;
 }
 
+.modal-content {
+  -webkit-border-radius: 0px !important;
+  -moz-border-radius: 0px !important;
+  border-radius: 4px !important;
+}
+
 .validation-message {
   font-size: 12px;
   margin: 0px !important;
   padding: 0px !important;
+}
+
+.toastBody {
+  font-family: "Poppins Regular";
+  font-size: 14px;
 }

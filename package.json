@@ -19,6 +19,7 @@
     "@types/react-rte": "^0.16.3",
     "axios": "^0.24.0",
     "env-cmd": "^10.1.0",
+    "html-to-react": "^1.4.7",
     "jquery": "^3.6.0",
     "mdbreact": "^5.2.0",
     "moment": "^2.29.1",
@@ -54,7 +55,14 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "plugins": [
+      "react-hooks"
+    ],
+    "rules": {
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn"
+    }
   },
   "browserslist": {
     "production": [

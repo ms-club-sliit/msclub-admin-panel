@@ -1,7 +1,5 @@
 import EventActionTypes from "./eventActionTypes";
-import { IEvent } from "./IEvent";
 import EventAPI from "../api/EventAPI";
-import { IEventView } from "../../interfaces";
 
 export const createEvent = (data: any) => {
   return {
@@ -24,7 +22,14 @@ export const getEvents = () => {
   };
 };
 
-export const updateEvnet = (eventId: string, data: IEvent) => {
+export const getDeletedEvents = () => {
+  return {
+    type: EventActionTypes.GET_DELETED_EVENTS,
+    payload: EventAPI.getDeletedEvents(),
+  };
+};
+
+export const updateEvent = (eventId: string, data: FormData) => {
   return {
     type: EventActionTypes.UPDATE_EVENT,
     payload: EventAPI.updateEvent(eventId, data),
@@ -38,9 +43,9 @@ export const deleteEvent = (eventId: string) => {
   };
 };
 
-export const setViewEvent = (event: IEventView) => {
+export const setEventId = (eventId: string) => {
   return {
-    type: EventActionTypes.VIEW_EVENT,
-    payload: event,
+    type: EventActionTypes.SET_EVENT_ID,
+    payload: eventId,
   };
 };

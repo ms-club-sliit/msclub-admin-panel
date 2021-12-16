@@ -1,8 +1,6 @@
 import { useState } from "react";
 import AvatarEditor from "react-avatar-editor";
 import Slider from "react-rangeslider";
-import fs from "fs";
-import axios from "axios";
 
 interface CanvasProps {
   getEditedImage: (data: any) => any;

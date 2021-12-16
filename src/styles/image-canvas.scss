@@ -8,8 +8,15 @@
   margin-left: -2px;
 }
 
-.image-editor {
-  padding-left: 35px;
+@include media("<=phone") {
+  .image-editor {
+    padding-left: 13px;
+  }
+}
+@include media(">=phone", "<tablet") {
+  .image-editor {
+    padding-left: 13px;
+  }
 }
 
 .rangeslider-vertical {
