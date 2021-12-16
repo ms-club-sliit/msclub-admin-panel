@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ApplicationConstants from "../../constants";
+import { ApplicationConstants } from "../../constants";
 
 const NavBar: React.FC = () => {
   const [authToken, setAuthToken] = useState<string | null>();
@@ -12,7 +12,7 @@ const NavBar: React.FC = () => {
     } else {
       setAuthToken(null);
     }
-  },[]);
+  }, []);
 
   return (
     <div>

@@ -1,18 +1,20 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { NavBar } from "../components";
 import EventList from "../pages/event/list";
+import DeletedEventList from "../pages/event/list/delete";
 
 const AppRoutes: React.FC = () => (
   <div>
-    <Router>
+    <BrowserRouter>
       <NavBar />
       <div className="container">
-        {/* Route Declaration - Start */}
-        <EventList />
-        {/* Route Declaration - End */}
+        <Routes>
+          <Route path="/events" element={<EventList />} />
+          <Route path="/events/deleted" element={<DeletedEventList />} />
+        </Routes>
       </div>
-    </Router>
+    </BrowserRouter>
   </div>
 );
 

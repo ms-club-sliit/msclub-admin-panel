@@ -1,3 +1,6 @@
+import { ToolbarConfig } from "react-rte";
+import { toast } from "react-toastify";
+
 const ApplicationConstants = {
   AUTH_NABAR_ITEMS: [
     { id: 1, name: "Dashboard", link: "/" },
@@ -15,4 +18,63 @@ const ApplicationConstants = {
   ],
 };
 
-export default ApplicationConstants;
+const ToolBarConfig: ToolbarConfig = {
+  display: [
+    "INLINE_STYLE_BUTTONS",
+    "BLOCK_TYPE_BUTTONS",
+    "LINK_BUTTONS",
+    "BLOCK_TYPE_DROPDOWN",
+    "HISTORY_BUTTONS",
+  ],
+  INLINE_STYLE_BUTTONS: [
+    { label: "Bold", style: "BOLD", className: "custom-css-class" },
+    { label: "Italic", style: "ITALIC" },
+    { label: "Underline", style: "UNDERLINE" },
+  ],
+  BLOCK_TYPE_DROPDOWN: [
+    { label: "Normal", style: "unstyled" },
+    { label: "Heading Large", style: "header-one" },
+    { label: "Heading Medium", style: "header-two" },
+    { label: "Heading Small", style: "header-three" },
+  ],
+  BLOCK_TYPE_BUTTONS: [
+    { label: "UL", style: "unordered-list-item" },
+    { label: "OL", style: "ordered-list-item" },
+  ],
+};
+
+const toastNotification = (message: string, status: string) => {
+  if (status === "success") {
+    toast.success(message, {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  } else if (status === "error") {
+    toast.error(message, {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  } else {
+    toast.info(message, {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  }
+};
+
+export { ApplicationConstants, ToolBarConfig, toastNotification };

@@ -1,0 +1,38 @@
+.btn-pill {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.rotate-icon {
+  margin-left: -2px;
+}
+
+@include media("<=phone") {
+  .image-editor {
+    padding-left: 13px;
+  }
+}
+@include media(">=phone", "<tablet") {
+  .image-editor {
+    padding-left: 13px;
+  }
+}
+
+.rangeslider-vertical {
+  width: 10px;
+  height: 135px;
+  .rangeslider__handle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+
+  .rangeslider__labels {
+    width: 10px;
+  }
+}
+
+.image-selector {
+  font-size: 13px;
+}

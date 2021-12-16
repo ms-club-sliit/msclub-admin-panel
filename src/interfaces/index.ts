@@ -1,3 +1,3 @@
-import React from 'react';
+import { IEventView } from "./IEvent";
 
-// UI component interfaces implementation
+export type { IEventView };
