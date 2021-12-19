@@ -1,0 +1,28 @@
+.login {
+  @include media("<=phone") {
+  }
+  @include media(">=phone", "<tablet") {
+  }
+  @include media(">=tablet", "<smalldesktop") {
+  }
+  @include media(">=smalldesktop", "<desktop") {
+  }
+  @include media(">=desktop", "<largedesktop") {
+  }
+  @include media(">=largedesktop") {
+    h4 {
+      font-size: 35px;
+      font-family: "Product Sans Bold";
+      margin-left: 10px;
+    }
+
+    .card {
+      width: 40%;
+    }
+
+    .logo {
+      width: 80px;
+      height: 35px;
+    }
+  }
+}
