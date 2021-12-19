@@ -64,6 +64,16 @@ const toastNotification = (message: string, status: string) => {
       draggable: true,
       progress: undefined,
     });
+  } else if (status === "warn") {
+    toast.warning(message, {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   } else {
     toast.info(message, {
       position: "top-right",
