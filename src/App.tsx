@@ -1,11 +1,11 @@
 import React from "react";
 import { ToastContainer } from "react-toastify";
-import AppRoutes from "./routes/app-routes";
+import PageRoutes from "./routes";
 import "./App.scss";
 
 const App: React.FC = () => (
   <div>
-    <AppRoutes />
+    <PageRoutes />
     <ToastContainer bodyClassName="toastBody" />
   </div>
 );

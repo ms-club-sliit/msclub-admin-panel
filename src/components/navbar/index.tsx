@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { ApplicationConstants } from "../../constants";
+import { Link } from "react-router-dom";
+import {useSelector} from "react-redux";
 
 const NavBar: React.FC = () => {
+  const state = useSelector((state) => state.userReducer);
   const [authToken, setAuthToken] = useState<string | null>();
+  const [imagePath, setImagePath] = useState<string>();
 
   useEffect(() => {
-    let authToken = localStorage.getItem("token");
-
-    if (authToken) {
-      setAuthToken(authToken);
-    } else {
-      setAuthToken(null);
+    if (state.authUser && state.authUser.authToken && state.authUser.imagePath) {
+      console.log(state.authUser)
+      setAuthToken(state.authUser.authToken);
+      setImagePath(state.authUser.imagePath);
     }
-  }, []);
+  }, [state.authUser, setAuthToken, setImagePath])
+
+  const handleLogOut = (event: any) => {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+  }
 
   return (
     <div>
@@ -43,9 +50,9 @@ const NavBar: React.FC = () => {
               <ul className="navbar-nav">
                 {ApplicationConstants.AUTH_NABAR_ITEMS.map((item) => (
                   <li className="navbar-item nav-item" key={item.id}>
-                    <a href={item.link} className="nav-link">
+                    <Link to={item.link} className="nav-link">
                       {item.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -73,7 +80,7 @@ const NavBar: React.FC = () => {
                 aria-expanded="false"
               >
                 <img
-                  src="https://mdbootstrap.com/img/new/avatars/2.jpg"
+                  src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${imagePath}`}
                   className="rounded-circle"
                   height="35"
                   alt="Black and White Portrait of a Man"
@@ -94,7 +101,7 @@ const NavBar: React.FC = () => {
                   ) : null}
                 </li>
               ))}
-              <li>
+              <li onClick={handleLogOut}>
                 <span className="dropdown-item">Logout</span>
               </li>
             </ul>

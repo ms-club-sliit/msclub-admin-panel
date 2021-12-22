@@ -11,11 +11,11 @@ import EventView from "../view";
 import AddEvent from "../add";
 import UpdateEvent from "../update";
 import DeleteEvent from "../delete";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const EventList: React.FC = () => {
   const dispatch = useDispatch();
-  const history = useNavigate();
+  const history = useHistory();
   const HtmlToReactParser = require("html-to-react").Parser;
   const state = useSelector((state) => state.eventReducer);
   const events: IEvent[] = state.events;
@@ -273,7 +273,7 @@ const EventList: React.FC = () => {
   };
 
   const handleDeletedEventClick = (events: any) => {
-    history("/events/deleted");
+    history.push("/events/deleted");
   };
 
   return (

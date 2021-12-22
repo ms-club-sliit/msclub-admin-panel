@@ -24,6 +24,7 @@
 @import "./styles/table.scss";
 @import "./styles/events.scss";
 @import "./styles/image-canvas.scss";
+@import "./styles/login.scss";
 
 .container {
   margin-top: 80px;
@@ -118,4 +119,10 @@ footer {
 .toastBody {
   font-family: "Poppins Regular";
   font-size: 14px;
+}
+
+.spinner-border {
+  width: 14px;
+  height: 14px;
+  margin-right: 5px;
 }

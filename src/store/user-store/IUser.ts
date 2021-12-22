@@ -12,15 +12,23 @@ interface IUser {
   deletedAt: Date | null;
 }
 
+interface IAuthUser {
+  userName: string;
+  permissionLevel: string;
+  authToken: string;
+  imagePath: string;
+}
+
 interface IUserState {
   user: IUser | null;
-  users: IUser[] | null,
+  users: IUser[] | null;
   newUser: IUser | null;
   updatedUser: IUser | null;
   deletedUser: IUser | null;
   loggedUser: IUser | null;
+  authUser: IAuthUser | null;
   loading: boolean;
   error: string | null;
 }
 
-export type { IUserState, IUser };
+export type { IUserState, IUser, IAuthUser };

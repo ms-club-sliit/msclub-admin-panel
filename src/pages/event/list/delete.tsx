@@ -7,11 +7,11 @@ import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
 import { IModifiedBy } from "../../../store/interfaces";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const DeletedEventList: React.FC = () => {
   const dispatch = useDispatch();
-  const history = useNavigate();
+  const history = useHistory();
   const HtmlToReactParser = require("html-to-react").Parser;
   const state = useSelector((state) => state.eventReducer);
   const events: IEvent[] = state.deletedEvents;
@@ -214,7 +214,7 @@ const DeletedEventList: React.FC = () => {
   };
 
   const handleGoBackToEvents = (event: any) => {
-    history("/events/");
+    history.push("/events/");
   };
 
   return (
