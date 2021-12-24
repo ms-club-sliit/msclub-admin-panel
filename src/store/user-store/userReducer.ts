@@ -9,7 +9,8 @@ const initialState: IUserState = {
   deletedUser: null,
   loggedUser: null,
   loading: false,
-  error: null
+  authUser: null,
+  error: null,
 };
 
 const userReducer = (state = initialState, action: any) => {
@@ -20,6 +21,7 @@ const userReducer = (state = initialState, action: any) => {
     case `${UserActionTypes.UPDATE_USER}_PENDING`:
     case `${UserActionTypes.DELETE_USER}_PENDING`:
     case `${UserActionTypes.LOGIN_USER}_PENDING`:
+    case `${UserActionTypes.REFRESH_TOKEN}_PENDING`:
       return { ...state, loading: true };
 
     case `${UserActionTypes.CREATE_USER}_FULFILLED`:
@@ -40,18 +42,27 @@ const userReducer = (state = initialState, action: any) => {
     case `${UserActionTypes.LOGIN_USER}_FULFILLED`:
       let loggedUser = action.payload.data;
       return { ...state, loading: false, loggedUser };
-    
+    case `${UserActionTypes.REFRESH_TOKEN}_FULFILLED`:
+      let authUser = action.payload.data;
+      return { ...state, loading: false, authUser };
+
     case `${UserActionTypes.CREATE_USER}_REJECTED`:
     case `${UserActionTypes.GET_USER}_REJECTED`:
     case `${UserActionTypes.GET_ALL_USERS}_REJECTED`:
     case `${UserActionTypes.UPDATE_USER}_REJECTED`:
     case `${UserActionTypes.DELETE_USER}_REJECTED`:
     case `${UserActionTypes.LOGIN_USER}_REJECTED`:
-      return { ...state, loading: false, error: `${action.payload.message}`, state: initialState };
-    
+    case `${UserActionTypes.REFRESH_TOKEN}_REJECTED`:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload.response,
+        state: initialState,
+      };
+
     default:
       return state;
   }
-}
+};
 
 export default userReducer;

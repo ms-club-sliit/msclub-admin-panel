@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { ApplicationConstants } from "../../constants";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const NavBar: React.FC = () => {
+  const state = useSelector((state) => state.userReducer);
   const [authToken, setAuthToken] = useState<string | null>();
+  const [imagePath, setImagePath] = useState<string>();
 
   useEffect(() => {
-    let authToken = localStorage.getItem("token");
-
-    if (authToken) {
-      setAuthToken(authToken);
-    } else {
-      setAuthToken(null);
+    if (state.authUser && state.authUser.authToken && state.authUser.imagePath) {
+      console.log(state.authUser);
+      setAuthToken(state.authUser.authToken);
+      setImagePath(state.authUser.imagePath);
     }
-  }, []);
+  }, [state.authUser, setAuthToken, setImagePath]);
+
+  const handleLogOut = (event: any) => {
+    localStorage.removeItem("token");
+    window.location.href = "/signin";
+  };
 
   return (
     <div>
@@ -32,20 +39,15 @@ const NavBar: React.FC = () => {
 
           <div className="collapse navbar-collapse" id="navbar-content">
             <a className="navbar-brand mt-4 mx-2 mt-lg-0" href="/">
-              <img
-                className="navbar-logo"
-                src="images/ms_club_logo_light.png"
-                alt="MS Club Logo"
-                loading="lazy"
-              />
+              <img className="navbar-logo" src="images/ms_club_logo_light.png" alt="MS Club Logo" loading="lazy" />
             </a>
             {authToken ? (
               <ul className="navbar-nav">
                 {ApplicationConstants.AUTH_NABAR_ITEMS.map((item) => (
                   <li className="navbar-item nav-item" key={item.id}>
-                    <a href={item.link} className="nav-link">
+                    <Link to={item.link} className="nav-link">
                       {item.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -73,7 +75,7 @@ const NavBar: React.FC = () => {
                 aria-expanded="false"
               >
                 <img
-                  src="https://mdbootstrap.com/img/new/avatars/2.jpg"
+                  src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${imagePath}`}
                   className="rounded-circle"
                   height="35"
                   alt="Black and White Portrait of a Man"
@@ -81,10 +83,7 @@ const NavBar: React.FC = () => {
                 />
               </a>
             ) : null}
-            <ul
-              className="dropdown-menu dropdown-menu-end"
-              aria-labelledby="profile-dropdown"
-            >
+            <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="profile-dropdown">
               {ApplicationConstants.AUTH_NAVBAR_OPTIONS.map((item) => (
                 <li key={item.id}>
                   {item.link ? (
@@ -94,7 +93,7 @@ const NavBar: React.FC = () => {
                   ) : null}
                 </li>
               ))}
-              <li>
+              <li onClick={handleLogOut}>
                 <span className="dropdown-item">Logout</span>
               </li>
             </ul>

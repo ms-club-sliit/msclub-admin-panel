@@ -130,8 +130,8 @@ const AddEvent: React.FC = () => {
   };
 
   // Form Submission
-  const onSubmit = (e: any) => {
-    e.preventDefault();
+  const onSubmit = (event: any) => {
+    event.preventDefault();
 
     const isFormValid = validateForm();
 

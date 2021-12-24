@@ -11,16 +11,15 @@ import EventView from "../view";
 import AddEvent from "../add";
 import UpdateEvent from "../update";
 import DeleteEvent from "../delete";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const EventList: React.FC = () => {
   const dispatch = useDispatch();
-  const history = useNavigate();
+  const history = useHistory();
   const HtmlToReactParser = require("html-to-react").Parser;
   const state = useSelector((state) => state.eventReducer);
   const events: IEvent[] = state.events;
-  const [selectedTypeEvents, setSelectedTypeEvents] =
-    useState<IEvent[]>(events);
+  const [selectedTypeEvents, setSelectedTypeEvents] = useState<IEvent[]>(events);
   const [selectedTab, setSelectedTab] = useState<string>("All");
 
   const convertToPlain = (html: string) => {
@@ -61,15 +60,9 @@ const EventList: React.FC = () => {
         return (
           <div>
             {cell === "UPCOMING" ? (
-              <span className="badge rounded-pill bg-primary text-light">
-                Upcoming Event
-              </span>
+              <span className="badge rounded-pill bg-primary text-light">Upcoming Event</span>
             ) : null}
-            {cell === "PAST" ? (
-              <span className="badge rounded-pill bg-warning text-dark">
-                Past Event
-              </span>
-            ) : null}
+            {cell === "PAST" ? <span className="badge rounded-pill bg-warning text-dark">Past Event</span> : null}
           </div>
         );
       },
@@ -99,6 +92,7 @@ const EventList: React.FC = () => {
         return (
           <div>
             <span>
+              {console.log(cell)}
               <img
                 src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${lastModifiedUser.user.profileImage}`}
                 className="table-profile-img"
@@ -107,15 +101,9 @@ const EventList: React.FC = () => {
             </span>
             {`${lastModifiedUser.user.firstName} ${lastModifiedUser.user.lastName}`}
             <span className="badge rounded-pill bg-dark mx-2">
-              {lastModifiedUser.user.permissionLevel === "ROOT_ADMIN"
-                ? "Root Admin"
-                : null}
-              {lastModifiedUser.user.permissionLevel === "ADMIN"
-                ? "Administrator"
-                : null}
-              {lastModifiedUser.user.permissionLevel === "EDITOR"
-                ? "Editor"
-                : null}
+              {lastModifiedUser.user.permissionLevel === "ROOT_ADMIN" ? "Root Admin" : null}
+              {lastModifiedUser.user.permissionLevel === "ADMIN" ? "Administrator" : null}
+              {lastModifiedUser.user.permissionLevel === "EDITOR" ? "Editor" : null}
             </span>
           </div>
         );
@@ -132,22 +120,13 @@ const EventList: React.FC = () => {
             <i className="fas fa-ellipsis-h"></i>
           </span>
           <div className="dropdown-menu dropdown-menu-right">
-            <span
-              className="dropdown-item"
-              onClick={(e) => handleSetViewEvent(row._id)}
-            >
+            <span className="dropdown-item" onClick={(e) => handleSetViewEvent(row._id)}>
               <i className="far fa-eye" /> View
             </span>
-            <span
-              className="dropdown-item"
-              onClick={(e) => handleSetUpdateEvent(row._id)}
-            >
+            <span className="dropdown-item" onClick={(e) => handleSetUpdateEvent(row._id)}>
               <i className="far fa-edit" /> Edit
             </span>
-            <button
-              className="dropdown-item"
-              onClick={(e) => handleSetDeleteEvent(row._id)}
-            >
+            <button className="dropdown-item" onClick={(e) => handleSetDeleteEvent(row._id)}>
               <i className="far fa-trash-alt" /> Delete
             </button>
           </div>
@@ -257,23 +236,17 @@ const EventList: React.FC = () => {
         if (data === "All") {
           setSelectedTypeEvents(events);
         } else if (data === "Upcoming") {
-          setSelectedTypeEvents(
-            events.filter((event) => event.eventType === "UPCOMING")
-          );
+          setSelectedTypeEvents(events.filter((event) => event.eventType === "UPCOMING"));
         } else if (data === "Past") {
-          setSelectedTypeEvents(
-            events.filter((event) => event.eventType === "PAST")
-          );
+          setSelectedTypeEvents(events.filter((event) => event.eventType === "PAST"));
         } else if (data === "Deleted") {
-          setSelectedTypeEvents(
-            events.filter((event) => event.deletedAt !== null)
-          );
+          setSelectedTypeEvents(events.filter((event) => event.deletedAt !== null));
         }
       });
   };
 
   const handleDeletedEventClick = (events: any) => {
-    history("/events/deleted");
+    history.push("/events/deleted");
   };
 
   return (
@@ -281,9 +254,7 @@ const EventList: React.FC = () => {
       <div className="row">
         <div className="col-6">
           <h3 className="page-title">Events</h3>
-          <p className="page-description text-muted">
-            Manage all the event informations
-          </p>
+          <p className="page-description text-muted">Manage all the event informations</p>
         </div>
         <div className="col-6">
           <div className="d-flex justify-content-end">
@@ -302,36 +273,28 @@ const EventList: React.FC = () => {
       <div>
         <div className="d-flex">
           <button
-            className={`btn btn-sm ${
-              selectedTab === "All" ? "btn-info" : "btn-light"
-            } btn-rounded shadow-none`}
+            className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
             onClick={(e) => handleViewClick(e, "All")}
           >
             All
           </button>
           &nbsp;
           <button
-            className={`btn btn-sm ${
-              selectedTab === "Upcoming" ? "btn-info" : "btn-light"
-            } btn-rounded shadow-none`}
+            className={`btn btn-sm ${selectedTab === "Upcoming" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
             onClick={(e) => handleViewClick(e, "Upcoming")}
           >
             Upcoming
           </button>
           &nbsp;
           <button
-            className={`btn btn-sm ${
-              selectedTab === "Past" ? "btn-info" : "btn-light"
-            } btn-rounded shadow-none`}
+            className={`btn btn-sm ${selectedTab === "Past" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
             onClick={(e) => handleViewClick(e, "Past")}
           >
             Past
           </button>
           &nbsp;
           <button
-            className={`btn btn-sm ${
-              selectedTab === "Deleted" ? "btn-info" : "btn-light"
-            } btn-rounded shadow-none`}
+            className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
             onClick={(e) => handleDeletedEventClick(e)}
           >
             Deleted
@@ -348,16 +311,11 @@ const EventList: React.FC = () => {
         {(props) => (
           <div>
             <div className="d-flex justify-content-end">
-              <SearchBar
-                {...props.searchProps}
-                placeholder="Search events"
-                className="mb-3 search-bar"
-              />
+              <SearchBar {...props.searchProps} placeholder="Search events" className="mb-3 search-bar" />
             </div>
             <p className="table-description text-muted">
-              *If you experience any difficulty in viewing the event
-              information, please make sure your cache is cleared and completed
-              a hard refresh.
+              *If you experience any difficulty in viewing the event information, please make sure your cache is cleared
+              and completed a hard refresh.
             </p>
             <BootstrapTable
               {...props.baseProps}

@@ -10,22 +10,18 @@ const ApplicationConstants = {
     { id: 5, name: "Applications", link: "/applications" },
     { id: 6, name: "Inquiry", link: "/inquries" },
   ],
-  AUTH_NAVBAR_OPTIONS: [{ id: 1, name: "My Profile", link: "/profile" }],
+  AUTH_NAVBAR_OPTIONS: [
+    { id: 1, name: "My Profile", link: "/profile" },
+    { id: 2, name: "Settings", link: "/settings" },
+  ],
   DEFAULT_NAVBAR_ITEMS: [
     { id: 1, name: "Sign In", link: "/signin" },
-    { id: 2, name: "Sign Up", link: "/signup" },
-    { id: 3, name: "Contact Admin", link: "/contact" },
+    { id: 2, name: "Contact Admin", link: "/contact" },
   ],
 };
 
 const ToolBarConfig: ToolbarConfig = {
-  display: [
-    "INLINE_STYLE_BUTTONS",
-    "BLOCK_TYPE_BUTTONS",
-    "LINK_BUTTONS",
-    "BLOCK_TYPE_DROPDOWN",
-    "HISTORY_BUTTONS",
-  ],
+  display: ["INLINE_STYLE_BUTTONS", "BLOCK_TYPE_BUTTONS", "LINK_BUTTONS", "BLOCK_TYPE_DROPDOWN", "HISTORY_BUTTONS"],
   INLINE_STYLE_BUTTONS: [
     { label: "Bold", style: "BOLD", className: "custom-css-class" },
     { label: "Italic", style: "ITALIC" },
@@ -56,6 +52,16 @@ const toastNotification = (message: string, status: string) => {
     });
   } else if (status === "error") {
     toast.error(message, {
+      position: "top-right",
+      autoClose: 4000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  } else if (status === "warn") {
+    toast.warning(message, {
       position: "top-right",
       autoClose: 4000,
       hideProgressBar: true,
