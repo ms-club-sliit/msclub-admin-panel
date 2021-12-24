@@ -16,9 +16,7 @@ const EventView: React.FC = () => {
   };
 
   useEffect(() => {
-    let eventData = state.events.find(
-      (event: IEvent) => state.selectedEventId === event._id
-    );
+    let eventData = state.events.find((event: IEvent) => state.selectedEventId === event._id);
     setEventDetails(eventData);
   }, [state.selectedEventId, state.events]);
 
@@ -39,12 +37,7 @@ const EventView: React.FC = () => {
               <h5 className="modal-title" id="exampleModalLabel">
                 Event Document
               </h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-mdb-dismiss="modal"
-                aria-label="Close"
-              ></button>
+              <button type="button" className="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
               <div className="event-view">
@@ -54,9 +47,7 @@ const EventView: React.FC = () => {
                     <i className="far fa-file-alt fa-sm" />
                     &nbsp;Event Title :
                   </label>
-                  <span className="col-sm-9 text-dark text">
-                    {eventDetails?.title}
-                  </span>
+                  <span className="col-sm-9 text-dark text">{eventDetails?.title}</span>
                 </div>
 
                 <div className="form-group row mx-5 my-2">
@@ -64,9 +55,7 @@ const EventView: React.FC = () => {
                     <i className="far fa-clock fa-sm" />
                     &nbsp;Date & Time :
                   </label>
-                  <span className="col-sm-9 text-dark text">
-                    {moment(eventDetails?.dateTime).format("LLL")}
-                  </span>
+                  <span className="col-sm-9 text-dark text">{moment(eventDetails?.dateTime).format("LLL")}</span>
                 </div>
 
                 <div className="form-group row mx-5 my-2">
@@ -93,14 +82,10 @@ const EventView: React.FC = () => {
                     {eventDetails && (
                       <span>
                         {eventDetails.eventType === "UPCOMING" ? (
-                          <span className="badge rounded-pill bg-primary text-light">
-                            Upcoming Event
-                          </span>
+                          <span className="badge rounded-pill bg-primary text-light">Upcoming Event</span>
                         ) : null}
                         {eventDetails.eventType === "PAST" ? (
-                          <span className="badge rounded-pill bg-warning text-dark">
-                            Past Event
-                          </span>
+                          <span className="badge rounded-pill bg-warning text-dark">Past Event</span>
                         ) : null}
                       </span>
                     )}
@@ -116,10 +101,7 @@ const EventView: React.FC = () => {
                     {eventDetails &&
                       eventDetails.tags &&
                       eventDetails.tags.map((item, index) => (
-                        <span
-                          className="badge rounded-pill bg-dark"
-                          key={index}
-                        >
+                        <span className="badge rounded-pill bg-dark" key={index}>
                           {item}
                         </span>
                       ))}
@@ -145,16 +127,10 @@ const EventView: React.FC = () => {
                     &nbsp;Created At :
                   </label>
                   <span className="col-sm-9 text-dark text">
-                    {eventDetails &&
-                      moment(eventDetails.createdAt).format("LLL")}
+                    {eventDetails && moment(eventDetails.createdAt).format("LLL")}
 
                     <i className="text-muted mx-1">
-                      (
-                      {eventDetails &&
-                        moment(eventDetails.createdAt)
-                          .startOf("hour")
-                          .fromNow()}
-                      )
+                      ({eventDetails && moment(eventDetails.createdAt).startOf("hour").fromNow()})
                     </i>
                   </span>
                 </div>
@@ -182,42 +158,19 @@ const EventView: React.FC = () => {
                             <p>
                               <span
                                 className={`badge rounded-pill ${
-                                  user.user.permissionLevel === "ROOT_ADMIN"
-                                    ? "bg-primary"
-                                    : null
-                                } ${
-                                  user.user.permissionLevel === "ADMIN"
-                                    ? "bg-info text-dark"
-                                    : null
-                                } ${
-                                  user.user.permissionLevel === "EDITOR"
-                                    ? "bg-secondary"
-                                    : null
+                                  user.user.permissionLevel === "ROOT_ADMIN" ? "bg-primary" : null
+                                } ${user.user.permissionLevel === "ADMIN" ? "bg-info text-dark" : null} ${
+                                  user.user.permissionLevel === "EDITOR" ? "bg-secondary" : null
                                 }`}
                               >
-                                {user.user.permissionLevel === "ROOT_ADMIN"
-                                  ? "Root Admin"
-                                  : null}
-                                {user.user.permissionLevel === "ADMIN"
-                                  ? "Administrator"
-                                  : null}
-                                {user.user.permissionLevel === "EDITOR"
-                                  ? "Editor"
-                                  : null}
+                                {user.user.permissionLevel === "ROOT_ADMIN" ? "Root Admin" : null}
+                                {user.user.permissionLevel === "ADMIN" ? "Administrator" : null}
+                                {user.user.permissionLevel === "EDITOR" ? "Editor" : null}
                               </span>
                             </p>
-                            |
+                            |<p className="text-dark date-time">{moment(user.updatedAt).format("LLL")}</p>
                             <p className="text-dark date-time">
-                              {moment(user.updatedAt).format("LLL")}
-                            </p>
-                            <p className="text-dark date-time">
-                              <i className="text-muted mx-1">
-                                (
-                                {moment(user.updatedAt)
-                                  .startOf("hour")
-                                  .fromNow()}
-                                )
-                              </i>
+                              <i className="text-muted mx-1">({moment(user.updatedAt).startOf("hour").fromNow()})</i>
                             </p>
                           </span>
                         </li>
@@ -227,11 +180,7 @@ const EventView: React.FC = () => {
               </div>
             </div>
             <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-light shadow-none btn-rounded"
-                data-mdb-dismiss="modal"
-              >
+              <button type="button" className="btn btn-light shadow-none btn-rounded" data-mdb-dismiss="modal">
                 Close
               </button>
             </div>

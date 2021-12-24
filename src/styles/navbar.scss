@@ -19,6 +19,11 @@
     background-color: $primary-color-active;
   }
 
+  .rounded-circle {
+    width: 35px;
+    height: 35px;
+  }
+
   @include media("<=phone") {
     .navbar-nav {
       margin-left: 14px;
@@ -31,7 +36,7 @@
     }
   }
 
-  @include media(">=phone", '<tablet') {
+  @include media(">=phone", "<tablet") {
     .navbar-nav {
       margin-left: 14px;
       margin-top: 15px;
@@ -43,7 +48,7 @@
     }
   }
 
-  @include media('>=tablet', '<smalldesktop') {
+  @include media(">=tablet", "<smalldesktop") {
     .navbar-nav {
       margin-left: 15px;
       margin-top: 15px;
@@ -55,19 +60,19 @@
     }
   }
 
-  @include media('>=smalldesktop', '<desktop') {
+  @include media(">=smalldesktop", "<desktop") {
     .navbar-nav {
       margin-left: 65px;
     }
   }
 
-  @include media(">=desktop", '<largedesktop') {
+  @include media(">=desktop", "<largedesktop") {
     .navbar-nav {
       margin-left: 65px;
     }
   }
 
-  @include media('>=largedesktop') {
+  @include media(">=largedesktop") {
     .navbar-nav {
       margin-left: 65px;
     }
