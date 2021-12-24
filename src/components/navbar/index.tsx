@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ApplicationConstants } from "../../constants";
 import { Link } from "react-router-dom";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 const NavBar: React.FC = () => {
   const state = useSelector((state) => state.userReducer);
@@ -10,16 +10,16 @@ const NavBar: React.FC = () => {
 
   useEffect(() => {
     if (state.authUser && state.authUser.authToken && state.authUser.imagePath) {
-      console.log(state.authUser)
+      console.log(state.authUser);
       setAuthToken(state.authUser.authToken);
       setImagePath(state.authUser.imagePath);
     }
-  }, [state.authUser, setAuthToken, setImagePath])
+  }, [state.authUser, setAuthToken, setImagePath]);
 
   const handleLogOut = (event: any) => {
     localStorage.removeItem("token");
-    window.location.href = "/login";
-  }
+    window.location.href = "/signin";
+  };
 
   return (
     <div>
@@ -39,12 +39,7 @@ const NavBar: React.FC = () => {
 
           <div className="collapse navbar-collapse" id="navbar-content">
             <a className="navbar-brand mt-4 mx-2 mt-lg-0" href="/">
-              <img
-                className="navbar-logo"
-                src="images/ms_club_logo_light.png"
-                alt="MS Club Logo"
-                loading="lazy"
-              />
+              <img className="navbar-logo" src="images/ms_club_logo_light.png" alt="MS Club Logo" loading="lazy" />
             </a>
             {authToken ? (
               <ul className="navbar-nav">
@@ -88,10 +83,7 @@ const NavBar: React.FC = () => {
                 />
               </a>
             ) : null}
-            <ul
-              className="dropdown-menu dropdown-menu-end"
-              aria-labelledby="profile-dropdown"
-            >
+            <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="profile-dropdown">
               {ApplicationConstants.AUTH_NAVBAR_OPTIONS.map((item) => (
                 <li key={item.id}>
                   {item.link ? (

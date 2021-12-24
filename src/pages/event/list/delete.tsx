@@ -54,15 +54,9 @@ const DeletedEventList: React.FC = () => {
         return (
           <div>
             {cell === "UPCOMING" ? (
-              <span className="badge rounded-pill bg-primary text-light">
-                Upcoming Event
-              </span>
+              <span className="badge rounded-pill bg-primary text-light">Upcoming Event</span>
             ) : null}
-            {cell === "PAST" ? (
-              <span className="badge rounded-pill bg-warning text-dark">
-                Past Event
-              </span>
-            ) : null}
+            {cell === "PAST" ? <span className="badge rounded-pill bg-warning text-dark">Past Event</span> : null}
           </div>
         );
       },
@@ -100,15 +94,9 @@ const DeletedEventList: React.FC = () => {
             </span>
             {`${lastModifiedUser.user.firstName} ${lastModifiedUser.user.lastName}`}
             <span className="badge rounded-pill bg-dark mx-2">
-              {lastModifiedUser.user.permissionLevel === "ROOT_ADMIN"
-                ? "Root Admin"
-                : null}
-              {lastModifiedUser.user.permissionLevel === "ADMIN"
-                ? "Administrator"
-                : null}
-              {lastModifiedUser.user.permissionLevel === "EDITOR"
-                ? "Editor"
-                : null}
+              {lastModifiedUser.user.permissionLevel === "ROOT_ADMIN" ? "Root Admin" : null}
+              {lastModifiedUser.user.permissionLevel === "ADMIN" ? "Administrator" : null}
+              {lastModifiedUser.user.permissionLevel === "EDITOR" ? "Editor" : null}
             </span>
           </div>
         );
@@ -222,9 +210,7 @@ const DeletedEventList: React.FC = () => {
       <div className="row">
         <div className="col-6">
           <h3 className="page-title">Events</h3>
-          <p className="page-description text-muted">
-            Manage all the event informations
-          </p>
+          <p className="page-description text-muted">Manage all the event informations</p>
         </div>
         <div className="col-6">
           <div className="d-flex justify-content-end">
@@ -242,34 +228,21 @@ const DeletedEventList: React.FC = () => {
 
       <div>
         <div className="d-flex">
-          <button
-            className="btn btn-sm btn-light shadow-none btn-rounded"
-            onClick={handleGoBackToEvents}
-          >
+          <button className="btn btn-sm btn-light shadow-none btn-rounded" onClick={handleGoBackToEvents}>
             Go Back
           </button>
         </div>
       </div>
 
-      <ToolkitProvider
-        keyField="_id"
-        data={events}
-        columns={tableColumnData}
-        search
-      >
+      <ToolkitProvider keyField="_id" data={events} columns={tableColumnData} search>
         {(props) => (
           <div>
             <div className="d-flex justify-content-end">
-              <SearchBar
-                {...props.searchProps}
-                placeholder="Search events"
-                className="mb-3 search-bar"
-              />
+              <SearchBar {...props.searchProps} placeholder="Search events" className="mb-3 search-bar" />
             </div>
             <p className="table-description text-muted">
-              *If you experience any difficulty in viewing the event
-              information, please make sure your cache is cleared and completed
-              a hard refresh.
+              *If you experience any difficulty in viewing the event information, please make sure your cache is cleared
+              and completed a hard refresh.
             </p>
             <BootstrapTable
               {...props.baseProps}

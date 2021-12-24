@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import {useDispatch} from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { NavBar } from "../components";
 import { refreshToken } from "../store/user-store/userActions";
@@ -21,7 +21,7 @@ const PageRoutes: React.FC = () => {
           <Switch>
             <PrivateRoute path="/events/deleted" component={DeletedEventList} />
             <PrivateRoute path="/events/" component={EventList} />
-            <Route path="/login" component={Login} exact />
+            <Route path="/signin" component={Login} exact />
           </Switch>
         </div>
       </BrowserRouter>
