@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteEvent,
-  getEvents,
-  setEventId,
-} from "../../../store/event-store/eventActions";
+import { deleteEvent, getEvents, setEventId } from "../../../store/event-store/eventActions";
 import { IEvent } from "../../../store/event-store/IEvent";
 import { toastNotification } from "../../../constants";
 
@@ -14,9 +10,7 @@ const DeleteEvent: React.FC = () => {
   const state = useSelector((state) => state.eventReducer);
 
   useEffect(() => {
-    let eventData = state.events.find(
-      (event: IEvent) => event._id === state.selectedEventId
-    );
+    let eventData = state.events.find((event: IEvent) => event._id === state.selectedEventId);
 
     if (eventData && eventData._id) {
       console.log(eventData._id);
@@ -70,32 +64,18 @@ const DeleteEvent: React.FC = () => {
               <h5 className="modal-title" id="exampleModalLabel">
                 Remove Event
               </h5>
-              <button
-                type="button"
-                className="btn-close"
-                onClick={closeModal}
-              ></button>
+              <button type="button" className="btn-close" onClick={closeModal}></button>
             </div>
 
             <div className="modal-body delete-event">
-              <div className="text">
-                Are you sure about deleting this event information?
-              </div>
+              <div className="text">Are you sure about deleting this event information?</div>
             </div>
 
             <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-light shadow-none btn-rounded"
-                onClick={closeModal}
-              >
+              <button type="button" className="btn btn-light shadow-none btn-rounded" onClick={closeModal}>
                 No
               </button>
-              <button
-                type="button"
-                className="btn btn-primary shadow-none btn-rounded"
-                onClick={onSubmit}
-              >
+              <button type="button" className="btn btn-primary shadow-none btn-rounded" onClick={onSubmit}>
                 Yes
               </button>
             </div>

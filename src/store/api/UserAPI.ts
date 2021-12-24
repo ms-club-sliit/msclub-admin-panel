@@ -1,6 +1,6 @@
 import axios from "axios";
 import requestConfig from "./config";
-import { IUser } from '../user-store/IUser';
+import { IUser } from "../user-store/IUser";
 
 const BASE_URL = process.env.REACT_APP_API_ENDPOINT as string;
 
@@ -11,6 +11,10 @@ class UserAPI {
 
   static getUser(): Promise<IUser> {
     return axios.get(`${BASE_URL}/user/`, requestConfig);
+  }
+
+  static getAuthUser(): Promise<any> {
+    return axios.get(`${BASE_URL}/user/auth/`, requestConfig);
   }
 
   static getAllUser(): Promise<IUser[]> {
@@ -28,7 +32,7 @@ class UserAPI {
   static login(userName: string, password: string): Promise<IUser> {
     let credentials = {
       userName: userName,
-      password: password
+      password: password,
     };
 
     return axios.post(`${BASE_URL}/user/login/`, credentials);

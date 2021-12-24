@@ -54,7 +54,7 @@ const eventReducer = (state = initialState, action: any) => {
       return {
         ...state,
         loading: false,
-        error: `${action.payload.message}`,
+        error: action.payload.response.data,
         state: initialState,
       };
 
