@@ -1,4 +1,4 @@
-import { IModifiedBy } from "../interfaces";
+import { IModifiedBy } from ".";
 interface IEvent {
   _id?: string;
   title: string;

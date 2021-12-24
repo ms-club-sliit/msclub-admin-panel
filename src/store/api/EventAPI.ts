@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IEvent } from "../event-store/IEvent";
+import { IEvent } from "../interfaces";
 import requestConfig from "./config";
 
 const BASE_URL = process.env.REACT_APP_API_ENDPOINT as string;
@@ -27,11 +27,7 @@ class EventAPI {
 
   static deleteEvent(eventId: string): Promise<IEvent> {
     console.log(requestConfig);
-    return axios.put(
-      `${BASE_URL}/admin/event/delete/${eventId}`,
-      null,
-      requestConfig
-    );
+    return axios.put(`${BASE_URL}/admin/event/delete/${eventId}`, null, requestConfig);
   }
 }
 

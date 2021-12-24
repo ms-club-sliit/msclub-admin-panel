@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { IEventView } from "../../../interfaces";
-import { IEvent } from "../../../store/event-store/IEvent";
+import { IEvent } from "../../../store/interfaces";
 
 const EventView: React.FC = () => {
   const HtmlToReactParser = require("html-to-react").Parser;

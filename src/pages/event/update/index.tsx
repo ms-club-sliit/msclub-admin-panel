@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getEvents,
-  setEventId,
-  updateEvent,
-} from "../../../store/event-store/eventActions";
+import { getEvents, setEventId, updateEvent } from "../../../store/event-store/eventActions";
 import { IEventView } from "../../../interfaces";
-import { IEvent } from "../../../store/event-store/IEvent";
+import { IEvent } from "../../../store/interfaces";
 import ImageCanvas from "../../../components/image-canvas";
 import moment from "moment";
 import RichTextEditor from "react-rte";
@@ -59,9 +55,7 @@ const UpdateEvent: React.FC = () => {
   ] = useState(initialState);
 
   useEffect(() => {
-    let eventData = state.events.find(
-      (event: IEvent) => event._id === state.selectedEventId
-    );
+    let eventData = state.events.find((event: IEvent) => event._id === state.selectedEventId);
 
     setEventDetails(eventData);
     setState((prevState) => ({
@@ -75,9 +69,7 @@ const UpdateEvent: React.FC = () => {
       dateTime: eventData?.dateTime,
       filteredTags: eventData?.tags,
     }));
-    setEditor(
-      RichTextEditor.createValueFromString(eventData?.description, "html")
-    );
+    setEditor(RichTextEditor.createValueFromString(eventData?.description, "html"));
   }, [state.selectedEventId, state.events]);
 
   useEffect(() => {
@@ -96,11 +88,7 @@ const UpdateEvent: React.FC = () => {
 
   const handleDescription = (value: any) => {
     setEditor(value);
-    const isEmpty = !value
-      .getEditorState()
-      .getCurrentContent()
-      .getPlainText()
-      .trim();
+    const isEmpty = !value.getEditorState().getCurrentContent().getPlainText().trim();
 
     if (isEmpty) {
       setState((prevState) => ({
@@ -143,15 +131,10 @@ const UpdateEvent: React.FC = () => {
       eventName: eventName && eventName.trim().length > 0 ? eventName : null,
       eventType: eventType && eventType.trim().length > 0 ? eventType : null,
       dateTime: dateTime && dateTime.trim().length > 0 ? dateTime : null,
-      registrationLink:
-        registrationLink && registrationLink.trim().length > 0
-          ? registrationLink
-          : null,
+      registrationLink: registrationLink && registrationLink.trim().length > 0 ? registrationLink : null,
       eventLink: eventLink && eventLink.trim().length > 0 ? eventLink : null,
-      filteredTags:
-        filteredTags && filteredTags.length > 0 ? filteredTags : null,
-      description:
-        description && description.trim().length > 0 ? description : null,
+      filteredTags: filteredTags && filteredTags.length > 0 ? filteredTags : null,
+      description: description && description.trim().length > 0 ? description : null,
     };
 
     formData = Object.assign({}, data);
@@ -210,11 +193,7 @@ const UpdateEvent: React.FC = () => {
               <h5 className="modal-title" id="exampleModalLabel">
                 Edit Event Document
               </h5>
-              <button
-                type="button"
-                className="btn-close"
-                onClick={closeModal}
-              ></button>
+              <button type="button" className="btn-close" onClick={closeModal}></button>
             </div>
 
             <div className="modal-body update-event">
@@ -229,16 +208,10 @@ const UpdateEvent: React.FC = () => {
                 </div>
                 <div className="col-md-6">
                   <div className="my-3 my-lg-0">
-                    <ImageCanvas
-                      width={300}
-                      height={300}
-                      getEditedImage={handleImage}
-                    />
+                    <ImageCanvas width={300} height={300} getEditedImage={handleImage} />
                     <div className="d-flex justify-content-center">
                       {formData.imageSrc === null && isFormNotValid ? (
-                        <span className="text-danger validation-message my-2">
-                          Event flyer is required
-                        </span>
+                        <span className="text-danger validation-message my-2">Event flyer is required</span>
                       ) : null}
                     </div>
                   </div>
@@ -259,9 +232,7 @@ const UpdateEvent: React.FC = () => {
                     onChange={onChange}
                   />
                   {formData.eventName === null && isFormNotValid ? (
-                    <span className="text-danger validation-message">
-                      Event name is required
-                    </span>
+                    <span className="text-danger validation-message">Event name is required</span>
                   ) : null}
                 </div>
               </div>
@@ -272,20 +243,13 @@ const UpdateEvent: React.FC = () => {
                   &nbsp;Event Type
                 </label>
                 <div className="col-sm-9">
-                  <select
-                    className="form-control"
-                    name="eventType"
-                    value={eventType as string}
-                    onChange={onChange}
-                  >
+                  <select className="form-control" name="eventType" value={eventType as string} onChange={onChange}>
                     <option selected>Select event type</option>
                     <option value="PAST">PAST</option>
                     <option value="UPCOMING">UPCOMING</option>
                   </select>
                   {formData.eventType === null && isFormNotValid ? (
-                    <span className="text-danger validation-message">
-                      Event type is required
-                    </span>
+                    <span className="text-danger validation-message">Event type is required</span>
                   ) : null}
                 </div>
               </div>
@@ -304,9 +268,7 @@ const UpdateEvent: React.FC = () => {
                     className="form-control"
                   />
                   {formData.dateTime === null && isFormNotValid ? (
-                    <span className="text-danger validation-message">
-                      Date & time is required
-                    </span>
+                    <span className="text-danger validation-message">Date & time is required</span>
                   ) : null}
                 </div>
               </div>
@@ -325,9 +287,7 @@ const UpdateEvent: React.FC = () => {
                     onChange={onChange}
                   />
                   {formData.eventLink === null && isFormNotValid ? (
-                    <span className="text-danger validation-message">
-                      Event type is required
-                    </span>
+                    <span className="text-danger validation-message">Event type is required</span>
                   ) : null}
                 </div>
               </div>
@@ -346,9 +306,7 @@ const UpdateEvent: React.FC = () => {
                     onChange={onChange}
                   />
                   {formData.registrationLink === null && isFormNotValid ? (
-                    <span className="text-danger validation-message">
-                      Registration link is required
-                    </span>
+                    <span className="text-danger validation-message">Registration link is required</span>
                   ) : null}
                 </div>
               </div>
@@ -366,14 +324,11 @@ const UpdateEvent: React.FC = () => {
                     onChange={(e) => handleTags(e.target.value)}
                   />
                   <small className="text-muted tag-text">
-                    Sperate tag names using , (example: ITP, GitHub,
-                    Microservice)
+                    Sperate tag names using , (example: ITP, GitHub, Microservice)
                   </small>
                   <br />
                   {formData.filteredTags === null && isFormNotValid ? (
-                    <span className="text-danger validation-message">
-                      Tags are is required
-                    </span>
+                    <span className="text-danger validation-message">Tags are is required</span>
                   ) : null}
                 </div>
               </div>
@@ -396,18 +351,10 @@ const UpdateEvent: React.FC = () => {
             </div>
 
             <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-light shadow-none btn-rounded"
-                onClick={closeModal}
-              >
+              <button type="button" className="btn btn-light shadow-none btn-rounded" onClick={closeModal}>
                 Cancel
               </button>
-              <button
-                type="button"
-                className="btn btn-primary shadow-none btn-rounded"
-                onClick={onSubmit}
-              >
+              <button type="button" className="btn btn-primary shadow-none btn-rounded" onClick={onSubmit}>
                 Update
               </button>
             </div>

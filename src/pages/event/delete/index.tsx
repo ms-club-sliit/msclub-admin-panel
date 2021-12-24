@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteEvent, getEvents, setEventId } from "../../../store/event-store/eventActions";
-import { IEvent } from "../../../store/event-store/IEvent";
+import { IEvent } from "../../../store/interfaces";
 import { toastNotification } from "../../../constants";
 
 const DeleteEvent: React.FC = () => {

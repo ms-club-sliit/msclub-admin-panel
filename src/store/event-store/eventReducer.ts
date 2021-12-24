@@ -1,4 +1,4 @@
-import { IEventState } from "./IEvent";
+import { IEventState } from "../interfaces";
 import EventActionTypes from "./eventActionTypes";
 
 const initialState: IEventState = {

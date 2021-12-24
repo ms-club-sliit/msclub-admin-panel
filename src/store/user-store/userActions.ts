@@ -1,5 +1,5 @@
 import UserActionTypes from "./userActionTypes";
-import { IUser } from "./IUser";
+import { IUser } from "../interfaces";
 import UserAPI from "../api/UserAPI";
 
 export const createUser = (data: IUser) => {

@@ -1,14 +1,6 @@
-interface IModifiedBy {
-  user: IModifyUser;
-  updatedAt: Date;
-}
+import { IModifiedBy } from "./IModifyUser";
+import { IAuthUser, IUser, IUserState } from "./IUser";
+import { IEvent, IEventState } from "./IEvent";
+import { IOrganization, IOrganizationState } from "./IOrganization";
 
-interface IModifyUser {
-  firstName: string;
-  lastName: string;
-  email: string;
-  permissionLevel: string;
-  profileImage: string;
-}
-
-export type { IModifiedBy };
+export type { IModifiedBy, IAuthUser, IUser, IUserState, IEvent, IEventState, IOrganization, IOrganizationState };
