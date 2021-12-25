@@ -1,13 +1,6 @@
 import ApplicationActionTypes from "./applicationActionTypes";
 import ApplicationAPI from "../api/ApplicationAPI";
 
-// export const createApplication = (data: any) => {
-//   return {
-//     type: ApplicationActionTypes.CREATE_APPLICATION,
-//     payload: ApplicationAPI.createApplication(data),
-//   };
-// };
-
 export const getApplication = (studentId: string) => {
   return {
     type: ApplicationActionTypes.GET_APPLICATION,
