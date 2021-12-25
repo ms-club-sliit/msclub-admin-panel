@@ -25,8 +25,8 @@ interface IApplication {
 
 // State Interface
 interface IApplicationState {
-  application: IApplication | null;
-  applications: IApplication[] | null;
+  viewApplication: IApplication | null;
+  viewApplications: IApplication[] | null;
   archiveApplication: IApplication | null;
   updatedApplicationStatus: IApplication | null;
   loading: boolean;

@@ -2,8 +2,8 @@ import { IApplicationState } from "../interfaces/IApplication";
 import ApplicationActionTypes from "../application-store/applicationActionTypes";
 
 const initialState: IApplicationState = {
-  application: null,
-  applications: [],
+  viewApplication: null,
+  viewApplications: [],
   archiveApplication: null,
   updatedApplicationStatus: null,
   loading: false,
