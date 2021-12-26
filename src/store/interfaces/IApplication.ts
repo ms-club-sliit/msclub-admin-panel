@@ -1,7 +1,7 @@
 import { IModifiedBy } from "./index";
 
 interface IApplication {
-  studentId : string;
+  _id?: string;
   name : string;
   email : string
   contactNumber : string;
@@ -25,19 +25,14 @@ interface IApplication {
 
 // State Interface
 interface IApplicationState {
-<<<<<<< Updated upstream
-  viewApplication: IApplication | null;
-  viewApplications: IApplication[] | null;
-  archiveApplication: IApplication | null;
-  updatedApplicationStatus: IApplication | null;
-=======
+
   application: IApplication | null;
   applications: IApplication[] | null;
   archiveApplications: IApplication | null;
   updatedApplication: IApplication | null;
   selectedApplicationId: IApplication | null;
   deletedApplication: IApplication | null;
->>>>>>> Stashed changes
+  errorApplication: IApplication | null;
   loading: boolean;
   error: string | null;
 }
