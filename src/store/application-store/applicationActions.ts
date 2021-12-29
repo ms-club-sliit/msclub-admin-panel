@@ -29,13 +29,6 @@ export const updatedApplication = (studentId: string, data: FormData) => {
   };
 };
 
-export const selectedApplicationId = (studentId: string) => {
-  return {
-    type: ApplicationActionTypes.SELECTED_APPLICATION_ID,
-    payload: ApplicationAPI.selectedApplicationId(studentId),
-  };
-};
-
 export const deletedApplication = (studentId: string) => {
   return {
     type: ApplicationActionTypes.DELETED_APPLICATION,
@@ -43,11 +36,10 @@ export const deletedApplication = (studentId: string) => {
   };
 };
 
-export const errorApplication = (studentId: string) => {
+export const setApplicationId = (studentId: string) => {
   return {
-    type: ApplicationActionTypes.SET_APPLICATION_ERROR,
-    payload: ApplicationAPI.errorApplication(studentId),
+    type: ApplicationActionTypes.SELECTED_APPLICATION_ID,
+    payload: studentId,
   };
 };
-
 
