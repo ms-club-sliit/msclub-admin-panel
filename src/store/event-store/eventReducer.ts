@@ -1,7 +1,7 @@
-import { IEventState } from "./IEvent";
+import { IEventStore } from "../../interfaces";
 import EventActionTypes from "./eventActionTypes";
 
-const initialState: IEventState = {
+const initialState: IEventStore = {
   event: null,
   events: [],
   deletedEvents: [],
