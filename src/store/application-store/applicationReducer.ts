@@ -1,8 +1,7 @@
-import { IApplicationState } from "../interfaces/IApplication";
+import { IApplicationStore } from "../../interfaces";
 import ApplicationActionTypes from "../application-store/applicationActionTypes";
 
-const initialState: IApplicationState = {
-
+const initialState: IApplicationStore = {
   application: null,
   applications: [],
   archiveApplications: null,
@@ -11,7 +10,7 @@ const initialState: IApplicationState = {
   deletedApplication: null,
   errorApplication: null,
   loading: false,
-  error: null
+  error: null,
 };
 
 const applicationReducer = (state = initialState, action: any) => {
@@ -64,7 +63,6 @@ const applicationReducer = (state = initialState, action: any) => {
     default:
       return state;
   }
-
 };
 
 export default applicationReducer;

@@ -19,7 +19,7 @@ interface IAuthUser {
   imagePath: string;
 }
 
-interface IUserState {
+interface IUserStore {
   user: IUser | null;
   users: IUser[] | null;
   newUser: IUser | null;
@@ -31,4 +31,17 @@ interface IUserState {
   error: string | null;
 }
 
-export type { IUserState, IUser, IAuthUser };
+interface IModifiedBy {
+  user: IModifyUser;
+  updatedAt: Date;
+}
+
+interface IModifyUser {
+  firstName: string;
+  lastName: string;
+  email: string;
+  permissionLevel: string;
+  profileImage: string;
+}
+
+export type { IModifiedBy, IUserStore, IAuthUser, IUser };

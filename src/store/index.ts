@@ -8,15 +8,15 @@ declare global {
   }
 }
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
 // Production Store
-// const Store = createStore(reducers, applyMiddleware(promiseMiddleware));
+const Store = createStore(reducers, applyMiddleware(promiseMiddleware));
 
 // Development Store
-const Store = createStore(
-  reducers,
-  composeEnhancers(applyMiddleware(promiseMiddleware))
-);
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+//
+// const Store = createStore(
+//   reducers,
+//   composeEnhancers(applyMiddleware(promiseMiddleware))
+// );
 
 export default Store;
