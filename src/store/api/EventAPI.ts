@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IEvent } from "../interfaces";
+import { IEvent } from "../../interfaces";
 import requestConfig from "./config";
 
 const BASE_URL = process.env.REACT_APP_API_ENDPOINT as string;

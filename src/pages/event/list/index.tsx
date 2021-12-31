@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getEvents, setEventId } from "../../../store/event-store/eventActions";
+import { IEvent, IModifiedBy } from "../../../interfaces";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
-import { IModifiedBy, IEvent } from "../../../store/interfaces";
 import EventView from "../view";
 import AddEvent from "../add";
 import UpdateEvent from "../update";

@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getEvents, setEventId, updateEvent } from "../../../store/event-store/eventActions";
-import { IEventView } from "../../../interfaces";
-import { IEvent } from "../../../store/interfaces";
+import { IEvent, IEventState, IEventFormData } from "../../../interfaces";
 import ImageCanvas from "../../../components/image-canvas";
 import moment from "moment";
 import RichTextEditor from "react-rte";
 import { ToolBarConfig } from "../../../constants";
-import { IEventFormData, IEventState } from "../interfaces";
 
 let formData: IEventFormData = {
   imageSrc: null,
@@ -37,7 +35,7 @@ const UpdateEvent: React.FC = () => {
   const dispatch = useDispatch();
   const [editor, setEditor] = useState(() => RichTextEditor.createEmptyValue());
   const state = useSelector((state) => state.eventReducer);
-  const [eventDetails, setEventDetails] = useState<IEventView>();
+  const [eventDetails, setEventDetails] = useState<IEvent>();
   const [
     {
       eventId,

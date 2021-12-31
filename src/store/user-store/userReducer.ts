@@ -1,7 +1,7 @@
-import { IUserState } from "../interfaces";
+import { IUserStore } from "../../interfaces";
 import UserActionTypes from "./userActionTypes";
 
-const initialState: IUserState = {
+const initialState: IUserStore = {
   user: null,
   users: [],
   newUser: null,
