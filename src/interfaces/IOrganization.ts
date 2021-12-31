@@ -11,7 +11,7 @@ interface IOrganization {
   imagePath: string;
 }
 
-interface IOrganizationState {
+interface IOrganizationStore {
   createOrganization: IOrganization | null;
   organization: IOrganization | null;
   adminOrganization: IOrganization | null;
@@ -20,4 +20,4 @@ interface IOrganizationState {
   error: any | null;
 }
 
-export type { IOrganization, IOrganizationState };
+export type { IOrganization, IOrganizationStore };

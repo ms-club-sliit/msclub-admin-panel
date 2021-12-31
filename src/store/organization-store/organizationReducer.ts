@@ -1,7 +1,7 @@
 import OrganizationActionTypes from "./organizationActionTypes";
-import { IOrganizationState } from "../interfaces";
+import { IOrganizationStore } from "../../interfaces";
 
-const initialState: IOrganizationState = {
+const initialState: IOrganizationStore = {
   createOrganization: null,
   organization: null,
   adminOrganization: null,

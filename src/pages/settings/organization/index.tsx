@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { IOrganization } from "../../../store/interfaces";
+import { IOrganization } from "../../../interfaces";
 import { getOrganizationInfo } from "../../../store/organization-store/organizationActions";
 
 const OrganizationInfo: React.FC = () => {
