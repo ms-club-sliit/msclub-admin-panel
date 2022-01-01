@@ -12,4 +12,16 @@ interface ITopSpeaker {
   updatedAt: Date;
 }
 
-export type { ITopSpeaker };
+interface ITopSpeakerStore {
+  topSpeaker: ITopSpeaker | null;
+  topSpeakers: ITopSpeaker[] | null;
+  deletedTopSpeakers: ITopSpeaker[] | null;
+  selectedTopSpeakerId: string | null;
+  addTopSpeaker: ITopSpeaker | null;
+  updatedTopSpeaker: ITopSpeaker | null;
+  deletedTopSpeaker: ITopSpeaker | null;
+  loading: boolean;
+  error: string | null;
+}
+
+export type { ITopSpeaker, ITopSpeakerStore };
