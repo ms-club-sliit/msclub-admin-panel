@@ -3,6 +3,7 @@ import { ITopSpeaker, ITopSpeakerStore } from "./ITopSpeaker";
 import { IModifiedBy, IUser, IUserStore, IAuthUser } from "./IUser";
 import { IApplication, IApplicationStore } from "./IApplication";
 import { IWebinar, IWebinarStore } from "./IWebinar";
+import { IContactUs,IContactUsStore } from "./IContactUs";
 
 export type {
   IEvent,
@@ -19,4 +20,6 @@ export type {
   IAuthUser,
   IWebinar,
   IWebinarStore,
+  IContactUs,
+  IContactUsStore,
 };
