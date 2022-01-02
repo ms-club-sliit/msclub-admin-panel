@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
-import { IEventView } from "../../../interfaces";
-import { IEvent } from "../../../store/event-store/IEvent";
+import { IEvent } from "../../../interfaces";
 
 const EventView: React.FC = () => {
   const HtmlToReactParser = require("html-to-react").Parser;
   const state = useSelector((state) => state.eventReducer);
-  const [eventDetails, setEventDetails] = useState<IEventView>();
+  const [eventDetails, setEventDetails] = useState<IEvent>();
 
   const convertToPlain = (html: string) => {
     const htmlToParser = new HtmlToReactParser();

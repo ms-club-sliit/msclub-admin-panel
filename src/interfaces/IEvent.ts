@@ -1,19 +1,61 @@
-import { IModifiedBy } from "../store/interfaces";
+import { IModifiedBy } from ".";
 
-interface IEventView {
-  _id: string;
+// Event Info Interface
+interface IEvent {
+  _id?: string;
   title: string;
   description: string;
-  eventType: string;
+  dateTime: Date;
+  tags: string[];
   link: string;
   registrationLink: string;
-  tags: string[];
-  dateTime: Date;
+  eventType: string;
   imageUrl: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  deletedAt?: Date | null;
   createdBy: IModifiedBy;
-  createdAt: Date;
   updatedBy: IModifiedBy[];
-  updatedAt: Date;
+  deletedBy?: IModifiedBy;
 }
 
-export type { IEventView };
+// Event Store Interface
+interface IEventStore {
+  event: IEvent | null;
+  events: IEvent[] | null;
+  deletedEvents: IEvent[] | null;
+  selectedEventId: string | null;
+  addEvent: IEvent | null;
+  updatedEvent: IEvent | null;
+  deletedEvent: IEvent | null;
+  loading: boolean;
+  error: string | null;
+}
+
+// Event Form Interface
+interface IEventFormData {
+  imageSrc?: any | null;
+  eventName: string | null;
+  eventType: string | null;
+  dateTime: string | null;
+  registrationLink: string | null;
+  eventLink: string | null;
+  filteredTags: string[] | null;
+  description: string | null;
+}
+
+// Event State Interface
+interface IEventState {
+  eventId: string | null;
+  isFormNotValid: boolean;
+  imageSrc?: any;
+  eventName: string | null;
+  eventType: string | null;
+  dateTime: string | null;
+  registrationLink: string | null;
+  eventLink: string | null;
+  filteredTags: string[] | null;
+  description: string | null;
+}
+
+export type { IEvent, IEventStore, IEventState, IEventFormData };

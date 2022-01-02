@@ -1,6 +1,6 @@
 import axios from "axios";
 import requestConfig from "./config";
-import { IUser } from "../user-store/IUser";
+import { IUser } from "../../interfaces";
 
 const BASE_URL = process.env.REACT_APP_API_ENDPOINT as string;
 
