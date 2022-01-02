@@ -6,21 +6,21 @@ const BASE_URL = process.env.REACT_APP_API_ENDPOINT as string;
 class ContactUsAPI{
     
     static createContactUs(contactData: IContactUs): Promise<IContactUs> {
-        return axios.get(`${BASE_URL}/contactUs`, contactData, requestConfig);
+        return axios.get(`${BASE_URL}/admin/contactus`, contactData);
     }
 
-    static getselectedContactUsId(_id : string): Promise <IContactUs> {
-        return axios.get(`${BASE_URL}/contactUs/${_id}`, requestConfig);
+    static getselectedContactUsId(contactUsId : string): Promise <IContactUs> {
+        return axios.get(`${BASE_URL}/admin/contactus/${contactUsId}`, requestConfig);
     }
 
     static getContactsUs(): Promise <IContactUs[]>{
-        return axios.get(`${BASE_URL}/contactUs/`, requestConfig);
+        return axios.get(`${BASE_URL}/admin/contactus/`, requestConfig);
     }
 
-    static deleteContactUs(_id : string): Promise <IContactUs> {
-        return axios.put(`${BASE_URL}/contactUs/delete/${_id}`, requestConfig);
+    static deleteContactUs(contactUsId : string): Promise <IContactUs> {
+        return axios.put(`${BASE_URL}/admin/contactus/delete/${contactUsId}`, requestConfig);
     }
-    static deleteContactsUs(_id: string) : Promise <IContactUs[]> {
-        return axios.put(`${BASE_URL}/contactUs/delete/`, requestConfig);
+    static deleteContactsUs() : Promise <IContactUs[]> {
+        return axios.put(`${BASE_URL}/admin/contactus/delete/`, requestConfig);
     }
 }
