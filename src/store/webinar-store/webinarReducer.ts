@@ -18,7 +18,7 @@ const webinarReducer = (state = initialState, action: any) => {
     case `${WebinarActionTypes.CREATE_WEBINAR}_PENDING`:
     case `${WebinarActionTypes.GET_WEBINAR}_PENDING`:
     case `${WebinarActionTypes.GET_ALL_WEBINARS}_PENDING`:
-    case `${WebinarActionTypes.GET_WEBINAR_ID}_PENDING`:
+    case `${WebinarActionTypes.SET_WEBINAR_ID}_PENDING`:
     case `${WebinarActionTypes.GET_DELETED_WEBINARS}_PENDING`:
     case `${WebinarActionTypes.SET_WEBINAR_ERROR}_PENDING`:
     case `${WebinarActionTypes.UPDATE_WEBINAR}_PENDING`:
@@ -34,7 +34,7 @@ const webinarReducer = (state = initialState, action: any) => {
     case `${WebinarActionTypes.GET_ALL_WEBINARS}_FULFILLED`:
       let getAllWebinars = action.payload.data;
       return { ...state, loading: false, getAllWebinars };
-    case `${WebinarActionTypes.GET_WEBINAR_ID}_FULFILLED`:
+    case `${WebinarActionTypes.SET_WEBINAR_ID}_FULFILLED`:
       let getWebinarId = action.payload.data;
       return { ...state, loading: false, getWebinarId };
     case `${WebinarActionTypes.GET_DELETED_WEBINARS}`:
@@ -53,7 +53,7 @@ const webinarReducer = (state = initialState, action: any) => {
     case `${WebinarActionTypes.CREATE_WEBINAR}_REJECTED`:
     case `${WebinarActionTypes.GET_WEBINAR}_REJECTED`:
     case `${WebinarActionTypes.GET_ALL_WEBINARS}_REJECTED`:
-    case `${WebinarActionTypes.GET_WEBINAR_ID}_REJECTED`:
+    case `${WebinarActionTypes.SET_WEBINAR_ID}_REJECTED`:
     case `${WebinarActionTypes.GET_DELETED_WEBINARS}_REJECTED`:
     case `${WebinarActionTypes.SET_WEBINAR_ERROR}_REJECTED`:
     case `${WebinarActionTypes.UPDATE_WEBINAR}_REJECTED`:
