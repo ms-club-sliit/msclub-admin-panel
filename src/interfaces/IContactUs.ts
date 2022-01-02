@@ -9,12 +9,13 @@ interface IContactUs {
   deletedAt?: Date | null;
 }
 
-//Contact Us State interface
+//Contact Us Store interface
 interface IContactUsStore {
-  contact: IContactUs | null;
-  contacts: IContactUs[] | null;
-  ArchiveContact: IContactUs | null;
-  ArchiveContacts: IContactUs[] | null;
+  contactUs: IContactUs | null;
+  contactsUs: IContactUs[] | null;
+  selectedContactUsId: string | null;
+  deleteContactUs: IContactUs | null;
+  deleteContactsUs: IContactUs[] | null;
   loading: boolean;
   error: string | null;
 }
