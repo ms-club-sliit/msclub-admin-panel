@@ -18,9 +18,9 @@ class ContactUsAPI{
     }
 
     static deleteContactUs(contactUsId : string): Promise <IContactUs> {
-        return axios.put(`${BASE_URL}/admin/contactus/delete/${contactUsId}`, requestConfig);
+        return axios.put(`${BASE_URL}/admin/contactus/delete/${contactUsId}`,{}, requestConfig);
     }
     static deleteContactsUs() : Promise <IContactUs[]> {
-        return axios.put(`${BASE_URL}/admin/contactus/delete/`, requestConfig);
+        return axios.get(`${BASE_URL}/admin/contactus/delete/`, requestConfig);
     }
 }
