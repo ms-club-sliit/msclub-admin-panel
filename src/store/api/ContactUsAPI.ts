@@ -5,7 +5,7 @@ const BASE_URL = process.env.REACT_APP_API_ENDPOINT as string;
 
 class ContactUsAPI{
 
-    static getselectedContactUsId(contactUsId : string): Promise <IContactUs> {
+    static getselectedContactUs(contactUsId : string): Promise <IContactUs> {
         return axios.get(`${BASE_URL}/admin/contactus/${contactUsId}`, requestConfig);
     }
 
