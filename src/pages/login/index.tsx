@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ILoginFormData, ILoginState } from "./interfaces";
-import {loginUser} from "../../store/user-store/userActions";
+import { ILoginFormData, ILoginState } from "../../interfaces";
+import { loginUser } from "../../store/user-store/userActions";
 import { toastNotification } from "../../constants";
 
 let formData: ILoginFormData = {
@@ -19,8 +19,7 @@ const initialState: ILoginState = {
 const Login: React.FC = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.userReducer);
-  const [{ userName, password, isLoading, isFormNotValid }, setState] =
-    useState(initialState);
+  const [{ userName, password, isLoading, isFormNotValid }, setState] = useState(initialState);
 
   // If the user login is success
   useEffect(() => {
@@ -29,7 +28,7 @@ const Login: React.FC = () => {
     if (authToken) {
       toastNotification("Successfully signed in", "success");
       localStorage.setItem("token", authToken.token);
-      window.location.href = '/';
+      window.location.href = "/";
     }
     setState((prevState) => ({ ...prevState, isLoading: false }));
   }, [state.loggedUser]);
@@ -87,11 +86,7 @@ const Login: React.FC = () => {
     <div className="login d-flex justify-content-center">
       <div className="card">
         <div className="d-flex justify-content-center">
-          <img
-            src="/images/ms_club_logo_crop.png"
-            alt="ms-club-logo"
-            className="logo"
-          />
+          <img src="/images/ms_club_logo_crop.png" alt="ms-club-logo" className="logo" />
           <h4 className="text-dark">Admin Panel</h4>
         </div>
 
@@ -106,9 +101,7 @@ const Login: React.FC = () => {
               onChange={onChange}
             />
             {formData.userName === null && isFormNotValid ? (
-              <span className="text-danger validation-message">
-                Username is required
-              </span>
+              <span className="text-danger validation-message">Username is required</span>
             ) : null}
           </div>
 
@@ -122,9 +115,7 @@ const Login: React.FC = () => {
               onChange={onChange}
             />
             {formData.password === null && isFormNotValid ? (
-              <span className="text-danger validation-message">
-                Password is required
-              </span>
+              <span className="text-danger validation-message">Password is required</span>
             ) : null}
           </div>
         </div>
@@ -138,25 +129,13 @@ const Login: React.FC = () => {
 
         <div className="d-flex justify-content-end my-3">
           {!isLoading ? (
-            <button
-              type="button"
-              className="btn btn-primary shadow-none btn-rounded"
-              onClick={onSubmit}
-            >
+            <button type="button" className="btn btn-primary shadow-none btn-rounded" onClick={onSubmit}>
               Sign In
             </button>
           ) : (
-            <button
-              type="button"
-              disabled
-              className="btn btn-primary shadow-none btn-rounded"
-            >
+            <button type="button" disabled className="btn btn-primary shadow-none btn-rounded">
               <span>
-                <span
-                  className="spinner-border spinner-border-sm"
-                  role="status"
-                  aria-hidden="true"
-                ></span>
+                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 <span>Signing...</span>
               </span>
             </button>
