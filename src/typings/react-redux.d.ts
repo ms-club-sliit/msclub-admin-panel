@@ -1,6 +1,6 @@
-import 'react-redux';
-import { AppState } from '../store/reducer';
+import "react-redux";
+import { AppState } from "../store/reducer";
 
-declare module 'react-redux' {
-  interface DefaultRootState extends AppState {};
+declare module "react-redux" {
+	interface DefaultRootState extends AppState {}
 }

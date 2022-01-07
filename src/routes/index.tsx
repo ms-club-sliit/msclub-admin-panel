@@ -7,26 +7,26 @@ import { EventList, DeletedEventList, Login } from "../pages";
 import PrivateRoute from "./PrivateRoute";
 
 const PageRoutes: React.FC = () => {
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(refreshToken());
-  }, [dispatch]);
+	useEffect(() => {
+		dispatch(refreshToken());
+	}, [dispatch]);
 
-  return (
-    <div>
-      <BrowserRouter>
-        <NavBar />
-        <div className="container">
-          <Switch>
-            <PrivateRoute path="/events/deleted" component={DeletedEventList} />
-            <PrivateRoute path="/events/" component={EventList} />
-            <Route path="/signin" component={Login} exact />
-          </Switch>
-        </div>
-      </BrowserRouter>
-    </div>
-  );
+	return (
+		<div>
+			<BrowserRouter>
+				<NavBar />
+				<div className="container">
+					<Switch>
+						<PrivateRoute path="/events/deleted" component={DeletedEventList} />
+						<PrivateRoute path="/events/" component={EventList} />
+						<Route path="/signin" component={Login} exact />
+					</Switch>
+				</div>
+			</BrowserRouter>
+		</div>
+	);
 };
 
 export default PageRoutes;
