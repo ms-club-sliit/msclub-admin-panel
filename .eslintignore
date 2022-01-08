@@ -3,5 +3,6 @@ node_modules
 .idea
 .github
 
+/build
 /documentation
 /public/assets/*
