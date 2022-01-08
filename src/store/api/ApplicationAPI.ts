@@ -28,6 +28,19 @@ class ApplicationAPI {
   static deletedApplication(studentId: string): Promise<IApplication> {
     return axios.put(`${BASE_URL}/admin/application/delete/${studentId}`, null, requestConfig);
   }
+
+  static changeApplicationStatusIntoInterview(studentId: string,data: FormData): Promise<IApplication> {
+    return axios.put(`${BASE_URL}/admin/application/interview/${studentId}`, data, requestConfig);
+  }
+
+  static changeApplicationStatusIntoSelected(studentId: string): Promise<IApplication> {
+    return axios.put(`${BASE_URL}/admin/application/selected/${studentId}`, null, requestConfig);
+  }
+
+  static changeApplicationStatusIntoRejected(studentId: string): Promise<IApplication> {
+    return axios.put(`${BASE_URL}/admin/application/rejected/${studentId}`, null, requestConfig);
+  }
+
 }
 
 export default ApplicationAPI;
