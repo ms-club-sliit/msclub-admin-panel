@@ -3,9 +3,9 @@ import promiseMiddleware from "redux-promise-middleware";
 import reducers from "./reducer";
 
 declare global {
-  interface Window {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
-  }
+	interface Window {
+		__REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+	}
 }
 
 // Production Store

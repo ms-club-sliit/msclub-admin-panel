@@ -31,7 +31,7 @@ const initialState: IWebinarState = {
     webinarType: "",
 };
 
-const AddWebinar: React.FC = () => {
+const Webinar: React.FC = () => {
     const dispatch = useDispatch();
     const state = useSelector((state) => state.webinarReducer);
     const [editor, setEditor] = useState(() => RichTextEditor.createEmptyValue());
@@ -325,4 +325,4 @@ const AddWebinar: React.FC = () => {
     );
 };
 
-export default AddWebinar;
+export default Webinar;
