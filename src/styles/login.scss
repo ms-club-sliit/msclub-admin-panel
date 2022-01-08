@@ -1,98 +1,98 @@
 .login {
-  @include media("<=phone") {
-    h4 {
-      font-size: 35px;
-      font-family: "Product Sans Bold";
-      margin-left: 10px;
-    }
+	@include media("<=phone") {
+		h4 {
+			font-size: 35px;
+			font-family: "Product Sans Bold";
+			margin-left: 10px;
+		}
 
-    .card {
-      width: 100%;
-    }
+		.card {
+			width: 100%;
+		}
 
-    .logo {
-      width: 80px;
-      height: 35px;
-    }
-  }
-  @include media(">=phone", "<tablet") {
-    h4 {
-      font-size: 35px;
-      font-family: "Product Sans Bold";
-      margin-left: 10px;
-    }
+		.logo {
+			width: 80px;
+			height: 35px;
+		}
+	}
+	@include media(">=phone", "<tablet") {
+		h4 {
+			font-size: 35px;
+			font-family: "Product Sans Bold";
+			margin-left: 10px;
+		}
 
-    .card {
-      width: 80%;
-    }
+		.card {
+			width: 80%;
+		}
 
-    .logo {
-      width: 80px;
-      height: 35px;
-    }
-  }
-  @include media(">=tablet", "<smalldesktop") {
-    h4 {
-      font-size: 35px;
-      font-family: "Product Sans Bold";
-      margin-left: 10px;
-    }
+		.logo {
+			width: 80px;
+			height: 35px;
+		}
+	}
+	@include media(">=tablet", "<smalldesktop") {
+		h4 {
+			font-size: 35px;
+			font-family: "Product Sans Bold";
+			margin-left: 10px;
+		}
 
-    .card {
-      width: 70%;
-    }
+		.card {
+			width: 70%;
+		}
 
-    .logo {
-      width: 80px;
-      height: 35px;
-    }
-  }
-  @include media(">=smalldesktop", "<desktop") {
-    h4 {
-      font-size: 35px;
-      font-family: "Product Sans Bold";
-      margin-left: 10px;
-    }
+		.logo {
+			width: 80px;
+			height: 35px;
+		}
+	}
+	@include media(">=smalldesktop", "<desktop") {
+		h4 {
+			font-size: 35px;
+			font-family: "Product Sans Bold";
+			margin-left: 10px;
+		}
 
-    .card {
-      width: 50%;
-    }
+		.card {
+			width: 50%;
+		}
 
-    .logo {
-      width: 80px;
-      height: 35px;
-    }
-  }
-  @include media(">=desktop", "<largedesktop") {
-    h4 {
-      font-size: 35px;
-      font-family: "Product Sans Bold";
-      margin-left: 10px;
-    }
+		.logo {
+			width: 80px;
+			height: 35px;
+		}
+	}
+	@include media(">=desktop", "<largedesktop") {
+		h4 {
+			font-size: 35px;
+			font-family: "Product Sans Bold";
+			margin-left: 10px;
+		}
 
-    .card {
-      width: 40%;
-    }
+		.card {
+			width: 40%;
+		}
 
-    .logo {
-      width: 80px;
-      height: 35px;
-    }
-  }
-  @include media(">=largedesktop") {
-    h4 {
-      font-size: 35px;
-      font-family: "Product Sans Bold";
-      margin-left: 10px;
-    }
+		.logo {
+			width: 80px;
+			height: 35px;
+		}
+	}
+	@include media(">=largedesktop") {
+		h4 {
+			font-size: 35px;
+			font-family: "Product Sans Bold";
+			margin-left: 10px;
+		}
 
-    .card {
-      width: 40%;
-    }
+		.card {
+			width: 40%;
+		}
 
-    .logo {
-      width: 80px;
-      height: 35px;
-    }
-  }
+		.logo {
+			width: 80px;
+			height: 35px;
+		}
+	}
 }
