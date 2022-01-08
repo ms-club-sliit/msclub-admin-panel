@@ -44,8 +44,13 @@
 		{
 			"files": ["*.ts"],
 			"rules": {
-				"@typescript-eslint/explicit-module-boundary-types": ["error"]
+				"@typescript-eslint/explicit-module-boundary-types": ["off"]
 			}
 		}
-	]
+	],
+	"settings": {
+		"react": {
+			"version": "17.0.2"
+		}
+	}
 }
