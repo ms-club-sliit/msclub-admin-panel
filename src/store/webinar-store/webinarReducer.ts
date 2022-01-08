@@ -2,28 +2,28 @@ import { IWebinarStore } from "../../interfaces";
 import WebinarActionTypes from "./webinarActionTypes";
 
 const initialState: IWebinarStore = {
-  webinar: null,
-  webinars: [],
-  deletedWebinars: [],
-  selectedWebinarId: null,
-  addWebinar: null,
-  updatedWebinar: null,
-  deletedWebinar: null,
-  loading: false,
-  error: null,
+	webinar: null,
+	webinars: [],
+	deletedWebinars: [],
+	selectedWebinarId: null,
+	addWebinar: null,
+	updatedWebinar: null,
+	deletedWebinar: null,
+	loading: false,
+	error: null,
 };
 
 const webinarReducer = (state = initialState, action: any) => {
-  switch (action.type) {
-    case `${WebinarActionTypes.CREATE_WEBINAR}_PENDING`:
-    case `${WebinarActionTypes.GET_WEBINAR}_PENDING`:
-    case `${WebinarActionTypes.GET_ALL_WEBINARS}_PENDING`:
-    case `${WebinarActionTypes.SET_WEBINAR_ID}_PENDING`:
-    case `${WebinarActionTypes.GET_DELETED_WEBINARS}_PENDING`:
-    case `${WebinarActionTypes.SET_WEBINAR_ERROR}_PENDING`:
-    case `${WebinarActionTypes.UPDATE_WEBINAR}_PENDING`:
-    case `${WebinarActionTypes.DELETE_WEBINAR}_PENDING`:
-      return { ...state, loading: true };
+	switch (action.type) {
+		case `${WebinarActionTypes.CREATE_WEBINAR}_PENDING`:
+		case `${WebinarActionTypes.GET_WEBINAR}_PENDING`:
+		case `${WebinarActionTypes.GET_ALL_WEBINARS}_PENDING`:
+		case `${WebinarActionTypes.SET_WEBINAR_ID}_PENDING`:
+		case `${WebinarActionTypes.GET_DELETED_WEBINARS}_PENDING`:
+		case `${WebinarActionTypes.SET_WEBINAR_ERROR}_PENDING`:
+		case `${WebinarActionTypes.UPDATE_WEBINAR}_PENDING`:
+		case `${WebinarActionTypes.DELETE_WEBINAR}_PENDING`:
+			return { ...state, loading: true };
 
     case `${WebinarActionTypes.CREATE_WEBINAR}_FULFILLED`:
       let createWebinar = action.payload.data;
@@ -50,24 +50,24 @@ const webinarReducer = (state = initialState, action: any) => {
       let deleteWebinar = action.payload.data;
       return { ...state, loading: false, deleteWebinar };
 
-    case `${WebinarActionTypes.CREATE_WEBINAR}_REJECTED`:
-    case `${WebinarActionTypes.GET_WEBINAR}_REJECTED`:
-    case `${WebinarActionTypes.GET_ALL_WEBINARS}_REJECTED`:
-    case `${WebinarActionTypes.SET_WEBINAR_ID}_REJECTED`:
-    case `${WebinarActionTypes.GET_DELETED_WEBINARS}_REJECTED`:
-    case `${WebinarActionTypes.SET_WEBINAR_ERROR}_REJECTED`:
-    case `${WebinarActionTypes.UPDATE_WEBINAR}_REJECTED`:
-    case `${WebinarActionTypes.DELETE_WEBINAR}_REJECTED`:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload.response.data,
-        state: initialState,
-      };
+		case `${WebinarActionTypes.CREATE_WEBINAR}_REJECTED`:
+		case `${WebinarActionTypes.GET_WEBINAR}_REJECTED`:
+		case `${WebinarActionTypes.GET_ALL_WEBINARS}_REJECTED`:
+		case `${WebinarActionTypes.SET_WEBINAR_ID}_REJECTED`:
+		case `${WebinarActionTypes.GET_DELETED_WEBINARS}_REJECTED`:
+		case `${WebinarActionTypes.SET_WEBINAR_ERROR}_REJECTED`:
+		case `${WebinarActionTypes.UPDATE_WEBINAR}_REJECTED`:
+		case `${WebinarActionTypes.DELETE_WEBINAR}_REJECTED`:
+			return {
+				...state,
+				loading: false,
+				error: action.payload.response.data,
+				state: initialState,
+			};
 
-    default:
-      return state;
-  }
+		default:
+			return state;
+	}
 };
 
 export default webinarReducer;

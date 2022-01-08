@@ -3,15 +3,15 @@ import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { NavBar } from "../components";
 import { refreshToken } from "../store/user-store/userActions";
-import { EventList, DeletedEventList, Login, WebinarList } from "../pages";
+import { EventList, DeletedEventList, Login, WebinarList, ApplicationList } from "../pages";
 import PrivateRoute from "./PrivateRoute";
 
 const PageRoutes: React.FC = () => {
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(refreshToken());
-  }, [dispatch]);
+	useEffect(() => {
+		dispatch(refreshToken());
+	}, [dispatch]);
 
   return (
     <div>
@@ -22,7 +22,9 @@ const PageRoutes: React.FC = () => {
             <PrivateRoute path="/events/deleted" component={DeletedEventList} />
             <PrivateRoute path="/events/" component={EventList} />
             <PrivateRoute path="/webinars/" component={WebinarList} />
+			<PrivateRoute path="/applications" component={ApplicationList} />
             <Route path="/signin" component={Login} exact />
+			
           </Switch>
         </div>
       </BrowserRouter>
