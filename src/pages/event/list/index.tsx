@@ -91,7 +91,6 @@ const EventList: React.FC = () => {
         return (
           <div>
             <span>
-              {console.log(cell)}
               <img
                 src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${lastModifiedUser.user.profileImage}`}
                 className="table-profile-img"

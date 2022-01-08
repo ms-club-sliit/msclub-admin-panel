@@ -42,7 +42,6 @@ const ApplicationInterviewForm: React.FC = () => {
       ...prevState,
       applicationId: applicationData?._id,
     }));
-    console.log("Application Id",applicationData?._id)
   }, [state.selectedApplicationId, state.applications]);
 
   useEffect(() => {
@@ -89,13 +88,11 @@ const ApplicationInterviewForm: React.FC = () => {
 
       if (!data.includes(false)) {
         setState((prevState) => ({ ...prevState, isFormNotValid: false }));
-        console.log("Date is",applicationDate as string)
         let interviewFormData = new FormData();
         interviewFormData.append("date", applicationDate as string);
         interviewFormData.append("time", applicationTime as string);
         interviewFormData.append("format", applicationFormat as string);
         interviewFormData.append("duration", applicationDuration as string);
-        console.log("FormData is",interviewFormData)
         if (applicationId) {
           dispatch(changeApplicationStatusIntoInterview(applicationId, interviewFormData));
         }
