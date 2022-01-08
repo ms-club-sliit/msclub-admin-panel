@@ -28,102 +28,102 @@
 @import "./styles/settings.scss";
 
 .container {
-  margin-top: 80px;
+	margin-top: 80px;
 }
 
 p {
-  margin-bottom: 5px;
-  line-height: 19px;
+	margin-bottom: 5px;
+	line-height: 19px;
 }
 
 .btn {
-  text-transform: unset !important;
+	text-transform: unset !important;
 }
 
 .card {
-  border-radius: 4px;
-  padding: 15px;
+	border-radius: 4px;
+	padding: 15px;
 }
 
 footer {
-  .footer-text {
-    font-family: "Roboto Regular";
-  }
+	.footer-text {
+		font-family: "Roboto Regular";
+	}
 }
 
 .page-title {
-  font-family: "Poppins Medium";
-  font-size: 30px;
-  font-weight: 500;
-  margin: 0px;
+	font-family: "Poppins Medium";
+	font-size: 30px;
+	font-weight: 500;
+	margin: 0px;
 }
 
 .page-description {
-  font-family: "Poppins Regular";
-  font-size: 13px;
-  margin-top: 0px;
+	font-family: "Poppins Regular";
+	font-size: 13px;
+	margin-top: 0px;
 }
 
 .badge {
-  font-family: "Poppins Light";
-  font-size: 11px;
+	font-family: "Poppins Light";
+	font-size: 11px;
 }
 
 .form-control {
-  border: 1;
-  font-size: 14px;
-  height: 35px;
-  padding-left: 8px;
-  margin-bottom: 0px;
+	border: 1;
+	font-size: 14px;
+	height: 35px;
+	padding-left: 8px;
+	margin-bottom: 0px;
 }
 
 .form-control:focus {
-  border: 0px !important;
-  font-size: 14px;
-  height: 35px;
-  padding-left: 8px;
+	border: 0px !important;
+	font-size: 14px;
+	height: 35px;
+	padding-left: 8px;
 }
 
 .form-label {
-  font-size: 14px;
-  margin-bottom: 0px;
+	font-size: 14px;
+	margin-bottom: 0px;
 }
 
 .modal-header {
-  border-bottom: none;
+	border-bottom: none;
 }
 
 .modal-title {
-  font-size: 16px;
+	font-size: 16px;
 }
 
 .modal-footer {
-  border-top: none;
+	border-top: none;
 }
 
 .modal-body {
-  background-color: #f4f7fa;
+	background-color: #f4f7fa;
 }
 
 .modal-content {
-  -webkit-border-radius: 0px !important;
-  -moz-border-radius: 0px !important;
-  border-radius: 4px !important;
+	-webkit-border-radius: 0px !important;
+	-moz-border-radius: 0px !important;
+	border-radius: 4px !important;
 }
 
 .validation-message {
-  font-size: 12px;
-  margin: 0px !important;
-  padding: 0px !important;
+	font-size: 12px;
+	margin: 0px !important;
+	padding: 0px !important;
 }
 
 .toastBody {
-  font-family: "Poppins Regular";
-  font-size: 14px;
+	font-family: "Poppins Regular";
+	font-size: 14px;
 }
 
 .spinner-border {
-  width: 14px;
-  height: 14px;
-  margin-right: 5px;
+	width: 14px;
+	height: 14px;
+	margin-right: 5px;
 }
