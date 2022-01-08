@@ -35,7 +35,7 @@ interface IwebinarFormData {
   imageUrl: String | null;
   dateTime: String | null;
   tags: String[] | null;
-  link: String[] | null;
+  link: String | null;
   registrationLink: String | null;
   webinarType: String | null;
 }
@@ -49,7 +49,7 @@ interface IWebinarState {
   imageUrl: String | null;
   dateTime: String | null;
   tags: String[] | null;
-  link: String[] | null;
+  link: String | null;
   registrationLink: String | null;
   webinarType: String | null;
 }
