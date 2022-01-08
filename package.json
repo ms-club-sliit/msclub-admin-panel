@@ -23,7 +23,6 @@
     "jquery": "^3.6.0",
     "mdbreact": "^5.2.0",
     "moment": "^2.29.1",
-    "node-sass": "4.14.1",
     "react": "^17.0.2",
     "react-avatar-editor": "^12.0.0",
     "react-bootstrap-table-next": "^4.0.3",
@@ -83,6 +82,7 @@
     "@types/react-router-dom": "5.1.2",
     "@types/redux": "^3.6.0",
     "@types/redux-promise-middleware": "^6.0.0",
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "sass": "^1.47.0"
   }
 }
