@@ -25,15 +25,15 @@ interface IApplication {
 
 // Application Store Interface
 interface IApplicationStore {
-  application: IApplication | null;
-  applications: IApplication[] | null;
-  archiveApplications: IApplication | null;
-  updatedApplication: IApplication | null;
-  selectedApplicationId: IApplication | null;
-  deletedApplication: IApplication | null;
-  errorApplication: IApplication | null;
-  loading: boolean;
-  error: string | null;
+	application: IApplication | null;
+	applications: IApplication[] | null;
+	archiveApplications: IApplication | null;
+	updatedApplication: IApplication | null;
+	selectedApplicationId: IApplication | null;
+	deletedApplication: IApplication | null;
+	errorApplication: IApplication | null;
+	loading: boolean;
+	error: string | null;
 }
 
 export type { IApplicationStore, IApplication };

@@ -2,15 +2,15 @@ import { IApplicationStore } from "../../interfaces";
 import ApplicationActionTypes from "../application-store/applicationActionTypes";
 
 const initialState: IApplicationStore = {
-  application: null,
-  applications: [],
-  archiveApplications: null,
-  updatedApplication: null,
-  selectedApplicationId: null,
-  deletedApplication: null,
-  errorApplication: null,
-  loading: false,
-  error: null,
+	application: null,
+	applications: [],
+	archiveApplications: null,
+	updatedApplication: null,
+	selectedApplicationId: null,
+	deletedApplication: null,
+	errorApplication: null,
+	loading: false,
+	error: null,
 };
 
 const applicationReducer = (state = initialState, action: any) => {
@@ -53,9 +53,9 @@ const applicationReducer = (state = initialState, action: any) => {
         state: initialState,
       };
 
-    default:
-      return state;
-  }
+		default:
+			return state;
+	}
 };
 
 export default applicationReducer;
