@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 const ApplicationList: React.FC = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const HtmlToReactParser = require("html-to-react").Parser;
+    //const HtmlToReactParser = require("html-to-react").Parser;
     const state = useSelector((state) => state.applicationReducer);
     const applications: IApplication[] = state.applications;
     const [selectedTypeApplications, setSelectedTypeApplications] = useState<IApplication[]>(applications);
