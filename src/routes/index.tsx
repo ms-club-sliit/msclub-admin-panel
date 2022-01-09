@@ -13,23 +13,22 @@ const PageRoutes: React.FC = () => {
 		dispatch(refreshToken());
 	}, [dispatch]);
 
-  return (
-    <div>
-      <BrowserRouter>
-        <NavBar />
-        <div className="container">
-          <Switch>
-            <PrivateRoute path="/events/deleted" component={DeletedEventList} />
-            <PrivateRoute path="/events/" component={EventList} />
-            <PrivateRoute path="/webinars/" component={WebinarList} />
-			<PrivateRoute path="/applications" component={ApplicationList} />
-            <Route path="/signin" component={Login} exact />
-			
-          </Switch>
-        </div>
-      </BrowserRouter>
-    </div>
-  );
+	return (
+		<div>
+			<BrowserRouter>
+				<NavBar />
+				<div className="container">
+					<Switch>
+						<PrivateRoute path="/events/deleted" component={DeletedEventList} />
+						<PrivateRoute path="/events/" component={EventList} />
+						<PrivateRoute path="/webinars/" component={WebinarList} />
+						<PrivateRoute path="/applications" component={ApplicationList} />
+						<Route path="/signin" component={Login} exact />
+					</Switch>
+				</div>
+			</BrowserRouter>
+		</div>
+	);
 };
 
 export default PageRoutes;
