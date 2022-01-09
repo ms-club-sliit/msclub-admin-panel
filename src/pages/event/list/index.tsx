@@ -37,77 +37,77 @@ const EventList: React.FC = () => {
 		alwaysShowAllBtns: true,
 	};
 
-  // Fetch events information
-  useEffect(() => {
-    dispatch(getEvents());
-  }, [selectedTypeEvents, dispatch]);
-  
-  // Table column configurations
-  const tableColumnData = [
-    {
-      dataField: "actions",
-      text: "Actions",
-      formatter: (cell: any, row: IEvent) => actionButtonFormatter(row),
-      headerStyle: { width: "90px" },
-    },
-    { dataField: "title", text: "Title", headerStyle: { width: "200px" } },
-    {
-      dataField: "eventType",
-      text: "Type",
-      headerStyle: { width: "110px" },
-      formatter: (cell: string) => {
-        return (
-          <div>
-            {cell === "UPCOMING" ? (
-              <span className="badge rounded-pill bg-primary text-light">Upcoming Event</span>
-            ) : null}
-            {cell === "PAST" ? <span className="badge rounded-pill bg-warning text-dark">Past Event</span> : null}
-          </div>
-        );
-      },
-    },
-    {
-      dataField: "dateTime",
-      text: "Date & Time",
-      headerStyle: { width: "220px" },
-      formatter: (cell: string) => {
-        return moment(cell).format("LLL");
-      },
-    },
-    {
-      dataField: "updatedAt",
-      text: "Last Modified At",
-      headerStyle: { width: "220px" },
-      formatter: (cell: string) => {
-        return moment(cell).format("LLL");
-      },
-    },
-    {
-      dataField: "updatedBy",
-      text: "Last Modified By",
-      headerStyle: { width: "250px" },
-      formatter: (cell: IModifiedBy[]) => {
-        let lastModifiedUser = cell.slice(-1)[0];
-        return (
-          <div>
-            <span>
-              <img
-                src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${lastModifiedUser.user.profileImage}`}
-                className="table-profile-img"
-                alt="updated-by-user"
-              />
-            </span>
-            {`${lastModifiedUser.user.firstName} ${lastModifiedUser.user.lastName}`}
-            <span className="badge rounded-pill bg-dark mx-2">
-              {lastModifiedUser.user.permissionLevel === "ROOT_ADMIN" ? "Root Admin" : null}
-              {lastModifiedUser.user.permissionLevel === "ADMIN" ? "Administrator" : null}
-              {lastModifiedUser.user.permissionLevel === "EDITOR" ? "Editor" : null}
-            </span>
-          </div>
-        );
-      },
-    },
-  ];
+	// Fetch events information
+	useEffect(() => {
+		dispatch(getEvents());
+	}, [selectedTypeEvents, dispatch]);
+
+	// Table column configurations
+	const tableColumnData = [
+		{
+			dataField: "actions",
+			text: "Actions",
+			formatter: (cell: any, row: IEvent) => actionButtonFormatter(row),
+			headerStyle: { width: "90px" },
+		},
+		{ dataField: "title", text: "Title", headerStyle: { width: "200px" } },
+		{
+			dataField: "eventType",
+			text: "Type",
+			headerStyle: { width: "110px" },
+			formatter: (cell: string) => {
+				return (
+					<div>
+						{cell === "UPCOMING" ? (
+							<span className="badge rounded-pill bg-primary text-light">Upcoming Event</span>
+						) : null}
+						{cell === "PAST" ? <span className="badge rounded-pill bg-warning text-dark">Past Event</span> : null}
+					</div>
+				);
+			},
+		},
+		{
+			dataField: "dateTime",
+			text: "Date & Time",
+			headerStyle: { width: "220px" },
+			formatter: (cell: string) => {
+				return moment(cell).format("LLL");
+			},
+		},
+		{
+			dataField: "updatedAt",
+			text: "Last Modified At",
+			headerStyle: { width: "220px" },
+			formatter: (cell: string) => {
+				return moment(cell).format("LLL");
+			},
+		},
+		{
+			dataField: "updatedBy",
+			text: "Last Modified By",
+			headerStyle: { width: "250px" },
+			formatter: (cell: IModifiedBy[]) => {
+				let lastModifiedUser = cell.slice(-1)[0];
+				return (
+					<div>
+						<span>
+							<img
+								src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${lastModifiedUser.user.profileImage}`}
+								className="table-profile-img"
+								alt="updated-by-user"
+							/>
+						</span>
+						{`${lastModifiedUser.user.firstName} ${lastModifiedUser.user.lastName}`}
+						<span className="badge rounded-pill bg-dark mx-2">
+							{lastModifiedUser.user.permissionLevel === "ROOT_ADMIN" ? "Root Admin" : null}
+							{lastModifiedUser.user.permissionLevel === "ADMIN" ? "Administrator" : null}
+							{lastModifiedUser.user.permissionLevel === "EDITOR" ? "Editor" : null}
+						</span>
+					</div>
+				);
+			},
+		},
+	];
 
 	// Table action buttons
 	const actionButtonFormatter = (row: any) => {
