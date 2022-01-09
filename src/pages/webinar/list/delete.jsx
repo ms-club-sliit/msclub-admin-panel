@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getWebinars, setWebinarId } from "../../../store/webinar-store/webinarActions";
+import { getDeletedWebinars } from "../../../store/webinar-store/webinarActions";
 import { IWebinar, IModifiedBy } from "../../../interfaces";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
@@ -8,14 +8,12 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
 
-const WebinarList: React.FC = () => {
+const DeletedWebinarList: React.FC = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const HtmlToReactParser = require("html-to-react").Parser;
 	const state = useSelector((state) => state.webinarReducer);
-	const webinars: IWebinar[] = state.webinars;
-	const [selectedTypeWebinars, setSelectedTypeWebinar] = useState<IWebinar[]>(webinars);
-	const [selectedTab, setSelectedTab] = useState<string>("All");
+	const webinars: IWebinar[] = state.deletedWebinars;
 
 	const convertToPlain = (html: string) => {
 		const htmlToParser = new HtmlToReactParser();
@@ -33,15 +31,10 @@ const WebinarList: React.FC = () => {
 		alwaysShowAllBtns: true,
 	};
 
-	// Fetch Webinar Information
+	// Fetch webinar information
 	useEffect(() => {
-		dispatch(getWebinars());
+		dispatch(getDeletedWebinars());
 	}, [dispatch]);
-
-	//Assign Webinar Data
-	useEffect(() => {
-		setSelectedTypeWebinar(state.webinars);
-	}, [state.webinars]);
 
 	// Table column configurations
 	const tableColumnData = [
@@ -55,7 +48,7 @@ const WebinarList: React.FC = () => {
 		{
 			dataField: "webinarType",
 			text: "Type",
-			headerStyle: { width: "150px" },
+			headerStyle: { width: "110px" },
 			formatter: (cell: string) => {
 				return (
 					<div>
@@ -76,8 +69,8 @@ const WebinarList: React.FC = () => {
 			},
 		},
 		{
-			dataField: "updatedAt",
-			text: "Last Modified At",
+			dataField: "deletedAt",
+			text: "Deleted At",
 			headerStyle: { width: "220px" },
 			formatter: (cell: string) => {
 				return moment(cell).format("LLL");
@@ -85,7 +78,7 @@ const WebinarList: React.FC = () => {
 		},
 		{
 			dataField: "updatedBy",
-			text: "Last Modified By",
+			text: "Deleted By",
 			headerStyle: { width: "250px" },
 			formatter: (cell: IModifiedBy[]) => {
 				let lastModifiedUser = cell.slice(-1)[0];
@@ -113,40 +106,26 @@ const WebinarList: React.FC = () => {
 	// Table action buttons
 	const actionButtonFormatter = (row: any) => {
 		return (
-			<span className="dropdown show">
-				<span className="dropdown">
-					<span className="btn shadow-none btn-sm" data-mdb-toggle="dropdown">
-						<i className="fas fa-ellipsis-h"></i>
+			<div>
+				{row ? (
+					<span className="dropdown show">
+						<span className="dropdown">
+							<span className="btn shadow-none btn-sm" data-mdb-toggle="dropdown">
+								<i className="fas fa-ellipsis-h"></i>
+							</span>
+							<div className="dropdown-menu dropdown-menu-right">
+								<span className="dropdown-item">
+									<i className="fas fa-undo" /> Recover
+								</span>
+								<button className="dropdown-item">
+									<i className="far fa-trash-alt" /> Delete Permanently
+								</button>
+							</div>
+						</span>
 					</span>
-					<div className="dropdown-menu dropdown-menu-right">
-						<span className="dropdown-item" onClick={() => handleSetViewWebinar(row._id)}>
-							<i className="far fa-eye" /> View
-						</span>
-						<span className="dropdown-item" onClick={() => handleSetUpdateWebinar(row._id)}>
-							<i className="far fa-edit" /> Edit
-						</span>
-						<button className="dropdown-item" onClick={() => handleSetDeleteWebinar(row._id)}>
-							<i className="far fa-trash-alt" /> Delete
-						</button>
-					</div>
-				</span>
-			</span>
+				) : null}
+			</div>
 		);
-	};
-
-	const handleSetViewWebinar = (webinarId: string) => {
-		dispatch(setWebinarId(webinarId));
-		$("#eventViewModal").modal("show");
-	};
-
-	const handleSetUpdateWebinar = (webinarId: string) => {
-		dispatch(setWebinarId(webinarId));
-		$("#eventUpdateModal").modal("show");
-	};
-
-	const handleSetDeleteWebinar = (webinarId: string) => {
-		dispatch(setWebinarId(webinarId));
-		$("#eventDeleteModal").modal("show");
 	};
 
 	const expandRow = {
@@ -180,8 +159,8 @@ const WebinarList: React.FC = () => {
 					<div className="col-md-3 col-sm-12">
 						<img
 							src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${row.imageUrl}`}
-							className="webinar-flyer"
-							alt="webinar-flyer"
+							className="event-flyer"
+							alt="event-flyer"
 						/>
 					</div>
 					<div className="col-md-9 col-sm-12">
@@ -224,29 +203,9 @@ const WebinarList: React.FC = () => {
 			</div>
 		),
 	};
-
-	const handleViewClick = (event: any, type: string) => {
-		Promise.resolve()
-			.then(() => {
-				setSelectedTab(type);
-				return type;
-			})
-			.then((data) => {
-				if (data === "All") {
-					setSelectedTypeWebinar(webinars);
-				} else if (data === "Upcoming") {
-					setSelectedTypeWebinar(webinars.filter((event) => event.webinarType === "UPCOMING"));
-				} else if (data === "Past") {
-					setSelectedTypeWebinar(webinars.filter((event) => event.webinarType === "PAST"));
-				} else if (data === "Deleted") {
-					setSelectedTypeWebinar(webinars.filter((event) => event.deletedAt !== null));
-				}
-			});
-	};
-
-	const handleDeletedWebinarClick = (webinar: any) => {
-		if (webinar) {
-			history.push("/webinars/deleted");
+	const handleGoBackToWebinars = (event: any) => {
+		if (event) {
+			history.push("/webinars/");
 		}
 	};
 
@@ -254,8 +213,8 @@ const WebinarList: React.FC = () => {
 		<div className="card">
 			<div className="row">
 				<div className="col-6">
-					<h3 className="page-title">Webinar</h3>
-					<p className="page-description text-muted">Manage all the Webinar informations</p>
+					<h3 className="page-title">Events</h3>
+					<p className="page-description text-muted">Manage all the webinar informations</p>
 				</div>
 				<div className="col-6">
 					<div className="d-flex justify-content-end">
@@ -273,49 +232,20 @@ const WebinarList: React.FC = () => {
 
 			<div>
 				<div className="d-flex">
-					<button
-						className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "All")}
-					>
-						All
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "Upcoming" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "Upcoming")}
-					>
-						Upcoming
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "Past" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "Past")}
-					>
-						Past
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleDeletedWebinarClick(e)}
-					>
-						Deleted
+					<button className="btn btn-sm btn-light shadow-none btn-rounded" onClick={handleGoBackToWebinars}>
+						Go Back
 					</button>
 				</div>
 			</div>
 
-			<ToolkitProvider
-				keyField="_id"
-				data={selectedTab === "All" ? webinars : selectedTypeWebinars}
-				columns={tableColumnData}
-				search
-			>
+			<ToolkitProvider keyField="_id" data={webinars} columns={tableColumnData} search>
 				{(props) => (
 					<div>
 						<div className="d-flex justify-content-end">
 							<SearchBar {...props.searchProps} placeholder="Search Webinars" className="mb-3 search-bar" />
 						</div>
 						<p className="table-description text-muted">
-							*If you experience any difficulty in viewing the webinar information, please make sure your cache is
+							*If you experience any difficulty in viewing the Webinar information, please make sure your cache is
 							cleared and completed a hard refresh.
 						</p>
 						<BootstrapTable
@@ -336,4 +266,4 @@ const WebinarList: React.FC = () => {
 	);
 };
 
-export default WebinarList;
+export default DeletedWebinarList;

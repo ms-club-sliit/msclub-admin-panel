@@ -9,6 +9,7 @@ const reducers = combineReducers({
 	eventReducer,
 	webinarReducer,
 	applicationReducer,
+	webinarReducer,
 });
 
 export type AppState = ReturnType<typeof reducers>;
