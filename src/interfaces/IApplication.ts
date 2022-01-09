@@ -1,7 +1,7 @@
 import { IModifiedBy } from ".";
 
 interface IApplication {
-	_id?: string;
+	_id: string;
 	name: string;
 	email: string;
 	contactNumber: string;
