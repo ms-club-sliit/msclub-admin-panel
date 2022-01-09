@@ -5,7 +5,6 @@ import { IApplication, IApplicationStore } from "./IApplication";
 import { IContactUs, IContactUsStore } from "./IContactUs";
 import { ILoginState, ILoginFormData } from "./ILogin";
 import { IWebinar, IWebinarStore, IwebinarFormData, IWebinarState } from "./IWebinar";
-import { IContactUs,IContactUsStore } from "./IContactUs";
 
 export type {
   IEvent,
@@ -24,8 +23,6 @@ export type {
   IWebinarStore,
   IwebinarFormData,
   IWebinarState,
-  IContactUs,
-  IContactUsStore,
   IContactUs,
 	IContactUsStore,
 	ILoginFormData,
