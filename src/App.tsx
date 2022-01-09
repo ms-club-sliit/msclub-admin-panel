@@ -4,10 +4,10 @@ import PageRoutes from "./routes";
 import "./App.scss";
 
 const App: React.FC = () => (
-  <div>
-    <PageRoutes />
-    <ToastContainer bodyClassName="toastBody" />
-  </div>
+	<div>
+		<PageRoutes />
+		<ToastContainer bodyClassName="toastBody" />
+	</div>
 );
 
 export default App;
