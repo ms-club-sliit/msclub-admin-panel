@@ -42,3 +42,24 @@ export const setApplicationId = (studentId: string) => {
 		payload: studentId,
 	};
 };
+
+export const changeApplicationStatusIntoInterview = (studentId: string, data: any) => {
+	return {
+		type: ApplicationActionTypes.UPDATE_APPLICATION,
+		payload: ApplicationAPI.changeApplicationStatusIntoInterview(studentId, data),
+	};
+};
+
+export const changeApplicationStatusIntoSelected = (studentId: string) => {
+	return {
+		type: ApplicationActionTypes.UPDATE_APPLICATION,
+		payload: ApplicationAPI.changeApplicationStatusIntoSelected(studentId),
+	};
+};
+
+export const changeApplicationStatusIntoRejected = (studentId: string) => {
+	return {
+		type: ApplicationActionTypes.UPDATE_APPLICATION,
+		payload: ApplicationAPI.changeApplicationStatusIntoRejected(studentId),
+	};
+};
