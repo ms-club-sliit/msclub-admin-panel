@@ -11,9 +11,9 @@ declare global {
 // Production Store
 const Store = createStore(reducers, applyMiddleware(promiseMiddleware));
 
-// Development Store
+//Development Store
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-//
+
 // const Store = createStore(
 //   reducers,
 //   composeEnhancers(applyMiddleware(promiseMiddleware))
