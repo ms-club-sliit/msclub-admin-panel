@@ -1,25 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getEvents, setEventId } from "../../../store/event-store/eventActions";
+import { getDeletedEvents } from "../../../store/event-store/eventActions";
 import { IEvent, IModifiedBy } from "../../../interfaces";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
-import EventView from "../view";
-import AddEvent from "../add";
-import UpdateEvent from "../update";
-import DeleteEvent from "../delete";
 import { useHistory } from "react-router-dom";
 
-const EventList: React.FC = () => {
+const DeletedApplicationList: React.FC = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const HtmlToReactParser = require("html-to-react").Parser;
 	const state = useSelector((state) => state.eventReducer);
-	const events: IEvent[] = state.events;
-	const [selectedTypeEvents, setSelectedTypeEvents] = useState<IEvent[]>(events);
-	const [selectedTab, setSelectedTab] = useState<string>("All");
+	const events: IEvent[] = state.deletedEvents;
 
 	const convertToPlain = (html: string) => {
 		const htmlToParser = new HtmlToReactParser();
@@ -39,8 +33,8 @@ const EventList: React.FC = () => {
 
 	// Fetch events information
 	useEffect(() => {
-		dispatch(getEvents());
-	}, [selectedTypeEvents, dispatch]);
+		dispatch(getDeletedEvents());
+	}, [dispatch]);
 
 	// Table column configurations
 	const tableColumnData = [
@@ -75,8 +69,8 @@ const EventList: React.FC = () => {
 			},
 		},
 		{
-			dataField: "updatedAt",
-			text: "Last Modified At",
+			dataField: "deletedAt",
+			text: "Deleted At",
 			headerStyle: { width: "220px" },
 			formatter: (cell: string) => {
 				return moment(cell).format("LLL");
@@ -84,7 +78,7 @@ const EventList: React.FC = () => {
 		},
 		{
 			dataField: "updatedBy",
-			text: "Last Modified By",
+			text: "Deleted By",
 			headerStyle: { width: "250px" },
 			formatter: (cell: IModifiedBy[]) => {
 				let lastModifiedUser = cell.slice(-1)[0];
@@ -118,40 +112,16 @@ const EventList: React.FC = () => {
 						<i className="fas fa-ellipsis-h"></i>
 					</span>
 					<div className="dropdown-menu dropdown-menu-right">
-						<span className="dropdown-item" onClick={(e) => handleSetViewEvent(e, row._id)}>
-							<i className="far fa-eye" /> View
+						<span className="dropdown-item">
+							<i className="fas fa-undo" /> Recover
 						</span>
-						<span className="dropdown-item" onClick={(e) => handleSetUpdateEvent(e, row._id)}>
-							<i className="far fa-edit" /> Edit
-						</span>
-						<button className="dropdown-item" onClick={(e) => handleSetDeleteEvent(e, row._id)}>
-							<i className="far fa-trash-alt" /> Delete
+						<button className="dropdown-item">
+							<i className="far fa-trash-alt" /> Delete Permanently
 						</button>
 					</div>
 				</span>
 			</span>
 		);
-	};
-
-	const handleSetViewEvent = (event: any, eventId: string) => {
-		if (event) {
-			dispatch(setEventId(eventId));
-			$("#eventViewModal").modal("show");
-		}
-	};
-
-	const handleSetUpdateEvent = (event: any, eventId: string) => {
-		if (event) {
-			dispatch(setEventId(eventId));
-			$("#eventUpdateModal").modal("show");
-		}
-	};
-
-	const handleSetDeleteEvent = (event: any, eventId: string) => {
-		if (event) {
-			dispatch(setEventId(eventId));
-			$("#eventDeleteModal").modal("show");
-		}
 	};
 
 	const expandRow = {
@@ -230,29 +200,8 @@ const EventList: React.FC = () => {
 		),
 	};
 
-	const handleViewClick = (event: any, type: string) => {
-		Promise.resolve()
-			.then(() => {
-				setSelectedTab(type);
-				return type;
-			})
-			.then((data) => {
-				if (data === "All") {
-					setSelectedTypeEvents(events);
-				} else if (data === "Upcoming") {
-					setSelectedTypeEvents(events.filter((event) => event.eventType === "UPCOMING"));
-				} else if (data === "Past") {
-					setSelectedTypeEvents(events.filter((event) => event.eventType === "PAST"));
-				} else if (data === "Deleted") {
-					setSelectedTypeEvents(events.filter((event) => event.deletedAt !== null));
-				}
-			});
-	};
-
-	const handleDeletedEventClick = (event: any) => {
-		if (event) {
-			history.push("/events/deleted");
-		}
+	const handleGoBackToEvents = (event: any) => {
+		history.push("/events/");
 	};
 
 	return (
@@ -278,42 +227,13 @@ const EventList: React.FC = () => {
 
 			<div>
 				<div className="d-flex">
-					<button
-						className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "All")}
-					>
-						All
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "Upcoming" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "Upcoming")}
-					>
-						Upcoming
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "Past" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "Past")}
-					>
-						Past
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleDeletedEventClick(e)}
-					>
-						Deleted
+					<button className="btn btn-sm btn-light shadow-none btn-rounded" onClick={handleGoBackToEvents}>
+						Go Back
 					</button>
 				</div>
 			</div>
 
-			<ToolkitProvider
-				keyField="_id"
-				data={selectedTab === "All" ? events : selectedTypeEvents}
-				columns={tableColumnData}
-				search
-			>
+			<ToolkitProvider keyField="_id" data={events} columns={tableColumnData} search>
 				{(props) => (
 					<div>
 						<div className="d-flex justify-content-end">
@@ -337,13 +257,8 @@ const EventList: React.FC = () => {
 					</div>
 				)}
 			</ToolkitProvider>
-
-			<AddEvent />
-			<UpdateEvent />
-			<DeleteEvent />
-			<EventView />
 		</div>
 	);
 };
 
-export default EventList;
+export default DeletedApplicationList;

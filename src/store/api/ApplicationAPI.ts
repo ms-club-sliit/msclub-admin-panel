@@ -1,6 +1,7 @@
 import axios from "axios";
 import { IApplication } from "../../interfaces";
 import requestConfig from "./config";
+import requestConfigJson from "./configJson";
 
 const BASE_URL = process.env.REACT_APP_API_ENDPOINT as string;
 
@@ -27,6 +28,18 @@ class ApplicationAPI {
 
 	static deletedApplication(studentId: string): Promise<IApplication> {
 		return axios.put(`${BASE_URL}/admin/application/delete/${studentId}`, null, requestConfig);
+	}
+
+	static changeApplicationStatusIntoInterview(studentId: string, data: any): Promise<IApplication> {
+		return axios.put(`${BASE_URL}/admin/application/interview/${studentId}`, data, requestConfigJson);
+	}
+
+	static changeApplicationStatusIntoSelected(studentId: string): Promise<IApplication> {
+		return axios.put(`${BASE_URL}/admin/application/selected/${studentId}`, null, requestConfig);
+	}
+
+	static changeApplicationStatusIntoRejected(studentId: string): Promise<IApplication> {
+		return axios.put(`${BASE_URL}/admin/application/rejected/${studentId}`, null, requestConfig);
 	}
 }
 

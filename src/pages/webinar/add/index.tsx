@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from "react";
 import RichTextEditor from "react-rte";
-import ImageCanvas from "../../components/image-canvas";
-import { ToolBarConfig } from "../../constants";
+import ImageCanvas from "../../../components/image-canvas";
+import { ToolBarConfig } from "../../../constants";
 import {useDispatch, useSelector} from "react-redux";
-import { ToolBarConfig } from "../../constants";
-import { createWebinar, getWebinars } from "../../store/webinar-store/webinarActions";
-import { IwebinarFormData, IWebinarState } from "../../interfaces";
+import { ToolBarConfig } from "../../../constants";
+import { createWebinar, getWebinars } from "../../../store/webinar-store/webinarActions";
+import { IwebinarFormData, IWebinarState } from "../../../interfaces";
 
 let formData: IwebinarFormData ={
 title: null,
