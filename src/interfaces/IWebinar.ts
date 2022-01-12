@@ -30,28 +30,28 @@ interface IWebinarStore {
 
 //webinar form Interface
 interface IwebinarFormData {
-	title: String | null;
-	description: String | null;
-	imageUrl: String | null;
-	dateTime: String | null;
-	tags: String[] | null;
-	link: String | null;
-	registrationLink: String | null;
-	webinarType: String | null;
+	title: string | null;
+	description: string | null;
+	imageUrl: string | null;
+	dateTime: string | null;
+	tags: string[] | null;
+	link: string | null;
+	registrationLink: string | null;
+	webinarType: string | null;
 }
 
 //webinar State Interface
 interface IWebinarState {
-	webinarId: String | null;
+	webinarId: string | null;
 	isFormNotValid: boolean | null;
-	title: String | null;
-	description: String | null;
-	imageUrl: String | null;
-	dateTime: String | null;
-	tags: String[] | null;
-	link: String | null;
-	registrationLink: String | null;
-	webinarType: String | null;
+	title: string | null;
+	description: string | null;
+	imageUrl: string | null;
+	dateTime: string | null;
+	tags: string[] | null;
+	link: string | null;
+	registrationLink: string | null;
+	webinarType: string | null;
 }
 
 export type { IWebinarStore, IWebinar, IwebinarFormData, IWebinarState };
