@@ -28,30 +28,4 @@ interface IWebinarStore {
 	error: string | null;
 }
 
-//webinar form Interface
-interface IwebinarFormData {
-  title: String | null;
-  description: String | null;
-  imageUrl: String | null;
-  dateTime: String | null;
-  tags: String[] | null;
-  link: String | null;
-  registrationLink: String | null;
-  webinarType: String | null;
-}
-
-//webinar State Interface
-interface IWebinarState {
-  webinarId: String | null;
-  isFormNotValid: boolean | null;
-  title: String |null;
-  description: String | null;
-  imageUrl: String | null;
-  dateTime: String | null;
-  tags: String[] | null;
-  link: String | null;
-  registrationLink: String | null;
-  webinarType: String | null;
-}
-
-export type { IWebinarStore, IWebinar, IwebinarFormData, IWebinarState };
+export type { IWebinarStore, IWebinar };
