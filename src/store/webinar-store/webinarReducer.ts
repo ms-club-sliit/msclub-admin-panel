@@ -18,9 +18,7 @@ const webinarReducer = (state = initialState, action: any) => {
 		case `${WebinarActionTypes.CREATE_WEBINAR}_PENDING`:
 		case `${WebinarActionTypes.GET_WEBINAR}_PENDING`:
 		case `${WebinarActionTypes.GET_ALL_WEBINARS}_PENDING`:
-		case `${WebinarActionTypes.SET_WEBINAR_ID}_PENDING`:
 		case `${WebinarActionTypes.GET_DELETED_WEBINARS}_PENDING`:
-		case `${WebinarActionTypes.SET_WEBINAR_ERROR}_PENDING`:
 		case `${WebinarActionTypes.UPDATE_WEBINAR}_PENDING`:
 		case `${WebinarActionTypes.DELETE_WEBINAR}_PENDING`:
 			return { ...state, loading: true };
@@ -29,20 +27,18 @@ const webinarReducer = (state = initialState, action: any) => {
 			let createWebinar = action.payload.data;
 			return { ...state, loading: false, createWebinar };
 		case `${WebinarActionTypes.GET_WEBINAR}_FULFILLED`:
-			let getWebinar = action.payload.data;
-			return { ...state, loading: false, getWebinar };
+			let webinar = action.payload.data;
+			return { ...state, loading: false, webinar };
 		case `${WebinarActionTypes.GET_ALL_WEBINARS}_FULFILLED`:
 			let webinars = action.payload.data;
 			return { ...state, loading: false, webinars };
-		case `${WebinarActionTypes.SET_WEBINAR_ID}_FULFILLED`:
-			let getWebinarId = action.payload.data;
-			return { ...state, loading: false, getWebinarId };
 		case `${WebinarActionTypes.GET_DELETED_WEBINARS}`:
 			let deletedWebinars = action.payload;
 			return { ...state, loading: false, deletedWebinars };
-		case `${WebinarActionTypes.SET_WEBINAR_ERROR}_FULFILLED`:
-			let setWebinarError = action.payload.data;
-			return { ...state, loading: false, setWebinarError };
+		case `${WebinarActionTypes.SET_WEBINAR_ID}`:
+			let selectedWebinarId = action.payload;
+			return { ...state, loading: false, selectedWebinarId };
+
 		case `${WebinarActionTypes.UPDATE_WEBINAR}_FULFILLED`:
 			let updateWebinar = action.payload.data;
 			return { ...state, loading: false, updateWebinar };
@@ -53,9 +49,7 @@ const webinarReducer = (state = initialState, action: any) => {
 		case `${WebinarActionTypes.CREATE_WEBINAR}_REJECTED`:
 		case `${WebinarActionTypes.GET_WEBINAR}_REJECTED`:
 		case `${WebinarActionTypes.GET_ALL_WEBINARS}_REJECTED`:
-		case `${WebinarActionTypes.SET_WEBINAR_ID}_REJECTED`:
 		case `${WebinarActionTypes.GET_DELETED_WEBINARS}_REJECTED`:
-		case `${WebinarActionTypes.SET_WEBINAR_ERROR}_REJECTED`:
 		case `${WebinarActionTypes.UPDATE_WEBINAR}_REJECTED`:
 		case `${WebinarActionTypes.DELETE_WEBINAR}_REJECTED`:
 			return {

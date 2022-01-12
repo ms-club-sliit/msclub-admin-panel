@@ -6,6 +6,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
+import WebinarView from "../view";
 import { useHistory } from "react-router-dom";
 
 const WebinarList: React.FC = () => {
@@ -136,17 +137,17 @@ const WebinarList: React.FC = () => {
 
 	const handleSetViewWebinar = (webinarId: string) => {
 		dispatch(setWebinarId(webinarId));
-		$("#eventViewModal").modal("show");
+		$("#webinarViewModal").modal("show");
 	};
 
 	const handleSetUpdateWebinar = (webinarId: string) => {
 		dispatch(setWebinarId(webinarId));
-		$("#eventUpdateModal").modal("show");
+		$("#webinarUpdateModal").modal("show");
 	};
 
 	const handleSetDeleteWebinar = (webinarId: string) => {
 		dispatch(setWebinarId(webinarId));
-		$("#eventDeleteModal").modal("show");
+		$("#webinarDeleteModal").modal("show");
 	};
 
 	const expandRow = {
@@ -262,7 +263,7 @@ const WebinarList: React.FC = () => {
 						<button
 							className="btn btn-primary btn-rounded shadow-none"
 							data-mdb-toggle="modal"
-							data-mdb-target="#addEventModal"
+							data-mdb-target="#addWebinarModal"
 						>
 							<span className="fas fa-plus" />
 							<span className="mx-2">Add New Webinar</span>
@@ -332,6 +333,8 @@ const WebinarList: React.FC = () => {
 					</div>
 				)}
 			</ToolkitProvider>
+
+			<WebinarView />
 		</div>
 	);
 };
