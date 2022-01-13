@@ -7,6 +7,7 @@ import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
 import WebinarView from "../view";
+import DeleteWebinar from "../delete";
 import { useHistory } from "react-router-dom";
 
 const WebinarList: React.FC = () => {
@@ -335,6 +336,7 @@ const WebinarList: React.FC = () => {
 			</ToolkitProvider>
 
 			<WebinarView />
+			<DeleteWebinar />
 		</div>
 	);
 };
