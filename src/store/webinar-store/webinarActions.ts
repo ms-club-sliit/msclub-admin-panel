@@ -1,8 +1,7 @@
 import WebinarAPI from "../api/WebinarAPI";
-import { IWebinar } from "../../interfaces";
 import WebinarActionTypes from "./webinarActionTypes";
 
-export const createWebinar = (data: IWebinar) => {
+export const createWebinar = (data: any) => {
 	return {
 		type: WebinarActionTypes.CREATE_WEBINAR,
 		payload: WebinarAPI.createWebinar(data),

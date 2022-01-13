@@ -38,6 +38,7 @@ interface IwebinarFormData {
 	link: string | null;
 	registrationLink: string | null;
 	webinarType: string | null;
+	filteredTags: string[] | null;
 }
 
 //webinar State Interface
@@ -46,12 +47,13 @@ interface IWebinarState {
 	isFormNotValid: boolean | null;
 	title: string | null;
 	description: string | null;
-	imageUrl: string | null;
+	imageUrl?: any;
 	dateTime: string | null;
 	tags: string[] | null;
 	link: string | null;
 	registrationLink: string | null;
 	webinarType: string | null;
+	filteredTags: string[] | null;
 }
 
 export type { IWebinarStore, IWebinar, IwebinarFormData, IWebinarState };
