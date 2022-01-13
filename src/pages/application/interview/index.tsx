@@ -1,36 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { MultiSelect } from "react-multi-select-component";
 import {
 	applications,
 	setApplicationId,
 	changeApplicationStatusIntoInterview,
 } from "../../../store/application-store/applicationActions";
 import { IInterviewState, IInterviewFormData, IApplication } from "../../../interfaces";
-import moment from "moment";
+
+const options = [
+	{ value: "it19132310@my.sliit.lk", label: "Lasal Hettiarchchi" },
+	{ value: "it19139036@my.sliit.lk", label: "Senura Jayadeva" },
+	{ value: "it19104218@my.sliit.lk", label: "Rusiru Abisheak" },
+	{ value: "it19131184@my.sliit.lk", label: "Yasiru Randika" },
+	{ value: "it19120980@my.sliit.lk", label: "Dilmi Palliyaguruge" },
+	{ value: "it20281632@my.sliit.lk", label: "Nisal Palliyaguru" },
+	{ value: "it19963402@my.sliit.lk", label: "Miyuru Gnanarathna" },
+	{ value: "it19115344@my.sliit.lk", label: "Hansidu Maniyangama" },
+	{ value: "it19102924@my.sliit.lk", label: "Lahiru Jayasinghe" },
+	{ value: "it20633790@my.sliit.lk", label: "Susith Rupasinghe" },
+];
 
 let formData: IInterviewFormData = {
-	applicationDate: null,
-	applicationTime: null,
-	applicationDuration: null,
 	applicationFormat: null,
+	applicationStartDateTime: null,
+	applicationEndDateTime: null,
 };
 
 const initialState: IInterviewState = {
 	applicationId: "",
 	isFormNotValid: false,
-	applicationDate: "",
-	applicationTime: "",
-	applicationDuration: "",
 	applicationFormat: "",
+	applicationStartDateTime: "",
+	applicationEndDateTime: "",
 };
 
 const ApplicationInterviewForm: React.FC = () => {
 	const dispatch = useDispatch();
 	const state = useSelector((state) => state.applicationReducer);
 	const [
-		{ applicationId, applicationDate, applicationTime, applicationDuration, applicationFormat, isFormNotValid },
+		{ applicationId, applicationFormat, applicationStartDateTime, applicationEndDateTime, isFormNotValid },
 		setState,
 	] = useState(initialState);
+	const [selected, setSelected] = useState([]);
 
 	useEffect(() => {
 		let applicationData = state.applications.find(
@@ -45,6 +57,7 @@ const ApplicationInterviewForm: React.FC = () => {
 	useEffect(() => {
 		dispatch(applications());
 		dispatch(setApplicationId(""));
+		setSelected([]); //clear selected data in multiselecter
 		closeModal();
 		// eslint-disable-next-line
 	}, [state.updatedApplication, dispatch]);
@@ -63,10 +76,11 @@ const ApplicationInterviewForm: React.FC = () => {
 	// Form Validation
 	const validateForm = () => {
 		const data = {
-			applicationDate: applicationDate && applicationDate.trim().length > 0 ? applicationDate : null,
-			applicationTime: applicationTime && applicationTime.trim().length > 0 ? applicationTime : null,
-			applicationDuration: applicationDuration && applicationDuration.trim().length > 0 ? applicationDuration : null,
 			applicationFormat: applicationFormat && applicationFormat.trim().length > 0 ? applicationFormat : null,
+			applicationStartDateTime:
+				applicationStartDateTime && applicationStartDateTime.trim().length > 0 ? applicationStartDateTime : null,
+			applicationEndDateTime:
+				applicationEndDateTime && applicationEndDateTime.trim().length > 0 ? applicationEndDateTime : null,
 		};
 
 		formData = Object.assign({}, data);
@@ -88,10 +102,10 @@ const ApplicationInterviewForm: React.FC = () => {
 				setState((prevState) => ({ ...prevState, isFormNotValid: false }));
 
 				const interviewData = {
-					date: applicationDate as string,
-					time: applicationTime as string,
 					format: applicationFormat as string,
-					duration: applicationDuration as string,
+					startDateTime: applicationStartDateTime as string,
+					endDateTime: applicationEndDateTime as string,
+					attendees: selected ? selected.map((item: any) => item.value) : [],
 				};
 				if (applicationId) {
 					dispatch(changeApplicationStatusIntoInterview(applicationId, interviewData));
@@ -126,18 +140,19 @@ const ApplicationInterviewForm: React.FC = () => {
 							<div className="form-group row my-3 mx-5">
 								<label className="col-sm-3 col-form-label form-label text-dark">
 									<i className="far fa-clock fa-sm" />
-									&nbsp;Date
+									&nbsp;Start Time
 								</label>
 								<div className="col-sm-9">
 									<input
-										type="date"
-										name="applicationDate"
-										value={moment(applicationDate).format("YYYY-MM-DD")}
-										onChange={onChange}
+										type="datetime-local"
+										id="applicationStartDateTime"
+										name="applicationStartDateTime"
+										value={applicationStartDateTime as string}
 										className="form-control"
+										onChange={onChange}
 									/>
-									{formData.applicationDate === null && isFormNotValid ? (
-										<span className="text-danger validation-message">Date is required</span>
+									{formData.applicationStartDateTime === null && isFormNotValid ? (
+										<span className="text-danger validation-message">Date & time is required</span>
 									) : null}
 								</div>
 							</div>
@@ -145,18 +160,19 @@ const ApplicationInterviewForm: React.FC = () => {
 							<div className="form-group row my-3 mx-5">
 								<label className="col-sm-3 col-form-label form-label text-dark">
 									<i className="far fa-clock fa-sm" />
-									&nbsp;Time
+									&nbsp;End Time
 								</label>
 								<div className="col-sm-9">
 									<input
-										type="time"
-										name="applicationTime"
-										value={applicationTime?.toString()}
-										onChange={onChange}
+										type="datetime-local"
+										id="applicationEndDateTime"
+										name="applicationEndDateTime"
+										value={applicationEndDateTime as string}
 										className="form-control"
+										onChange={onChange}
 									/>
-									{formData.applicationTime === null && isFormNotValid ? (
-										<span className="text-danger validation-message">Time is required</span>
+									{formData.applicationEndDateTime === null && isFormNotValid ? (
+										<span className="text-danger validation-message">Date & time is required</span>
 									) : null}
 								</div>
 							</div>
@@ -184,22 +200,13 @@ const ApplicationInterviewForm: React.FC = () => {
 								</div>
 							</div>
 
-							<div className="form-group row my-3 mx-5">
+							<div className="form-group row mx-5 my-3">
 								<label className="col-sm-3 col-form-label form-label text-dark">
-									<i className="fas fa-link fa-sm" />
-									&nbsp;Duration
+									<i className="fas fa-check fa-sm" />
+									&nbsp;Attendees
 								</label>
 								<div className="col-sm-9">
-									<input
-										type="text"
-										className="form-control"
-										name="applicationDuration"
-										value={applicationDuration as string}
-										onChange={onChange}
-									/>
-									{formData.applicationDuration === null && isFormNotValid ? (
-										<span className="text-danger validation-message">Duration is required</span>
-									) : null}
+									<MultiSelect options={options} value={selected} onChange={setSelected} labelledBy="Select" />
 								</div>
 							</div>
 						</div>
