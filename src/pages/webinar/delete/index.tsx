@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteWebinar, getWebinars, setWebinarId} from "../../../store/webinar-store/webinarActions";
+import { deleteWebinar, getWebinars, setWebinarId } from "../../../store/webinar-store/webinarActions";
 import { IWebinar } from "../../../interfaces";
 import { toastNotification } from "../../../constants";
 
