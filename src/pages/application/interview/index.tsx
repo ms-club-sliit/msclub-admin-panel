@@ -15,7 +15,7 @@ const options = [
 	{ value: "it19131184@my.sliit.lk", label: "Yasiru Randika" },
 	{ value: "it19120980@my.sliit.lk", label: "Dilmi Palliyaguruge" },
 	{ value: "it20281632@my.sliit.lk", label: "Nisal Palliyaguru" },
-	{ value: "it19091044@my.sliit.lk", label: "Miyuru Gnanarathna" },
+	{ value: "it19963402@my.sliit.lk", label: "Miyuru Gnanarathna" },
 	{ value: "it19115344@my.sliit.lk", label: "Hansidu Maniyangama" },
 	{ value: "it19102924@my.sliit.lk", label: "Lahiru Jayasinghe" },
 	{ value: "it20633790@my.sliit.lk", label: "Susith Rupasinghe" },
