@@ -57,6 +57,7 @@ const ApplicationInterviewForm: React.FC = () => {
 	useEffect(() => {
 		dispatch(applications());
 		dispatch(setApplicationId(""));
+		setSelected([]); //clear selected data in multiselecter
 		closeModal();
 		// eslint-disable-next-line
 	}, [state.updatedApplication, dispatch]);
@@ -108,7 +109,6 @@ const ApplicationInterviewForm: React.FC = () => {
 				};
 				if (applicationId) {
 					dispatch(changeApplicationStatusIntoInterview(applicationId, interviewData));
-					setSelected([]); //clear selected data in multiselecter
 				}
 			} else {
 				setState((prevState) => ({ ...prevState, isFormNotValid: true }));
