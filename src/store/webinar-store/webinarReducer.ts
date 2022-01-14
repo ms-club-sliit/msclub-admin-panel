@@ -43,8 +43,8 @@ const webinarReducer = (state = initialState, action: any) => {
 			let updateWebinar = action.payload.data;
 			return { ...state, loading: false, updateWebinar };
 		case `${WebinarActionTypes.DELETE_WEBINAR}_FULFILLED`:
-			let deleteWebinar = action.payload.data;
-			return { ...state, loading: false, deleteWebinar };
+			let deletedWebinar = action.payload.data;
+			return { ...state, loading: false, deletedWebinar };
 
 		case `${WebinarActionTypes.CREATE_WEBINAR}_REJECTED`:
 		case `${WebinarActionTypes.GET_WEBINAR}_REJECTED`:
