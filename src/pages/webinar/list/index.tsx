@@ -9,6 +9,7 @@ import moment from "moment";
 import WebinarView from "../view";
 import DeleteWebinar from "../delete";
 import { useHistory } from "react-router-dom";
+import AddWebinar from "../add";
 
 const WebinarList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -336,6 +337,7 @@ const WebinarList: React.FC = () => {
 			</ToolkitProvider>
 
 			<WebinarView />
+			<AddWebinar />
 			<DeleteWebinar />
 		</div>
 	);
