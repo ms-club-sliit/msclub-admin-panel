@@ -11,6 +11,7 @@ interface IWebinar {
 	registrationLink?: string;
 	webinarType: string;
 	deletedAt?: Date | null;
+	createdAt?: Date;
 	createdBy: IModifiedBy;
 	updatedBy: IModifiedBy[];
 	deletedBy?: IModifiedBy;
@@ -28,4 +29,32 @@ interface IWebinarStore {
 	error: string | null;
 }
 
-export type { IWebinarStore, IWebinar };
+//webinar form Interface
+interface IwebinarFormData {
+	title: string | null;
+	description: string | null;
+	imageUrl: string | null;
+	dateTime: string | null;
+	tags: string[] | null;
+	link: string | null;
+	registrationLink: string | null;
+	webinarType: string | null;
+	filteredTags: string[] | null;
+}
+
+//webinar State Interface
+interface IWebinarState {
+	webinarId: string | null;
+	isFormNotValid: boolean | null;
+	title: string | null;
+	description: string | null;
+	imageUrl?: any;
+	dateTime: string | null;
+	tags: string[] | null;
+	link: string | null;
+	registrationLink: string | null;
+	webinarType: string | null;
+	filteredTags: string[] | null;
+}
+
+export type { IWebinarStore, IWebinar, IwebinarFormData, IWebinarState };
