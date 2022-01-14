@@ -11,6 +11,7 @@ interface IWebinar {
 	registrationLink?: string;
 	webinarType: string;
 	deletedAt?: Date | null;
+	createdAt?: Date;
 	createdBy: IModifiedBy;
 	updatedBy: IModifiedBy[];
 	deletedBy?: IModifiedBy;
