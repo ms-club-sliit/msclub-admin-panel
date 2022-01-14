@@ -32,8 +32,8 @@ const webinarReducer = (state = initialState, action: any) => {
 		case `${WebinarActionTypes.GET_ALL_WEBINARS}_FULFILLED`:
 			let webinars = action.payload.data;
 			return { ...state, loading: false, webinars };
-		case `${WebinarActionTypes.GET_DELETED_WEBINARS}`:
-			let deletedWebinars = action.payload;
+		case `${WebinarActionTypes.GET_DELETED_WEBINARS}_FULFILLED`:
+			let deletedWebinars = action.payload.data;
 			return { ...state, loading: false, deletedWebinars };
 		case `${WebinarActionTypes.SET_WEBINAR_ID}`:
 			let selectedWebinarId = action.payload;
