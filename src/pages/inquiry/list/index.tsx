@@ -5,12 +5,9 @@ import { IContactUs } from "../../../interfaces";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
-//import { useHistory } from "react-router-dom";
 
 const InquiryList: React.FC = () => {
 	const dispatch = useDispatch();
-	//const history = useHistory();
-	//const HtmlToReactParser = require("html-to-react").Parser;
 	const state = useSelector((state) => state.contactUsReducer);
 	const contactsUs: IContactUs[] = state.contactsUs;
 	const [selectedTypeContactUs, setselectedTypeContactUs] = useState<IContactUs[]>(contactsUs);
@@ -29,7 +26,7 @@ const InquiryList: React.FC = () => {
 	// Fetch events information
 	useEffect(() => {
 		dispatch(getContactsUs());
-	}, []);
+	}, [dispatch, contactsUs]);
 
 	// Table column configurations
 	const tableColumnData = [
@@ -126,18 +123,6 @@ const InquiryList: React.FC = () => {
 				<div className="col-6">
 					<h3 className="page-title">Events</h3>
 					<p className="page-description text-muted">Manage all the ContactUs informations</p>
-				</div>
-				<div className="col-6">
-					<div className="d-flex justify-content-end">
-						<button
-							className="btn btn-primary btn-rounded shadow-none"
-							data-mdb-toggle="modal"
-							data-mdb-target="#addEventModal"
-						>
-							<span className="fas fa-plus" />
-							<span className="mx-2">Add ContactUs</span>
-						</button>
-					</div>
 				</div>
 			</div>
 
