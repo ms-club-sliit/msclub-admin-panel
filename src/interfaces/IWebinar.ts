@@ -30,12 +30,12 @@ interface IWebinarStore {
 
 //webinar form Interface
 interface IwebinarFormData {
-	title: string | null;
+	webinarName: string | null;
 	description: string | null;
 	imageUrl: string | null;
 	dateTime: string | null;
 	tags: string[] | null;
-	link: string | null;
+	webinarLink: string | null;
 	registrationLink: string | null;
 	webinarType: string | null;
 	filteredTags: string[] | null;
@@ -45,12 +45,12 @@ interface IwebinarFormData {
 interface IWebinarState {
 	webinarId: string | null;
 	isFormNotValid: boolean | null;
-	title: string | null;
+	webinarName: string | null;
 	description: string | null;
 	imageUrl?: any;
 	dateTime: string | null;
 	tags: string[] | null;
-	link: string | null;
+	webinarLink: string | null;
 	registrationLink: string | null;
 	webinarType: string | null;
 	filteredTags: string[] | null;

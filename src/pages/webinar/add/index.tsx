@@ -180,7 +180,7 @@ const AddWebinar: React.FC = () => {
 							<div className="form-group row my-3">
 								<label className="col-sm-3 col-form-label form-label text-dark">
 									<i className="far fa-file-alt fa-sm" />
-									&nbsp;Event Title
+									&nbsp;Webinar Title
 								</label>
 								<div className="col-sm-9">
 									<input
@@ -191,7 +191,7 @@ const AddWebinar: React.FC = () => {
 										onChange={onChange}
 									/>
 									{formData.webinarName === null && isFormNotValid ? (
-										<span className="text-danger validation-message">Event name is required</span>
+										<span className="text-danger validation-message">Webinar name is required</span>
 									) : null}
 								</div>
 							</div>
