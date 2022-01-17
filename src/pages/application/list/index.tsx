@@ -334,7 +334,7 @@ const ApplicationList: React.FC = () => {
 			<div className="row">
 				<div className="col-6">
 					<h3 className="page-title">Applications</h3>
-					<p className="page-description text-muted">Manage all the application informations</p>
+					<p className="page-description text-muted">Manage all the application information</p>
 				</div>
 			</div>
 
