@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getContactsUs, setContactUsId } from "../../../store/contact-store/contactUsAction";
+import { getContactsUs } from "../../../store/contact-store/contactUsAction";
 import { IContactUs } from "../../../interfaces";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
-import { useHistory } from "react-router-dom";
+
 
 const InquiryList: React.FC = () => {
 	const dispatch = useDispatch();
-	const history = useHistory();
 	const state = useSelector((state) => state.contactUsReducer);
-	const inquiries: IContactUs[] = state.contactsUs;
-	const [selectedTypeContactUs, setselectedTypeContactUs] = useState<IContactUs[]>(inquiries);
-	const [selectedTab, setSelectedTab] = useState<string>("All");
+	const [contactsUs, setContacts] = useState<IContactUs[]>([]);
 
 	// Table confuguration
 	const { SearchBar } = Search;
@@ -25,63 +22,22 @@ const InquiryList: React.FC = () => {
 		alwaysShowAllBtns: true,
 	};
 
-	// Fetch events information
+	// Fetch contactsUs information
 	useEffect(() => {
 		dispatch(getContactsUs());
 	}, [dispatch, getContactsUs]);
 
+	// set contactsUs information
+	useEffect(() => {
+		setContacts(state.contactsUs);
+	}, [state.contactsUs, setContacts]);
+
 	// Table column configurations
 	const tableColumnData = [
-		{
-			dataField: "actions",
-			text: "Actions",
-			formatter: (cell: any, row: IContactUs) => actionButtonFormatter(row),
-			headerStyle: { width: "90px" },
-		},
 		{ dataField: "name", text: "Title", headerStyle: { width: "200px" } },
 		{ dataField: "email", text: "Email", headerStyle: { width: "200px" } },
 		{ dataField: "message", text: "Message", headerStyle: { width: "200px" } },
 	];
-
-	// Table action buttons
-	const actionButtonFormatter = (row: any) => {
-		return (
-			<span className="dropdown show">
-				<span className="dropdown">
-					<span className="btn shadow-none btn-sm" data-mdb-toggle="dropdown">
-						<i className="fas fa-ellipsis-h"></i>
-					</span>
-					<div className="dropdown-menu dropdown-menu-right">
-						<button className="dropdown-item" onClick={(e) => handleSetDeleteEvent(e, row._id)}>
-							<i className="far fa-trash-alt" /> Delete
-						</button>
-					</div>
-				</span>
-			</span>
-		);
-	};
-
-	const handleSetDeleteEvent = (event: any, contactUsId: string) => {
-		if (event) {
-			dispatch(setContactUsId(contactUsId));
-			$("#eventDeleteModal").modal("show");
-		}
-	};
-
-	const handleViewClick = (inquiry: any, type: string) => {
-		Promise.resolve()
-			.then(() => {
-				setSelectedTab(type);
-				return type;
-			})
-			.then((data) => {
-				if (data === "All") {
-					setselectedTypeContactUs(inquiries);
-				} else if (data === "Deleted") {
-					setselectedTypeContactUs(inquiries.filter((inquiry) => inquiry.deletedAt !== null));
-				}
-			});
-	};
 
 	const expandRow = {
 		showExpandColumn: true,
@@ -109,23 +65,8 @@ const InquiryList: React.FC = () => {
 		},
 		renderer: (row: IContactUs) => (
 			<div>
-				<h5>ContactUs Information</h5>
+				<h5>Inquiry Information</h5>
 				<div className="row">
-					<div className="col-md-2 col-sm-12">
-						<h5 className="row-header">Contact Name</h5>
-					</div>
-					<div className="col-md-10 col-sm-12">
-						<p>Y{row.name}</p>
-					</div>
-					<div className="col-md-2 col-sm-12">
-						<h5 className="row-header">Contact Email</h5>
-					</div>
-					<div className="col-md-10 col-sm-12">
-						<p>{row.email}</p>
-					</div>
-					<div className="col-md-2 col-sm-12">
-						<h5 className="row-header">Contact Message</h5>
-					</div>
 					<div className="col-md-10 col-sm-12">
 						<p>{row.message}</p>
 					</div>
@@ -134,52 +75,23 @@ const InquiryList: React.FC = () => {
 		),
 	};
 
-	const handleDeletedInquriesClick = (inquiries: any) => {
-		if (inquiries) {
-			history.push("/inquries/deleted");
-		}
-	};
-
 	return (
 		<div className="card">
 			<div className="row">
 				<div className="col-6">
 					<h3 className="page-title">Inquiry</h3>
-					<p className="page-description text-muted">Manage all the ContactUs informations</p>
+					<p className="page-description text-muted">View all the Inquiry informations</p>
 				</div>
 			</div>
 
-			<div>
-				<div className="d-flex">
-					<button
-						className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "All")}
-					>
-						All
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleDeletedInquriesClick(e)}
-					>
-						Deleted
-					</button>
-				</div>
-			</div>
-
-			<ToolkitProvider
-				keyField="_id"
-				data={selectedTab === "All" ? inquiries : selectedTypeContactUs}
-				columns={tableColumnData}
-				search
-			>
+			<ToolkitProvider keyField="_id" data={contactsUs} columns={tableColumnData} search>
 				{(props) => (
 					<div>
 						<div className="d-flex justify-content-end">
-							<SearchBar {...props.searchProps} placeholder="Search events" className="mb-3 search-bar" />
+							<SearchBar {...props.searchProps} placeholder="Search Inquiry" className="mb-3 search-bar" />
 						</div>
 						<p className="table-description text-muted">
-							*If you experience any difficulty in viewing the ContactUs information, please make sure your cache is
+							*If you experience any difficulty in viewing the Inquiry information, please make sure your cache is
 							cleared and completed a hard refresh.
 						</p>
 						<BootstrapTable
