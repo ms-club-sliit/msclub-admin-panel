@@ -213,7 +213,7 @@ const DeletedWebinarList: React.FC = () => {
 		<div className="card">
 			<div className="row">
 				<div className="col-6">
-					<h3 className="page-title">Events</h3>
+					<h3 className="page-title">Webinars</h3>
 					<p className="page-description text-muted">Manage all the webinar informations</p>
 				</div>
 				<div className="col-6">

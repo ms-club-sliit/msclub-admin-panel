@@ -39,7 +39,7 @@ const WebinarView: React.FC = () => {
 							<button type="button" className="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div className="modal-body">
-							<div className="webinar-view">
+							<div className="event-view">
 								<h5 className="header">Information</h5>
 								<div className="form-group row mx-5">
 									<label className="col-sm-3 text-dark text">
@@ -135,6 +135,19 @@ const WebinarView: React.FC = () => {
 								<hr className="mx-5" />
 
 								<h5 className="header">Document History</h5>
+								<div className="form-group row mx-5">
+									<label className="col-sm-3 text-dark text">
+										<i className="far fa-calendar fa-sm" />
+										&nbsp;Created At :
+									</label>
+									<span className="col-sm-9 text-dark text">
+										{webinarDetails && moment(webinarDetails.createdAt).format("LLL")}
+
+										<i className="text-muted mx-1">
+											({webinarDetails && moment(webinarDetails.createdAt).startOf("hour").fromNow()})
+										</i>
+									</span>
+								</div>
 								<div className="form-group row mx-5 my-2">
 									<label className="col text-dark text">
 										<i className="far fa-edit fa-sm" />

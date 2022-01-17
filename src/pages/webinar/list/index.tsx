@@ -7,7 +7,9 @@ import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
 import WebinarView from "../view";
+import DeleteWebinar from "../delete";
 import { useHistory } from "react-router-dom";
+import AddWebinar from "../add";
 
 const WebinarList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -181,8 +183,8 @@ const WebinarList: React.FC = () => {
 					<div className="col-md-3 col-sm-12">
 						<img
 							src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${row.imageUrl}`}
-							className="webinar-flyer"
-							alt="webinar-flyer"
+							className="event-flyer"
+							alt="event-flyer"
 						/>
 					</div>
 					<div className="col-md-9 col-sm-12">
@@ -335,6 +337,8 @@ const WebinarList: React.FC = () => {
 			</ToolkitProvider>
 
 			<WebinarView />
+			<AddWebinar />
+			<DeleteWebinar />
 		</div>
 	);
 };
