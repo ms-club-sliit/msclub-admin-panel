@@ -7,29 +7,27 @@ import { createWebinar, getWebinars } from "../../../store/webinar-store/webinar
 import { IwebinarFormData, IWebinarState } from "../../../interfaces";
 
 let formData: IwebinarFormData = {
+	imageSrc: null,
 	webinarName: null,
-	description: null,
-	imageUrl: null,
-	dateTime: null,
-	tags: null,
-	webinarLink: null,
-	registrationLink: null,
 	webinarType: null,
+	dateTime: null,
+	registrationLink: null,
+	webinarLink: null,
 	filteredTags: null,
+	description: null,
 };
 
 const initialState: IWebinarState = {
 	webinarId: "",
 	isFormNotValid: false,
+	imageSrc: null,
 	webinarName: "",
-	description: "",
-	imageUrl: "",
-	dateTime: "",
-	tags: [],
-	webinarLink: "",
-	registrationLink: "",
 	webinarType: "",
+	dateTime: "",
+	registrationLink: "",
+	webinarLink: "",
 	filteredTags: [],
+	description: "",
 };
 
 const AddWebinar: React.FC = () => {
@@ -39,15 +37,14 @@ const AddWebinar: React.FC = () => {
 	const [
 		{
 			webinarName,
-			description,
-			imageUrl,
-			dateTime,
-			tags,
 			webinarLink,
-			registrationLink,
 			webinarType,
+			registrationLink,
+			description,
+			imageSrc,
 			isFormNotValid,
 			filteredTags,
+			dateTime,
 		},
 		setState,
 	] = useState(initialState);
@@ -69,7 +66,7 @@ const AddWebinar: React.FC = () => {
 	};
 
 	const handleImage = (data: any) => {
-		setState((prevState) => ({ ...prevState, imageUrl: data }));
+		setState((prevState) => ({ ...prevState, imageSrc: data }));
 	};
 
 	const handleDescription = (value: any) => {
@@ -104,15 +101,14 @@ const AddWebinar: React.FC = () => {
 	//Form validation
 	const validateForm = () => {
 		const data = {
+			imageSrc: imageSrc ? imageSrc : null,
 			webinarName: webinarName && webinarName.trim().length > 0 ? webinarName : null,
-			description: description && description.trim().length > 0 ? description : null,
-			imageUrl: imageUrl ? imageUrl : null,
-			dateTime: dateTime && dateTime.trim().length > 0 ? dateTime : null,
-			tags: tags && tags.length > 0 ? tags : null,
-			webinarLink: webinarLink && webinarLink.trim().length > 0 ? webinarLink : null,
-			registrationLink: registrationLink && registrationLink.trim().length > 0 ? registrationLink : null,
 			webinarType: webinarType && webinarType.trim().length > 0 ? webinarType : null,
+			dateTime: dateTime && dateTime.trim().length > 0 ? dateTime : null,
+			registrationLink: registrationLink && registrationLink.trim().length > 0 ? registrationLink : null,
+			webinarLink: webinarLink && webinarLink.trim().length > 0 ? webinarLink : null,
 			filteredTags: filteredTags && filteredTags.length > 0 ? filteredTags : null,
+			description: description && description.trim().length > 0 ? description : null,
 		};
 
 		formData = Object.assign({}, data);
@@ -134,12 +130,12 @@ const AddWebinar: React.FC = () => {
 				setState((prevState) => ({ ...prevState, isFormNotValid: false }));
 
 				let webinarFormData = new FormData();
-				webinarFormData.append("webinarFlyer", imageUrl);
-				webinarFormData.append("webinarName", webinarName as string);
-				webinarFormData.append("description", description as string);
+				webinarFormData.append("webinarFlyer", imageSrc);
+				webinarFormData.append("title", webinarName as string);
 				webinarFormData.append("dateTime", dateTime as string);
+				webinarFormData.append("description", description as string);
+				webinarFormData.append("link", webinarLink as string);
 				filteredTags?.forEach((tag) => webinarFormData.append("tags", tag));
-				webinarFormData.append("webinarlink", webinarLink as string);
 				webinarFormData.append("registrationLink", registrationLink as string);
 				webinarFormData.append("webinarType", webinarType as string);
 
@@ -171,7 +167,7 @@ const AddWebinar: React.FC = () => {
 					<div className="modal-body add-event">
 						<ImageCanvas width={300} height={300} getEditedImage={handleImage} />
 						<div className="d-flex justify-content-center">
-							{formData.imageUrl === null && isFormNotValid ? (
+							{formData.imageSrc === null && isFormNotValid ? (
 								<span className="text-danger validation-message my-2">Webinar flyer is required</span>
 							) : null}
 						</div>
@@ -200,7 +196,7 @@ const AddWebinar: React.FC = () => {
 								<label className="col-sm-3 col-form-label form-label text-dark">Webinar Type</label>
 								<div className="col-sm-9">
 									<select className="form-control" name="webinarType" value={webinarType as string} onChange={onChange}>
-										<option selected>Select event type</option>
+										<option selected>Select webinar type</option>
 										<option value="PAST">PAST</option>
 										<option value="UPCOMING">UPCOMING</option>
 									</select>
