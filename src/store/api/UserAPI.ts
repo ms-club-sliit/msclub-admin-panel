@@ -18,7 +18,7 @@ class UserAPI {
 	}
 
 	static getAllUser(): Promise<IUser[]> {
-		return axios.get(`${BASE_URL}/users`, requestConfig);
+		return axios.get(`${BASE_URL}/user/all/`, requestConfig);
 	}
 
 	static updateUser(data: IUser): Promise<IUser> {

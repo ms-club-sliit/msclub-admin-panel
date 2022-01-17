@@ -32,3 +32,21 @@
 		color: $color-gray;
 	}
 }
+
+.user {
+	.image {
+		width: 100px;
+		height: 100px;
+		border-radius: 50%;
+	}
+
+	h5 {
+		font-size: 16px;
+		margin-bottom: 0px;
+	}
+
+	div > a {
+		font-size: 14px;
+		margin-bottom: 0px;
+	}
+}
