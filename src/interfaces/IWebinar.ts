@@ -31,30 +31,28 @@ interface IWebinarStore {
 
 //webinar form Interface
 interface IwebinarFormData {
+	imageSrc?: any | null;
 	webinarName: string | null;
-	description: string | null;
-	imageUrl: string | null;
-	dateTime: string | null;
-	tags: string[] | null;
-	webinarLink: string | null;
-	registrationLink: string | null;
 	webinarType: string | null;
+	dateTime: string | null;
+	registrationLink: string | null;
+	webinarLink: string | null;
 	filteredTags: string[] | null;
+	description: string | null;
 }
 
 //webinar State Interface
 interface IWebinarState {
 	webinarId: string | null;
-	isFormNotValid: boolean | null;
+	isFormNotValid: boolean;
+	imageSrc?: any;
 	webinarName: string | null;
-	description: string | null;
-	imageUrl?: any;
-	dateTime: string | null;
-	tags: string[] | null;
-	webinarLink: string | null;
-	registrationLink: string | null;
 	webinarType: string | null;
+	dateTime: string | null;
+	registrationLink: string | null;
+	webinarLink: string | null;
 	filteredTags: string[] | null;
+	description: string | null;
 }
 
 export type { IWebinarStore, IWebinar, IwebinarFormData, IWebinarState };

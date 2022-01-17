@@ -24,8 +24,8 @@ const webinarReducer = (state = initialState, action: any) => {
 			return { ...state, loading: true };
 
 		case `${WebinarActionTypes.CREATE_WEBINAR}_FULFILLED`:
-			let createWebinar = action.payload.data;
-			return { ...state, loading: false, createWebinar };
+			let addWebinar = action.payload.data;
+			return { ...state, loading: false, addWebinar };
 		case `${WebinarActionTypes.GET_WEBINAR}_FULFILLED`:
 			let webinar = action.payload.data;
 			return { ...state, loading: false, webinar };
