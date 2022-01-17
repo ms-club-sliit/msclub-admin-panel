@@ -40,8 +40,8 @@ const webinarReducer = (state = initialState, action: any) => {
 			return { ...state, loading: false, selectedWebinarId };
 
 		case `${WebinarActionTypes.UPDATE_WEBINAR}_FULFILLED`:
-			let updateWebinar = action.payload.data;
-			return { ...state, loading: false, updateWebinar };
+			let updatedWebinar = action.payload.data;
+			return { ...state, loading: false, updatedWebinar };
 		case `${WebinarActionTypes.DELETE_WEBINAR}_FULFILLED`:
 			let deletedWebinar = action.payload.data;
 			return { ...state, loading: false, deletedWebinar };
