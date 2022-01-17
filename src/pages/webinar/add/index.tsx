@@ -7,29 +7,27 @@ import { createWebinar, getWebinars } from "../../../store/webinar-store/webinar
 import { IwebinarFormData, IWebinarState } from "../../../interfaces";
 
 let formData: IwebinarFormData = {
-	title: null,
-	description: null,
-	imageUrl: null,
-	dateTime: null,
-	tags: null,
-	link: null,
-	registrationLink: null,
+	imageSrc: null,
+	webinarName: null,
 	webinarType: null,
+	dateTime: null,
+	registrationLink: null,
+	webinarLink: null,
 	filteredTags: null,
+	description: null,
 };
 
 const initialState: IWebinarState = {
 	webinarId: "",
 	isFormNotValid: false,
-	title: "",
-	description: "",
-	imageUrl: "",
-	dateTime: "",
-	tags: [],
-	link: "",
-	registrationLink: "",
+	imageSrc: null,
+	webinarName: "",
 	webinarType: "",
+	dateTime: "",
+	registrationLink: "",
+	webinarLink: "",
 	filteredTags: [],
+	description: "",
 };
 
 const AddWebinar: React.FC = () => {
@@ -37,7 +35,17 @@ const AddWebinar: React.FC = () => {
 	const state = useSelector((state) => state.webinarReducer);
 	const [editor, setEditor] = useState(() => RichTextEditor.createEmptyValue());
 	const [
-		{ title, description, imageUrl, dateTime, tags, link, registrationLink, webinarType, isFormNotValid, filteredTags },
+		{
+			webinarName,
+			webinarLink,
+			webinarType,
+			registrationLink,
+			description,
+			imageSrc,
+			isFormNotValid,
+			filteredTags,
+			dateTime,
+		},
 		setState,
 	] = useState(initialState);
 
@@ -58,7 +66,7 @@ const AddWebinar: React.FC = () => {
 	};
 
 	const handleImage = (data: any) => {
-		setState((prevState) => ({ ...prevState, imageUrl: data }));
+		setState((prevState) => ({ ...prevState, imageSrc: data }));
 	};
 
 	const handleDescription = (value: any) => {
@@ -93,15 +101,14 @@ const AddWebinar: React.FC = () => {
 	//Form validation
 	const validateForm = () => {
 		const data = {
-			title: title && title.trim().length > 0 ? title : null,
-			description: description && description.trim().length > 0 ? description : null,
-			imageUrl: imageUrl ? imageUrl : null,
-			dateTime: dateTime && dateTime.trim().length > 0 ? dateTime : null,
-			tags: tags && tags.length > 0 ? tags : null,
-			link: link && link.trim().length > 0 ? link : null,
-			registrationLink: registrationLink && registrationLink.trim().length > 0 ? registrationLink : null,
+			imageSrc: imageSrc ? imageSrc : null,
+			webinarName: webinarName && webinarName.trim().length > 0 ? webinarName : null,
 			webinarType: webinarType && webinarType.trim().length > 0 ? webinarType : null,
+			dateTime: dateTime && dateTime.trim().length > 0 ? dateTime : null,
+			registrationLink: registrationLink && registrationLink.trim().length > 0 ? registrationLink : null,
+			webinarLink: webinarLink && webinarLink.trim().length > 0 ? webinarLink : null,
 			filteredTags: filteredTags && filteredTags.length > 0 ? filteredTags : null,
+			description: description && description.trim().length > 0 ? description : null,
 		};
 
 		formData = Object.assign({}, data);
@@ -123,12 +130,12 @@ const AddWebinar: React.FC = () => {
 				setState((prevState) => ({ ...prevState, isFormNotValid: false }));
 
 				let webinarFormData = new FormData();
-				webinarFormData.append("webinarFlyer", imageUrl);
-				webinarFormData.append("title", title as string);
-				webinarFormData.append("description", description as string);
+				webinarFormData.append("webinarFlyer", imageSrc);
+				webinarFormData.append("title", webinarName as string);
 				webinarFormData.append("dateTime", dateTime as string);
+				webinarFormData.append("description", description as string);
+				webinarFormData.append("link", webinarLink as string);
 				filteredTags?.forEach((tag) => webinarFormData.append("tags", tag));
-				webinarFormData.append("link", link as string);
 				webinarFormData.append("registrationLink", registrationLink as string);
 				webinarFormData.append("webinarType", webinarType as string);
 
@@ -160,7 +167,7 @@ const AddWebinar: React.FC = () => {
 					<div className="modal-body add-event">
 						<ImageCanvas width={300} height={300} getEditedImage={handleImage} />
 						<div className="d-flex justify-content-center">
-							{formData.imageUrl === null && isFormNotValid ? (
+							{formData.imageSrc === null && isFormNotValid ? (
 								<span className="text-danger validation-message my-2">Webinar flyer is required</span>
 							) : null}
 						</div>
@@ -174,128 +181,128 @@ const AddWebinar: React.FC = () => {
 								<div className="col-sm-9">
 									<input
 										type="text"
-										name="WebinarName"
-										value={title as string}
+										name="webinarName"
+										value={webinarName as string}
 										className="form-control"
 										onChange={onChange}
 									/>
-									{formData.title === null && isFormNotValid ? (
-										<span className="text-danger validation-message">Webinar title is required</span>
+									{formData.webinarName === null && isFormNotValid ? (
+										<span className="text-danger validation-message">Webinar name is required</span>
 									) : null}
 								</div>
 							</div>
-						</div>
 
-						<div className="form-group row my-3">
-							<label className="col-sm-3 col-form-label form-label text-dark">Webinar Type</label>
-							<div className="col-sm-9">
-								<select className="form-control" name="WebinarType" value={webinarType as string} onChange={onChange}>
-									<option selected>Select Webinar type</option>
-									<option value="PAST">PAST</option>
-									<option value="UPCOMING">UPCOMING</option>
-								</select>
-								{formData.webinarType === null && isFormNotValid ? (
-									<span className="text-danger validation-message">Webinar type is required</span>
-								) : null}
+							<div className="form-group row my-3">
+								<label className="col-sm-3 col-form-label form-label text-dark">Webinar Type</label>
+								<div className="col-sm-9">
+									<select className="form-control" name="webinarType" value={webinarType as string} onChange={onChange}>
+										<option selected>Select webinar type</option>
+										<option value="PAST">PAST</option>
+										<option value="UPCOMING">UPCOMING</option>
+									</select>
+									{formData.webinarType === null && isFormNotValid ? (
+										<span className="text-danger validation-message">Webinar type is required</span>
+									) : null}
+								</div>
 							</div>
-						</div>
 
-						<div className="form-group row my-3">
-							<label className="col-sm-3 col-form-label form-label text-dark">
-								<i className="far fa-clock fa-sm" />
-								&nbsp;Date & Time
-							</label>
-							<div className="col-sm-9">
-								<input
-									type="datetime-local"
-									id="dateTime"
-									name="dateTime"
-									value={dateTime as string}
-									className="form-control"
-									onChange={onChange}
-								/>
-								{formData.dateTime === null && isFormNotValid ? (
-									<span className="text-danger validation-message">Date & time is required</span>
-								) : null}
+							<div className="form-group row my-3">
+								<label className="col-sm-3 col-form-label form-label text-dark">
+									<i className="far fa-clock fa-sm" />
+									&nbsp;Date & Time
+								</label>
+								<div className="col-sm-9">
+									<input
+										type="datetime-local"
+										id="dateTime"
+										name="dateTime"
+										value={dateTime as string}
+										className="form-control"
+										onChange={onChange}
+									/>
+									{formData.dateTime === null && isFormNotValid ? (
+										<span className="text-danger validation-message">Date & time is required</span>
+									) : null}
+								</div>
 							</div>
-						</div>
 
-						<div className="form-group row my-3">
-							<label className="col-sm-3 col-form-label form-label text-dark">
-								<i className="fas fa-link fa-sm" />
-								&nbsp;Registration Link
-							</label>
-							<div className="col-sm-9">
-								<input
-									type="text"
-									className="form-control"
-									name="registrationLink"
-									value={registrationLink as string}
-									onChange={onChange}
-								/>
-								{formData.registrationLink === null && isFormNotValid ? (
-									<span className="text-danger validation-message">Registration link is required</span>
-								) : null}
+							<div className="form-group row my-3">
+								<label className="col-sm-3 col-form-label form-label text-dark">
+									<i className="fas fa-link fa-sm" />
+									&nbsp;Registration Link
+								</label>
+								<div className="col-sm-9">
+									<input
+										type="text"
+										className="form-control"
+										name="registrationLink"
+										value={registrationLink as string}
+										onChange={onChange}
+									/>
+									{formData.registrationLink === null && isFormNotValid ? (
+										<span className="text-danger validation-message">Registration link is required</span>
+									) : null}
+								</div>
 							</div>
-						</div>
 
-						<div className="form-group row my-3">
-							<label className="col-sm-3 col-form-label form-label text-dark">
-								<i className="fas fa-link fa-sm" />
-								&nbsp;Webinar Link
-							</label>
-							<div className="col-sm-9">
-								<input
-									type="text"
-									className="form-control"
-									name="WebinarLink"
-									value={link as string}
-									onChange={onChange}
-								/>
-								{formData.link === null && isFormNotValid ? (
-									<span className="text-danger validation-message">Webinar link is required</span>
-								) : null}
+							<div className="form-group row my-3">
+								<label className="col-sm-3 col-form-label form-label text-dark">
+									<i className="fas fa-link fa-sm" />
+									&nbsp;Webinar Link
+								</label>
+								<div className="col-sm-9">
+									<input
+										type="text"
+										className="form-control"
+										name="webinarLink"
+										value={webinarLink as string}
+										onChange={onChange}
+									/>
+									{formData.webinarLink === null && isFormNotValid ? (
+										<span className="text-danger validation-message">Webinar link is required</span>
+									) : null}
+								</div>
 							</div>
-						</div>
 
-						<div className="form-group row my-3">
-							<label className="col-sm-3 col-form-label form-label text-dark">
-								<i className="fas fa-tags fa-sm" />
-								&nbsp;Tags
-							</label>
-							<div className="col-sm-9">
-								<input
-									type="text"
-									className="form-control"
-									value={filteredTags as string[]}
-									onChange={(e) => handleTags(e.target.value)}
-								/>
-								<small className="text-muted tag-text">
-									Sperate tag names using , (example: ITP, GitHub, Microservice)
-								</small>
-								<br />
-								{formData.filteredTags === null && isFormNotValid ? (
-									<span className="text-danger validation-message">Tags are is required</span>
-								) : null}
+							<div className="form-group row my-3">
+								<label className="col-sm-3 col-form-label form-label text-dark">
+									<i className="fas fa-tags fa-sm" />
+									&nbsp;Tags
+								</label>
+								<div className="col-sm-9">
+									<input
+										type="text"
+										className="form-control"
+										value={filteredTags as string[]}
+										onChange={(e) => handleTags(e.target.value)}
+									/>
+									<small className="text-muted tag-text">
+										Sperate tag names using , (example: ITP, GitHub, Microservice)
+									</small>
+									<br />
+									{formData.filteredTags === null && isFormNotValid ? (
+										<span className="text-danger validation-message">Tags are is required</span>
+									) : null}
+								</div>
 							</div>
-						</div>
 
-						<div className="form-group row my-3">
-							<label className="col-sm-12 col-form-label form-label text-dark">
-								<i className="fas fa-align-left" />
-								&nbsp;Description
-							</label>
-							<div className="col-sm-12">
-								<RichTextEditor
-									value={editor}
-									onChange={handleDescription}
-									toolbarClassName="description"
-									editorClassName="description"
-									toolbarConfig={ToolBarConfig}
-								/>
-								{formData.description === null && isFormNotValid ? (
-									<span className="text-danger validation-message">Description is required</span>
-								) : null}
+							<div className="form-group row my-3">
+								<label className="col-sm-12 col-form-label form-label text-dark">
+									<i className="fas fa-align-left" />
+									&nbsp;Description
+								</label>
+								<div className="col-sm-12">
+									<RichTextEditor
+										value={editor}
+										onChange={handleDescription}
+										toolbarClassName="description"
+										editorClassName="description"
+										toolbarConfig={ToolBarConfig}
+									/>
+									{formData.description === null && isFormNotValid ? (
+										<span className="text-danger validation-message">Description is required</span>
+									) : null}
+								</div>
 							</div>
 						</div>
 					</div>
