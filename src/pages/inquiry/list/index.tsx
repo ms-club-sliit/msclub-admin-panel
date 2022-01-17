@@ -26,7 +26,7 @@ const InquiryList: React.FC = () => {
 	// Fetch events information
 	useEffect(() => {
 		dispatch(getContactsUs());
-	}, [dispatch, contactsUs]);
+	}, [dispatch, getContactsUs]);
 
 	// Table column configurations
 	const tableColumnData = [
@@ -121,7 +121,7 @@ const InquiryList: React.FC = () => {
 		<div className="card">
 			<div className="row">
 				<div className="col-6">
-					<h3 className="page-title">Events</h3>
+					<h3 className="page-title">Inquiry</h3>
 					<p className="page-description text-muted">Manage all the ContactUs informations</p>
 				</div>
 			</div>
