@@ -12,6 +12,7 @@ import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { useHistory } from "react-router-dom";
 import ApplicationInterviewForm from "../interview";
+import DeleteApplication from "../delete";
 
 const ApplicationList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -40,6 +41,10 @@ const ApplicationList: React.FC = () => {
 	useEffect(() => {
 		dispatch(getApplications());
 	}, [state.updatedApplication, dispatch]);
+
+	useEffect(() => {
+		dispatch(getApplications());
+	}, [state.deletedApplication, dispatch]);
 
 	// Change Application Status Into Selected
 	const onSumbitSelected = (applicationId: string) => {
@@ -415,6 +420,7 @@ const ApplicationList: React.FC = () => {
 			</ToolkitProvider>
 
 			<ApplicationInterviewForm />
+			<DeleteApplication />
 		</div>
 	);
 };
