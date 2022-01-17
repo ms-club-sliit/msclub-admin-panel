@@ -106,21 +106,25 @@ const DeletedApplicationList: React.FC = () => {
 	// Table action buttons
 	const actionButtonFormatter = (row: any) => {
 		return (
-			<span className="dropdown show">
-				<span className="dropdown">
-					<span className="btn shadow-none btn-sm" data-mdb-toggle="dropdown">
-						<i className="fas fa-ellipsis-h"></i>
-					</span>
-					<div className="dropdown-menu dropdown-menu-right">
-						<span className="dropdown-item">
-							<i className="fas fa-undo" /> Recover
+			<div>
+				{row && (
+					<span className="dropdown show">
+						<span className="dropdown">
+							<span className="btn shadow-none btn-sm" data-mdb-toggle="dropdown">
+								<i className="fas fa-ellipsis-h"></i>
+							</span>
+							<div className="dropdown-menu dropdown-menu-right">
+								<span className="dropdown-item">
+									<i className="fas fa-undo" /> Recover
+								</span>
+								<button className="dropdown-item">
+									<i className="far fa-trash-alt" /> Delete Permanently
+								</button>
+							</div>
 						</span>
-						<button className="dropdown-item">
-							<i className="far fa-trash-alt" /> Delete Permanently
-						</button>
-					</div>
-				</span>
-			</span>
+					</span>
+				)}
+			</div>
 		);
 	};
 
@@ -201,7 +205,9 @@ const DeletedApplicationList: React.FC = () => {
 	};
 
 	const handleGoBackToEvents = (event: any) => {
-		history.push("/events/");
+		if (event) {
+			history.push("/events/");
+		}
 	};
 
 	return (

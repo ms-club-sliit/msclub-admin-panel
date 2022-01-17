@@ -66,18 +66,19 @@ const ImageCanvas = (props: CanvasProps) => {
 	};
 
 	const saveChanges = async (event: any) => {
-		event.preventDefault();
-		let image: any = editor.getImage();
-		image = resizeImage(image, props.width, props.height);
+		if (event) {
+			let image: any = editor.getImage();
+			image = resizeImage(image, props.width, props.height);
 
-		const binary = atob(image.split(",")[1]);
-		const arr = [];
-		for (let i = 0; i < binary.length; i++) {
-			arr.push(binary.charCodeAt(i));
+			const binary = atob(image.split(",")[1]);
+			const arr = [];
+			for (let i = 0; i < binary.length; i++) {
+				arr.push(binary.charCodeAt(i));
+			}
+			const blob = new Blob([new Uint8Array(arr)], { type: "image/jpeg" });
+			const file = new File([blob], imgSrc.name);
+			props.getEditedImage(file);
 		}
-		const blob = new Blob([new Uint8Array(arr)], { type: "image/jpeg" });
-		const file = new File([blob], imgSrc.name);
-		props.getEditedImage(file);
 	};
 
 	return (
