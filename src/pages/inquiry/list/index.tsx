@@ -5,12 +5,14 @@ import { IContactUs } from "../../../interfaces";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
+import { useHistory } from "react-router-dom";
 
 const InquiryList: React.FC = () => {
 	const dispatch = useDispatch();
+	const history = useHistory();
 	const state = useSelector((state) => state.contactUsReducer);
-	const contactsUs: IContactUs[] = state.contactsUs;
-	const [selectedTypeContactUs, setselectedTypeContactUs] = useState<IContactUs[]>(contactsUs);
+	const inquiries: IContactUs[] = state.contactsUs;
+	const [selectedTypeContactUs, setselectedTypeContactUs] = useState<IContactUs[]>(inquiries);
 	const [selectedTab, setSelectedTab] = useState<string>("All");
 
 	// Table confuguration
@@ -66,6 +68,21 @@ const InquiryList: React.FC = () => {
 		}
 	};
 
+	const handleViewClick = (inquiry: any, type: string) => {
+		Promise.resolve()
+			.then(() => {
+				setSelectedTab(type);
+				return type;
+			})
+			.then((data) => {
+				if (data === "All") {
+					setselectedTypeContactUs(inquiries);
+				} else if (data === "Deleted") {
+					setselectedTypeContactUs(inquiries.filter((inquiry) => inquiry.deletedAt !== null));
+				}
+			});
+	};
+
 	const expandRow = {
 		showExpandColumn: true,
 		expandByColumnOnly: true,
@@ -117,6 +134,12 @@ const InquiryList: React.FC = () => {
 		),
 	};
 
+	const handleDeletedInquriesClick = (inquiries: any) => {
+		if (inquiries) {
+			history.push("/inquries/deleted");
+		}
+	};
+
 	return (
 		<div className="card">
 			<div className="row">
@@ -126,9 +149,27 @@ const InquiryList: React.FC = () => {
 				</div>
 			</div>
 
+			<div>
+				<div className="d-flex">
+					<button
+						className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
+						onClick={(e) => handleViewClick(e, "All")}
+					>
+						All
+					</button>
+					&nbsp;
+					<button
+						className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
+						onClick={(e) => handleDeletedInquriesClick(e)}
+					>
+						Deleted
+					</button>
+				</div>
+			</div>
+
 			<ToolkitProvider
 				keyField="_id"
-				data={selectedTab === "All" ? contactsUs : selectedTypeContactUs}
+				data={selectedTab === "All" ? inquiries : selectedTypeContactUs}
 				columns={tableColumnData}
 				search
 			>
