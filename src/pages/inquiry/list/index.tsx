@@ -6,7 +6,6 @@ import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 
-
 const InquiryList: React.FC = () => {
 	const dispatch = useDispatch();
 	const state = useSelector((state) => state.contactUsReducer);
@@ -35,8 +34,19 @@ const InquiryList: React.FC = () => {
 	// Table column configurations
 	const tableColumnData = [
 		{ dataField: "name", text: "Title", headerStyle: { width: "200px" } },
-		{ dataField: "email", text: "Email", headerStyle: { width: "200px" } },
-		{ dataField: "message", text: "Message", headerStyle: { width: "200px" } },
+		{
+			dataField: "email",
+			text: "Email",
+			headerStyle: { width: "200px" },
+			formatter: (cell: string) => {
+				return <a href="mailto:">{cell}</a>;
+			},
+		},
+		{
+			dataField: "createdAt",
+			text: "created At",
+			headerStyle: { width: "220px" },
+		},
 	];
 
 	const expandRow = {
