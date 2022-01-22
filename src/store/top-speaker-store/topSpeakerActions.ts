@@ -1,33 +1,33 @@
 import topSpeakerActionTypes from "./topSpeakerActionTypes";
-import TopSpeakerAPI from "../api/TopSpeakerAPI"
+import TopSpeakerAPI from "../api/TopSpeakerAPI";
 
 export const createTopSpeaker = (data: any) => {
-    return {
-        type: topSpeakerActionTypes.CREATE_TOP_SPEAKER,
-        payload: TopSpeakerAPI.createTopSpeaker(data),
-    };
+	return {
+		type: topSpeakerActionTypes.CREATE_TOP_SPEAKER,
+		payload: TopSpeakerAPI.createTopSpeaker(data),
+	};
 };
 
 export const getTopSpeakers = () => {
-    return {
-        type: topSpeakerActionTypes.GET_ALL_TOP_SPEAKERS,
-        payload: TopSpeakerAPI.getTopSpeakers(),
-    }
-}
+	return {
+		type: topSpeakerActionTypes.GET_ALL_TOP_SPEAKERS,
+		payload: TopSpeakerAPI.getTopSpeakers(),
+	};
+};
 
 export const getDeletedTopSpeakers = () => {
-    return {
-        type: topSpeakerActionTypes.GET_DELETED_TOP_SPEAKERS,
-        payload: TopSpeakerAPI.getDeletedTopSpeakers(),
-    }
-}
+	return {
+		type: topSpeakerActionTypes.GET_DELETED_TOP_SPEAKERS,
+		payload: TopSpeakerAPI.getDeletedTopSpeakers(),
+	};
+};
 
 export const updateTopSpeaker = (topSpeakerId: string, data: any) => {
-    return {
-        type: topSpeakerActionTypes.UPDATE_TOP_SPEAKER,
-        payload: TopSpeakerAPI.updateTopSpeaker(topSpeakerId, data),
-    }
-}
+	return {
+		type: topSpeakerActionTypes.UPDATE_TOP_SPEAKER,
+		payload: TopSpeakerAPI.updateTopSpeaker(topSpeakerId, data),
+	};
+};
 
 export const deleteTopSpeaker = (topSpeakerId: string) => {
     return {
@@ -35,11 +35,13 @@ export const deleteTopSpeaker = (topSpeakerId: string) => {
         payload: TopSpeakerAPI.deleteTopSpeaker(topSpeakerId),
 
     }
-}
+};
 
 export const setTopSpeakerId = (topSpeakerId: string) => {
     return {
         type: topSpeakerActionTypes.SET_TOP_SPEAKER_ID,
         payload: topSpeakerId,
     }
-}
+};
+
+

@@ -3,20 +3,21 @@ import AvatarEditor from "react-avatar-editor";
 import Slider from "react-rangeslider";
 
 interface CanvasProps {
-  getEditedImage: (data: any) => any;
-  width: number;
-  height: number;
+	// eslint-disable-next-line no-unused-vars
+	getEditedImage: (data: any) => any;
+	width: number;
+	height: number;
 }
 
 const resizeImage = (image: any, width: number, height: number) => {
-  let canvas = document.createElement("canvas");
-  let context = canvas.getContext("2d");
+	const canvas = document.createElement("canvas");
+	const context = canvas.getContext("2d");
 
-  canvas.width = image.width > width ? width : image.width;
-  canvas.height = image.height > height ? height : image.height;
+	canvas.width = image.width > width ? width : image.width;
+	canvas.height = image.height > height ? height : image.height;
 
-  context?.drawImage(image, 0, 0, canvas.width, canvas.height);
-  return canvas.toDataURL("image/jpeg");
+	context?.drawImage(image, 0, 0, canvas.width, canvas.height);
+	return canvas.toDataURL("image/jpeg");
 };
 
 /**
@@ -37,108 +38,106 @@ const resizeImage = (image: any, width: number, height: number) => {
  * }
  */
 const ImageCanvas = (props: CanvasProps) => {
-  const [zoomLevel, setZoomLevel] = useState<number>(1);
-  const [rotate, setRotation] = useState<number>(0);
-  const [imgSrc, setImgSrc] = useState<any>("");
-  const [editor, setEditor] = useState<any>();
+	const [zoomLevel, setZoomLevel] = useState<number>(1);
+	const [rotate, setRotation] = useState<number>(0);
+	const [imgSrc, setImgSrc] = useState<any>("");
+	const [editor, setEditor] = useState<any>();
 
-  const configureEditor = (editor: any) => {
-    setEditor(editor);
-  };
+	const configureEditor = (editor: any) => {
+		setEditor(editor);
+	};
 
-  const changeZoomLevel = (level: number) => {
-    setZoomLevel(level);
-  };
+	const changeZoomLevel = (level: number) => {
+		setZoomLevel(level);
+	};
 
-  const changeRotation = () => {
-    let rotation = rotate + 90;
+	const changeRotation = () => {
+		let rotation = rotate + 90;
 
-    if (rotation >= 360) {
-      rotation = 0;
-    }
+		if (rotation >= 360) {
+			rotation = 0;
+		}
 
-    setRotation(rotation);
-  };
+		setRotation(rotation);
+	};
 
-  const handleImage = (event: any) => {
-    setImgSrc(event.target.files[0]);
-  };
+	const handleImage = (event: any) => {
+		setImgSrc(event.target.files[0]);
+	};
 
-  const saveChanges = async (event: any) => {
-    let image: any = editor.getImage();
-    image = resizeImage(image, props.width, props.height);
+	const saveChanges = async (event: any) => {
+		if (event) {
+			let image: any = editor.getImage();
+			image = resizeImage(image, props.width, props.height);
 
-    let binary = atob(image.split(",")[1]);
-    let arr = [];
-    for (let i = 0; i < binary.length; i++) {
-      arr.push(binary.charCodeAt(i));
-    }
-    let blob = new Blob([new Uint8Array(arr)], { type: "image/jpeg" });
-    let file = new File([blob], imgSrc.name);
-    props.getEditedImage(file);
-  };
+			const binary = atob(image.split(",")[1]);
+			const arr = [];
+			for (let i = 0; i < binary.length; i++) {
+				arr.push(binary.charCodeAt(i));
+			}
+			const blob = new Blob([new Uint8Array(arr)], { type: "image/jpeg" });
+			const file = new File([blob], imgSrc.name);
+			props.getEditedImage(file);
+		}
+	};
 
-  return (
-    <div>
-      <div className="justiy-content-md-center text-center mb-3 mx-5">
-        <input
-          type="file"
-          className="text-center image-selector"
-          accept="image/*"
-          name="imageSrc"
-          id="imageFile"
-          onChange={(e) => handleImage(e)}
-        />
-      </div>
+	return (
+		<div>
+			<div className="justiy-content-md-center text-center mb-3 mx-5">
+				<input
+					type="file"
+					className="text-center image-selector"
+					accept="image/*"
+					name="imageSrc"
+					id="imageFile"
+					onChange={(e) => handleImage(e)}
+				/>
+			</div>
 
-      {imgSrc ? (
-        <div className="row">
-          <div className="form-group g-0 d-flex justify-content-md-center image-editor">
-            <AvatarEditor
-              ref={configureEditor}
-              image={imgSrc}
-              border={0}
-              width={props.width}
-              height={props.height}
-              borderRadius={0}
-              color={[0, 0, 0, 0.6]}
-              scale={zoomLevel}
-              rotate={rotate}
-              onPositionChange={saveChanges}
-              onLoadSuccess={saveChanges}
-            />
+			{imgSrc ? (
+				<div className="row">
+					<div className="form-group g-0 d-flex justify-content-md-center image-editor">
+						<AvatarEditor
+							ref={configureEditor}
+							image={imgSrc}
+							border={0}
+							width={props.width}
+							height={props.height}
+							borderRadius={0}
+							color={[0, 0, 0, 0.6]}
+							scale={zoomLevel}
+							rotate={rotate}
+							onPositionChange={saveChanges}
+							onLoadSuccess={saveChanges}
+						/>
 
-            <div className="slider orientation-reversed mx-4">
-              <div className="slider-group">
-                <div className="slider-vertical">
-                  <Slider
-                    min={1}
-                    max={8}
-                    step={0.1}
-                    tooltip={false}
-                    orientation="vertical"
-                    value={zoomLevel}
-                    onChange={changeZoomLevel}
-                    onChangeComplete={saveChanges}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+						<div className="slider orientation-reversed mx-4">
+							<div className="slider-group">
+								<div className="slider-vertical">
+									<Slider
+										min={1}
+										max={8}
+										step={0.1}
+										tooltip={false}
+										orientation="vertical"
+										value={zoomLevel}
+										onChange={changeZoomLevel}
+										onChangeComplete={saveChanges}
+									/>
+								</div>
+							</div>
+						</div>
+					</div>
 
-          <div className="d-flex justify-content-center">
-            <button
-              type="button"
-              className="btn btn-primary btn-pill shadow-none btn-sm mt-3"
-              onClick={changeRotation}
-            >
-              <i className="fas fa-undo rotate-icon"></i>
-            </button>
-          </div>
-        </div>
-      ) : null}
-    </div>
-  );
+					<div className="d-flex justify-content-center">
+						<button type="button" className="btn btn-primary btn-pill shadow-none btn-sm mt-3" onClick={changeRotation}>
+							<i className="fas fa-undo rotate-icon"></i>
+						</button>
+					</div>
+				</div>
+			) : null}
+		</div>
+	);
 };
 
 export default ImageCanvas;

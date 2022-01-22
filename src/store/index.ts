@@ -3,20 +3,17 @@ import promiseMiddleware from "redux-promise-middleware";
 import reducers from "./reducer";
 
 declare global {
-  interface Window {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
-  }
+	interface Window {
+		__REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+	}
 }
 
 // Production Store
 const Store = createStore(reducers, applyMiddleware(promiseMiddleware));
 
-// Development Store
+//Development Store
 // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-//
-// const Store = createStore(
-//   reducers,
-//   composeEnhancers(applyMiddleware(promiseMiddleware))
-// );
+
+// const Store = createStore(reducers, composeEnhancers(applyMiddleware(promiseMiddleware)));
 
 export default Store;
