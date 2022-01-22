@@ -36,3 +36,10 @@ export const deleteTopSpeaker = (topSpeakerId: string) => {
 
     }
 }
+
+export const setTopSpeakerId = (topSpeakerId: string) => {
+    return {
+        type: topSpeakerActionTypes.SET_TOP_SPEAKER_ID,
+        payload: topSpeakerId,
+    }
+}
