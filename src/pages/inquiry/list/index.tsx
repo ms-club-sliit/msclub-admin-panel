@@ -6,6 +6,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { useHistory } from "react-router-dom";
+import DeleteInquiry from "../delete";
 
 const InquiryList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -196,6 +197,8 @@ const InquiryList: React.FC = () => {
 					</div>
 				)}
 			</ToolkitProvider>
+
+			<DeleteInquiry />
 		</div>
 	);
 };
