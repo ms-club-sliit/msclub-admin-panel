@@ -24,8 +24,8 @@ const webinarReducer = (state = initialState, action: any) => {
 			return { ...state, loading: true };
 
 		case `${WebinarActionTypes.CREATE_WEBINAR}_FULFILLED`:
-			let createWebinar = action.payload.data;
-			return { ...state, loading: false, createWebinar };
+			let addWebinar = action.payload.data;
+			return { ...state, loading: false, addWebinar };
 		case `${WebinarActionTypes.GET_WEBINAR}_FULFILLED`:
 			let webinar = action.payload.data;
 			return { ...state, loading: false, webinar };
@@ -40,11 +40,11 @@ const webinarReducer = (state = initialState, action: any) => {
 			return { ...state, loading: false, selectedWebinarId };
 
 		case `${WebinarActionTypes.UPDATE_WEBINAR}_FULFILLED`:
-			let updateWebinar = action.payload.data;
-			return { ...state, loading: false, updateWebinar };
+			let updatedWebinar = action.payload.data;
+			return { ...state, loading: false, updatedWebinar };
 		case `${WebinarActionTypes.DELETE_WEBINAR}_FULFILLED`:
-			let deleteWebinar = action.payload.data;
-			return { ...state, loading: false, deleteWebinar };
+			let deletedWebinar = action.payload.data;
+			return { ...state, loading: false, deletedWebinar };
 
 		case `${WebinarActionTypes.CREATE_WEBINAR}_REJECTED`:
 		case `${WebinarActionTypes.GET_WEBINAR}_REJECTED`:
