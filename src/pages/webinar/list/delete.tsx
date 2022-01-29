@@ -1,25 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getEvents, setEventId } from "../../../store/event-store/eventActions";
-import { IEvent, IModifiedBy } from "../../../interfaces";
+import { getDeletedWebinars } from "../../../store/webinar-store/webinarActions";
+import { IWebinar, IModifiedBy } from "../../../interfaces";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
-import EventView from "../view";
-import AddEvent from "../add";
-import UpdateEvent from "../update";
-import DeleteEvent from "../delete";
 import { useHistory } from "react-router-dom";
 
-const EventList: React.FC = () => {
+const DeletedWebinarList: React.FC = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const HtmlToReactParser = require("html-to-react").Parser;
-	const state = useSelector((state) => state.eventReducer);
-	const [selectedTypeEvents, setSelectedTypeEvents] = useState<IEvent[]>([]);
-	const [events, setEvents] = useState<IEvent[]>([]);
-	const [selectedTab, setSelectedTab] = useState<string>("All");
+	const state = useSelector((state) => state.webinarReducer);
+	const webinars: IWebinar[] = state.deletedWebinars;
 
 	const convertToPlain = (html: string) => {
 		const htmlToParser = new HtmlToReactParser();
@@ -37,36 +31,31 @@ const EventList: React.FC = () => {
 		alwaysShowAllBtns: true,
 	};
 
-	// Fetch events information
+	// Fetch webinar information
 	useEffect(() => {
-		dispatch(getEvents());
-	}, [getEvents, dispatch]);
-
-	// Set fetched event info to state
-	useEffect(() => {
-		setEvents(state.events);
-	}, [state.events, setEvents]);
+		dispatch(getDeletedWebinars());
+	}, [dispatch]);
 
 	// Table column configurations
 	const tableColumnData = [
 		{
 			dataField: "actions",
 			text: "Actions",
-			formatter: (cell: any, row: IEvent) => actionButtonFormatter(row),
+			formatter: (cell: any, row: IWebinar) => actionButtonFormatter(row),
 			headerStyle: { width: "90px" },
 		},
 		{ dataField: "title", text: "Title", headerStyle: { width: "200px" } },
 		{
-			dataField: "eventType",
+			dataField: "webinarType",
 			text: "Type",
 			headerStyle: { width: "110px" },
 			formatter: (cell: string) => {
 				return (
 					<div>
 						{cell === "UPCOMING" ? (
-							<span className="badge rounded-pill bg-primary text-light">Upcoming Event</span>
+							<span className="badge rounded-pill bg-primary text-light">Upcoming Webinar</span>
 						) : null}
-						{cell === "PAST" ? <span className="badge rounded-pill bg-warning text-dark">Past Event</span> : null}
+						{cell === "PAST" ? <span className="badge rounded-pill bg-warning text-dark">Past Webinar</span> : null}
 					</div>
 				);
 			},
@@ -80,8 +69,8 @@ const EventList: React.FC = () => {
 			},
 		},
 		{
-			dataField: "updatedAt",
-			text: "Last Modified At",
+			dataField: "deletedAt",
+			text: "Deleted At",
 			headerStyle: { width: "220px" },
 			formatter: (cell: string) => {
 				return moment(cell).format("LLL");
@@ -89,7 +78,7 @@ const EventList: React.FC = () => {
 		},
 		{
 			dataField: "updatedBy",
-			text: "Last Modified By",
+			text: "Deleted By",
 			headerStyle: { width: "250px" },
 			formatter: (cell: IModifiedBy[]) => {
 				let lastModifiedUser = cell.slice(-1)[0];
@@ -117,46 +106,26 @@ const EventList: React.FC = () => {
 	// Table action buttons
 	const actionButtonFormatter = (row: any) => {
 		return (
-			<span className="dropdown show">
-				<span className="dropdown">
-					<span className="btn shadow-none btn-sm" data-mdb-toggle="dropdown">
-						<i className="fas fa-ellipsis-h"></i>
+			<div>
+				{row ? (
+					<span className="dropdown show">
+						<span className="dropdown">
+							<span className="btn shadow-none btn-sm" data-mdb-toggle="dropdown">
+								<i className="fas fa-ellipsis-h"></i>
+							</span>
+							<div className="dropdown-menu dropdown-menu-right">
+								<span className="dropdown-item">
+									<i className="fas fa-undo" /> Recover
+								</span>
+								<button className="dropdown-item">
+									<i className="far fa-trash-alt" /> Delete Permanently
+								</button>
+							</div>
+						</span>
 					</span>
-					<div className="dropdown-menu dropdown-menu-right">
-						<span className="dropdown-item" onClick={(e) => handleSetViewEvent(e, row._id)}>
-							<i className="far fa-eye" /> View
-						</span>
-						<span className="dropdown-item" onClick={(e) => handleSetUpdateEvent(e, row._id)}>
-							<i className="far fa-edit" /> Edit
-						</span>
-						<button className="dropdown-item" onClick={(e) => handleSetDeleteEvent(e, row._id)}>
-							<i className="far fa-trash-alt" /> Delete
-						</button>
-					</div>
-				</span>
-			</span>
+				) : null}
+			</div>
 		);
-	};
-
-	const handleSetViewEvent = (event: any, eventId: string) => {
-		if (event) {
-			dispatch(setEventId(eventId));
-			$("#eventViewModal").modal("show");
-		}
-	};
-
-	const handleSetUpdateEvent = (event: any, eventId: string) => {
-		if (event) {
-			dispatch(setEventId(eventId));
-			$("#eventUpdateModal").modal("show");
-		}
-	};
-
-	const handleSetDeleteEvent = (event: any, eventId: string) => {
-		if (event) {
-			dispatch(setEventId(eventId));
-			$("#eventDeleteModal").modal("show");
-		}
 	};
 
 	const expandRow = {
@@ -183,9 +152,9 @@ const EventList: React.FC = () => {
 				</div>
 			);
 		},
-		renderer: (row: IEvent) => (
+		renderer: (row: IWebinar) => (
 			<div>
-				<h5>Event Information</h5>
+				<h5>Webinar Information</h5>
 				<div className="row">
 					<div className="col-md-3 col-sm-12">
 						<img
@@ -196,7 +165,7 @@ const EventList: React.FC = () => {
 					</div>
 					<div className="col-md-9 col-sm-12">
 						<h6 className="row-header">
-							<span className="fas fa-link" /> &nbsp; Event Link
+							<span className="fas fa-link" /> &nbsp; Webinar Link
 						</h6>
 						<a href={row.link} target="_blank" rel="noreferrer">
 							{row.link}
@@ -234,29 +203,9 @@ const EventList: React.FC = () => {
 			</div>
 		),
 	};
-
-	const handleViewClick = (event: any, type: string) => {
-		Promise.resolve()
-			.then(() => {
-				setSelectedTab(type);
-				return type;
-			})
-			.then((data) => {
-				if (data === "All") {
-					setSelectedTypeEvents(events);
-				} else if (data === "Upcoming") {
-					setSelectedTypeEvents(events.filter((event) => event.eventType === "UPCOMING"));
-				} else if (data === "Past") {
-					setSelectedTypeEvents(events.filter((event) => event.eventType === "PAST"));
-				} else if (data === "Deleted") {
-					setSelectedTypeEvents(events.filter((event) => event.deletedAt !== null));
-				}
-			});
-	};
-
-	const handleDeletedEventClick = (event: any) => {
+	const handleGoBackToWebinars = (event: any) => {
 		if (event) {
-			history.push("/events/deleted");
+			history.push("/webinars/");
 		}
 	};
 
@@ -264,8 +213,8 @@ const EventList: React.FC = () => {
 		<div className="card">
 			<div className="row">
 				<div className="col-6">
-					<h3 className="page-title">Events</h3>
-					<p className="page-description text-muted">Manage all the event informations</p>
+					<h3 className="page-title">Webinars</h3>
+					<p className="page-description text-muted">Manage all the webinar informations</p>
 				</div>
 				<div className="col-6">
 					<div className="d-flex justify-content-end">
@@ -275,7 +224,7 @@ const EventList: React.FC = () => {
 							data-mdb-target="#addEventModal"
 						>
 							<span className="fas fa-plus" />
-							<span className="mx-2">Add New Event</span>
+							<span className="mx-2">Add New Webinar</span>
 						</button>
 					</div>
 				</div>
@@ -283,50 +232,21 @@ const EventList: React.FC = () => {
 
 			<div>
 				<div className="d-flex">
-					<button
-						className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "All")}
-					>
-						All
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "Upcoming" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "Upcoming")}
-					>
-						Upcoming
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "Past" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "Past")}
-					>
-						Past
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleDeletedEventClick(e)}
-					>
-						Deleted
+					<button className="btn btn-sm btn-light shadow-none btn-rounded" onClick={handleGoBackToWebinars}>
+						Go Back
 					</button>
 				</div>
 			</div>
 
-			<ToolkitProvider
-				keyField="_id"
-				data={selectedTab === "All" ? events : selectedTypeEvents}
-				columns={tableColumnData}
-				search
-			>
+			<ToolkitProvider keyField="_id" data={webinars} columns={tableColumnData} search>
 				{(props) => (
 					<div>
 						<div className="d-flex justify-content-end">
-							<SearchBar {...props.searchProps} placeholder="Search events" className="mb-3 search-bar" />
+							<SearchBar {...props.searchProps} placeholder="Search Webinars" className="mb-3 search-bar" />
 						</div>
 						<p className="table-description text-muted">
-							*If you experience any difficulty in viewing the event information, please make sure your cache is cleared
-							and completed a hard refresh.
+							*If you experience any difficulty in viewing the Webinar information, please make sure your cache is
+							cleared and completed a hard refresh.
 						</p>
 						<BootstrapTable
 							{...props.baseProps}
@@ -342,13 +262,8 @@ const EventList: React.FC = () => {
 					</div>
 				)}
 			</ToolkitProvider>
-
-			<AddEvent />
-			<UpdateEvent />
-			<DeleteEvent />
-			<EventView />
 		</div>
 	);
 };
 
-export default EventList;
+export default DeletedWebinarList;

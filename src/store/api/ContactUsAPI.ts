@@ -9,7 +9,7 @@ class ContactUsAPI {
 	}
 
 	static getContactsUs(): Promise<IContactUs[]> {
-		return axios.get(`${BASE_URL}/admin/contactus/`, requestConfig);
+		return axios.get(`${BASE_URL}/admin/contact/`, requestConfig);
 	}
 
 	static deleteContactUs(contactUsId: string): Promise<IContactUs> {

@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getEvents, setEventId } from "../../../store/event-store/eventActions";
-import { IEvent, IModifiedBy } from "../../../interfaces";
+import { getTopSpeakers, setTopSpeakerId } from "../../../store/top-speaker-store/topSpeakerActions";
+import { ITopSpeaker, IModifiedBy } from "../../../interfaces";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
-import EventView from "../view";
-import AddEvent from "../add";
-import UpdateEvent from "../update";
-import DeleteEvent from "../delete";
 import { useHistory } from "react-router-dom";
 
-const EventList: React.FC = () => {
+const TopSpeakerList: React.FC = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const HtmlToReactParser = require("html-to-react").Parser;
-	const state = useSelector((state) => state.eventReducer);
-	const [selectedTypeEvents, setSelectedTypeEvents] = useState<IEvent[]>([]);
-	const [events, setEvents] = useState<IEvent[]>([]);
+	const state = useSelector((state) => state.topSpeakerReducer);
+	const topSpeakers: ITopSpeaker[] = state.topSpeakers;
+	const [selectedTypeTopSpeakers, setSelectedTypeTopSpeakers] = useState<ITopSpeaker[]>(topSpeakers);
 	const [selectedTab, setSelectedTab] = useState<string>("All");
 
 	const convertToPlain = (html: string) => {
@@ -37,36 +33,30 @@ const EventList: React.FC = () => {
 		alwaysShowAllBtns: true,
 	};
 
-	// Fetch events information
+	// Fetch topSpeakers information
 	useEffect(() => {
-		dispatch(getEvents());
-	}, [getEvents, dispatch]);
-
-	// Set fetched event info to state
-	useEffect(() => {
-		setEvents(state.events);
-	}, [state.events, setEvents]);
+		dispatch(getTopSpeakers());
+	}, [selectedTypeTopSpeakers, dispatch]);
 
 	// Table column configurations
 	const tableColumnData = [
 		{
 			dataField: "actions",
 			text: "Actions",
-			formatter: (cell: any, row: IEvent) => actionButtonFormatter(row),
+			formatter: (cell: any, row: ITopSpeaker) => actionButtonFormatter(row),
 			headerStyle: { width: "90px" },
 		},
 		{ dataField: "title", text: "Title", headerStyle: { width: "200px" } },
 		{
-			dataField: "eventType",
+			dataField: "topSpeakerType",
 			text: "Type",
 			headerStyle: { width: "110px" },
 			formatter: (cell: string) => {
 				return (
 					<div>
-						{cell === "UPCOMING" ? (
-							<span className="badge rounded-pill bg-primary text-light">Upcoming Event</span>
+						{cell === "DELETED" ? (
+							<span className="badge rounded-pill bg-primary text-light">Deleted Top Speakers</span>
 						) : null}
-						{cell === "PAST" ? <span className="badge rounded-pill bg-warning text-dark">Past Event</span> : null}
 					</div>
 				);
 			},
@@ -123,13 +113,13 @@ const EventList: React.FC = () => {
 						<i className="fas fa-ellipsis-h"></i>
 					</span>
 					<div className="dropdown-menu dropdown-menu-right">
-						<span className="dropdown-item" onClick={(e) => handleSetViewEvent(e, row._id)}>
+						<span className="dropdown-item" onClick={(e) => handleSetViewTopSpeaker(row._id)}>
 							<i className="far fa-eye" /> View
 						</span>
-						<span className="dropdown-item" onClick={(e) => handleSetUpdateEvent(e, row._id)}>
+						<span className="dropdown-item" onClick={(e) => handleSetUpdateTopSpeaker(row._id)}>
 							<i className="far fa-edit" /> Edit
 						</span>
-						<button className="dropdown-item" onClick={(e) => handleSetDeleteEvent(e, row._id)}>
+						<button className="dropdown-item" onClick={(e) => handleSetDeleteTopSpeaker(row._id)}>
 							<i className="far fa-trash-alt" /> Delete
 						</button>
 					</div>
@@ -138,25 +128,19 @@ const EventList: React.FC = () => {
 		);
 	};
 
-	const handleSetViewEvent = (event: any, eventId: string) => {
-		if (event) {
-			dispatch(setEventId(eventId));
-			$("#eventViewModal").modal("show");
-		}
+	const handleSetViewTopSpeaker = (topSpeakerId: string) => {
+		dispatch(setTopSpeakerId(topSpeakerId));
+		$("#topSpeakerViewModal").modal("show");
 	};
 
-	const handleSetUpdateEvent = (event: any, eventId: string) => {
-		if (event) {
-			dispatch(setEventId(eventId));
-			$("#eventUpdateModal").modal("show");
-		}
+	const handleSetUpdateTopSpeaker = (topSpeakerId: string) => {
+		dispatch(setTopSpeakerId(topSpeakerId));
+		$("#topSpeakerUpdateModal").modal("show");
 	};
 
-	const handleSetDeleteEvent = (event: any, eventId: string) => {
-		if (event) {
-			dispatch(setEventId(eventId));
-			$("#eventDeleteModal").modal("show");
-		}
+	const handleSetDeleteTopSpeaker = (topSpeakerId: string) => {
+		dispatch(setTopSpeakerId(topSpeakerId));
+		$("#topSpeakerDeleteModal").modal("show");
 	};
 
 	const expandRow = {
@@ -183,47 +167,18 @@ const EventList: React.FC = () => {
 				</div>
 			);
 		},
-		renderer: (row: IEvent) => (
+		renderer: (row: ITopSpeaker) => (
 			<div>
-				<h5>Event Information</h5>
+				<h5>Top Speaker Information</h5>
 				<div className="row">
 					<div className="col-md-3 col-sm-12">
 						<img
 							src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${row.imageUrl}`}
-							className="event-flyer"
-							alt="event-flyer"
+							className="topSpeaker-flyer"
+							alt="topSpeaker-flyer"
 						/>
 					</div>
 					<div className="col-md-9 col-sm-12">
-						<h6 className="row-header">
-							<span className="fas fa-link" /> &nbsp; Event Link
-						</h6>
-						<a href={row.link} target="_blank" rel="noreferrer">
-							{row.link}
-						</a>
-
-						<h6 className="row-header my-3">
-							<span className="fas fa-link" /> &nbsp; Registration Link
-						</h6>
-						<a href={row.registrationLink} target="_blank" rel="noreferrer">
-							{row.registrationLink}
-						</a>
-
-						{row.tags && row.tags.length > 0 ? (
-							<div>
-								<h6 className="row-header my-3">
-									<span className="fas fa-tags" /> Tags &nbsp;
-								</h6>
-								<div className="d-flex">
-									{row.tags.map((tag, index) => (
-										<div className="tag-badge" key={index}>
-											#{tag}
-										</div>
-									))}
-								</div>
-							</div>
-						) : null}
-
 						<h6 className="row-header">
 							<span className="fas fa-align-left my-2" />
 							&nbsp; Description
@@ -235,7 +190,7 @@ const EventList: React.FC = () => {
 		),
 	};
 
-	const handleViewClick = (event: any, type: string) => {
+	const handleViewClick = (topSpeaker: any, type: string) => {
 		Promise.resolve()
 			.then(() => {
 				setSelectedTab(type);
@@ -243,39 +198,33 @@ const EventList: React.FC = () => {
 			})
 			.then((data) => {
 				if (data === "All") {
-					setSelectedTypeEvents(events);
-				} else if (data === "Upcoming") {
-					setSelectedTypeEvents(events.filter((event) => event.eventType === "UPCOMING"));
-				} else if (data === "Past") {
-					setSelectedTypeEvents(events.filter((event) => event.eventType === "PAST"));
+					setSelectedTypeTopSpeakers(topSpeakers);
 				} else if (data === "Deleted") {
-					setSelectedTypeEvents(events.filter((event) => event.deletedAt !== null));
+					setSelectedTypeTopSpeakers(topSpeakers.filter((topSpeaker) => topSpeaker.topSpeakerType === "DELETED"));
 				}
 			});
 	};
 
-	const handleDeletedEventClick = (event: any) => {
-		if (event) {
-			history.push("/events/deleted");
-		}
+	const handleDeletedTopSpeakerClick = (topSpeakers: any) => {
+		history.push("/topSpeakers/deleted");
 	};
 
 	return (
 		<div className="card">
 			<div className="row">
 				<div className="col-6">
-					<h3 className="page-title">Events</h3>
-					<p className="page-description text-muted">Manage all the event informations</p>
+					<h3 className="page-title">Top Speakers</h3>
+					<p className="page-description text-muted">Manage all the Top Speaker informations</p>
 				</div>
 				<div className="col-6">
 					<div className="d-flex justify-content-end">
 						<button
 							className="btn btn-primary btn-rounded shadow-none"
 							data-mdb-toggle="modal"
-							data-mdb-target="#addEventModal"
+							data-mdb-target="#addTopSpeakerModal"
 						>
 							<span className="fas fa-plus" />
-							<span className="mx-2">Add New Event</span>
+							<span className="mx-2">Add New Top Speaker</span>
 						</button>
 					</div>
 				</div>
@@ -291,22 +240,8 @@ const EventList: React.FC = () => {
 					</button>
 					&nbsp;
 					<button
-						className={`btn btn-sm ${selectedTab === "Upcoming" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "Upcoming")}
-					>
-						Upcoming
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "Past" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "Past")}
-					>
-						Past
-					</button>
-					&nbsp;
-					<button
 						className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleDeletedEventClick(e)}
+						onClick={(e) => handleDeletedTopSpeakerClick(e)}
 					>
 						Deleted
 					</button>
@@ -315,18 +250,18 @@ const EventList: React.FC = () => {
 
 			<ToolkitProvider
 				keyField="_id"
-				data={selectedTab === "All" ? events : selectedTypeEvents}
+				data={selectedTab === "All" ? topSpeakers : selectedTypeTopSpeakers}
 				columns={tableColumnData}
 				search
 			>
 				{(props) => (
 					<div>
 						<div className="d-flex justify-content-end">
-							<SearchBar {...props.searchProps} placeholder="Search events" className="mb-3 search-bar" />
+							<SearchBar {...props.searchProps} placeholder="Search topSpeakers" className="mb-3 search-bar" />
 						</div>
 						<p className="table-description text-muted">
-							*If you experience any difficulty in viewing the event information, please make sure your cache is cleared
-							and completed a hard refresh.
+							*If you experience any difficulty in viewing the top Speaker information, please make sure your cache is
+							cleared and completed a hard refresh.
 						</p>
 						<BootstrapTable
 							{...props.baseProps}
@@ -342,13 +277,8 @@ const EventList: React.FC = () => {
 					</div>
 				)}
 			</ToolkitProvider>
-
-			<AddEvent />
-			<UpdateEvent />
-			<DeleteEvent />
-			<EventView />
 		</div>
 	);
 };
 
-export default EventList;
+export default TopSpeakerList;

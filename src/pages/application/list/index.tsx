@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { applications as getApplications, setApplicationId } from "../../../store/application-store/applicationActions";
+import {
+	applications as getApplications,
+	setApplicationId,
+	changeApplicationStatusIntoSelected,
+	changeApplicationStatusIntoRejected,
+} from "../../../store/application-store/applicationActions";
 import { IApplication } from "../../../interfaces";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import { useHistory } from "react-router-dom";
+import ApplicationInterviewForm from "../interview";
+import DeleteApplication from "../delete";
 
 const ApplicationList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -30,6 +37,28 @@ const ApplicationList: React.FC = () => {
 	useEffect(() => {
 		dispatch(getApplications());
 	}, [selectedTypeApplications, dispatch]);
+
+	useEffect(() => {
+		dispatch(getApplications());
+	}, [state.updatedApplication, dispatch]);
+
+	useEffect(() => {
+		dispatch(getApplications());
+	}, [state.deletedApplication, dispatch]);
+
+	// Change Application Status Into Selected
+	const onSumbitSelected = (applicationId: string) => {
+		if (applicationId) {
+			dispatch(changeApplicationStatusIntoSelected(applicationId));
+		}
+	};
+
+	// Change Application Status Into Rejected
+	const onSumbitRejected = (applicationId: string) => {
+		if (applicationId) {
+			dispatch(changeApplicationStatusIntoRejected(applicationId));
+		}
+	};
 
 	// Table column configurations
 	const tableColumnData = [
@@ -81,10 +110,10 @@ const ApplicationList: React.FC = () => {
 						<i className="fas fa-ellipsis-h"></i>
 					</span>
 					<div className="dropdown-menu dropdown-menu-right">
-						<span className="dropdown-item" onClick={(e) => handleSetViewApplication(e, row._id)}>
+						<span className="dropdown-item" onClick={() => handleSetViewApplication(row._id)}>
 							<i className="far fa-eye" /> View
 						</span>
-						<button className="dropdown-item" onClick={(e) => handleSetDeleteApplication(e, row._id)}>
+						<button className="dropdown-item" onClick={() => handleSetDeleteApplication(row._id)}>
 							<i className="far fa-trash-alt" /> Delete
 						</button>
 					</div>
@@ -93,18 +122,19 @@ const ApplicationList: React.FC = () => {
 		);
 	};
 
-	const handleSetViewApplication = (event: any, applicationId: string) => {
-		if (event) {
-			dispatch(setApplicationId(applicationId));
-			$("#applicationViewModal").modal("show");
-		}
+	const handleSetViewApplication = (applicationId: string) => {
+		dispatch(setApplicationId(applicationId));
+		$("#applicationViewModal").modal("show");
 	};
 
-	const handleSetDeleteApplication = (event: any, applicationId: string) => {
-		if (event) {
-			dispatch(setApplicationId(applicationId));
-			$("#applicationDeleteModal").modal("show");
-		}
+	const handleSetDeleteApplication = (applicationId: string) => {
+		dispatch(setApplicationId(applicationId));
+		$("#applicationDeleteModal").modal("show");
+	};
+
+	const handleSetApplicationInterview = (applicationId: string) => {
+		dispatch(setApplicationId(applicationId));
+		$("#applicationInterviewModal").modal("show");
 	};
 
 	const expandRow = {
@@ -235,6 +265,43 @@ const ApplicationList: React.FC = () => {
 							</div>
 						</>
 					) : null}
+
+					<div className="col-md-4 col-sm-12">
+						<div className="row">
+							<div className="col-md-4 col-sm-12">
+								<button
+									className={`btn btn-sm btn-primary ${row.status === "INTERVIEW" ? "disabled" : ""}`}
+									onClick={() => {
+										handleSetApplicationInterview(row._id);
+									}}
+								>
+									INTERVIEW
+								</button>
+							</div>
+
+							<div className="col-md-4 col-sm-12">
+								<button
+									className={`btn  btn-sm btn-success ${row.status === "SELECTED" ? "disabled" : ""}`}
+									onClick={() => {
+										onSumbitSelected(row._id);
+									}}
+								>
+									SELECTED
+								</button>
+							</div>
+
+							<div className="col-md-4 col-sm-12">
+								<button
+									className={`btn  btn-sm btn-danger ${row.status === "REJECTED" ? "disabled" : ""}`}
+									onClick={() => {
+										onSumbitRejected(row._id);
+									}}
+								>
+									REJECTED
+								</button>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		),
@@ -263,10 +330,8 @@ const ApplicationList: React.FC = () => {
 			});
 	};
 
-	const handleDeletedEventClick = (applications: any) => {
-		if (applications) {
-			history.push("/applications/deleted");
-		}
+	const handleDeletedEventClick = () => {
+		history.push("/applications/deleted");
 	};
 
 	return (
@@ -317,7 +382,7 @@ const ApplicationList: React.FC = () => {
 					&nbsp;
 					<button
 						className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleDeletedEventClick(e)}
+						onClick={() => handleDeletedEventClick()}
 					>
 						Deleted
 					</button>
@@ -353,6 +418,9 @@ const ApplicationList: React.FC = () => {
 					</div>
 				)}
 			</ToolkitProvider>
+
+			<ApplicationInterviewForm />
+			<DeleteApplication />
 		</div>
 	);
 };

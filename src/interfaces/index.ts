@@ -1,11 +1,12 @@
 import { IEvent, IEventStore, IEventState, IEventFormData } from "./IEvent";
 import { ITopSpeaker, ITopSpeakerStore } from "./ITopSpeaker";
 import { IModifiedBy, IUser, IUserStore, IAuthUser, IUserFormData, IUserState } from "./IUser";
+import { IInterviewState, IInterviewFormData } from "./IInterview";
 import { IApplication, IApplicationStore } from "./IApplication";
-import { IWebinar, IWebinarStore } from "./IWebinar";
 import { IContactUs, IContactUsStore } from "./IContactUs";
 import { ILoginState, ILoginFormData } from "./ILogin";
 import { IOrganization, IOrganizationStore } from "./IOrganization";
+import { IWebinar, IWebinarStore, IwebinarFormData, IWebinarState } from "./IWebinar";
 
 export type {
 	IEvent,
@@ -24,10 +25,14 @@ export type {
 	IUserState,
 	IWebinar,
 	IWebinarStore,
+	IwebinarFormData,
+	IWebinarState,
 	IContactUs,
 	IContactUsStore,
 	ILoginFormData,
 	ILoginState,
 	IOrganization,
 	IOrganizationStore,
+	IInterviewState,
+	IInterviewFormData,
 };
