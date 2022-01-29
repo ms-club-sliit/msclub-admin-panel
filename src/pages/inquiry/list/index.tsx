@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getInquiries, setInquiryId } from "../../../store/inquiry-store/inquiryAction";
-import { IInquiry } from "../../../interfaces";
+import { getContactsUs, setContactUsId } from "../../../store/contact-store/contactUsAction";
+import { IContactUs } from "../../../interfaces";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
-import moment from "moment";
 import { useHistory } from "react-router-dom";
 import DeleteInquiry from "../delete";
 
 const InquiryList: React.FC = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const state = useSelector((state) => state.inquiryReducer);
-	const [inquiries, setInquiries] = useState<IInquiry[]>([]);
-	const [selectedTypeInquiry, setselectedTypeInquiry] = useState<IInquiry[]>(inquiries);
+	const state = useSelector((state) => state.contactUsReducer);
+	const inquiries: IContactUs[] = state.contactsUs;
+	const [selectedTypeContactUs, setselectedTypeContactUs] = useState<IContactUs[]>(inquiries);
 	const [selectedTab, setSelectedTab] = useState<string>("All");
 
 	// Table confuguration
@@ -27,34 +26,22 @@ const InquiryList: React.FC = () => {
 		alwaysShowAllBtns: true,
 	};
 
-	// Fetch inquiries information
+	// Fetch events information
 	useEffect(() => {
-		dispatch(getInquiries());
-	}, [dispatch, getInquiries]);
-
-	// Set Inquiry data
-	useEffect(() => {
-		setInquiries(state.inquiries);
-	}, [state.inquiries, setInquiries]);
+		dispatch(getContactsUs());
+	}, [dispatch, getContactsUs]);
 
 	// Table column configurations
 	const tableColumnData = [
 		{
 			dataField: "actions",
 			text: "Actions",
-			formatter: (cell: any, row: IInquiry) => actionButtonFormatter(row),
+			formatter: (cell: any, row: IContactUs) => actionButtonFormatter(row),
 			headerStyle: { width: "90px" },
 		},
 		{ dataField: "name", text: "Title", headerStyle: { width: "200px" } },
 		{ dataField: "email", text: "Email", headerStyle: { width: "200px" } },
-		{
-			dataField: "dateTime",
-			text: "Date & Time",
-			headerStyle: { width: "220px" },
-			formatter: (cell: string) => {
-				return moment(cell).format("LLL");
-			},
-		},
+		{ dataField: "message", text: "Message", headerStyle: { width: "200px" } },
 	];
 
 	// Table action buttons
@@ -66,8 +53,8 @@ const InquiryList: React.FC = () => {
 						<i className="fas fa-ellipsis-h"></i>
 					</span>
 					<div className="dropdown-menu dropdown-menu-right">
-						<button className="dropdown-item" onClick={(e) => handleSetDeleteInquiry(e, row._id)}>
-							<i className="far fa-trash-alt" /> Archive
+						<button className="dropdown-item" onClick={(e) => handleSetDeleteEvent(e, row._id)}>
+							<i className="far fa-trash-alt" /> Delete
 						</button>
 					</div>
 				</span>
@@ -75,9 +62,9 @@ const InquiryList: React.FC = () => {
 		);
 	};
 
-	const handleSetDeleteInquiry = (inquiry: any, contactUsId: string) => {
-		if (inquiry) {
-			dispatch(setInquiryId(contactUsId));
+	const handleSetDeleteEvent = (event: any, contactUsId: string) => {
+		if (event) {
+			dispatch(setContactUsId(contactUsId));
 			$("#eventDeleteModal").modal("show");
 		}
 	};
@@ -90,9 +77,9 @@ const InquiryList: React.FC = () => {
 			})
 			.then((data) => {
 				if (data === "All") {
-					setselectedTypeInquiry(inquiries);
+					setselectedTypeContactUs(inquiries);
 				} else if (data === "Deleted") {
-					setselectedTypeInquiry(inquiries.filter((inquiry) => inquiry.deletedAt !== null));
+					setselectedTypeContactUs(inquiries.filter((inquiry) => inquiry.deletedAt !== null));
 				}
 			});
 	};
@@ -121,10 +108,25 @@ const InquiryList: React.FC = () => {
 				</div>
 			);
 		},
-		renderer: (row: IInquiry) => (
+		renderer: (row: IContactUs) => (
 			<div>
-				<h5>Message</h5>
+				<h5>ContactUs Information</h5>
 				<div className="row">
+					<div className="col-md-2 col-sm-12">
+						<h5 className="row-header">Contact Name</h5>
+					</div>
+					<div className="col-md-10 col-sm-12">
+						<p>Y{row.name}</p>
+					</div>
+					<div className="col-md-2 col-sm-12">
+						<h5 className="row-header">Contact Email</h5>
+					</div>
+					<div className="col-md-10 col-sm-12">
+						<p>{row.email}</p>
+					</div>
+					<div className="col-md-2 col-sm-12">
+						<h5 className="row-header">Contact Message</h5>
+					</div>
 					<div className="col-md-10 col-sm-12">
 						<p>{row.message}</p>
 					</div>
@@ -135,7 +137,7 @@ const InquiryList: React.FC = () => {
 
 	const handleDeletedInquriesClick = (inquiries: any) => {
 		if (inquiries) {
-			history.push("/inquiries/deleted");
+			history.push("/inquries/deleted");
 		}
 	};
 
@@ -143,8 +145,8 @@ const InquiryList: React.FC = () => {
 		<div className="card">
 			<div className="row">
 				<div className="col-6">
-					<h3 className="page-title">Inquiries</h3>
-					<p className="page-description text-muted">Manage all the Inquiry informations</p>
+					<h3 className="page-title">Inquiry</h3>
+					<p className="page-description text-muted">Manage all the ContactUs informations</p>
 				</div>
 			</div>
 
@@ -168,17 +170,17 @@ const InquiryList: React.FC = () => {
 
 			<ToolkitProvider
 				keyField="_id"
-				data={selectedTab === "All" ? inquiries : selectedTypeInquiry}
+				data={selectedTab === "All" ? inquiries : selectedTypeContactUs}
 				columns={tableColumnData}
 				search
 			>
 				{(props) => (
 					<div>
 						<div className="d-flex justify-content-end">
-							<SearchBar {...props.searchProps} placeholder="Search Inquiries" className="mb-3 search-bar" />
+							<SearchBar {...props.searchProps} placeholder="Search events" className="mb-3 search-bar" />
 						</div>
 						<p className="table-description text-muted">
-							*If you experience any difficulty in viewing the Inquiry information, please make sure your cache is
+							*If you experience any difficulty in viewing the ContactUs information, please make sure your cache is
 							cleared and completed a hard refresh.
 						</p>
 						<BootstrapTable
