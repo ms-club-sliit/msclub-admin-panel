@@ -1,0 +1,74 @@
+.recentlogins {
+	@include media("<=phone") {
+		h4 {
+			font-size: 30px;
+			font-family: "Product Sans Bold";
+			margin-left: 10px;
+		}
+
+		.card {
+			width: 100%;
+			max-height: 170px;
+		}
+	}
+	@include media(">=phone", "<tablet") {
+		h4 {
+			font-size: 30px;
+			font-family: "Product Sans Bold";
+			margin-left: 10px;
+		}
+
+		.card {
+			width: 100%;
+			max-height: 160px;
+		}
+	}
+	@include media(">=tablet", "<smalldesktop") {
+		h4 {
+			font-size: 30px;
+			font-family: "Product Sans Bold";
+			margin-left: 10px;
+		}
+
+		.card {
+			width: 100%;
+			max-height: 160px;
+		}
+	}
+	@include media(">=smalldesktop", "<desktop") {
+		h4 {
+			font-size: 30px;
+			font-family: "Product Sans Bold";
+			margin-left: 10px;
+		}
+
+		.card {
+			width: 100%;
+			max-height: 160px;
+		}
+	}
+	@include media(">=desktop", "<largedesktop") {
+		h4 {
+			font-size: 30px;
+			font-family: "Product Sans Bold";
+			margin-left: 10px;
+		}
+
+		.card {
+			width: 100%;
+			max-height: 160px;
+		}
+	}
+	@include media(">=largedesktop") {
+		h4 {
+			font-size: 30px;
+			font-family: "Product Sans Bold";
+			margin-left: 10px;
+		}
+
+		.card {
+			width: 100%;
+			max-height: 160px;
+		}
+	}
+}
