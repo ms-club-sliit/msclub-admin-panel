@@ -11,6 +11,7 @@ import {
 	DeletedWebinarList,
 	ApplicationList,
 	InquiryList,
+	Dashboard,
 } from "../pages";
 import PrivateRoute from "./PrivateRoute";
 
@@ -34,6 +35,7 @@ const PageRoutes: React.FC = () => {
 						<PrivateRoute path="/applications" component={ApplicationList} />
 						<PrivateRoute path="/inquries" component={InquiryList} />
 						<Route path="/signin" component={Login} exact />
+						<PrivateRoute path="/" component={Dashboard} />
 					</Switch>
 				</div>
 			</BrowserRouter>

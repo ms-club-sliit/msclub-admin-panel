@@ -30,18 +30,15 @@ export const updateTopSpeaker = (topSpeakerId: string, data: any) => {
 };
 
 export const deleteTopSpeaker = (topSpeakerId: string) => {
-    return {
-        type: topSpeakerActionTypes.DELETE_TOP_SPEAKER,
-        payload: TopSpeakerAPI.deleteTopSpeaker(topSpeakerId),
-
-    }
+	return {
+		type: topSpeakerActionTypes.DELETE_TOP_SPEAKER,
+		payload: TopSpeakerAPI.deleteTopSpeaker(topSpeakerId),
+	};
 };
 
 export const setTopSpeakerId = (topSpeakerId: string) => {
-    return {
-        type: topSpeakerActionTypes.SET_TOP_SPEAKER_ID,
-        payload: topSpeakerId,
-    }
+	return {
+		type: topSpeakerActionTypes.SET_TOP_SPEAKER_ID,
+		payload: topSpeakerId,
+	};
 };
-
-
