@@ -11,10 +11,9 @@ import {
 	DeletedWebinarList,
 	ApplicationList,
 	InquiryList,
+	Dashboard,
 } from "../pages";
 import PrivateRoute from "./PrivateRoute";
-
-import Dashboard from "../pages/dashboard/index";
 
 const PageRoutes: React.FC = () => {
 	const dispatch = useDispatch();

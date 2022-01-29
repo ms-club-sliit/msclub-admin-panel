@@ -50,16 +50,7 @@ const Chart: React.FC = () => {
 
 	return (
 		<div>
-			<div
-				style={{
-					padding: "10px",
-					textAlign: "center",
-					margin: "auto",
-					justifyContent: "center",
-				}}
-			>
-				{pieChart}
-			</div>
+			<div className="chart">{pieChart}</div>
 		</div>
 	);
 };

@@ -1,17 +1,17 @@
 import { IModifiedBy } from ".";
 
 interface ITopSpeaker {
-  _id: string;
-  name: string;
-  title: string;
-  company: string;
-  imageUrl: string;
-  createdBy: IModifiedBy;
-  createdAt: Date;
-  updatedBy: IModifiedBy[];
-  updatedAt: Date;
-  topSpeakerType: string;
-  description: string;
+	_id: string;
+	name: string;
+	title: string;
+	company: string;
+	imageUrl: string;
+	createdBy: IModifiedBy;
+	createdAt: Date;
+	updatedBy: IModifiedBy[];
+	updatedAt: Date;
+	topSpeakerType: string;
+	description: string;
 }
 
 interface ITopSpeakerStore {

@@ -8,7 +8,7 @@ const DateTime: React.FC = () => {
 					<p>{new Date().toLocaleTimeString("en-US")}</p>
 					<p>{new Date().toLocaleDateString("en-US")}</p>
 				</div>
-				<div className="col-sm" style={{ height: "50px", borderLeft: "6px solid green" }}></div>
+				<div className="col-sm"></div>
 				<div className="col-sm-5">
 					<p>nicolle</p>
 					<p>Admin</p>
