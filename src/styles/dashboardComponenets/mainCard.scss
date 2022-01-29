@@ -1,0 +1,98 @@
+.maincard {
+	@include media("<=phone") {
+		h6 {
+			font-size: 14px;
+			font-family: "Product Sans Bold";
+			margin-left: 10px;
+		}
+
+		.card {
+			width: 100%;
+			min-height: 165px;
+		}
+
+		p {
+			font-size: 25px;
+		}
+	}
+	@include media(">=phone", "<tablet") {
+		h6 {
+			font-size: 14px;
+			font-family: "Product Sans Bold";
+			margin-left: 10px;
+		}
+
+		.card {
+			width: 100%;
+			min-height: 165px;
+		}
+
+		p {
+			font-size: 25px;
+		}
+	}
+	@include media(">=tablet", "<smalldesktop") {
+		h6 {
+			font-size: 14px;
+			font-family: "Product Sans Bold";
+			margin-left: 10px;
+		}
+
+		.card {
+			width: 100%;
+			min-height: 165px;
+		}
+
+		p {
+			font-size: 25px;
+		}
+	}
+	@include media(">=smalldesktop", "<desktop") {
+		h6 {
+			font-size: 14px;
+			font-family: "Product Sans Bold";
+			margin-left: 10px;
+		}
+
+		.card {
+			width: 100%;
+			min-height: 170px;
+		}
+
+		p {
+			font-size: 25px;
+		}
+	}
+	@include media(">=desktop", "<largedesktop") {
+		h6 {
+			font-size: 14px;
+			font-family: "Product Sans Bold";
+			margin-left: 10px;
+		}
+
+		.card {
+			width: 100%;
+			min-height: 165px;
+		}
+
+		p {
+			font-size: 25px;
+		}
+	}
+	@include media(">=largedesktop") {
+		h6 {
+			font-size: 14px;
+			font-family: "Product Sans Bold";
+			margin-left: 10px;
+		}
+
+		.card {
+			width: 100%;
+			min-height: 160px;
+		}
+
+		p {
+			font-size: 25px;
+		}
+	}
+}

@@ -6,6 +6,8 @@ import { refreshToken } from "../store/user-store/userActions";
 import { EventList, DeletedEventList, Login, WebinarList, DeletedWebinarList, ApplicationList } from "../pages";
 import PrivateRoute from "./PrivateRoute";
 
+import Dashboard from "../pages/dashboard/index";
+
 const PageRoutes: React.FC = () => {
 	const dispatch = useDispatch();
 
@@ -25,6 +27,7 @@ const PageRoutes: React.FC = () => {
 						<PrivateRoute path="/webinars/" component={WebinarList} />
 						<PrivateRoute path="/applications" component={ApplicationList} />
 						<Route path="/signin" component={Login} exact />
+						<PrivateRoute path="/" component={Dashboard} />
 					</Switch>
 				</div>
 			</BrowserRouter>

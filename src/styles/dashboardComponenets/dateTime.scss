@@ -1,0 +1,28 @@
+.dateTime {
+	@include media("<=phone") {
+		justify-content: center;
+		.col-sm {
+			margin-left: 2rem;
+			margin-right: 2rem;
+		}
+	}
+	@include media(">=phone", "<tablet") {
+		justify-content: center;
+		.col-sm {
+			margin-left: 2rem;
+			margin-right: 2rem;
+		}
+	}
+	@include media(">=tablet", "<smalldesktop") {
+		justify-content: center;
+	}
+	@include media(">=smalldesktop", "<desktop") {
+		justify-content: center;
+	}
+	@include media(">=desktop", "<largedesktop") {
+		justify-content: center;
+	}
+	@include media(">=largedesktop") {
+		justify-content: center;
+	}
+}
