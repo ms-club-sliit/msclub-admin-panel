@@ -12,8 +12,8 @@ declare global {
 const Store = createStore(reducers, applyMiddleware(promiseMiddleware));
 
 //Development Store
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+//const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-// const Store = createStore(reducers, composeEnhancers(applyMiddleware(promiseMiddleware)));
+//const Store = createStore(reducers, composeEnhancers(applyMiddleware(promiseMiddleware)));
 
 export default Store;

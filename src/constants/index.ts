@@ -8,7 +8,7 @@ const ApplicationConstants = {
 		{ id: 3, name: "Webinars", link: "/webinars" },
 		{ id: 4, name: "Top Speakers", link: "/speakers" },
 		{ id: 5, name: "Applications", link: "/applications" },
-		{ id: 6, name: "Inquiry", link: "/inquries" },
+		{ id: 6, name: "Inquiry", link: "/inquiries" },
 	],
 	AUTH_NAVBAR_OPTIONS: [
 		{ id: 1, name: "My Profile", link: "/profile" },
