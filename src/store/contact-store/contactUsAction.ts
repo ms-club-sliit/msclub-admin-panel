@@ -21,3 +21,10 @@ export const deleteContactUs = (contactUsId: string) => {
 		payload: ContactUsAPI.deleteContactUs(contactUsId),
 	};
 };
+
+export const setContactUsId = (ContactUsId: string) => {
+	return {
+		type: ContactUsActionTypes.SET_CONTACT_ID,
+		payload: ContactUsId,
+	};
+};

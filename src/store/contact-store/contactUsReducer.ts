@@ -25,11 +25,11 @@ const contactUsReducer = (state = initialState, action: any) => {
 			let getContact = action.payload.data;
 			return { ...state, loading: false, getContact };
 		case `${ContactUsActionTypes.GET_ALL_CONTACTS}_FULFILLED`:
-			let getAllContacts = action.payload.data;
-			return { ...state, loading: false, getAllContacts };
+			let contactsUs = action.payload.data;
+			return { ...state, loading: false, contactsUs };
 		case `${ContactUsActionTypes.SET_CONTACT_ID}_FULFILLED`:
-			let getContactId = action.payload.data;
-			return { ...state, loading: false, getContactId };
+			let selectedContactUsId = action.payload.data;
+			return { ...state, loading: false, selectedContactUsId };
 		case `${ContactUsActionTypes.SET_CONTACT_ERROR}_FULFILLED`:
 			let getContactError = action.payload.data;
 			return { ...state, loading: false, getContactError };

@@ -19,7 +19,7 @@ class ApplicationAPI {
 	}
 
 	static getArchiveApplications(): Promise<IApplication> {
-		return axios.get(`${BASE_URL}/admin/application/archive/`, requestConfig);
+		return axios.get(`${BASE_URL}/admin/applications/deleted/`, requestConfig);
 	}
 
 	static updateApplication(studentId: string, data: FormData): Promise<IApplication> {
