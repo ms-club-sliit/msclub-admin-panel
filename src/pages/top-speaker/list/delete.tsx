@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDeletedEvents } from "../../../store/event-store/eventActions";
-import { IEvent, IModifiedBy } from "../../../interfaces";
+import { getDeletedTopSpeakers } from "../../../store/top-speaker-store/topSpeakerActions";
+import { ITopSpeaker, IModifiedBy } from "../../../interfaces";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
 
-const DeletedApplicationList: React.FC = () => {
+const DeletedTopSpeakerList: React.FC = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const HtmlToReactParser = require("html-to-react").Parser;
-	const state = useSelector((state) => state.eventReducer);
-	const events: IEvent[] = state.deletedEvents;
+	const state = useSelector((state) => state.topSpeakerReducer);
+	const topSpeakers: ITopSpeaker[] = state.deletedTopSpeakers;
 
 	const convertToPlain = (html: string) => {
 		const htmlToParser = new HtmlToReactParser();
@@ -31,9 +31,9 @@ const DeletedApplicationList: React.FC = () => {
 		alwaysShowAllBtns: true,
 	};
 
-	// Fetch events information
+	// Fetch topSpeaker information
 	useEffect(() => {
-		dispatch(getDeletedEvents());
+		dispatch(getDeletedTopSpeakers());
 	}, [dispatch]);
 
 	// Table column configurations
@@ -41,21 +41,20 @@ const DeletedApplicationList: React.FC = () => {
 		{
 			dataField: "actions",
 			text: "Actions",
-			formatter: (cell: any, row: IEvent) => actionButtonFormatter(row),
+			formatter: () => actionButtonFormatter(),
 			headerStyle: { width: "90px" },
 		},
 		{ dataField: "title", text: "Title", headerStyle: { width: "200px" } },
 		{
-			dataField: "eventType",
+			dataField: "topSpeakerType",
 			text: "Type",
 			headerStyle: { width: "110px" },
 			formatter: (cell: string) => {
 				return (
 					<div>
-						{cell === "UPCOMING" ? (
-							<span className="badge rounded-pill bg-primary text-light">Upcoming Event</span>
+						{cell === "DELETED" ? (
+							<span className="badge rounded-pill bg-primary text-light">Deleted Top Speakers</span>
 						) : null}
-						{cell === "PAST" ? <span className="badge rounded-pill bg-warning text-dark">Past Event</span> : null}
 					</div>
 				);
 			},
@@ -104,27 +103,23 @@ const DeletedApplicationList: React.FC = () => {
 	];
 
 	// Table action buttons
-	const actionButtonFormatter = (row: any) => {
+	const actionButtonFormatter = () => {
 		return (
-			<div>
-				{row && (
-					<span className="dropdown show">
-						<span className="dropdown">
-							<span className="btn shadow-none btn-sm" data-mdb-toggle="dropdown">
-								<i className="fas fa-ellipsis-h"></i>
-							</span>
-							<div className="dropdown-menu dropdown-menu-right">
-								<span className="dropdown-item">
-									<i className="fas fa-undo" /> Recover
-								</span>
-								<button className="dropdown-item">
-									<i className="far fa-trash-alt" /> Delete Permanently
-								</button>
-							</div>
-						</span>
+			<span className="dropdown show">
+				<span className="dropdown">
+					<span className="btn shadow-none btn-sm" data-mdb-toggle="dropdown">
+						<i className="fas fa-ellipsis-h"></i>
 					</span>
-				)}
-			</div>
+					<div className="dropdown-menu dropdown-menu-right">
+						<span className="dropdown-item">
+							<i className="fas fa-undo" /> Recover
+						</span>
+						<button className="dropdown-item">
+							<i className="far fa-trash-alt" /> Delete Permanently
+						</button>
+					</div>
+				</span>
+			</span>
 		);
 	};
 
@@ -152,47 +147,18 @@ const DeletedApplicationList: React.FC = () => {
 				</div>
 			);
 		},
-		renderer: (row: IEvent) => (
+		renderer: (row: ITopSpeaker) => (
 			<div>
-				<h5>Event Information</h5>
+				<h5>Top Speaker Information</h5>
 				<div className="row">
 					<div className="col-md-3 col-sm-12">
 						<img
 							src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${row.imageUrl}`}
-							className="event-flyer"
-							alt="event-flyer"
+							className="topSpeaker-flyer"
+							alt="topSpeaker-flyer"
 						/>
 					</div>
 					<div className="col-md-9 col-sm-12">
-						<h6 className="row-header">
-							<span className="fas fa-link" /> &nbsp; Event Link
-						</h6>
-						<a href={row.link} target="_blank" rel="noreferrer">
-							{row.link}
-						</a>
-
-						<h6 className="row-header my-3">
-							<span className="fas fa-link" /> &nbsp; Registration Link
-						</h6>
-						<a href={row.registrationLink} target="_blank" rel="noreferrer">
-							{row.registrationLink}
-						</a>
-
-						{row.tags && row.tags.length > 0 ? (
-							<div>
-								<h6 className="row-header my-3">
-									<span className="fas fa-tags" /> Tags &nbsp;
-								</h6>
-								<div className="d-flex">
-									{row.tags.map((tag, index) => (
-										<div className="tag-badge" key={index}>
-											#{tag}
-										</div>
-									))}
-								</div>
-							</div>
-						) : null}
-
 						<h6 className="row-header">
 							<span className="fas fa-align-left my-2" />
 							&nbsp; Description
@@ -204,28 +170,26 @@ const DeletedApplicationList: React.FC = () => {
 		),
 	};
 
-	const handleGoBackToEvents = (event: any) => {
-		if (event) {
-			history.push("/events/");
-		}
+	const handleGoBackToTopSpeakers = () => {
+		history.push("/topSpeakers/");
 	};
 
 	return (
 		<div className="card">
 			<div className="row">
 				<div className="col-6">
-					<h3 className="page-title">Events</h3>
-					<p className="page-description text-muted">Manage all the event informations</p>
+					<h3 className="page-title">Top Speakers</h3>
+					<p className="page-description text-muted">Manage all the top speaker informations</p>
 				</div>
 				<div className="col-6">
 					<div className="d-flex justify-content-end">
 						<button
 							className="btn btn-primary btn-rounded shadow-none"
 							data-mdb-toggle="modal"
-							data-mdb-target="#addEventModal"
+							data-mdb-target="#addTopSpeakerModal"
 						>
 							<span className="fas fa-plus" />
-							<span className="mx-2">Add New Event</span>
+							<span className="mx-2">Add New Top Speaker</span>
 						</button>
 					</div>
 				</div>
@@ -233,21 +197,21 @@ const DeletedApplicationList: React.FC = () => {
 
 			<div>
 				<div className="d-flex">
-					<button className="btn btn-sm btn-light shadow-none btn-rounded" onClick={handleGoBackToEvents}>
+					<button className="btn btn-sm btn-light shadow-none btn-rounded" onClick={handleGoBackToTopSpeakers}>
 						Go Back
 					</button>
 				</div>
 			</div>
 
-			<ToolkitProvider keyField="_id" data={events} columns={tableColumnData} search>
+			<ToolkitProvider keyField="_id" data={topSpeakers} columns={tableColumnData} search>
 				{(props) => (
 					<div>
 						<div className="d-flex justify-content-end">
-							<SearchBar {...props.searchProps} placeholder="Search events" className="mb-3 search-bar" />
+							<SearchBar {...props.searchProps} placeholder="Search topSpeakers" className="mb-3 search-bar" />
 						</div>
 						<p className="table-description text-muted">
-							*If you experience any difficulty in viewing the event information, please make sure your cache is cleared
-							and completed a hard refresh.
+							*If you experience any difficulty in viewing the top speaker information, please make sure your cache is
+							cleared and completed a hard refresh.
 						</p>
 						<BootstrapTable
 							{...props.baseProps}
@@ -267,4 +231,4 @@ const DeletedApplicationList: React.FC = () => {
 	);
 };
 
-export default DeletedApplicationList;
+export default DeletedTopSpeakerList;

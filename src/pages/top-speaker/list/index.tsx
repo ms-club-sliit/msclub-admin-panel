@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getWebinars, setWebinarId } from "../../../store/webinar-store/webinarActions";
-import { IWebinar, IModifiedBy } from "../../../interfaces";
+import { getTopSpeakers, setTopSpeakerId } from "../../../store/top-speaker-store/topSpeakerActions";
+import { ITopSpeaker, IModifiedBy } from "../../../interfaces";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
-import WebinarView from "../view";
-import DeleteWebinar from "../delete";
-import WebinarUpdate from "../update";
 import { useHistory } from "react-router-dom";
-import AddWebinar from "../add";
 
-const WebinarList: React.FC = () => {
+const TopSpeakerList: React.FC = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const HtmlToReactParser = require("html-to-react").Parser;
-	const state = useSelector((state) => state.webinarReducer);
-	const webinars: IWebinar[] = state.webinars;
-	const [selectedTypeWebinars, setSelectedTypeWebinar] = useState<IWebinar[]>(webinars);
+	const state = useSelector((state) => state.topSpeakerReducer);
+	const topSpeakers: ITopSpeaker[] = state.topSpeakers;
+	const [selectedTypeTopSpeakers, setSelectedTypeTopSpeakers] = useState<ITopSpeaker[]>(topSpeakers);
 	const [selectedTab, setSelectedTab] = useState<string>("All");
 
 	const convertToPlain = (html: string) => {
@@ -37,36 +33,30 @@ const WebinarList: React.FC = () => {
 		alwaysShowAllBtns: true,
 	};
 
-	// Fetch Webinar Information
+	// Fetch topSpeakers information
 	useEffect(() => {
-		dispatch(getWebinars());
-	}, [dispatch]);
-
-	//Assign Webinar Data
-	useEffect(() => {
-		setSelectedTypeWebinar(state.webinars);
-	}, [state.webinars]);
+		dispatch(getTopSpeakers());
+	}, [selectedTypeTopSpeakers, dispatch]);
 
 	// Table column configurations
 	const tableColumnData = [
 		{
 			dataField: "actions",
 			text: "Actions",
-			formatter: (cell: any, row: IWebinar) => actionButtonFormatter(row),
+			formatter: (cell: any, row: ITopSpeaker) => actionButtonFormatter(row),
 			headerStyle: { width: "90px" },
 		},
 		{ dataField: "title", text: "Title", headerStyle: { width: "200px" } },
 		{
-			dataField: "webinarType",
+			dataField: "topSpeakerType",
 			text: "Type",
-			headerStyle: { width: "150px" },
+			headerStyle: { width: "110px" },
 			formatter: (cell: string) => {
 				return (
 					<div>
-						{cell === "UPCOMING" ? (
-							<span className="badge rounded-pill bg-primary text-light">Upcoming Webinar</span>
+						{cell === "DELETED" ? (
+							<span className="badge rounded-pill bg-primary text-light">Deleted Top Speakers</span>
 						) : null}
-						{cell === "PAST" ? <span className="badge rounded-pill bg-warning text-dark">Past Webinar</span> : null}
 					</div>
 				);
 			},
@@ -123,13 +113,13 @@ const WebinarList: React.FC = () => {
 						<i className="fas fa-ellipsis-h"></i>
 					</span>
 					<div className="dropdown-menu dropdown-menu-right">
-						<span className="dropdown-item" onClick={() => handleSetViewWebinar(row._id)}>
+						<span className="dropdown-item" onClick={() => handleSetViewTopSpeaker(row._id)}>
 							<i className="far fa-eye" /> View
 						</span>
-						<span className="dropdown-item" onClick={() => handleSetUpdateWebinar(row._id)}>
+						<span className="dropdown-item" onClick={() => handleSetUpdateTopSpeaker(row._id)}>
 							<i className="far fa-edit" /> Edit
 						</span>
-						<button className="dropdown-item" onClick={() => handleSetDeleteWebinar(row._id)}>
+						<button className="dropdown-item" onClick={() => handleSetDeleteTopSpeaker(row._id)}>
 							<i className="far fa-trash-alt" /> Delete
 						</button>
 					</div>
@@ -138,19 +128,19 @@ const WebinarList: React.FC = () => {
 		);
 	};
 
-	const handleSetViewWebinar = (webinarId: string) => {
-		dispatch(setWebinarId(webinarId));
-		$("#webinarViewModal").modal("show");
+	const handleSetViewTopSpeaker = (topSpeakerId: string) => {
+		dispatch(setTopSpeakerId(topSpeakerId));
+		$("#topSpeakerViewModal").modal("show");
 	};
 
-	const handleSetUpdateWebinar = (webinarId: string) => {
-		dispatch(setWebinarId(webinarId));
-		$("#webinarUpdateModal").modal("show");
+	const handleSetUpdateTopSpeaker = (topSpeakerId: string) => {
+		dispatch(setTopSpeakerId(topSpeakerId));
+		$("#topSpeakerUpdateModal").modal("show");
 	};
 
-	const handleSetDeleteWebinar = (webinarId: string) => {
-		dispatch(setWebinarId(webinarId));
-		$("#webinarDeleteModal").modal("show");
+	const handleSetDeleteTopSpeaker = (topSpeakerId: string) => {
+		dispatch(setTopSpeakerId(topSpeakerId));
+		$("#topSpeakerDeleteModal").modal("show");
 	};
 
 	const expandRow = {
@@ -177,47 +167,18 @@ const WebinarList: React.FC = () => {
 				</div>
 			);
 		},
-		renderer: (row: IWebinar) => (
+		renderer: (row: ITopSpeaker) => (
 			<div>
-				<h5>Webinar Information</h5>
+				<h5>Top Speaker Information</h5>
 				<div className="row">
 					<div className="col-md-3 col-sm-12">
 						<img
 							src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${row.imageUrl}`}
-							className="event-flyer"
-							alt="event-flyer"
+							className="topSpeaker-flyer"
+							alt="topSpeaker-flyer"
 						/>
 					</div>
 					<div className="col-md-9 col-sm-12">
-						<h6 className="row-header">
-							<span className="fas fa-link" /> &nbsp; Webinar Link
-						</h6>
-						<a href={row.link} target="_blank" rel="noreferrer">
-							{row.link}
-						</a>
-
-						<h6 className="row-header my-3">
-							<span className="fas fa-link" /> &nbsp; Registration Link
-						</h6>
-						<a href={row.registrationLink} target="_blank" rel="noreferrer">
-							{row.registrationLink}
-						</a>
-
-						{row.tags && row.tags.length > 0 ? (
-							<div>
-								<h6 className="row-header my-3">
-									<span className="fas fa-tags" /> Tags &nbsp;
-								</h6>
-								<div className="d-flex">
-									{row.tags.map((tag, index) => (
-										<div className="tag-badge" key={index}>
-											#{tag}
-										</div>
-									))}
-								</div>
-							</div>
-						) : null}
-
 						<h6 className="row-header">
 							<span className="fas fa-align-left my-2" />
 							&nbsp; Description
@@ -229,7 +190,7 @@ const WebinarList: React.FC = () => {
 		),
 	};
 
-	const handleViewClick = (event: any, type: string) => {
+	const handleViewClick = (topSpeaker: any, type: string) => {
 		Promise.resolve()
 			.then(() => {
 				setSelectedTab(type);
@@ -237,39 +198,33 @@ const WebinarList: React.FC = () => {
 			})
 			.then((data) => {
 				if (data === "All") {
-					setSelectedTypeWebinar(webinars);
-				} else if (data === "Upcoming") {
-					setSelectedTypeWebinar(webinars.filter((event) => event.webinarType === "UPCOMING"));
-				} else if (data === "Past") {
-					setSelectedTypeWebinar(webinars.filter((event) => event.webinarType === "PAST"));
+					setSelectedTypeTopSpeakers(topSpeakers);
 				} else if (data === "Deleted") {
-					setSelectedTypeWebinar(webinars.filter((event) => event.deletedAt !== null));
+					setSelectedTypeTopSpeakers(topSpeakers.filter((topSpeaker) => topSpeaker.topSpeakerType === "DELETED"));
 				}
 			});
 	};
 
-	const handleDeletedWebinarClick = (webinar: any) => {
-		if (webinar) {
-			history.push("/webinars/deleted");
-		}
+	const handleDeletedTopSpeakerClick = () => {
+		history.push("/topSpeakers/deleted");
 	};
 
 	return (
 		<div className="card">
 			<div className="row">
 				<div className="col-6">
-					<h3 className="page-title">Webinar</h3>
-					<p className="page-description text-muted">Manage all the Webinar informations</p>
+					<h3 className="page-title">Top Speakers</h3>
+					<p className="page-description text-muted">Manage all the Top Speaker informations</p>
 				</div>
 				<div className="col-6">
 					<div className="d-flex justify-content-end">
 						<button
 							className="btn btn-primary btn-rounded shadow-none"
 							data-mdb-toggle="modal"
-							data-mdb-target="#addWebinarModal"
+							data-mdb-target="#addTopSpeakerModal"
 						>
 							<span className="fas fa-plus" />
-							<span className="mx-2">Add New Webinar</span>
+							<span className="mx-2">Add New Top Speaker</span>
 						</button>
 					</div>
 				</div>
@@ -285,22 +240,8 @@ const WebinarList: React.FC = () => {
 					</button>
 					&nbsp;
 					<button
-						className={`btn btn-sm ${selectedTab === "Upcoming" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "Upcoming")}
-					>
-						Upcoming
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "Past" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "Past")}
-					>
-						Past
-					</button>
-					&nbsp;
-					<button
 						className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleDeletedWebinarClick(e)}
+						onClick={() => handleDeletedTopSpeakerClick()}
 					>
 						Deleted
 					</button>
@@ -309,17 +250,17 @@ const WebinarList: React.FC = () => {
 
 			<ToolkitProvider
 				keyField="_id"
-				data={selectedTab === "All" ? webinars : selectedTypeWebinars}
+				data={selectedTab === "All" ? topSpeakers : selectedTypeTopSpeakers}
 				columns={tableColumnData}
 				search
 			>
 				{(props) => (
 					<div>
 						<div className="d-flex justify-content-end">
-							<SearchBar {...props.searchProps} placeholder="Search Webinars" className="mb-3 search-bar" />
+							<SearchBar {...props.searchProps} placeholder="Search topSpeakers" className="mb-3 search-bar" />
 						</div>
 						<p className="table-description text-muted">
-							*If you experience any difficulty in viewing the webinar information, please make sure your cache is
+							*If you experience any difficulty in viewing the top Speaker information, please make sure your cache is
 							cleared and completed a hard refresh.
 						</p>
 						<BootstrapTable
@@ -336,13 +277,8 @@ const WebinarList: React.FC = () => {
 					</div>
 				)}
 			</ToolkitProvider>
-
-			<WebinarView />
-			<AddWebinar />
-			<DeleteWebinar />
-			<WebinarUpdate />
 		</div>
 	);
 };
 
-export default WebinarList;
+export default TopSpeakerList;

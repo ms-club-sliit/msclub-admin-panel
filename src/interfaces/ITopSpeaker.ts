@@ -10,6 +10,8 @@ interface ITopSpeaker {
 	createdAt: Date;
 	updatedBy: IModifiedBy[];
 	updatedAt: Date;
+	topSpeakerType: string;
+	description: string;
 }
 
 interface ITopSpeakerStore {

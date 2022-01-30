@@ -26,6 +26,13 @@
 @import "./styles/image-canvas.scss";
 @import "./styles/login.scss";
 
+//dashboard componenets
+@import "./styles/dashboardComponenets/mainCard.scss";
+@import "./styles/dashboardComponenets/recentLogins.scss";
+@import "./styles/dashboardComponenets/recentMessages.scss";
+@import "./styles/dashboardComponenets/studentApplication.scss";
+@import "./styles/dashboardComponenets/dateTime.scss";
+
 .container {
 	margin-top: 80px;
 }
