@@ -15,10 +15,10 @@ export const deleteInquiry = (contactUsId: string) => {
 	};
 };
 
-export const setInquiryId = (contactUsId: string) => {
+export const setInquiryId = (inquiryId: string) => {
 	return {
 		type: InquiryActionTypes.SET_INQUIRY_ID,
-		payload: contactUsId,
+		payload: inquiryId,
 	};
 };
 
