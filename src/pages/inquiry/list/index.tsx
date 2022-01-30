@@ -75,10 +75,10 @@ const InquiryList: React.FC = () => {
 		);
 	};
 
-	const handleSetDeleteInquiry = (inquiry: any, contactUsId: string) => {
+	const handleSetDeleteInquiry = (inquiry: any, inquiryId: string) => {
 		if (inquiry) {
-			dispatch(setInquiryId(contactUsId));
-			$("#eventDeleteModal").modal("show");
+			dispatch(setInquiryId(inquiryId));
+			$("#inquiryDeleteModal").modal("show");
 		}
 	};
 

@@ -15,7 +15,6 @@ const inquiryReducer = (state = initialState, action: any) => {
 	switch (action.type) {
 		case `${InquiryActionTypes.GET_INQUIRY}_PENDING`:
 		case `${InquiryActionTypes.GET_ALL_INQUIRIES}_PENDING`:
-		case `${InquiryActionTypes.SET_INQUIRY_ID}_PENDING`:
 		case `${InquiryActionTypes.SET_INQUIRY_ERROR}_PENDING`:
 		case `${InquiryActionTypes.GET_DELETED_INQUIRIES}_PENDING`:
 		case `${InquiryActionTypes.DELETE_INQUIRY}_PENDING`:
@@ -27,8 +26,8 @@ const inquiryReducer = (state = initialState, action: any) => {
 		case `${InquiryActionTypes.GET_ALL_INQUIRIES}_FULFILLED`:
 			let inquiries = action.payload.data;
 			return { ...state, loading: false, inquiries };
-		case `${InquiryActionTypes.SET_INQUIRY_ID}_FULFILLED`:
-			let selectedInquiryId = action.payload.data;
+		case `${InquiryActionTypes.SET_INQUIRY_ID}`:
+			let selectedInquiryId = action.payload;
 			return { ...state, loading: false, selectedInquiryId };
 		case `${InquiryActionTypes.SET_INQUIRY_ERROR}_FULFILLED`:
 			let getInquiryError = action.payload.data;
