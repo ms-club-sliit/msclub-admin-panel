@@ -15,7 +15,6 @@ import {
 	InquiryList,
 	DeletedInquiryList,
 	Dashboard,
-    TopSpeakerList,
 } from "../pages";
 import PrivateRoute from "./PrivateRoute";
 
