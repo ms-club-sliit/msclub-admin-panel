@@ -3,3 +3,44 @@
 	border-radius: 5px;
 	border: 1px solid gray;
 }
+
+.add-topSpeaker {
+	.tag-text {
+		font-size: 13px;
+	}
+
+	.description {
+		font-size: 13px;
+		font-family: "Poppins Regular";
+	}
+}
+
+.update-topSpeaker {
+	.flyer {
+		width: 300px;
+		border-radius: 0px;
+		margin-top: 18px;
+	}
+
+	.flyer-title {
+		justify-content: start;
+		font-size: 14px;
+		margin-top: 4px;
+	}
+
+	.tag-text {
+		font-size: 13px;
+	}
+}
+
+.delete-topSpeaker {
+	.flyer-title {
+		justify-content: start;
+		font-size: 14px;
+		margin-top: 4px;
+	}
+
+	.text {
+		font-size: 13px;
+	}
+}

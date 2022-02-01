@@ -26,4 +26,18 @@ interface ITopSpeakerStore {
 	error: string | null;
 }
 
-export type { ITopSpeaker, ITopSpeakerStore };
+// Top Speaker Form Interface
+interface ITopSpeakerFormData {
+	imageSrc?: any | null;
+	topSpeakerName: string | null;
+	description: string | null;
+}
+// Event State Interface
+interface ITopSpeakerState {
+	topSpeakerId: string | null;
+	isFormNotValid: boolean;
+	imageSrc?: any;
+	topSpeakerName: string | null;
+	description: string | null;
+}
+export type { ITopSpeaker, ITopSpeakerStore, ITopSpeakerFormData, ITopSpeakerState };
