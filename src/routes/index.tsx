@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { NavBar } from "../components";
 import { refreshToken } from "../store/user-store/userActions";
 import {
+	DeletedTopSpeakerList,
 	TopSpeakerList,
 	EventList,
 	DeletedEventList,
@@ -30,7 +31,8 @@ const PageRoutes: React.FC = () => {
 				<NavBar />
 				<div className="container">
 					<Switch>
-						<PrivateRoute path="/speakers" component={TopSpeakerList} />
+						<PrivateRoute path="/topSpeakers/deleted" component={DeletedTopSpeakerList} />
+						<PrivateRoute path="/topSpeakers" component={TopSpeakerList} />
 						<PrivateRoute path="/events/deleted" component={DeletedEventList} />
 						<PrivateRoute path="/events/" component={EventList} />
 						<PrivateRoute path="/webinars/deleted" component={DeletedWebinarList} />
