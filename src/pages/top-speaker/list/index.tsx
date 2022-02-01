@@ -7,6 +7,7 @@ import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
+import TopSpeakerView from "../view";
 
 const TopSpeakerList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -277,6 +278,8 @@ const TopSpeakerList: React.FC = () => {
 					</div>
 				)}
 			</ToolkitProvider>
+
+			<TopSpeakerView/>
 		</div>
 	);
 };
