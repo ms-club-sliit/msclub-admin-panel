@@ -150,7 +150,7 @@ const AddTopSpeaker: React.FC = () => {
 										onChange={onChange}
 									/>
 									{formData.topSpeakerName === null && isFormNotValid ? (
-										<span className="text-danger validation-message">Event name is required</span>
+										<span className="text-danger validation-message">Top speaker title is required</span>
 									) : null}
 								</div>
 							</div>
