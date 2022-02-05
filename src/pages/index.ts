@@ -7,6 +7,7 @@ import DeletedWebinarList from "./webinar/list/delete";
 import InquiryList from "./inquiry/list";
 import DeletedInquiryList from "./inquiry/list/delete";
 import Dashboard from "./dashboard";
+import DeletedApplicationList from "./application/list/delete";
 
 export {
 	EventList,
@@ -18,4 +19,5 @@ export {
 	InquiryList,
 	DeletedInquiryList,
 	Dashboard,
+	DeletedApplicationList,
 };

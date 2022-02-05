@@ -330,8 +330,10 @@ const ApplicationList: React.FC = () => {
 			});
 	};
 
-	const handleDeletedEventClick = () => {
-		history.push("/applications/deleted");
+	const handleDeletedEventClick = (event: any) => {
+		if (event) {
+			history.push("/applications/deleted");
+		}
 	};
 
 	return (
@@ -382,7 +384,7 @@ const ApplicationList: React.FC = () => {
 					&nbsp;
 					<button
 						className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={() => handleDeletedEventClick()}
+						onClick={(e) => handleDeletedEventClick(e)}
 					>
 						Deleted
 					</button>
