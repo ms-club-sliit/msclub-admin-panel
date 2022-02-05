@@ -15,7 +15,9 @@ const TopSpeakerView: React.FC = () => {
 	};
 
 	useEffect(() => {
-		let topSpeakerdata = state.topSpeakers.find((topSpeaker: ITopSpeaker) => state.selectedTopSpeakerId === topSpeaker._id);
+		let topSpeakerdata = state.topSpeakers.find(
+			(topSpeaker: ITopSpeaker) => state.selectedTopSpeakerId === topSpeaker._id
+		);
 		setTopSpeakerDetails(topSpeakerdata);
 	}, [state.selectedTopSpeakerId, state.topSpeakers]);
 

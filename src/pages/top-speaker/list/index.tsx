@@ -186,7 +186,7 @@ const TopSpeakerList: React.FC = () => {
 							&nbsp; Title
 						</h6>
 						<p>{convertToPlain(row.title)}</p>
-						
+
 						<h6 className="row-header">
 							<span className="fas fa-align-left my-2" />
 							&nbsp; Description
@@ -321,8 +321,8 @@ const TopSpeakerList: React.FC = () => {
 				)}
 			</ToolkitProvider>
 
-			<TopSpeakerView/>
-			<AddTopSpeaker/>
+			<TopSpeakerView />
+			<AddTopSpeaker />
 		</div>
 	);
 };

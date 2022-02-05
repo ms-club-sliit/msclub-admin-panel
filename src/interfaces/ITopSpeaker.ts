@@ -11,7 +11,7 @@ interface ITopSpeaker {
 	updatedBy: IModifiedBy[];
 	updatedAt: Date;
 	topSpeakerType: string;
-	description: string;	
+	description: string;
 	socialMediaURLs: ITopSpeakerMedia;
 }
 
@@ -51,6 +51,11 @@ interface ITopSpeakerState {
 	imageSrc?: any;
 	topSpeakerName: string | null;
 	description: string | null;
-	socialMediaURLs: ITopSpeakerMedia;
+	facebook: string | null;
+	instagram: string | null;
+	twitter: string | null;
+	linkedIn: string | null;
+	web: string | null;
 }
+
 export type { ITopSpeaker, ITopSpeakerStore, ITopSpeakerFormData, ITopSpeakerState };

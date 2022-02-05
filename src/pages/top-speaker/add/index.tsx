@@ -10,8 +10,7 @@ let formData: ITopSpeakerFormData = {
 	imageSrc: null,
 	topSpeakerName: null,
 	description: null,
-	socialMediaURLs: {facebook:null, instagram:null, twitter:null, linkedIn:null, web:null},
-
+	socialMediaURLs: { facebook: null, instagram: null, twitter: null, linkedIn: null, web: null },
 };
 
 const initialState: ITopSpeakerState = {
@@ -20,7 +19,11 @@ const initialState: ITopSpeakerState = {
 	imageSrc: null,
 	topSpeakerName: "",
 	description: "",
-	socialMediaURLs: {facebook:"", instagram:"", twitter:"", linkedIn:"", web:""}
+	facebook: "",
+	instagram: "",
+	twitter: "",
+	linkedIn: "",
+	web: "",
 };
 
 const AddTopSpeaker: React.FC = () => {
@@ -28,13 +31,7 @@ const AddTopSpeaker: React.FC = () => {
 	const state = useSelector((state) => state.topSpeakerReducer);
 	const [editor, setEditor] = useState(() => RichTextEditor.createEmptyValue());
 	const [
-		{
-			topSpeakerName,
-			description,
-			imageSrc,
-			isFormNotValid,
-			socialMediaURLs:{facebook,instagram,twitter,linkedIn,web}
-		},
+		{ topSpeakerName, description, imageSrc, isFormNotValid, facebook, instagram, twitter, linkedIn, web },
 		setState,
 	] = useState(initialState);
 
@@ -50,6 +47,11 @@ const AddTopSpeaker: React.FC = () => {
 	};
 
 	const onChange = (event: any) => {
+		const { name, value } = event.target;
+		setState((prevState) => ({ ...prevState, [name]: value }));
+	};
+
+	const onChangeSocialMedia = (event: any) => {
 		const { name, value } = event.target;
 		setState((prevState) => ({ ...prevState, [name]: value }));
 	};
@@ -81,13 +83,13 @@ const AddTopSpeaker: React.FC = () => {
 			imageSrc: imageSrc ? imageSrc : null,
 			topSpeakerName: topSpeakerName && topSpeakerName.trim().length > 0 ? topSpeakerName : null,
 			description: description && description.trim().length > 0 ? description : null,
-			socialMediaURLs:{
-			facebook:facebook && facebook.trim().length > 0 ? facebook : null,
-			instagram:instagram && instagram.trim().length > 0 ? instagram : null,
-			twitter:twitter && twitter.trim().length > 0 ? twitter : null,
-			linkedIn:linkedIn && linkedIn.trim().length > 0 ? linkedIn : null,
-			web:web && web.trim().length > 0 ? web : null,
-			}
+			socialMediaURLs: {
+				facebook: facebook && facebook.trim().length > 0 ? facebook : null,
+				instagram: instagram && instagram.trim().length > 0 ? instagram : null,
+				twitter: twitter && twitter.trim().length > 0 ? twitter : null,
+				linkedIn: linkedIn && linkedIn.trim().length > 0 ? linkedIn : null,
+				web: web && web.trim().length > 0 ? web : null,
+			},
 		};
 
 		formData = Object.assign({}, data);
@@ -112,11 +114,11 @@ const AddTopSpeaker: React.FC = () => {
 				topSpeakerFormData.append("topSpeakerFlyer", imageSrc); //need to recheck
 				topSpeakerFormData.append("title", topSpeakerName as string);
 				topSpeakerFormData.append("description", description as string);
-				topSpeakerFormData.append("facebook", facebook as string);
-				topSpeakerFormData.append("instagram", instagram as string);
-				topSpeakerFormData.append("twitter", twitter as string);
-				topSpeakerFormData.append("linkedIn", linkedIn as string);
-				topSpeakerFormData.append("web", web as string);
+				topSpeakerFormData.append("socialMediaURLs.facebook", facebook as string);
+				topSpeakerFormData.append("socialMediaURLs.instagram", instagram as string);
+				topSpeakerFormData.append("socialMediaURLs.twitter", twitter as string);
+				topSpeakerFormData.append("socialMediaURLs.linkedIn", linkedIn as string);
+				topSpeakerFormData.append("socialMediaURLs.web", web as string);
 
 				dispatch(createTopSpeaker(topSpeakerFormData));
 			} else {
@@ -182,7 +184,7 @@ const AddTopSpeaker: React.FC = () => {
 										className="form-control"
 										name="facebook"
 										value={facebook as string}
-										onChange={onChange}
+										onChange={onChangeSocialMedia}
 									/>
 									{formData.socialMediaURLs.facebook === null && isFormNotValid ? (
 										<span className="text-danger validation-message">URL is required</span>
@@ -218,7 +220,7 @@ const AddTopSpeaker: React.FC = () => {
 									<input
 										type="text"
 										className="form-control"
-										name="socialMediaURLs"
+										name="twitter"
 										value={twitter as string}
 										onChange={onChange}
 									/>
@@ -237,7 +239,7 @@ const AddTopSpeaker: React.FC = () => {
 									<input
 										type="text"
 										className="form-control"
-										name="socialMediaURLs"
+										name="linkedIn"
 										value={linkedIn as string}
 										onChange={onChange}
 									/>
@@ -253,13 +255,7 @@ const AddTopSpeaker: React.FC = () => {
 									&nbsp;Website
 								</label>
 								<div className="col-sm-9">
-									<input
-										type="text"
-										className="form-control"
-										name="socialMediaURLs"
-										value={web as string}
-										onChange={onChange}
-									/>
+									<input type="text" className="form-control" name="web" value={web as string} onChange={onChange} />
 									{formData.socialMediaURLs.web === null && isFormNotValid ? (
 										<span className="text-danger validation-message">URL is required</span>
 									) : null}
