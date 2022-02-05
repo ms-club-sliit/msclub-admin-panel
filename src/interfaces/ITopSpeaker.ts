@@ -31,7 +31,18 @@ interface ITopSpeakerFormData {
 	imageSrc?: any | null;
 	topSpeakerName: string | null;
 	description: string | null;
+	socialMediaURLs: ITopSpeakerMedia;
 }
+
+//Top Speaker social media URLs interface
+interface ITopSpeakerMedia {
+	facebook: string | null;
+	instagram: string | null;
+	twitter: string | null;
+	linkedIn: string | null;
+	web: string | null;
+}
+
 // Event State Interface
 interface ITopSpeakerState {
 	topSpeakerId: string | null;
@@ -39,5 +50,6 @@ interface ITopSpeakerState {
 	imageSrc?: any;
 	topSpeakerName: string | null;
 	description: string | null;
+	socialMediaURLs: ITopSpeakerMedia;
 }
 export type { ITopSpeaker, ITopSpeakerStore, ITopSpeakerFormData, ITopSpeakerState };

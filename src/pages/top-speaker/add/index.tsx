@@ -10,6 +10,7 @@ let formData: ITopSpeakerFormData = {
 	imageSrc: null,
 	topSpeakerName: null,
 	description: null,
+	socialMediaURLs: {facebook:null, instagram:null, twitter:null, linkedIn:null, web:null},
 };
 
 const initialState: ITopSpeakerState = {
@@ -18,6 +19,7 @@ const initialState: ITopSpeakerState = {
 	imageSrc: null,
 	topSpeakerName: "",
 	description: "",
+	socialMediaURLs: {facebook:"", instagram:"", twitter:"", linkedIn:"", web:""}
 };
 
 const AddTopSpeaker: React.FC = () => {
@@ -30,6 +32,7 @@ const AddTopSpeaker: React.FC = () => {
 			description,
 			imageSrc,
 			isFormNotValid,
+			socialMediaURLs:{facebook,instagram,twitter,linkedIn,web}
 		},
 		setState,
 	] = useState(initialState);
@@ -77,6 +80,13 @@ const AddTopSpeaker: React.FC = () => {
 			imageSrc: imageSrc ? imageSrc : null,
 			topSpeakerName: topSpeakerName && topSpeakerName.trim().length > 0 ? topSpeakerName : null,
 			description: description && description.trim().length > 0 ? description : null,
+			socialMediaURLs:{
+			facebook:facebook && facebook.trim().length > 0 ? facebook : null,
+			instagram:instagram && instagram.trim().length > 0 ? instagram : null,
+			twitter:twitter && twitter.trim().length > 0 ? twitter : null,
+			linkedIn:linkedIn && linkedIn.trim().length > 0 ? linkedIn : null,
+			web:web && web.trim().length > 0 ? web : null,
+			}
 		};
 
 		formData = Object.assign({}, data);
@@ -98,9 +108,14 @@ const AddTopSpeaker: React.FC = () => {
 				setState((prevState) => ({ ...prevState, isFormNotValid: false }));
 
 				let topSpeakerFormData = new FormData();
-				topSpeakerFormData.append("topSpeakerImage", imageSrc); //need to recheck
+				topSpeakerFormData.append("topSpeakerFlyer", imageSrc); //need to recheck
 				topSpeakerFormData.append("title", topSpeakerName as string);
 				topSpeakerFormData.append("description", description as string);
+				topSpeakerFormData.append("facebook", facebook as string);
+				topSpeakerFormData.append("instagram", instagram as string);
+				topSpeakerFormData.append("twitter", twitter as string);
+				topSpeakerFormData.append("linkedIn", linkedIn as string);
+				topSpeakerFormData.append("web", web as string);
 
 				dispatch(createTopSpeaker(topSpeakerFormData));
 			} else {
@@ -151,6 +166,101 @@ const AddTopSpeaker: React.FC = () => {
 									/>
 									{formData.topSpeakerName === null && isFormNotValid ? (
 										<span className="text-danger validation-message">Top speaker title is required</span>
+									) : null}
+								</div>
+							</div>
+
+							<div className="form-group row my-3">
+								<label className="col-sm-3 col-form-label form-label text-dark">
+									<i className="fas fa-link fa-sm" />
+									&nbsp;Facebook
+								</label>
+								<div className="col-sm-9">
+									<input
+										type="text"
+										className="form-control"
+										name="socialMediaURLs"
+										value={facebook as string}
+										onChange={onChange}
+									/>
+									{formData.socialMediaURLs.facebook === null && isFormNotValid ? (
+										<span className="text-danger validation-message">URL is required</span>
+									) : null}
+								</div>
+							</div>
+
+							<div className="form-group row my-3">
+								<label className="col-sm-3 col-form-label form-label text-dark">
+									<i className="fas fa-link fa-sm" />
+									&nbsp;Instagram
+								</label>
+								<div className="col-sm-9">
+									<input
+										type="text"
+										className="form-control"
+										name="socialMediaURLs"
+										value={instagram as string}
+										onChange={onChange}
+									/>
+									{formData.socialMediaURLs.instagram === null && isFormNotValid ? (
+										<span className="text-danger validation-message">URL is required</span>
+									) : null}
+								</div>
+							</div>
+
+							<div className="form-group row my-3">
+								<label className="col-sm-3 col-form-label form-label text-dark">
+									<i className="fas fa-link fa-sm" />
+									&nbsp;Twitter
+								</label>
+								<div className="col-sm-9">
+									<input
+										type="text"
+										className="form-control"
+										name="socialMediaURLs"
+										value={twitter as string}
+										onChange={onChange}
+									/>
+									{formData.socialMediaURLs.twitter === null && isFormNotValid ? (
+										<span className="text-danger validation-message">URL is required</span>
+									) : null}
+								</div>
+							</div>
+
+							<div className="form-group row my-3">
+								<label className="col-sm-3 col-form-label form-label text-dark">
+									<i className="fas fa-link fa-sm" />
+									&nbsp;LinkedIn
+								</label>
+								<div className="col-sm-9">
+									<input
+										type="text"
+										className="form-control"
+										name="socialMediaURLs"
+										value={linkedIn as string}
+										onChange={onChange}
+									/>
+									{formData.socialMediaURLs.linkedIn === null && isFormNotValid ? (
+										<span className="text-danger validation-message">URL is required</span>
+									) : null}
+								</div>
+							</div>
+
+							<div className="form-group row my-3">
+								<label className="col-sm-3 col-form-label form-label text-dark">
+									<i className="fas fa-link fa-sm" />
+									&nbsp;Website
+								</label>
+								<div className="col-sm-9">
+									<input
+										type="text"
+										className="form-control"
+										name="socialMediaURLs"
+										value={web as string}
+										onChange={onChange}
+									/>
+									{formData.socialMediaURLs.web === null && isFormNotValid ? (
+										<span className="text-danger validation-message">URL is required</span>
 									) : null}
 								</div>
 							</div>
