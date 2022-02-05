@@ -11,6 +11,7 @@ let formData: ITopSpeakerFormData = {
 	topSpeakerName: null,
 	description: null,
 	socialMediaURLs: {facebook:null, instagram:null, twitter:null, linkedIn:null, web:null},
+
 };
 
 const initialState: ITopSpeakerState = {
@@ -179,7 +180,7 @@ const AddTopSpeaker: React.FC = () => {
 									<input
 										type="text"
 										className="form-control"
-										name="socialMediaURLs"
+										name="facebook"
 										value={facebook as string}
 										onChange={onChange}
 									/>
@@ -198,7 +199,7 @@ const AddTopSpeaker: React.FC = () => {
 									<input
 										type="text"
 										className="form-control"
-										name="socialMediaURLs"
+										name="instagram"
 										value={instagram as string}
 										onChange={onChange}
 									/>

@@ -4,6 +4,75 @@
 	border: 1px solid gray;
 }
 
+.topSpeaker-view {
+	.header {
+		margin-left: 60px;
+		font-family: "Poppins Medium";
+	}
+
+	.text {
+		font-size: 15px;
+	}
+
+	.badge {
+		margin-right: 5px;
+	}
+
+	.date-time {
+		margin-left: 32px;
+		margin-top: 0px;
+		font-size: 14px;
+	}
+
+	ul.timeline {
+		list-style-type: none;
+		position: relative;
+	}
+
+	ul.timeline:before {
+		content: "";
+		background: #d4d9df;
+		display: inline-block;
+		position: absolute;
+		left: 25px;
+		width: 2px;
+		height: 100%;
+		z-index: 400;
+	}
+
+	ul.timeline > li {
+		padding-left: 30px;
+	}
+
+	ul.timeline > li > span > p {
+		font-size: 14px;
+		margin-left: 8px;
+	}
+
+	ul.timeline > li > span > img {
+		width: 25px;
+		height: 25px;
+		border-radius: 50%;
+	}
+
+	ul.timeline > li:before {
+		content: "";
+		background: white;
+		display: inline-block;
+		position: absolute;
+		border-radius: 50%;
+		border: 2px solid $primary-color-active;
+		left: 18px;
+		width: 15px;
+		height: 15px;
+		z-index: 400;
+	}
+
+	.modify-user-item {
+		margin-bottom: 5px;
+	}
+}
+
 .add-topSpeaker {
 	.tag-text {
 		font-size: 13px;

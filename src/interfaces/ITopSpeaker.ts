@@ -11,7 +11,8 @@ interface ITopSpeaker {
 	updatedBy: IModifiedBy[];
 	updatedAt: Date;
 	topSpeakerType: string;
-	description: string;
+	description: string;	
+	socialMediaURLs: ITopSpeakerMedia;
 }
 
 interface ITopSpeakerStore {
