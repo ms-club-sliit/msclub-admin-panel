@@ -15,7 +15,9 @@ const TopSpeakerView: React.FC = () => {
 	};
 
 	useEffect(() => {
-		let topSpeakerdata = state.topSpeakers.find((topSpeaker: ITopSpeaker) => state.selectedTopSpeakerId === topSpeaker._id);
+		let topSpeakerdata = state.topSpeakers.find(
+			(topSpeaker: ITopSpeaker) => state.selectedTopSpeakerId === topSpeaker._id
+		);
 		setTopSpeakerDetails(topSpeakerdata);
 	}, [state.selectedTopSpeakerId, state.topSpeakers]);
 
@@ -39,7 +41,7 @@ const TopSpeakerView: React.FC = () => {
 							<button type="button" className="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div className="modal-body">
-							<div className="event-view">
+							<div className="topSpeaker-view">
 								<h5 className="header">Information</h5>
 								<div className="form-group row mx-5">
 									<label className="col-sm-3 text-dark text">
@@ -49,13 +51,88 @@ const TopSpeakerView: React.FC = () => {
 									<span className="col-sm-9 text-dark text">{topSpeakerDetails?.title}</span>
 								</div>
 
+								<div className="form-group row mx-5 my-2">
+									<label className="col-sm-3 text-dark text">
+										<i className="fas fa-link fa-sm" />
+										&nbsp;Facebook Link :
+									</label>
+									<a
+										href={topSpeakerDetails?.socialMediaURLs.facebook || ""}
+										target="_blank"
+										className="col-sm-9 text"
+										rel="noreferrer"
+									>
+										{topSpeakerDetails && topSpeakerDetails?.socialMediaURLs.facebook}
+									</a>
+								</div>
+
+								<div className="form-group row mx-5 my-2">
+									<label className="col-sm-3 text-dark text">
+										<i className="fas fa-link fa-sm" />
+										&nbsp;Instagram Link :
+									</label>
+									<a
+										href={topSpeakerDetails?.socialMediaURLs.instagram || ""}
+										target="_blank"
+										className="col-sm-9 text"
+										rel="noreferrer"
+									>
+										{topSpeakerDetails && topSpeakerDetails?.socialMediaURLs.instagram}
+									</a>
+								</div>
+
+								<div className="form-group row mx-5 my-2">
+									<label className="col-sm-3 text-dark text">
+										<i className="fas fa-link fa-sm" />
+										&nbsp;Twitter Link :
+									</label>
+									<a
+										href={topSpeakerDetails?.socialMediaURLs.twitter || ""}
+										target="_blank"
+										className="col-sm-9 text"
+										rel="noreferrer"
+									>
+										{topSpeakerDetails && topSpeakerDetails?.socialMediaURLs.twitter}
+									</a>
+								</div>
+
+								<div className="form-group row mx-5 my-2">
+									<label className="col-sm-3 text-dark text">
+										<i className="fas fa-link fa-sm" />
+										&nbsp;LinkedIn Link :
+									</label>
+									<a
+										href={topSpeakerDetails?.socialMediaURLs.linkedIn || ""}
+										target="_blank"
+										className="col-sm-9 text"
+										rel="noreferrer"
+									>
+										{topSpeakerDetails && topSpeakerDetails?.socialMediaURLs.linkedIn}
+									</a>
+								</div>
+
+								<div className="form-group row mx-5 my-2">
+									<label className="col-sm-3 text-dark text">
+										<i className="fas fa-link fa-sm" />
+										&nbsp;Website Link :
+									</label>
+									<a
+										href={topSpeakerDetails?.socialMediaURLs.web || ""}
+										target="_blank"
+										className="col-sm-9 text"
+										rel="noreferrer"
+									>
+										{topSpeakerDetails && topSpeakerDetails?.socialMediaURLs.web}
+									</a>
+								</div>
+
 								<div className="form-group row mx-5">
 									<label className="col-sm-3 text-dark text">
 										<i className="fas fa-align-left" />
 										&nbsp;Description :
 									</label>
 									<span className="col-sm-9 text-dark text">
-										{topSpeakerDetails && convertToPlain(topSpeakerDetails.description)}
+										{topSpeakerDetails && convertToPlain(topSpeakerDetails?.description)}
 									</span>
 								</div>
 
