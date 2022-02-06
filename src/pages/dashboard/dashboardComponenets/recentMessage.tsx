@@ -32,9 +32,8 @@ const RecentMessage: React.FC = () => {
 									<p>{new Date(inquiry?.createdAt).toLocaleDateString("en-US")}</p>
 								</div>
 								<div className="col-sm"></div>
-								<div className="col-sm-5">
+								<div className="col-sm-5 col-name">
 									<p>{inquiry?.name}</p>
-									<p>User</p>
 								</div>
 							</div>
 							<hr></hr>
