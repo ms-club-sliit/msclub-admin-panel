@@ -1,5 +1,5 @@
 import { IEvent, IEventStore, IEventState, IEventFormData } from "./IEvent";
-import { ITopSpeaker, ITopSpeakerStore } from "./ITopSpeaker";
+import { ITopSpeaker, ITopSpeakerStore, ITopSpeakerFormData, ITopSpeakerState } from "./ITopSpeaker";
 import { IInterviewState, IInterviewFormData } from "./IInterview";
 import { IModifiedBy, IUser, IUserStore, IAuthUser } from "./IUser";
 import { IApplication, IApplicationStore } from "./IApplication";
@@ -12,6 +12,8 @@ export type {
 	IEventStore,
 	ITopSpeaker,
 	ITopSpeakerStore,
+	ITopSpeakerFormData,
+	ITopSpeakerState,
 	IEventState,
 	IEventFormData,
 	IModifiedBy,
