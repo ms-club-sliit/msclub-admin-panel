@@ -1,25 +1,18 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getArchiveApplications } from "../../../store/application-store/applicationActions";
 import { IApplication } from "../../../interfaces";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
-import { getArchiveApplication } from "../../../store/application-store/applicationActions";
 
 const DeletedApplicationList: React.FC = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	//const HtmlToReactParser = require("html-to-react").Parser;
 	const state = useSelector((state) => state.applicationReducer);
-	const applications: IApplication[] = state.archiveApplications;
-
-	// const convertToPlain = (html: string) => {
-	// 	const htmlToParser = new HtmlToReactParser();
-	// 	const reactElement = htmlToParser.parse(html);
-	// 	return reactElement;
-	// };
+	const applications: IApplication[] = state.deletedApplications;
 
 	// Table confuguration
 	const { SearchBar } = Search;
@@ -31,15 +24,10 @@ const DeletedApplicationList: React.FC = () => {
 		alwaysShowAllBtns: true,
 	};
 
-	// Fetch application information
+	// Fetch deleted applications information
 	useEffect(() => {
-		dispatch(getArchiveApplication());
+		dispatch(getArchiveApplications());
 	}, [dispatch]);
-
-	useEffect(() => {
-		// eslint-disable-next-line no-console
-		console.log("first");
-	}, []);
 
 	// Table column configurations
 	const tableColumnData = [
@@ -50,14 +38,6 @@ const DeletedApplicationList: React.FC = () => {
 			headerStyle: { width: "90px" },
 		},
 		{ dataField: "name", text: "Name", headerStyle: { width: "200px" } },
-		{
-			dataField: "deletedAt",
-			text: "Deleted At",
-			headerStyle: { width: "220px" },
-			formatter: (cell: string) => {
-				return moment(cell).format("LLL");
-			},
-		},
 		{
 			dataField: "studentId",
 			text: "Student ID",
@@ -73,13 +53,36 @@ const DeletedApplicationList: React.FC = () => {
 			text: "Contact Number",
 			headerStyle: { width: "220px" },
 		},
+		{
+			dataField: "status",
+			text: "Status",
+			headerStyle: { width: "110px" },
+			formatter: (cell: string) => {
+				return (
+					<div>
+						{cell === "PENDING" ? <span className="badge rounded-pill bg-warning text-light">PENDING</span> : null}
+						{cell === "INTERVIEW" ? <span className="badge rounded-pill bg-primary text-light">INTERVIEW</span> : null}
+						{cell === "SELECTED" ? <span className="badge rounded-pill bg-success text-light">SELECTED</span> : null}
+						{cell === "REJECTED" ? <span className="badge rounded-pill bg-danger text-light">REJECTED</span> : null}
+					</div>
+				);
+			},
+		},
+		{
+			dataField: "deletedAt",
+			text: "Deleted At",
+			headerStyle: { width: "220px" },
+			formatter: (cell: string) => {
+				return moment(cell).format("LLL");
+			},
+		},
 	];
 
 	// Table action buttons
 	const actionButtonFormatter = (row: any) => {
 		return (
 			<div>
-				{row && (
+				{row ? (
 					<span className="dropdown show">
 						<span className="dropdown">
 							<span className="btn shadow-none btn-sm" data-mdb-toggle="dropdown">
@@ -95,7 +98,7 @@ const DeletedApplicationList: React.FC = () => {
 							</div>
 						</span>
 					</span>
-				)}
+				) : null}
 			</div>
 		);
 	};
@@ -233,8 +236,8 @@ const DeletedApplicationList: React.FC = () => {
 		),
 	};
 
-	const handleGoBackToApplications = (application: any) => {
-		if (application) {
+	const handleGoBackToApplications = (applications: any) => {
+		if (applications) {
 			history.push("/applications/");
 		}
 	};
@@ -246,7 +249,6 @@ const DeletedApplicationList: React.FC = () => {
 					<h3 className="page-title">Applications</h3>
 					<p className="page-description text-muted">Manage all the application informations</p>
 				</div>
-				<div className="col-6"></div>
 			</div>
 
 			<div>
@@ -261,7 +263,7 @@ const DeletedApplicationList: React.FC = () => {
 				{(props) => (
 					<div>
 						<div className="d-flex justify-content-end">
-							<SearchBar {...props.searchProps} placeholder="Search Applications" className="mb-3 search-bar" />
+							<SearchBar {...props.searchProps} placeholder="Search applications" className="mb-3 search-bar" />
 						</div>
 						<p className="table-description text-muted">
 							*If you experience any difficulty in viewing the application information, please make sure your cache is

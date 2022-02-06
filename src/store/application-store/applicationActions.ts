@@ -15,7 +15,7 @@ export const applications = () => {
 	};
 };
 
-export const getArchiveApplication = () => {
+export const getArchiveApplications = () => {
 	return {
 		type: ApplicationActionTypes.GET_ARCHIVE_APPLICATIONS,
 		payload: ApplicationAPI.getArchiveApplications(),

@@ -4,7 +4,7 @@ import ApplicationActionTypes from "../application-store/applicationActionTypes"
 const initialState: IApplicationStore = {
 	application: null,
 	applications: [],
-	archiveApplications: null,
+	deletedApplications: [],
 	updatedApplication: null,
 	selectedApplicationId: null,
 	deletedApplication: null,
@@ -29,8 +29,8 @@ const applicationReducer = (state = initialState, action: any) => {
 			let applications = action.payload.data;
 			return { ...state, loading: false, applications };
 		case `${ApplicationActionTypes.GET_ARCHIVE_APPLICATIONS}_FULFILLED`:
-			let archiveApplications = action.payload.data;
-			return { ...state, loading: false, archiveApplications };
+			let deletedApplications = action.payload.data;
+			return { ...state, loading: false, deletedApplications };
 		case `${ApplicationActionTypes.UPDATE_APPLICATION}_FULFILLED`:
 			let updatedApplication = action.payload.data;
 			return { ...state, loading: false, updatedApplication };
