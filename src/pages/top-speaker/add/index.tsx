@@ -46,13 +46,13 @@ const AddTopSpeaker: React.FC = () => {
 		$("#addTopSpeakerModal").modal("hide");
 	};
 
-	const onChange = (event: any) => {
-		const { name, value } = event.target;
+	const onChange = (topSpeaker: any) => {
+		const { name, value } = topSpeaker.target;
 		setState((prevState) => ({ ...prevState, [name]: value }));
 	};
 
-	const onChangeSocialMedia = (event: any) => {
-		const { name, value } = event.target;
+	const onChangeSocialMedia = (topSpeaker: any) => {
+		const { name, value } = topSpeaker.target;
 		setState((prevState) => ({ ...prevState, [name]: value }));
 	};
 
@@ -97,8 +97,8 @@ const AddTopSpeaker: React.FC = () => {
 	};
 
 	// Form Submission
-	const onSubmit = (event: any) => {
-		event.preventDefault();
+	const onSubmit = (topSpeaker: any) => {
+		topSpeaker.preventDefault();
 
 		const isFormValid = validateForm();
 
