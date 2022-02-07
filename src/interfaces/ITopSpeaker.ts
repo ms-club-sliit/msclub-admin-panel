@@ -12,6 +12,7 @@ interface ITopSpeaker {
 	updatedAt: Date;
 	topSpeakerType: string;
 	description: string;
+	socialMediaURLs: ITopSpeakerMedia;
 }
 
 interface ITopSpeakerStore {
@@ -26,4 +27,35 @@ interface ITopSpeakerStore {
 	error: string | null;
 }
 
-export type { ITopSpeaker, ITopSpeakerStore };
+// Top Speaker Form Interface
+interface ITopSpeakerFormData {
+	imageSrc?: any | null;
+	topSpeakerName: string | null;
+	description: string | null;
+	socialMediaURLs: ITopSpeakerMedia;
+}
+
+//Top Speaker social media URLs interface
+interface ITopSpeakerMedia {
+	facebook: string | null;
+	instagram: string | null;
+	twitter: string | null;
+	linkedIn: string | null;
+	web: string | null;
+}
+
+// Event State Interface
+interface ITopSpeakerState {
+	topSpeakerId: string | null;
+	isFormNotValid: boolean;
+	imageSrc?: any;
+	topSpeakerName: string | null;
+	description: string | null;
+	facebook: string | null;
+	instagram: string | null;
+	twitter: string | null;
+	linkedIn: string | null;
+	web: string | null;
+}
+
+export type { ITopSpeaker, ITopSpeakerStore, ITopSpeakerFormData, ITopSpeakerState };
