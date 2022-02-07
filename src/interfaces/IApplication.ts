@@ -27,7 +27,7 @@ interface IApplication {
 interface IApplicationStore {
 	application: IApplication | null;
 	applications: IApplication[] | null;
-	archiveApplications: IApplication | null;
+	deletedApplications: IApplication[] | null;
 	updatedApplication: IApplication | null;
 	selectedApplicationId: IApplication | null;
 	deletedApplication: IApplication | null;

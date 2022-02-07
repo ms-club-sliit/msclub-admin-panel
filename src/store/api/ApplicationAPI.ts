@@ -18,7 +18,7 @@ class ApplicationAPI {
 		return axios.get(`${BASE_URL}/admin/application/`, requestConfig);
 	}
 
-	static getArchiveApplications(): Promise<IApplication> {
+	static getDeletedApplications(): Promise<IApplication[]> {
 		return axios.get(`${BASE_URL}/admin/applications/deleted/`, requestConfig);
 	}
 
