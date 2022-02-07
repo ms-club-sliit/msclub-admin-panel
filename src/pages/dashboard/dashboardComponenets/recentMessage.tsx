@@ -4,7 +4,6 @@ import { getInquiries } from "../../../store/inquiry-store/inquiryAction";
 import { IInquiry } from "../../../interfaces";
 
 const RecentMessage: React.FC = () => {
-
 	const dispatch = useDispatch();
 	const state = useSelector((state) => state.inquiryReducer);
 	const [inquiries, setInquiries] = useState<IInquiry[]>([]);
@@ -19,12 +18,11 @@ const RecentMessage: React.FC = () => {
 		setInquiries(state.inquiries);
 	}, [state.inquiries, setInquiries]);
 
-	const ListItem = () =>{
+	const ListItem = () => {
 		return (
 			<div>
-				{
-				inquiries.slice(0,3).map((inquiry)=>{
-					return(
+				{inquiries.slice(0, 3).map((inquiry) => {
+					return (
 						<>
 							<div className="dateTime d-flex">
 								<div className="col-sm-6">
@@ -39,10 +37,9 @@ const RecentMessage: React.FC = () => {
 							<hr></hr>
 						</>
 					);
-				})
-			}
+				})}
 			</div>
-	);
+		);
 	};
 
 	return (
@@ -51,7 +48,7 @@ const RecentMessage: React.FC = () => {
 				<h4 className="card-title">Recent Messages</h4>
 				<div className="container">
 					<p className="card-text">
-						<ListItem/>
+						<ListItem />
 					</p>
 				</div>
 			</div>

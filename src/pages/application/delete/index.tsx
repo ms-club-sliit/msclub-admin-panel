@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	deletedApplication,
-	getArchiveApplication,
+	// getArchiveApplication,
 	setApplicationId,
 } from "../../../store/application-store/applicationActions";
 import { IApplication } from "../../../interfaces";
@@ -24,7 +24,7 @@ const DeleteApplication: React.FC = () => {
 	}, [state.applications, state.selectedApplicationId]);
 
 	useEffect(() => {
-		dispatch(getArchiveApplication());
+		// dispatch(getArchiveApplication());
 		dispatch(setApplicationId(""));
 
 		if (state.deletedApplication) {
