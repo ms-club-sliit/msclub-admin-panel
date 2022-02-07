@@ -27,7 +27,7 @@ const MainCard: React.FC = () => {
 	useEffect(() => {
 		setInquiries(stateInquiry.inquiries);
 	}, [stateInquiry.inquiries, setInquiries]);
-	
+
 	return (
 		<div className="maincard">
 			<div className="card">
