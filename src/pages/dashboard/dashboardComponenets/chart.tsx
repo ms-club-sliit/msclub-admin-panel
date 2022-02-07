@@ -2,13 +2,14 @@ import React from "react";
 import { Bar } from "react-chartjs-2";
 
 const Chart: React.FC = () => {
+	
 	const pieChart = (
 		<Bar
 			data={{
 				labels: ["Pending", "Completed", "Deleted"],
 				datasets: [
 					{
-						data: [1, 25, 22],
+						data: [17, 1, 19],
 						backgroundColor: ["#3da19c", "#06adbf", "#f7d619", "#bf00c2", "#ff2684", "#3254a8"],
 						label: "Student Applications",
 					},

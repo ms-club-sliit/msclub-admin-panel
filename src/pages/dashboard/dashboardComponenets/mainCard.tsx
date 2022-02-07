@@ -1,6 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { applications as getApplications } from "../../../store/application-store/applicationActions";
+import { getInquiries } from "../../../store/inquiry-store/inquiryAction";
+import { IApplication, IInquiry } from "../../../interfaces";
 
 const MainCard: React.FC = () => {
+	const dispatch = useDispatch();
+	const stateApplication = useSelector((state) => state.applicationReducer);
+	const [Applications, setApplications] = useState<IApplication[]>([]);
+
+	const stateInquiry = useSelector((state) => state.inquiryReducer);
+	const [inquiries, setInquiries] = useState<IInquiry[]>([]);
+
+	useEffect(() => {
+		dispatch(getApplications());
+	}, [dispatch, getApplications]);
+
+	useEffect(() => {
+		setApplications(stateApplication.applications);
+	}, [stateApplication.applications, setApplications]);
+
+	useEffect(() => {
+		dispatch(getInquiries());
+	}, [dispatch, getInquiries]);
+
+	useEffect(() => {
+		setInquiries(stateInquiry.inquiries);
+	}, [stateInquiry.inquiries, setInquiries]);
+	
 	return (
 		<div className="maincard">
 			<div className="card">
@@ -11,7 +38,7 @@ const MainCard: React.FC = () => {
 						<div className="card border-dark">
 							<div className="card-body text-center">
 								<h6 className="card-title">Applications</h6>
-								<p className="card-text">82</p>
+								<p className="card-text">{Applications.length}</p>
 							</div>
 						</div>
 					</div>
@@ -20,7 +47,7 @@ const MainCard: React.FC = () => {
 						<div className="card border-dark">
 							<div className="card-body text-center">
 								<h6 className="card-title">Inquiries</h6>
-								<p className="card-text">45</p>
+								<p className="card-text">{inquiries.length}</p>
 							</div>
 						</div>
 					</div>
