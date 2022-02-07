@@ -15,10 +15,10 @@ export const applications = () => {
 	};
 };
 
-export const getArchiveApplications = () => {
+export const getDeletedApplications = () => {
 	return {
 		type: ApplicationActionTypes.GET_ARCHIVE_APPLICATIONS,
-		payload: ApplicationAPI.getArchiveApplications(),
+		payload: ApplicationAPI.getDeletedApplications(),
 	};
 };
 

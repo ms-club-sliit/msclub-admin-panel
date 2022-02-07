@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getArchiveApplications } from "../../../store/application-store/applicationActions";
+import { getDeletedApplications } from "../../../store/application-store/applicationActions";
 import { IApplication } from "../../../interfaces";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
@@ -26,7 +26,7 @@ const DeletedApplicationList: React.FC = () => {
 
 	// Fetch deleted applications information
 	useEffect(() => {
-		dispatch(getArchiveApplications());
+		dispatch(getDeletedApplications());
 	}, [dispatch]);
 
 	// Table column configurations
