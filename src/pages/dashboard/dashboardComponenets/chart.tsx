@@ -1,15 +1,16 @@
 import React from "react";
-import { Bar } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
+import { IChart } from "../../../interfaces/IChart";
 
-const Chart: React.FC = () => {
+const Chart: React.FC<IChart> = ({ pendingCount, interviewCount, selectedCount }) => {
 	const pieChart = (
-		<Bar
+		<Doughnut
 			data={{
-				labels: ["Pending", "Completed", "Deleted"],
+				labels: ["Pending", "Selected", "Interview"],
 				datasets: [
 					{
-						data: [1, 25, 22],
-						backgroundColor: ["#3da19c", "#06adbf", "#f7d619", "#bf00c2", "#ff2684", "#3254a8"],
+						data: [pendingCount, interviewCount, selectedCount],
+						backgroundColor: ["#4e9bb5", "#48a151", "#f7d619"],
 						label: "Student Applications",
 					},
 				],
@@ -22,27 +23,6 @@ const Chart: React.FC = () => {
 						top: 0,
 						bottom: 0,
 					},
-				},
-
-				scales: {
-					xAxes: [
-						{
-							gridLines: {
-								display: false,
-								drawBorder: true,
-								drawOnChartArea: false,
-							},
-						},
-					],
-					yAxes: [
-						{
-							gridLines: {
-								display: false,
-								drawBorder: true,
-								drawOnChartArea: false,
-							},
-						},
-					],
 				},
 			}}
 		/>
