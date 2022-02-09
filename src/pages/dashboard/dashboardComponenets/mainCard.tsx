@@ -27,7 +27,7 @@ const MainCard: React.FC = () => {
 						<div className="card border-dark">
 							<div className="card-body text-center">
 								<h6 className="card-title">Applications</h6>
-								<p className="card-text">{stateApplication.applications.length}</p>
+								<p className="card-text">{stateApplication.applications ? stateApplication.applications.length : 0}</p>
 							</div>
 						</div>
 					</div>
@@ -36,7 +36,7 @@ const MainCard: React.FC = () => {
 						<div className="card border-dark">
 							<div className="card-body text-center">
 								<h6 className="card-title">Inquiries</h6>
-								<p className="card-text">{stateInquiry.inquiries.length}</p>
+								<p className="card-text">{stateInquiry.inquiries ? stateInquiry.inquiries.length : 0}</p>
 							</div>
 						</div>
 					</div>
