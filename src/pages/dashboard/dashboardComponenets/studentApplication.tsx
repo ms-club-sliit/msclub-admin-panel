@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Chart from "./chart";
 import { useDispatch, useSelector } from "react-redux";
 import { applications as getApplications } from "../../../store/application-store/applicationActions";
 
@@ -34,15 +33,8 @@ const StudentApplication: React.FC = () => {
 		<div className="studentapplication card">
 			<div className="card-body text-center">
 				<h4 className="card-title">Student Applications</h4>
-				<p className="card-text">
-					<Chart
-						pendingCount={pendingApplications}
-						interviewCount={interviewApplications}
-						selectedCount={selectedApplications}
-					/>
-				</p>
-				<div className="card-deck">
-					<div className="card border-dark mb-3">
+				<div className="card-deck applicationStatus mt-4">
+					<div className="card border-dark mb-3 pendingApplications">
 						<div className="card-body text-center">
 							<div className="row">
 								<div className="col-6">
@@ -54,7 +46,7 @@ const StudentApplication: React.FC = () => {
 							</div>
 						</div>
 					</div>
-					<div className="card border-dark mb-3">
+					<div className="card border-dark mb-3 selectedApplications">
 						<div className="card-body text-center">
 							<div className="row">
 								<div className="col-6">
@@ -66,9 +58,9 @@ const StudentApplication: React.FC = () => {
 							</div>
 						</div>
 					</div>
-					<div className="card border-dark mb-3">
+					<div className="card border-dark mb-3 interviewApplications">
 						<div className="card-body text-center">
-							<div className="row">
+							<div className="row ">
 								<div className="col-6">
 									<h6 className="card-title">Interview</h6>
 								</div>
