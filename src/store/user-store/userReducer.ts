@@ -6,10 +6,12 @@ const initialState: IUserStore = {
 	users: [],
 	newUser: null,
 	updatedUser: null,
+	adminUpdatedUser: null,
 	deletedUser: null,
 	loggedUser: null,
 	loading: false,
 	authUser: null,
+	selectedUserId: null,
 	error: null,
 };
 
@@ -19,6 +21,7 @@ const userReducer = (state = initialState, action: any) => {
 		case `${UserActionTypes.GET_USER}_PENDING`:
 		case `${UserActionTypes.GET_ALL_USERS}_PENDING`:
 		case `${UserActionTypes.UPDATE_USER}_PENDING`:
+		case `${UserActionTypes.ADMIN_UPDATE_USER}_PENDING`:
 		case `${UserActionTypes.DELETE_USER}_PENDING`:
 		case `${UserActionTypes.LOGIN_USER}_PENDING`:
 		case `${UserActionTypes.REFRESH_TOKEN}_PENDING`:
@@ -36,6 +39,9 @@ const userReducer = (state = initialState, action: any) => {
 		case `${UserActionTypes.UPDATE_USER}_FULFILLED`:
 			let updatedUser = action.payload.data;
 			return { ...state, loading: false, updatedUser };
+		case `${UserActionTypes.ADMIN_UPDATE_USER}_FULFILLED`:
+			let adminUpdatedUser = action.payload.data;
+			return { ...state, loading: false, adminUpdatedUser };
 		case `${UserActionTypes.DELETE_USER}_FULFILLED`:
 			let deletedUser = action.payload.data;
 			return { ...state, loading: false, deletedUser };
@@ -45,11 +51,15 @@ const userReducer = (state = initialState, action: any) => {
 		case `${UserActionTypes.REFRESH_TOKEN}_FULFILLED`:
 			let authUser = action.payload.data;
 			return { ...state, loading: false, authUser };
+		case `${UserActionTypes.SET_USER_ID}`:
+			let selectedUserId = action.payload;
+			return { ...state, loading: false, selectedUserId };
 
 		case `${UserActionTypes.CREATE_USER}_REJECTED`:
 		case `${UserActionTypes.GET_USER}_REJECTED`:
 		case `${UserActionTypes.GET_ALL_USERS}_REJECTED`:
 		case `${UserActionTypes.UPDATE_USER}_REJECTED`:
+		case `${UserActionTypes.ADMIN_UPDATE_USER}_REJECTED`:
 		case `${UserActionTypes.DELETE_USER}_REJECTED`:
 		case `${UserActionTypes.LOGIN_USER}_REJECTED`:
 		case `${UserActionTypes.REFRESH_TOKEN}_REJECTED`:
