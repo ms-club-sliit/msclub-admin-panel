@@ -125,4 +125,19 @@
 			width: 100%;
 		}
 	}
+
+	.applicationStatus {
+		color: #ffffff;
+		.pendingApplications {
+			background-color: #ffb100;
+		}
+
+		.selectedApplications {
+			background-color: #00a44a;
+		}
+
+		.interviewApplications {
+			background-color: #0065bc;
+		}
+	}
 }
