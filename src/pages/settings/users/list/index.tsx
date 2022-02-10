@@ -1,5 +1,6 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserId } from "../../../../store/user-store/userActions";
 interface IUserProps {
 	id: string;
 	firstName: string;
@@ -12,6 +13,30 @@ interface IUserProps {
 }
 
 const User: React.FC<IUserProps> = (props: IUserProps) => {
+	const dispatch = useDispatch();
+	const state = useSelector((state) => state.userReducer);
+	const [permissionLevel, setPermissionLevel] = useState<string>();
+
+	useEffect(() => {
+		if (state.authUser && state.authUser.authToken && state.authUser.permissionLevel) {
+			setPermissionLevel(state.authUser.permissionLevel);
+		}
+	}, [state.authUser]);
+
+	const handleSetViewUser = (event: any, userId: string) => {
+		if (event) {
+			dispatch(setUserId(userId));
+			$("#viewUserModal").modal("show");
+		}
+	};
+
+	const handleSetDeleteUser = (e: any, userId: string) => {
+		if (e) {
+			dispatch(setUserId(userId));
+			$("#userDeleteModal").modal("show");
+		}
+	};
+
 	return (
 		<div className="user">
 			<div className="card border shadow-none">
@@ -47,8 +72,20 @@ const User: React.FC<IUserProps> = (props: IUserProps) => {
 						</div>
 
 						<div className="d-flex mt-1">
-							<button className="btn btn-outline-primary shadow-none btn-sm btn-rounded">View Profile</button>
-							<button className="btn btn-outline-danger shadow-none btn-sm btn-rounded mx-1">Delete</button>
+							<button
+								className="btn btn-outline-primary shadow-none btn-sm btn-rounded"
+								onClick={(e) => handleSetViewUser(e, props.id)}
+							>
+								View Profile
+							</button>
+							{permissionLevel === "ROOT_ADMIN" && (
+								<button
+									className="btn btn-outline-danger shadow-none btn-sm btn-rounded mx-1"
+									onClick={(e) => handleSetDeleteUser(e, props.id)}
+								>
+									Delete
+								</button>
+							)}
 						</div>
 					</div>
 				</div>
