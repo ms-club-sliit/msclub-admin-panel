@@ -10,7 +10,7 @@ const Chart: React.FC<IChart> = ({ pendingCount, interviewCount, selectedCount }
 				datasets: [
 					{
 						data: [pendingCount, interviewCount, selectedCount],
-						backgroundColor: ["#4e9bb5", "#48a151", "#f7d619"],
+						backgroundColor: ["#FFB100", "#0065BC", "#00A44A"],
 						label: "Student Applications",
 					},
 				],

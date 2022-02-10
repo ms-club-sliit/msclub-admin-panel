@@ -1,5 +1,6 @@
 import axios from "axios";
 import requestConfig from "./config";
+import requestConfigJson from "./configJson";
 import { IUser } from "../../interfaces";
 
 const BASE_URL = process.env.REACT_APP_API_ENDPOINT as string;
@@ -18,15 +19,20 @@ class UserAPI {
 	}
 
 	static getAllUser(): Promise<IUser[]> {
-		return axios.get(`${BASE_URL}/users`, requestConfig);
+		return axios.get(`${BASE_URL}/user/all/`, requestConfig);
 	}
 
-	static updateUser(data: IUser): Promise<IUser> {
+	static updateUser(data: FormData): Promise<IUser> {
 		return axios.put(`${BASE_URL}/user/`, data, requestConfig);
 	}
 
-	static deleteUser(): Promise<IUser> {
-		return axios.put(`${BASE_URL}/user/delete/`, requestConfig);
+	static adminUpdateUser(data: FormData): Promise<IUser> {
+		return axios.put(`${BASE_URL}/user/admin/edituser/`, data, requestConfig);
+	}
+
+	static deleteUser(userId: string): Promise<IUser> {
+		let data = { userId: userId };
+		return axios.put(`${BASE_URL}/user/remove/`, data, requestConfigJson);
 	}
 
 	static login(userName: string, password: string): Promise<IUser> {

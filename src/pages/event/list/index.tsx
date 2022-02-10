@@ -17,8 +17,8 @@ const EventList: React.FC = () => {
 	const history = useHistory();
 	const HtmlToReactParser = require("html-to-react").Parser;
 	const state = useSelector((state) => state.eventReducer);
-	const events: IEvent[] = state.events;
-	const [selectedTypeEvents, setSelectedTypeEvents] = useState<IEvent[]>(events);
+	const [selectedTypeEvents, setSelectedTypeEvents] = useState<IEvent[]>([]);
+	const [events, setEvents] = useState<IEvent[]>([]);
 	const [selectedTab, setSelectedTab] = useState<string>("All");
 
 	const convertToPlain = (html: string) => {
@@ -40,7 +40,12 @@ const EventList: React.FC = () => {
 	// Fetch events information
 	useEffect(() => {
 		dispatch(getEvents());
-	}, [selectedTypeEvents, dispatch]);
+	}, [getEvents, dispatch]);
+
+	// Set fetched event info to state
+	useEffect(() => {
+		setEvents(state.events);
+	}, [state.events, setEvents]);
 
 	// Table column configurations
 	const tableColumnData = [
