@@ -9,6 +9,7 @@ import moment from "moment";
 import { useHistory } from "react-router-dom";
 import TopSpeakerView from "../view";
 import AddTopSpeaker from "../add";
+import UpdateTopSpeaker from "../update";
 
 const TopSpeakerList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -323,6 +324,7 @@ const TopSpeakerList: React.FC = () => {
 
 			<TopSpeakerView />
 			<AddTopSpeaker />
+			<UpdateTopSpeaker />
 		</div>
 	);
 };

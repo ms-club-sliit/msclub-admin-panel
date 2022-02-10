@@ -1,5 +1,3 @@
-import { IModifiedBy } from ".";
-
 interface IChart {
 	pendingCount: number;
 	interviewCount: number;
