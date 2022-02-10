@@ -1,32 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteContactUs, getContactsUs, setContactUsId } from "../../../store/contact-store/contactUsAction";
-import { IContactUs } from "../../../interfaces";
+import { deleteInquiry, getInquiries, setInquiryId } from "../../../store/inquiry-store/inquiryAction";
+import { IInquiry } from "../../../interfaces";
 import { toastNotification } from "../../../constants";
 
 const DeleteInquiry: React.FC = () => {
 	const dispatch = useDispatch();
 	const [inquiryId, setId] = useState<string>();
-	const state = useSelector((state) => state.contactUsReducer);
+	const state = useSelector((state) => state.inquiryReducer);
 
 	useEffect(() => {
-		let inquiryData = state.contactsUs.find((inquiry: IContactUs) => inquiry._id === state.selectedContactUsId);
+		let inquiryData = state.inquiries.find((inquiry: IInquiry) => inquiry._id === state.selectedInquiryId);
 
 		if (inquiryData && inquiryData._id) {
 			setId(inquiryData._id);
 		}
-	}, [state.contactsUs, state.selectedContactUsId]);
+	}, [state.inquiries, state.selectedInquiryId]);
 
 	useEffect(() => {
-		dispatch(getContactsUs());
-		dispatch(setContactUsId(""));
+		dispatch(getInquiries());
+		dispatch(setInquiryId(""));
 
-		if (state.deleteContactUs) {
+		if (state.deleteInquiry) {
 			toastNotification("Event removed successfully", "success");
 		}
 
 		closeModal();
-	}, [state.deleteContactUs, dispatch]);
+	}, [state.deleteInquiry, dispatch]);
 
 	useEffect(() => {
 		if (state.error) {
@@ -42,7 +42,7 @@ const DeleteInquiry: React.FC = () => {
 		inquiry.preventDefault();
 
 		if (inquiryId) {
-			dispatch(deleteContactUs(inquiryId));
+			dispatch(deleteInquiry(inquiryId));
 		}
 	};
 

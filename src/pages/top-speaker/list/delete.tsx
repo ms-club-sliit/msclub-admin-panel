@@ -41,7 +41,7 @@ const DeletedTopSpeakerList: React.FC = () => {
 		{
 			dataField: "actions",
 			text: "Actions",
-			formatter: (cell: any, row: ITopSpeaker) => actionButtonFormatter(row),
+			formatter: () => actionButtonFormatter(),
 			headerStyle: { width: "90px" },
 		},
 		{ dataField: "title", text: "Title", headerStyle: { width: "200px" } },
@@ -103,7 +103,7 @@ const DeletedTopSpeakerList: React.FC = () => {
 	];
 
 	// Table action buttons
-	const actionButtonFormatter = (row: any) => {
+	const actionButtonFormatter = () => {
 		return (
 			<span className="dropdown show">
 				<span className="dropdown">
@@ -170,7 +170,7 @@ const DeletedTopSpeakerList: React.FC = () => {
 		),
 	};
 
-	const handleGoBackToTopSpeakers = (topSpeaker: any) => {
+	const handleGoBackToTopSpeakers = () => {
 		history.push("/topSpeakers/");
 	};
 
