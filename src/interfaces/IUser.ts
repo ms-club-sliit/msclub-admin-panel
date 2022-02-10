@@ -4,6 +4,7 @@ interface IUser {
 	lastName: string;
 	email: string;
 	phoneNumber01: string;
+	phoneNumber02: string;
 	userName: string;
 	profileImage: string | null;
 	authToken: string | null;
@@ -21,23 +22,25 @@ interface IUserState {
 	phoneNumber02: string;
 	userName: string;
 	password: string;
+	profileImage: any;
+	permissionLevel: string | null;
+	isFormNotValid: boolean;
+}
+
+interface IUserFormData {
+	firstName: string | null;
+	lastName: string | null;
+	email: string | null;
+	phoneNumber01: string | null;
+	phoneNumber02: string | null;
+	userName: string | null;
+	password: string | null;
 	profileImage: string | null;
 	permissionLevel: string | null;
 }
 
-interface IUserFormData {
-	firstName: null;
-	lastName: null;
-	email: null;
-	phoneNumber01: null;
-	phoneNumber02: null;
-	userName: null;
-	password: null;
-	profileImage: null;
-	permissionLevel: null;
-}
-
 interface IAuthUser {
+	_id: string;
 	userName: string;
 	permissionLevel: string;
 	authToken: string;
@@ -49,9 +52,11 @@ interface IUserStore {
 	users: IUser[] | null;
 	newUser: IUser | null;
 	updatedUser: IUser | null;
+	adminUpdatedUser: IUser | null;
 	deletedUser: IUser | null;
 	loggedUser: IUser | null;
 	authUser: IAuthUser | null;
+	selectedUserId: string | null;
 	loading: boolean;
 	error: string | null;
 }
