@@ -1,0 +1,53 @@
+.settings {
+	.card {
+		height: fit-content;
+	}
+}
+
+.organization {
+	.logo {
+		width: 300px;
+	}
+
+	.info-title {
+		font-size: 18px;
+		font-family: "Poppins Medium";
+	}
+
+	.info-text {
+		font-size: 14px;
+		font-family: "Poppins Regular";
+		border-bottom: 0.07rem dashed #ebedf2;
+		padding-bottom: 10px;
+		padding-top: 10px;
+
+		i {
+			margin-right: 5px;
+		}
+	}
+
+	.fa-edit {
+		margin-top: 3px;
+		cursor: pointer;
+		color: $color-gray;
+	}
+}
+
+.user {
+	.image {
+		width: 100px;
+		height: 100px;
+		border-radius: 50%;
+		border: 1px solid #c4c6ca;
+	}
+
+	h5 {
+		font-size: 16px;
+		margin-bottom: 0px;
+	}
+
+	div > a {
+		font-size: 14px;
+		margin-bottom: 0px;
+	}
+}

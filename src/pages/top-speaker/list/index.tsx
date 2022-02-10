@@ -320,7 +320,6 @@ const TopSpeakerList: React.FC = () => {
 					</div>
 				)}
 			</ToolkitProvider>
-
 			<TopSpeakerView />
 			<AddTopSpeaker />
 		</div>
