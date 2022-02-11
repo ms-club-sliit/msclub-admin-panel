@@ -28,6 +28,10 @@ class EventAPI {
 	static deleteEvent(eventId: string): Promise<IEvent> {
 		return axios.put(`${BASE_URL}/admin/event/delete/${eventId}`, null, requestConfig);
 	}
+
+	static recoverDeletedEvent(eventId: string): Promise<IEvent> {
+		return axios.put(`${BASE_URL}/admin/event/recover/${eventId}`, null, requestConfig);
+	}
 }
 
 export default EventAPI;
