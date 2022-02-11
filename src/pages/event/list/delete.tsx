@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDeletedEvents } from "../../../store/event-store/eventActions";
+import { getDeletedEvents, setEventId } from "../../../store/event-store/eventActions";
 import { IEvent, IModifiedBy } from "../../../interfaces";
+import RecoverDeletetedEvent from "../recover-delete";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
@@ -35,6 +36,13 @@ const DeletedEventList: React.FC = () => {
 	useEffect(() => {
 		dispatch(getDeletedEvents());
 	}, [dispatch]);
+
+	const handleSetRecoverDeletedEvent = (event: any, eventId: string) => {
+		if (event) {
+			dispatch(setEventId(eventId));
+			$("#recoverDeletedEventModal").modal("show");
+		}
+	};
 
 	// Table column configurations
 	const tableColumnData = [
@@ -114,9 +122,9 @@ const DeletedEventList: React.FC = () => {
 								<i className="fas fa-ellipsis-h"></i>
 							</span>
 							<div className="dropdown-menu dropdown-menu-right">
-								<span className="dropdown-item">
+								<button className="dropdown-item" onClick={(e) => handleSetRecoverDeletedEvent(e, row._id)}>
 									<i className="fas fa-undo" /> Recover
-								</span>
+								</button>
 								<button className="dropdown-item">
 									<i className="far fa-trash-alt" /> Delete Permanently
 								</button>
@@ -263,6 +271,7 @@ const DeletedEventList: React.FC = () => {
 					</div>
 				)}
 			</ToolkitProvider>
+			<RecoverDeletetedEvent />
 		</div>
 	);
 };
