@@ -110,9 +110,6 @@ const ApplicationList: React.FC = () => {
 						<i className="fas fa-ellipsis-h"></i>
 					</span>
 					<div className="dropdown-menu dropdown-menu-right">
-						<span className="dropdown-item" onClick={() => handleSetViewApplication(row._id)}>
-							<i className="far fa-eye" /> View
-						</span>
 						<button className="dropdown-item" onClick={() => handleSetDeleteApplication(row._id)}>
 							<i className="far fa-trash-alt" /> Delete
 						</button>
@@ -169,7 +166,7 @@ const ApplicationList: React.FC = () => {
 						<h5 className="row-header">Academic Year</h5>
 					</div>
 					<div className="col-md-10 col-sm-12">
-						<p>Y{row.currentAcademicYear}</p>
+						<p>{row.currentAcademicYear}</p>
 					</div>
 					<div className="col-md-2 col-sm-12">
 						<h5 className="row-header">Self Introdction</h5>
