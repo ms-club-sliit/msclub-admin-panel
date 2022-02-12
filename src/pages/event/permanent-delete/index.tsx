@@ -1,33 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deletedApplication, setApplicationId } from "../../../store/application-store/applicationActions";
-import { IApplication } from "../../../interfaces";
+import { deleteEventPermanently, getDeletedEvents, setEventId } from "../../../store/event-store/eventActions";
+import { IEvent } from "../../../interfaces";
 import { toastNotification } from "../../../constants";
 
-const DeleteApplication: React.FC = () => {
+const PermanentDeleteEvent: React.FC = () => {
 	const dispatch = useDispatch();
-	const [applicationId, setId] = useState<string>();
-	const state = useSelector((state) => state.applicationReducer);
+	const [eventId, setId] = useState<string>();
+	const state = useSelector((state) => state.eventReducer);
 
 	useEffect(() => {
-		let applicationData = state.applications.find(
-			(application: IApplication) => application._id === state.selectedApplicationId
-		);
-
-		if (applicationData && applicationData._id) {
-			setId(applicationData._id);
+		let eventData = state.deletedEvents.find((event: IEvent) => event._id === state.selectedEventId);
+		if (eventData && eventData._id) {
+			setId(eventData._id);
 		}
-	}, [state.applications, state.selectedApplicationId]);
+	}, [state.events, state.selectedEventId]);
 
 	useEffect(() => {
-		dispatch(setApplicationId(""));
-
-		if (state.deletedApplication) {
-			toastNotification("Application removed successfully", "success");
+		dispatch(getDeletedEvents());
+		dispatch(setEventId(""));
+		if (state.deletedEvent) {
+			toastNotification("Event deleted successfully", "success");
 		}
-
 		closeModal();
-	}, [state.deletedApplication, dispatch]);
+	}, [state.deletedEvent, dispatch]);
 
 	useEffect(() => {
 		if (state.error) {
@@ -36,14 +32,14 @@ const DeleteApplication: React.FC = () => {
 	}, [state.error, dispatch]);
 
 	const closeModal = () => {
-		$("#applicationDeleteModal").modal("hide");
+		$("#deleteEventPermanentlyModal").modal("hide");
 	};
 
-	const onSubmit = (application: any) => {
-		application.preventDefault();
+	const onSubmit = (event: any) => {
+		event.preventDefault();
 
-		if (applicationId) {
-			dispatch(deletedApplication(applicationId));
+		if (eventId) {
+			dispatch(deleteEventPermanently(eventId));
 		}
 	};
 
@@ -51,7 +47,7 @@ const DeleteApplication: React.FC = () => {
 		<div>
 			<div
 				className="modal fade"
-				id="applicationDeleteModal"
+				id="deleteEventPermanentlyModal"
 				data-mdb-backdrop="static"
 				data-mdb-keyboard="false"
 				tabIndex={-1}
@@ -62,13 +58,13 @@ const DeleteApplication: React.FC = () => {
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title" id="exampleModalLabel">
-								Remove Application
+								Delete Event
 							</h5>
 							<button type="button" className="btn-close" onClick={closeModal}></button>
 						</div>
 
-						<div className="modal-body delete-application">
-							<div className="text">Are you sure about deleting this application information?</div>
+						<div className="modal-body delete-event">
+							<div className="text">Are you sure about permanently this deleted event?</div>
 						</div>
 
 						<div className="modal-footer">
@@ -86,4 +82,4 @@ const DeleteApplication: React.FC = () => {
 	);
 };
 
-export default DeleteApplication;
+export default PermanentDeleteEvent;

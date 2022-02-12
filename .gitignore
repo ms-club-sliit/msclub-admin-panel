@@ -1,4 +1,5 @@
 # dependencies
+/.vscode
 /node_modules
 /.pnp
 .pnp.js
@@ -14,6 +15,7 @@
 # misc
 .DS_Store
 .env
+.env.local
 
 npm-debug.log*
 yarn-debug.log*

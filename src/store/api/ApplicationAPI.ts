@@ -41,6 +41,10 @@ class ApplicationAPI {
 	static changeApplicationStatusIntoRejected(studentId: string): Promise<IApplication> {
 		return axios.put(`${BASE_URL}/admin/application/rejected/${studentId}`, null, requestConfig);
 	}
+
+	static deleteApplicationPermanently(studentId: string): Promise<IApplication> {
+		return axios.delete(`${BASE_URL}/admin/application/permanentdelete/${studentId}`, requestConfig);
+	}
 }
 
 export default ApplicationAPI;
