@@ -43,6 +43,13 @@ export const recoverDeletedEvent = (eventId: string) => {
 	};
 };
 
+export const deleteEventPermanently = (eventId: string) => {
+	return {
+		type: EventActionTypes.DELETE_EVENT,
+		payload: EventAPI.deleteEventPermanently(eventId),
+	};
+};
+
 export const deleteEvent = (eventId: string) => {
 	return {
 		type: EventActionTypes.DELETE_EVENT,
