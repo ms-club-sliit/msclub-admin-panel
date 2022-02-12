@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDeletedApplications, setApplicationId } from "../../../store/application-store/applicationActions";
 import { IApplication } from "../../../interfaces";
+import PermanentDeleteApplication from "../permanent-delete";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
@@ -23,6 +24,13 @@ const DeletedApplicationList: React.FC = () => {
 		sizePerPage: 15,
 		hideSizePerPage: true,
 		alwaysShowAllBtns: true,
+	};
+
+	const handleSetDeleteApplicationPermanently = (application: any, applicationId: string) => {
+		if (application) {
+			dispatch(setApplicationId(applicationId));
+			$("#applicationDeletePermanentlyModal").modal("show");
+		}
 	};
 
 	// Fetch deleted applications information
@@ -100,7 +108,8 @@ const DeletedApplicationList: React.FC = () => {
 								<button className="dropdown-item" onClick={(e) => handleSetRecoverDeletedApplication(e, row._id)}>
 									<i className="fas fa-undo" /> Recover
 								</button>
-								<button className="dropdown-item">
+
+								<button className="dropdown-item" onClick={(e) => handleSetDeleteApplicationPermanently(e, row._id)}>
 									<i className="far fa-trash-alt" /> Delete Permanently
 								</button>
 							</div>
@@ -292,6 +301,7 @@ const DeletedApplicationList: React.FC = () => {
 				)}
 			</ToolkitProvider>
 			<RecoverDeletedApplication/>
+			<PermanentDeleteApplication />
 		</div>
 	);
 };

@@ -3,6 +3,7 @@ import { IModifiedBy } from ".";
 interface IApplication {
 	_id: string;
 	name: string;
+	studentId: string;
 	email: string;
 	contactNumber: string;
 	currentAcademicYear: string;
@@ -18,6 +19,7 @@ interface IApplication {
 	pastWork?: string;
 	deletedAt?: Date;
 	status: string;
+	createdAt: Date;
 	createdBy: IModifiedBy;
 	updatedBy: IModifiedBy[];
 	deletedBy?: IModifiedBy;

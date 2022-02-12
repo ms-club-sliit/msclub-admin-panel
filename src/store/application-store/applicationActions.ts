@@ -70,3 +70,10 @@ export const changeApplicationStatusIntoRejected = (studentId: string) => {
 		payload: ApplicationAPI.changeApplicationStatusIntoRejected(studentId),
 	};
 };
+
+export const deleteApplicationPermanently = (studentId: string) => {
+	return {
+		type: ApplicationActionTypes.DELETED_APPLICATION,
+		payload: ApplicationAPI.deleteApplicationPermanently(studentId),
+	};
+};

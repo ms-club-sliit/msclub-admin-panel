@@ -1,32 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteWebinar, getWebinars, setWebinarId } from "../../../store/webinar-store/webinarActions";
-import { IWebinar } from "../../../interfaces";
+import { deleteEventPermanently, getDeletedEvents, setEventId } from "../../../store/event-store/eventActions";
+import { IEvent } from "../../../interfaces";
 import { toastNotification } from "../../../constants";
 
-const DeleteWebinar: React.FC = () => {
+const PermanentDeleteEvent: React.FC = () => {
 	const dispatch = useDispatch();
-	const [webinarId, setId] = useState<string>();
-	const state = useSelector((state) => state.webinarReducer);
+	const [eventId, setId] = useState<string>();
+	const state = useSelector((state) => state.eventReducer);
 
 	useEffect(() => {
-		let webinarData = state.webinars.find((webinar: IWebinar) => webinar._id === state.selectedWebinarId);
-
-		if (webinarData && webinarData._id) {
-			setId(webinarData._id);
+		let eventData = state.deletedEvents.find((event: IEvent) => event._id === state.selectedEventId);
+		if (eventData && eventData._id) {
+			setId(eventData._id);
 		}
-	}, [state.webinars, state.selectedWebinarId]);
+	}, [state.events, state.selectedEventId]);
 
 	useEffect(() => {
-		dispatch(getWebinars());
-		dispatch(setWebinarId(""));
-
-		if (state.deletedWebinar) {
-			toastNotification("Webinar removed successfully", "success");
+		dispatch(getDeletedEvents());
+		dispatch(setEventId(""));
+		if (state.deletedEvent) {
+			toastNotification("Event deleted successfully", "success");
 		}
-
 		closeModal();
-	}, [state.deletedWebinar, dispatch]);
+	}, [state.deletedEvent, dispatch]);
 
 	useEffect(() => {
 		if (state.error) {
@@ -35,14 +32,14 @@ const DeleteWebinar: React.FC = () => {
 	}, [state.error, dispatch]);
 
 	const closeModal = () => {
-		$("#webinarDeleteModal").modal("hide");
+		$("#deleteEventPermanentlyModal").modal("hide");
 	};
 
-	const onSubmit = (webinar: any) => {
-		webinar.preventDefault();
+	const onSubmit = (event: any) => {
+		event.preventDefault();
 
-		if (webinarId) {
-			dispatch(deleteWebinar(webinarId));
+		if (eventId) {
+			dispatch(deleteEventPermanently(eventId));
 		}
 	};
 
@@ -50,7 +47,7 @@ const DeleteWebinar: React.FC = () => {
 		<div>
 			<div
 				className="modal fade"
-				id="webinarDeleteModal"
+				id="deleteEventPermanentlyModal"
 				data-mdb-backdrop="static"
 				data-mdb-keyboard="false"
 				tabIndex={-1}
@@ -61,13 +58,13 @@ const DeleteWebinar: React.FC = () => {
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title" id="exampleModalLabel">
-								Remove Webinar
+								Delete Event
 							</h5>
 							<button type="button" className="btn-close" onClick={closeModal}></button>
 						</div>
 
-						<div className="modal-body">
-							<div className="text">Are you sure about deleting this webinar information?</div>
+						<div className="modal-body delete-event">
+							<div className="text">Are you sure about permanently this deleted event?</div>
 						</div>
 
 						<div className="modal-footer">
@@ -85,4 +82,4 @@ const DeleteWebinar: React.FC = () => {
 	);
 };
 
-export default DeleteWebinar;
+export default PermanentDeleteEvent;

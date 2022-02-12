@@ -43,6 +43,13 @@ export const deleteWebinar = (webinarId: string) => {
 	};
 };
 
+export const deleteWebinarPermanently = (webinarId: string) => {
+	return {
+		type: WebinarActionTypes.DELETE_WEBINAR,
+		payload: WebinarAPI.deleteWebinarPermanently(webinarId),
+	};
+};
+
 export const setWebinarId = (webinarId: string) => {
 	return {
 		type: WebinarActionTypes.SET_WEBINAR_ID,
