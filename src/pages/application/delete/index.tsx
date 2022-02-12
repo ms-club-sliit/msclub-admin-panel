@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-	deletedApplication,
-	// getArchiveApplication,
-	setApplicationId,
-} from "../../../store/application-store/applicationActions";
+import { deletedApplication, setApplicationId } from "../../../store/application-store/applicationActions";
 import { IApplication } from "../../../interfaces";
 import { toastNotification } from "../../../constants";
 
@@ -24,7 +20,6 @@ const DeleteApplication: React.FC = () => {
 	}, [state.applications, state.selectedApplicationId]);
 
 	useEffect(() => {
-		// dispatch(getArchiveApplication());
 		dispatch(setApplicationId(""));
 
 		if (state.deletedApplication) {
@@ -72,7 +67,7 @@ const DeleteApplication: React.FC = () => {
 							<button type="button" className="btn-close" onClick={closeModal}></button>
 						</div>
 
-						<div className="modal-body delete-application">
+						<div className="modal-body">
 							<div className="text">Are you sure about deleting this application information?</div>
 						</div>
 

@@ -1,32 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteWebinar, getWebinars, setWebinarId } from "../../../store/webinar-store/webinarActions";
-import { IWebinar } from "../../../interfaces";
+import {
+	deleteApplicationPermanently,
+	setApplicationId,
+	getDeletedApplications,
+} from "../../../store/application-store/applicationActions";
+import { IApplication } from "../../../interfaces";
 import { toastNotification } from "../../../constants";
 
-const DeleteWebinar: React.FC = () => {
+const PermanentDeleteApplication: React.FC = () => {
 	const dispatch = useDispatch();
-	const [webinarId, setId] = useState<string>();
-	const state = useSelector((state) => state.webinarReducer);
+	const [applicationId, setId] = useState<string>();
+	const state = useSelector((state) => state.applicationReducer);
 
 	useEffect(() => {
-		let webinarData = state.webinars.find((webinar: IWebinar) => webinar._id === state.selectedWebinarId);
+		let applicationData = state.deletedApplications.find(
+			(application: IApplication) => application._id === state.selectedApplicationId
+		);
 
-		if (webinarData && webinarData._id) {
-			setId(webinarData._id);
+		if (applicationData && applicationData._id) {
+			setId(applicationData._id);
 		}
-	}, [state.webinars, state.selectedWebinarId]);
+	}, [state.deletedApplications, state.selectedApplicationId]);
 
 	useEffect(() => {
-		dispatch(getWebinars());
-		dispatch(setWebinarId(""));
-
-		if (state.deletedWebinar) {
-			toastNotification("Webinar removed successfully", "success");
+		dispatch(getDeletedApplications());
+		dispatch(setApplicationId(""));
+		if (state.deletedApplication) {
+			toastNotification("Application removed successfully", "success");
 		}
 
 		closeModal();
-	}, [state.deletedWebinar, dispatch]);
+	}, [state.deletedApplication, dispatch]);
 
 	useEffect(() => {
 		if (state.error) {
@@ -35,14 +40,14 @@ const DeleteWebinar: React.FC = () => {
 	}, [state.error, dispatch]);
 
 	const closeModal = () => {
-		$("#webinarDeleteModal").modal("hide");
+		$("#applicationDeletePermanentlyModal").modal("hide");
 	};
 
-	const onSubmit = (webinar: any) => {
-		webinar.preventDefault();
+	const onSubmit = (application: any) => {
+		application.preventDefault();
 
-		if (webinarId) {
-			dispatch(deleteWebinar(webinarId));
+		if (applicationId) {
+			dispatch(deleteApplicationPermanently(applicationId));
 		}
 	};
 
@@ -50,7 +55,7 @@ const DeleteWebinar: React.FC = () => {
 		<div>
 			<div
 				className="modal fade"
-				id="webinarDeleteModal"
+				id="applicationDeletePermanentlyModal"
 				data-mdb-backdrop="static"
 				data-mdb-keyboard="false"
 				tabIndex={-1}
@@ -61,13 +66,13 @@ const DeleteWebinar: React.FC = () => {
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title" id="exampleModalLabel">
-								Remove Webinar
+								Delete Application
 							</h5>
 							<button type="button" className="btn-close" onClick={closeModal}></button>
 						</div>
 
 						<div className="modal-body">
-							<div className="text">Are you sure about deleting this webinar information?</div>
+							<div className="text">Are you sure about deleting this application information?</div>
 						</div>
 
 						<div className="modal-footer">
@@ -85,4 +90,4 @@ const DeleteWebinar: React.FC = () => {
 	);
 };
 
-export default DeleteWebinar;
+export default PermanentDeleteApplication;

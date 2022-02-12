@@ -28,6 +28,10 @@ class WebinarAPI {
 	static deleteWebinar(webinarId: string): Promise<IWebinar> {
 		return axios.put(`${BASE_URL}/admin/webinar/delete/${webinarId}`, null, requestConfig);
 	}
+	
+	static deleteWebinarPermanently(webinarId: string): Promise<IWebinar> {
+		return axios.delete(`${BASE_URL}/admin/webinar/permanentdelete/${webinarId}`, requestConfig);
+	}
 }
 
 export default WebinarAPI;

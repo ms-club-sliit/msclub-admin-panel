@@ -3,6 +3,7 @@ import MainCard from "./dashboardComponenets/mainCard";
 import RecentLogins from "./dashboardComponenets/recentLogin";
 import RecentMessages from "./dashboardComponenets/recentMessage";
 import StudentApplication from "./dashboardComponenets/studentApplication";
+import RecentApplications from "./dashboardComponenets/recentApplications";
 
 const Dashboard: React.FC = () => {
 	return (
@@ -18,6 +19,9 @@ const Dashboard: React.FC = () => {
 			</div>
 			<div className="col-lg-4 col-md-12 mb-4">
 				<StudentApplication />
+			</div>
+			<div className="col-lg-4 col-md-12 mb-4">
+				<RecentApplications />
 			</div>
 		</div>
 	);
