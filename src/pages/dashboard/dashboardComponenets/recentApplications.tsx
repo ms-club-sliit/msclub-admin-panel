@@ -21,7 +21,7 @@ const RecentApplications: React.FC = () => {
 	const ListItem = () => {
 		return (
 			<div>
-				{applicationList.slice(0, 3).map((application) => {
+				{applicationList.slice(0, 4).map((application) => {
 					return (
 						<>
 							<div className="dateTime d-flex">
@@ -31,7 +31,7 @@ const RecentApplications: React.FC = () => {
 								</div>
 								<div className="col-sm"></div>
 								<div className="col-sm-5 col-name">
-									<p>{application?.name}</p>
+									<p>{application?.studentId}</p>
 								</div>
 							</div>
 							<hr></hr>
