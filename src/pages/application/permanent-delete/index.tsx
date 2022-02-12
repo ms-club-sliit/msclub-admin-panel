@@ -71,7 +71,7 @@ const PermanentDeleteApplication: React.FC = () => {
 							<button type="button" className="btn-close" onClick={closeModal}></button>
 						</div>
 
-						<div className="modal-body delete-application">
+						<div className="modal-body">
 							<div className="text">Are you sure about deleting this application information?</div>
 						</div>
 
