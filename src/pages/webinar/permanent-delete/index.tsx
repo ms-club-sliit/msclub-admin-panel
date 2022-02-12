@@ -1,30 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteWebinar, getWebinars, setWebinarId } from "../../../store/webinar-store/webinarActions";
+import { deleteWebinarPermanently, getDeletedWebinars, setWebinarId } from "../../../store/webinar-store/webinarActions";
 import { IWebinar } from "../../../interfaces";
 import { toastNotification } from "../../../constants";
 
-const DeleteWebinar: React.FC = () => {
+const PermanentDeleteWebinar: React.FC = () => {
 	const dispatch = useDispatch();
 	const [webinarId, setId] = useState<string>();
 	const state = useSelector((state) => state.webinarReducer);
 
 	useEffect(() => {
-		let webinarData = state.webinars.find((webinar: IWebinar) => webinar._id === state.selectedWebinarId);
-
+		let webinarData = state.deletedWebinars.find((webinar: IWebinar) => webinar._id === state.selectedWebinarId);
 		if (webinarData && webinarData._id) {
 			setId(webinarData._id);
 		}
 	}, [state.webinars, state.selectedWebinarId]);
 
 	useEffect(() => {
-		dispatch(getWebinars());
+		dispatch(getDeletedWebinars());
 		dispatch(setWebinarId(""));
-
 		if (state.deletedWebinar) {
-			toastNotification("Webinar removed successfully", "success");
+			toastNotification("Webinar deleted successfully", "success");
 		}
-
 		closeModal();
 	}, [state.deletedWebinar, dispatch]);
 
@@ -35,14 +32,14 @@ const DeleteWebinar: React.FC = () => {
 	}, [state.error, dispatch]);
 
 	const closeModal = () => {
-		$("#webinarDeleteModal").modal("hide");
+		$("#deleteWebinarPermanentlyModal").modal("hide");
 	};
 
-	const onSubmit = (webinar: any) => {
-		webinar.preventDefault();
+	const onSubmit = (event: any) => {
+		event.preventDefault();
 
 		if (webinarId) {
-			dispatch(deleteWebinar(webinarId));
+			dispatch(deleteWebinarPermanently(webinarId));
 		}
 	};
 
@@ -50,7 +47,7 @@ const DeleteWebinar: React.FC = () => {
 		<div>
 			<div
 				className="modal fade"
-				id="webinarDeleteModal"
+				id="deleteWebinarPermanentlyModal"
 				data-mdb-backdrop="static"
 				data-mdb-keyboard="false"
 				tabIndex={-1}
@@ -61,13 +58,13 @@ const DeleteWebinar: React.FC = () => {
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title" id="exampleModalLabel">
-								Remove Webinar
+								Delete Webinar
 							</h5>
 							<button type="button" className="btn-close" onClick={closeModal}></button>
 						</div>
 
 						<div className="modal-body">
-							<div className="text">Are you sure about deleting this webinar information?</div>
+							<div className="text">Are you sure about permanently this deleted webinar?</div>
 						</div>
 
 						<div className="modal-footer">
@@ -85,4 +82,4 @@ const DeleteWebinar: React.FC = () => {
 	);
 };
 
-export default DeleteWebinar;
+export default PermanentDeleteWebinar;
