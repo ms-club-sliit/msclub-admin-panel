@@ -58,7 +58,7 @@ const PermanentDeleteEvent: React.FC = () => {
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title" id="exampleModalLabel">
-								Deleted Event
+								Delete Event
 							</h5>
 							<button type="button" className="btn-close" onClick={closeModal}></button>
 						</div>

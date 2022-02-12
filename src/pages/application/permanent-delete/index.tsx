@@ -1,27 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deletedApplication, setApplicationId } from "../../../store/application-store/applicationActions";
+import {
+	deleteApplicationPermanently,
+	setApplicationId,
+	getDeletedApplications,
+} from "../../../store/application-store/applicationActions";
 import { IApplication } from "../../../interfaces";
 import { toastNotification } from "../../../constants";
 
-const DeleteApplication: React.FC = () => {
+const PermanentDeleteApplication: React.FC = () => {
 	const dispatch = useDispatch();
 	const [applicationId, setId] = useState<string>();
 	const state = useSelector((state) => state.applicationReducer);
 
 	useEffect(() => {
-		let applicationData = state.applications.find(
+		let applicationData = state.deletedApplications.find(
 			(application: IApplication) => application._id === state.selectedApplicationId
 		);
 
 		if (applicationData && applicationData._id) {
 			setId(applicationData._id);
 		}
-	}, [state.applications, state.selectedApplicationId]);
+	}, [state.deletedApplications, state.selectedApplicationId]);
 
 	useEffect(() => {
+		dispatch(getDeletedApplications());
 		dispatch(setApplicationId(""));
-
 		if (state.deletedApplication) {
 			toastNotification("Application removed successfully", "success");
 		}
@@ -36,14 +40,14 @@ const DeleteApplication: React.FC = () => {
 	}, [state.error, dispatch]);
 
 	const closeModal = () => {
-		$("#applicationDeleteModal").modal("hide");
+		$("#applicationDeletePermanentlyModal").modal("hide");
 	};
 
 	const onSubmit = (application: any) => {
 		application.preventDefault();
 
 		if (applicationId) {
-			dispatch(deletedApplication(applicationId));
+			dispatch(deleteApplicationPermanently(applicationId));
 		}
 	};
 
@@ -51,7 +55,7 @@ const DeleteApplication: React.FC = () => {
 		<div>
 			<div
 				className="modal fade"
-				id="applicationDeleteModal"
+				id="applicationDeletePermanentlyModal"
 				data-mdb-backdrop="static"
 				data-mdb-keyboard="false"
 				tabIndex={-1}
@@ -62,7 +66,7 @@ const DeleteApplication: React.FC = () => {
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title" id="exampleModalLabel">
-								Remove Application
+								Delete Application
 							</h5>
 							<button type="button" className="btn-close" onClick={closeModal}></button>
 						</div>
@@ -86,4 +90,4 @@ const DeleteApplication: React.FC = () => {
 	);
 };
 
-export default DeleteApplication;
+export default PermanentDeleteApplication;
