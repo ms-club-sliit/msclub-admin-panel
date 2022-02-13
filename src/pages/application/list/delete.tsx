@@ -8,6 +8,7 @@ import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
+import RecoverDeletedApplication from "../recover-delete";
 
 const DeletedApplicationList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -36,6 +37,13 @@ const DeletedApplicationList: React.FC = () => {
 	useEffect(() => {
 		dispatch(getDeletedApplications());
 	}, [dispatch]);
+
+	const handleSetRecoverDeletedApplication = (application: any, applicationId: string) => {
+		if(application) {
+			dispatch(setApplicationId(applicationId));
+			$("#recoverDeletedApplicationModal").modal("show");
+		}
+	};
 
 	// Table column configurations
 	const tableColumnData = [
@@ -97,9 +105,10 @@ const DeletedApplicationList: React.FC = () => {
 								<i className="fas fa-ellipsis-h"></i>
 							</span>
 							<div className="dropdown-menu dropdown-menu-right">
-								<button className="dropdown-item">
+								<button className="dropdown-item" onClick={(e) => handleSetRecoverDeletedApplication(e, row._id)}>
 									<i className="fas fa-undo" /> Recover
 								</button>
+
 								<button className="dropdown-item" onClick={(e) => handleSetDeleteApplicationPermanently(e, row._id)}>
 									<i className="far fa-trash-alt" /> Delete Permanently
 								</button>
@@ -291,6 +300,7 @@ const DeletedApplicationList: React.FC = () => {
 					</div>
 				)}
 			</ToolkitProvider>
+			<RecoverDeletedApplication/>
 			<PermanentDeleteApplication />
 		</div>
 	);
