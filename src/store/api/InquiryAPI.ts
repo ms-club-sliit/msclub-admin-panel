@@ -15,6 +15,10 @@ class InquiryAPI {
 	static getDeletedInquiries(): Promise<IInquiry[]> {
 		return axios.get(`${BASE_URL}/admin/contact/delete/`, requestConfig);
 	}
+
+	static recoverDeletedInquiry(inquiryId: string): Promise<IInquiry> {
+		return axios.put(`${BASE_URL}/admin/contact/recover/${inquiryId}`, {}, requestConfig);
+	}
 }
 
 export default InquiryAPI;

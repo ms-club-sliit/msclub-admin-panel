@@ -39,7 +39,7 @@ const DeletedApplicationList: React.FC = () => {
 	}, [dispatch]);
 
 	const handleSetRecoverDeletedApplication = (application: any, applicationId: string) => {
-		if(application) {
+		if (application) {
 			dispatch(setApplicationId(applicationId));
 			$("#recoverDeletedApplicationModal").modal("show");
 		}
@@ -300,7 +300,7 @@ const DeletedApplicationList: React.FC = () => {
 					</div>
 				)}
 			</ToolkitProvider>
-			<RecoverDeletedApplication/>
+			<RecoverDeletedApplication />
 			<PermanentDeleteApplication />
 		</div>
 	);

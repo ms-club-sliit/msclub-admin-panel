@@ -28,3 +28,10 @@ export const getDeletedInquiries = () => {
 		payload: InquiryAPI.getDeletedInquiries,
 	};
 };
+
+export const recoverDeletedInquiry = (contactUsId: string) => {
+	return {
+		type: InquiryActionTypes.UPDATE_INQUIRY,
+		payload: InquiryAPI.recoverDeletedInquiry(contactUsId),
+	};
+};

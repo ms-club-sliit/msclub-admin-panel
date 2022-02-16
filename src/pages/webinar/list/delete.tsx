@@ -126,7 +126,7 @@ const DeletedWebinarList: React.FC = () => {
 								<span className="dropdown-item">
 									<i className="fas fa-undo" /> Recover
 								</span>
-								<button className="dropdown-item" onClick={(e)=>handleSetDeleteWebinarPermanently(e,row._id)}>
+								<button className="dropdown-item" onClick={(e) => handleSetDeleteWebinarPermanently(e, row._id)}>
 									<i className="far fa-trash-alt" /> Delete Permanently
 								</button>
 							</div>
@@ -271,7 +271,7 @@ const DeletedWebinarList: React.FC = () => {
 					</div>
 				)}
 			</ToolkitProvider>
-			<PermanentDeleteWebinar/>
+			<PermanentDeleteWebinar />
 		</div>
 	);
 };

@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteWebinarPermanently, getDeletedWebinars, setWebinarId } from "../../../store/webinar-store/webinarActions";
+import {
+	deleteWebinarPermanently,
+	getDeletedWebinars,
+	setWebinarId,
+} from "../../../store/webinar-store/webinarActions";
 import { IWebinar } from "../../../interfaces";
 import { toastNotification } from "../../../constants";
 
