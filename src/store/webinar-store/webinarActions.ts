@@ -56,3 +56,10 @@ export const setWebinarId = (webinarId: string) => {
 		payload: webinarId,
 	};
 };
+
+export const recoverDeletedWebinar = (webinarId: string) => {
+	return {
+		type: WebinarActionTypes.UPDATE_WEBINAR,
+		payload: WebinarAPI.recoverDeletedWebinar(webinarId),
+	};
+};

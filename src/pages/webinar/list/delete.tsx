@@ -8,6 +8,7 @@ import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
+import RecoverDeletedWebinar from "../recover-delete";
 
 const DeletedWebinarList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -36,6 +37,13 @@ const DeletedWebinarList: React.FC = () => {
 	useEffect(() => {
 		dispatch(getDeletedWebinars());
 	}, [dispatch]);
+
+	const handleSetRecoverDeletedWebinar = (webinar: any, webinarId: string) => {
+		if (webinar) {
+			dispatch(setWebinarId(webinarId));
+			$("#recoverDeletedWebinarModal").modal("show");
+		}
+	};
 
 	// Table column configurations
 	const tableColumnData = [
@@ -123,9 +131,9 @@ const DeletedWebinarList: React.FC = () => {
 								<i className="fas fa-ellipsis-h"></i>
 							</span>
 							<div className="dropdown-menu dropdown-menu-right">
-								<span className="dropdown-item">
+								<button className="dropdown-item" onClick={(e) => handleSetRecoverDeletedWebinar(e, row._id)}>
 									<i className="fas fa-undo" /> Recover
-								</span>
+								</button>
 								<button className="dropdown-item" onClick={(e) => handleSetDeleteWebinarPermanently(e, row._id)}>
 									<i className="far fa-trash-alt" /> Delete Permanently
 								</button>
@@ -271,6 +279,7 @@ const DeletedWebinarList: React.FC = () => {
 					</div>
 				)}
 			</ToolkitProvider>
+			<RecoverDeletedWebinar />
 			<PermanentDeleteWebinar />
 		</div>
 	);
