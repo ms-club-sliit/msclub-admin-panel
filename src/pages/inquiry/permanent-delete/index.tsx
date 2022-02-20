@@ -37,6 +37,7 @@ const PermanentDeleteInquiry: React.FC = () => {
 
 	const closeModal = () => {
 		$("#deleteInquiryPermanentlyModal").modal("hide");
+		dispatch(setInquiryId(""));
 	};
 
 	const onSubmit = (inquiry: any) => {
