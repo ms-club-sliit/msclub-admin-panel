@@ -35,3 +35,9 @@ export const recoverDeletedInquiry = (contactUsId: string) => {
 		payload: InquiryAPI.recoverDeletedInquiry(contactUsId),
 	};
 };
+export const deleteInquiryPermanently = (inquiryId: string) => {
+	return {
+		type: InquiryActionTypes.DELETE_INQUIRY,
+		payload: InquiryAPI.permanantDeletedInquiry(inquiryId),
+	};
+};
