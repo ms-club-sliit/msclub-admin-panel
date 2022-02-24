@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDeletedTopSpeakers } from "../../../store/top-speaker-store/topSpeakerActions";
+import { getDeletedTopSpeakers, setTopSpeakerId } from "../../../store/top-speaker-store/topSpeakerActions";
 import { ITopSpeaker, IModifiedBy } from "../../../interfaces";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
