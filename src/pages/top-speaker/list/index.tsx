@@ -42,6 +42,10 @@ const TopSpeakerList: React.FC = () => {
 		dispatch(getTopSpeakers());
 	}, [selectedTypeTopSpeakers, dispatch]);
 
+	useEffect(() => {
+		dispatch(getTopSpeakers());
+	}, [state.deletedTopSpeaker, dispatch]);
+
 	// Table column configurations
 	const tableColumnData = [
 		{
@@ -250,8 +254,10 @@ const TopSpeakerList: React.FC = () => {
 			});
 	};
 
-	const handleDeletedTopSpeakerClick = () => {
-		history.push("/topSpeakers/deleted");
+	const handleDeletedTopSpeakerClick = (event: any) => {
+		if(event){
+			history.push("/topSpeakers/deleted");
+		}		
 	};
 
 	return (
@@ -286,7 +292,7 @@ const TopSpeakerList: React.FC = () => {
 					&nbsp;
 					<button
 						className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={() => handleDeletedTopSpeakerClick()}
+						onClick={(e) => handleDeletedTopSpeakerClick(e)}
 					>
 						Deleted
 					</button>
