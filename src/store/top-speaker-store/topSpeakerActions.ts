@@ -42,3 +42,10 @@ export const setTopSpeakerId = (topSpeakerId: string) => {
 		payload: topSpeakerId,
 	};
 };
+
+export const recoverDeletedTopSpeaker = (topSpeakerId: string) => {
+	return {
+		type: topSpeakerActionTypes.UPDATE_TOP_SPEAKER,
+		payload: TopSpeakerAPI.recoverDeletedTopSpeaker(topSpeakerId),
+	};
+};
