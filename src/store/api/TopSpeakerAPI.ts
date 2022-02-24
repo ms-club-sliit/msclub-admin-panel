@@ -22,7 +22,7 @@ class TopSpeakerAPI {
 	}
 
 	static getDeletedTopSpeakers(): Promise<ITopSpeaker> {
-		return axios.get(`${BASE_URL}/admin/topspeaker/delete/`, requestConfig);
+		return axios.get(`${BASE_URL}/admin/topspeaker/deleted/`, requestConfig);
 	}
 }
 
