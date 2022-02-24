@@ -7,6 +7,8 @@ import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
+import RecoverDeletedTopSpeaker from "../recover-delete";
+
 
 const DeletedTopSpeakerList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -41,7 +43,7 @@ const DeletedTopSpeakerList: React.FC = () => {
 		{
 			dataField: "actions",
 			text: "Actions",
-			formatter: () => actionButtonFormatter(),
+			formatter: (cell: any, row: ITopSpeaker) => actionButtonFormatter(row),
 			headerStyle: { width: "90px" },
 		},
 		{ dataField: "title", text: "Title", headerStyle: { width: "200px" } },
@@ -102,24 +104,36 @@ const DeletedTopSpeakerList: React.FC = () => {
 		},
 	];
 
+	//function to recover deleted top speaker information
+	const handleRecoverDeletedTopSpeaker = (event: any, topSpeakerId: string) => {		
+		if(event) {
+			dispatch(setTopSpeakerId(topSpeakerId));
+			$("#recoverDeletedTopSpeakerModal").modal("show");
+		}
+	};
+
 	// Table action buttons
-	const actionButtonFormatter = () => {
+	const actionButtonFormatter = (row: any) => {
 		return (
-			<span className="dropdown show">
-				<span className="dropdown">
-					<span className="btn shadow-none btn-sm" data-mdb-toggle="dropdown">
-						<i className="fas fa-ellipsis-h"></i>
-					</span>
-					<div className="dropdown-menu dropdown-menu-right">
-						<span className="dropdown-item">
-							<i className="fas fa-undo" /> Recover
+			<div>
+				{row ? (
+					<span className="dropdown show">
+						<span className="dropdown">
+							<span className="btn shadow-none btn-sm" data-mdb-toggle="dropdown">
+								<i className="fas fa-ellipsis-h"></i>
+							</span>
+							<div className="dropdown-menu dropdown-menu-right">
+								<button className="dropdown-item" onClick={(e) => handleRecoverDeletedTopSpeaker(e, row._id)}>
+									<i className="fas fa-undo" /> Recover
+								</button>
+								<button className="dropdown-item">
+									<i className="far fa-trash-alt" /> Delete Permanently
+								</button>
+							</div>
 						</span>
-						<button className="dropdown-item">
-							<i className="far fa-trash-alt" /> Delete Permanently
-						</button>
-					</div>
-				</span>
-			</span>
+					</span>
+				) : null}
+			</div>
 		);
 	};
 
@@ -227,6 +241,7 @@ const DeletedTopSpeakerList: React.FC = () => {
 					</div>
 				)}
 			</ToolkitProvider>
+			<RecoverDeletedTopSpeaker/>
 		</div>
 	);
 };
