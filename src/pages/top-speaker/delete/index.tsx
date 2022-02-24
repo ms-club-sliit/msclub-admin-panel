@@ -7,10 +7,10 @@ import { toastNotification } from "../../../constants";
 const DeleteTopSpeaker: React.FC = () => {
     const dispatch = useDispatch();
     const [topSpeakerId, setId] = useState<string>();
-    const state = useSelector((state)=>state.topSpeakerReducer);
+    const state = useSelector((state) => state.topSpeakerReducer);
 
     useEffect(()=>{
-        let topSpeakerData = state.topSpeaker.find(
+        let topSpeakerData = state.topSpeakers.find(
             (topSpeaker: ITopSpeaker) => topSpeaker._id === state.selectedTopSpeakerId
         );
 
