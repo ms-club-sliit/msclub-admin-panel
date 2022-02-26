@@ -7,6 +7,10 @@ import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
+import TopSpeakerView from "../view";
+import AddTopSpeaker from "../add";
+import UpdateTopSpeaker from "../update";
+import DeleteTopSpeaker from "../delete";
 
 const TopSpeakerList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -37,6 +41,10 @@ const TopSpeakerList: React.FC = () => {
 	useEffect(() => {
 		dispatch(getTopSpeakers());
 	}, [selectedTypeTopSpeakers, dispatch]);
+
+	useEffect(() => {
+		dispatch(getTopSpeakers());
+	}, [state.deletedTopSpeaker, dispatch]);
 
 	// Table column configurations
 	const tableColumnData = [
@@ -181,9 +189,50 @@ const TopSpeakerList: React.FC = () => {
 					<div className="col-md-9 col-sm-12">
 						<h6 className="row-header">
 							<span className="fas fa-align-left my-2" />
+							&nbsp; Title
+						</h6>
+						<p>{convertToPlain(row.title)}</p>
+
+						<h6 className="row-header">
+							<span className="fas fa-align-left my-2" />
 							&nbsp; Description
 						</h6>
 						<p>{convertToPlain(row.description)}</p>
+
+						<h6 className="row-header">
+							<span className="fas fa-link" /> &nbsp; Facebook Link
+						</h6>
+						<a href={row.socialMediaURLs.facebook || ""} target="_blank" rel="noreferrer">
+							{row.socialMediaURLs.facebook}
+						</a>
+
+						<h6 className="row-header">
+							<span className="fas fa-link" /> &nbsp; Instagram Link
+						</h6>
+						<a href={row.socialMediaURLs.instagram || ""} target="_blank" rel="noreferrer">
+							{row.socialMediaURLs.instagram}
+						</a>
+
+						<h6 className="row-header">
+							<span className="fas fa-link" /> &nbsp; Twitter Link
+						</h6>
+						<a href={row.socialMediaURLs.twitter || ""} target="_blank" rel="noreferrer">
+							{row.socialMediaURLs.twitter}
+						</a>
+
+						<h6 className="row-header">
+							<span className="fas fa-link" /> &nbsp; LinkedIn Link
+						</h6>
+						<a href={row.socialMediaURLs.linkedIn || ""} target="_blank" rel="noreferrer">
+							{row.socialMediaURLs.linkedIn}
+						</a>
+
+						<h6 className="row-header">
+							<span className="fas fa-link" /> &nbsp; Website Link
+						</h6>
+						<a href={row.socialMediaURLs.web || ""} target="_blank" rel="noreferrer">
+							{row.socialMediaURLs.web}
+						</a>
 					</div>
 				</div>
 			</div>
@@ -205,8 +254,10 @@ const TopSpeakerList: React.FC = () => {
 			});
 	};
 
-	const handleDeletedTopSpeakerClick = () => {
-		history.push("/topSpeakers/deleted");
+	const handleDeletedTopSpeakerClick = (event: any) => {
+		if (event) {
+			history.push("/topSpeakers/deleted");
+		}
 	};
 
 	return (
@@ -241,7 +292,7 @@ const TopSpeakerList: React.FC = () => {
 					&nbsp;
 					<button
 						className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={() => handleDeletedTopSpeakerClick()}
+						onClick={(e) => handleDeletedTopSpeakerClick(e)}
 					>
 						Deleted
 					</button>
@@ -277,6 +328,10 @@ const TopSpeakerList: React.FC = () => {
 					</div>
 				)}
 			</ToolkitProvider>
+			<TopSpeakerView />
+			<AddTopSpeaker />
+			<UpdateTopSpeaker />
+			<DeleteTopSpeaker />
 		</div>
 	);
 };

@@ -15,6 +15,7 @@ interface IInquiryStore {
 	inquiries: IInquiry[] | null;
 	selectedInquiryId: string | null;
 	deleteInquiry: IInquiry | null;
+	updatedInquiry: IInquiry | null;
 	deleteInquiries: IInquiry[] | null;
 	loading: boolean;
 	error: string | null;

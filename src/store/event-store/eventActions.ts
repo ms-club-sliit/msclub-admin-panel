@@ -36,6 +36,20 @@ export const updateEvent = (eventId: string, data: FormData) => {
 	};
 };
 
+export const recoverDeletedEvent = (eventId: string) => {
+	return {
+		type: EventActionTypes.UPDATE_EVENT,
+		payload: EventAPI.recoverDeletedEvent(eventId),
+	};
+};
+
+export const deleteEventPermanently = (eventId: string) => {
+	return {
+		type: EventActionTypes.DELETE_EVENT,
+		payload: EventAPI.deleteEventPermanently(eventId),
+	};
+};
+
 export const deleteEvent = (eventId: string) => {
 	return {
 		type: EventActionTypes.DELETE_EVENT,

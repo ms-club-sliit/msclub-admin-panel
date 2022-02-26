@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDeletedWebinars } from "../../../store/webinar-store/webinarActions";
+import { getDeletedWebinars, setWebinarId } from "../../../store/webinar-store/webinarActions";
 import { IWebinar, IModifiedBy } from "../../../interfaces";
+import PermanentDeleteWebinar from "../permanent-delete";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
+import RecoverDeletedWebinar from "../recover-delete";
 
 const DeletedWebinarList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -35,6 +37,13 @@ const DeletedWebinarList: React.FC = () => {
 	useEffect(() => {
 		dispatch(getDeletedWebinars());
 	}, [dispatch]);
+
+	const handleSetRecoverDeletedWebinar = (webinar: any, webinarId: string) => {
+		if (webinar) {
+			dispatch(setWebinarId(webinarId));
+			$("#recoverDeletedWebinarModal").modal("show");
+		}
+	};
 
 	// Table column configurations
 	const tableColumnData = [
@@ -103,6 +112,14 @@ const DeletedWebinarList: React.FC = () => {
 		},
 	];
 
+	// functions that are related to table action buttons
+	const handleSetDeleteWebinarPermanently = (event: any, webinarId: string) => {
+		if (event) {
+			dispatch(setWebinarId(webinarId));
+			$("#deleteWebinarPermanentlyModal").modal("show");
+		}
+	};
+
 	// Table action buttons
 	const actionButtonFormatter = (row: any) => {
 		return (
@@ -114,10 +131,10 @@ const DeletedWebinarList: React.FC = () => {
 								<i className="fas fa-ellipsis-h"></i>
 							</span>
 							<div className="dropdown-menu dropdown-menu-right">
-								<span className="dropdown-item">
+								<button className="dropdown-item" onClick={(e) => handleSetRecoverDeletedWebinar(e, row._id)}>
 									<i className="fas fa-undo" /> Recover
-								</span>
-								<button className="dropdown-item">
+								</button>
+								<button className="dropdown-item" onClick={(e) => handleSetDeleteWebinarPermanently(e, row._id)}>
 									<i className="far fa-trash-alt" /> Delete Permanently
 								</button>
 							</div>
@@ -262,6 +279,8 @@ const DeletedWebinarList: React.FC = () => {
 					</div>
 				)}
 			</ToolkitProvider>
+			<RecoverDeletedWebinar />
+			<PermanentDeleteWebinar />
 		</div>
 	);
 };

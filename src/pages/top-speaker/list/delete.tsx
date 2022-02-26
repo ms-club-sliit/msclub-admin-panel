@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDeletedTopSpeakers } from "../../../store/top-speaker-store/topSpeakerActions";
+import { getDeletedTopSpeakers, setTopSpeakerId } from "../../../store/top-speaker-store/topSpeakerActions";
 import { ITopSpeaker, IModifiedBy } from "../../../interfaces";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
+import RecoverDeletedTopSpeaker from "../recover-delete";
+import PermenentDeleteTopSpeaker from "../permenent-delete";
 
 const DeletedTopSpeakerList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -41,7 +43,7 @@ const DeletedTopSpeakerList: React.FC = () => {
 		{
 			dataField: "actions",
 			text: "Actions",
-			formatter: () => actionButtonFormatter(),
+			formatter: (cell: any, row: ITopSpeaker) => actionButtonFormatter(row),
 			headerStyle: { width: "90px" },
 		},
 		{ dataField: "title", text: "Title", headerStyle: { width: "200px" } },
@@ -102,24 +104,43 @@ const DeletedTopSpeakerList: React.FC = () => {
 		},
 	];
 
+	//function to recover deleted top speaker information
+	const handleRecoverDeletedTopSpeaker = (event: any, topSpeakerId: string) => {
+		if (event) {
+			dispatch(setTopSpeakerId(topSpeakerId));
+			$("#recoverDeletedTopSpeakerModal").modal("show");
+		}
+	};
+	const handlePermenentDeleteTopSpeaker = (event: any, topSpeakerId: string) => {
+		if (event) {
+			dispatch(setTopSpeakerId(topSpeakerId));
+			$("#permenentDeleteTopSpeakerModal").modal("show");
+		}
+	};
+
 	// Table action buttons
-	const actionButtonFormatter = () => {
+	const actionButtonFormatter = (row: any) => {
 		return (
-			<span className="dropdown show">
-				<span className="dropdown">
-					<span className="btn shadow-none btn-sm" data-mdb-toggle="dropdown">
-						<i className="fas fa-ellipsis-h"></i>
-					</span>
-					<div className="dropdown-menu dropdown-menu-right">
-						<span className="dropdown-item">
-							<i className="fas fa-undo" /> Recover
+			<div>
+				{row ? (
+					<span className="dropdown show">
+						<span className="dropdown">
+							<span className="btn shadow-none btn-sm" data-mdb-toggle="dropdown">
+								<i className="fas fa-ellipsis-h"></i>
+							</span>
+							<div className="dropdown-menu dropdown-menu-right">
+								<button className="dropdown-item" onClick={(e) => handleRecoverDeletedTopSpeaker(e, row._id)}>
+									<i className="fas fa-undo" /> Recover
+								</button>
+								<button className="dropdown-item">
+									<i className="far fa-trash-alt" onClick={(e) => handlePermenentDeleteTopSpeaker(e, row._id)} /> Delete
+									Permanently
+								</button>
+							</div>
 						</span>
-						<button className="dropdown-item">
-							<i className="far fa-trash-alt" /> Delete Permanently
-						</button>
-					</div>
-				</span>
-			</span>
+					</span>
+				) : null}
+			</div>
 		);
 	};
 
@@ -227,6 +248,8 @@ const DeletedTopSpeakerList: React.FC = () => {
 					</div>
 				)}
 			</ToolkitProvider>
+			<RecoverDeletedTopSpeaker />
+			<PermenentDeleteTopSpeaker />
 		</div>
 	);
 };

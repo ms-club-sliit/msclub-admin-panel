@@ -49,3 +49,9 @@ export const permenentDeleteTopSpeaker = (topSpeakerId: string) => {
 		payload: TopSpeakerAPI.permenentDeleteTopSpeaker(topSpeakerId),
 	};
 };
+export const recoverDeletedTopSpeaker = (topSpeakerId: string) => {
+	return {
+		type: topSpeakerActionTypes.UPDATE_TOP_SPEAKER,
+		payload: TopSpeakerAPI.recoverDeletedTopSpeaker(topSpeakerId),
+	};
+};

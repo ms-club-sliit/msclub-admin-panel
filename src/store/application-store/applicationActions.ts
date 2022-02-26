@@ -15,10 +15,10 @@ export const applications = () => {
 	};
 };
 
-export const getArchiveApplication = () => {
+export const getDeletedApplications = () => {
 	return {
 		type: ApplicationActionTypes.GET_ARCHIVE_APPLICATIONS,
-		payload: ApplicationAPI.getArchiveApplications(),
+		payload: ApplicationAPI.getDeletedApplications(),
 	};
 };
 
@@ -33,6 +33,13 @@ export const deletedApplication = (studentId: string) => {
 	return {
 		type: ApplicationActionTypes.DELETED_APPLICATION,
 		payload: ApplicationAPI.deletedApplication(studentId),
+	};
+};
+
+export const recoverDeletedApplication = (applicationId: string) => {
+	return {
+		type: ApplicationActionTypes.UPDATE_APPLICATION,
+		payload: ApplicationAPI.recoverDeletedApplication(applicationId),
 	};
 };
 
@@ -61,5 +68,12 @@ export const changeApplicationStatusIntoRejected = (studentId: string) => {
 	return {
 		type: ApplicationActionTypes.UPDATE_APPLICATION,
 		payload: ApplicationAPI.changeApplicationStatusIntoRejected(studentId),
+	};
+};
+
+export const deleteApplicationPermanently = (studentId: string) => {
+	return {
+		type: ApplicationActionTypes.DELETED_APPLICATION,
+		payload: ApplicationAPI.deleteApplicationPermanently(studentId),
 	};
 };

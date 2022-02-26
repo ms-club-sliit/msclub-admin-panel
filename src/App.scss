@@ -25,6 +25,8 @@
 @import "./styles/events.scss";
 @import "./styles/image-canvas.scss";
 @import "./styles/login.scss";
+@import "./styles/settings.scss";
+@import "./styles/top-speakers.scss";
 
 //dashboard componenets
 @import "./styles/dashboardComponenets/mainCard.scss";
@@ -132,4 +134,12 @@ footer {
 	width: 14px;
 	height: 14px;
 	margin-right: 5px;
+}
+
+.btn-outline-danger {
+	border: 1px solid;
+}
+
+.btn-outline-primary {
+	border: 1px solid;
 }

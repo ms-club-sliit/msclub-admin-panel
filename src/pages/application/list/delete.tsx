@@ -1,25 +1,20 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDeletedEvents } from "../../../store/event-store/eventActions";
-import { IEvent, IModifiedBy } from "../../../interfaces";
+import { getDeletedApplications, setApplicationId } from "../../../store/application-store/applicationActions";
+import { IApplication } from "../../../interfaces";
+import PermanentDeleteApplication from "../permanent-delete";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
+import RecoverDeletedApplication from "../recover-delete";
 
 const DeletedApplicationList: React.FC = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	const HtmlToReactParser = require("html-to-react").Parser;
-	const state = useSelector((state) => state.eventReducer);
-	const events: IEvent[] = state.deletedEvents;
-
-	const convertToPlain = (html: string) => {
-		const htmlToParser = new HtmlToReactParser();
-		const reactElement = htmlToParser.parse(html);
-		return reactElement;
-	};
+	const state = useSelector((state) => state.applicationReducer);
+	const applications: IApplication[] = state.deletedApplications;
 
 	// Table confuguration
 	const { SearchBar } = Search;
@@ -31,41 +26,62 @@ const DeletedApplicationList: React.FC = () => {
 		alwaysShowAllBtns: true,
 	};
 
-	// Fetch events information
+	const handleSetDeleteApplicationPermanently = (application: any, applicationId: string) => {
+		if (application) {
+			dispatch(setApplicationId(applicationId));
+			$("#applicationDeletePermanentlyModal").modal("show");
+		}
+	};
+
+	// Fetch deleted applications information
 	useEffect(() => {
-		dispatch(getDeletedEvents());
+		dispatch(getDeletedApplications());
 	}, [dispatch]);
+
+	const handleSetRecoverDeletedApplication = (application: any, applicationId: string) => {
+		if (application) {
+			dispatch(setApplicationId(applicationId));
+			$("#recoverDeletedApplicationModal").modal("show");
+		}
+	};
 
 	// Table column configurations
 	const tableColumnData = [
 		{
 			dataField: "actions",
 			text: "Actions",
-			formatter: (cell: any, row: IEvent) => actionButtonFormatter(row),
+			formatter: (cell: any, row: IApplication) => actionButtonFormatter(row),
 			headerStyle: { width: "90px" },
 		},
-		{ dataField: "title", text: "Title", headerStyle: { width: "200px" } },
+		{ dataField: "name", text: "Name", headerStyle: { width: "200px" } },
 		{
-			dataField: "eventType",
-			text: "Type",
+			dataField: "studentId",
+			text: "Student ID",
+			headerStyle: { width: "110px" },
+		},
+		{
+			dataField: "email",
+			text: "Email",
+			headerStyle: { width: "220px" },
+		},
+		{
+			dataField: "contactNumber",
+			text: "Contact Number",
+			headerStyle: { width: "220px" },
+		},
+		{
+			dataField: "status",
+			text: "Status",
 			headerStyle: { width: "110px" },
 			formatter: (cell: string) => {
 				return (
 					<div>
-						{cell === "UPCOMING" ? (
-							<span className="badge rounded-pill bg-primary text-light">Upcoming Event</span>
-						) : null}
-						{cell === "PAST" ? <span className="badge rounded-pill bg-warning text-dark">Past Event</span> : null}
+						{cell === "PENDING" ? <span className="badge rounded-pill bg-warning text-light">PENDING</span> : null}
+						{cell === "INTERVIEW" ? <span className="badge rounded-pill bg-primary text-light">INTERVIEW</span> : null}
+						{cell === "SELECTED" ? <span className="badge rounded-pill bg-success text-light">SELECTED</span> : null}
+						{cell === "REJECTED" ? <span className="badge rounded-pill bg-danger text-light">REJECTED</span> : null}
 					</div>
 				);
-			},
-		},
-		{
-			dataField: "dateTime",
-			text: "Date & Time",
-			headerStyle: { width: "220px" },
-			formatter: (cell: string) => {
-				return moment(cell).format("LLL");
 			},
 		},
 		{
@@ -76,54 +92,30 @@ const DeletedApplicationList: React.FC = () => {
 				return moment(cell).format("LLL");
 			},
 		},
-		{
-			dataField: "updatedBy",
-			text: "Deleted By",
-			headerStyle: { width: "250px" },
-			formatter: (cell: IModifiedBy[]) => {
-				let lastModifiedUser = cell.slice(-1)[0];
-				return (
-					<div>
-						<span>
-							<img
-								src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${lastModifiedUser.user.profileImage}`}
-								className="table-profile-img"
-								alt="updated-by-user"
-							/>
-						</span>
-						{`${lastModifiedUser.user.firstName} ${lastModifiedUser.user.lastName}`}
-						<span className="badge rounded-pill bg-dark mx-2">
-							{lastModifiedUser.user.permissionLevel === "ROOT_ADMIN" ? "Root Admin" : null}
-							{lastModifiedUser.user.permissionLevel === "ADMIN" ? "Administrator" : null}
-							{lastModifiedUser.user.permissionLevel === "EDITOR" ? "Editor" : null}
-						</span>
-					</div>
-				);
-			},
-		},
 	];
 
 	// Table action buttons
 	const actionButtonFormatter = (row: any) => {
 		return (
 			<div>
-				{row && (
+				{row ? (
 					<span className="dropdown show">
 						<span className="dropdown">
 							<span className="btn shadow-none btn-sm" data-mdb-toggle="dropdown">
 								<i className="fas fa-ellipsis-h"></i>
 							</span>
 							<div className="dropdown-menu dropdown-menu-right">
-								<span className="dropdown-item">
+								<button className="dropdown-item" onClick={(e) => handleSetRecoverDeletedApplication(e, row._id)}>
 									<i className="fas fa-undo" /> Recover
-								</span>
-								<button className="dropdown-item">
+								</button>
+
+								<button className="dropdown-item" onClick={(e) => handleSetDeleteApplicationPermanently(e, row._id)}>
 									<i className="far fa-trash-alt" /> Delete Permanently
 								</button>
 							</div>
 						</span>
 					</span>
-				)}
+				) : null}
 			</div>
 		);
 	};
@@ -152,61 +144,118 @@ const DeletedApplicationList: React.FC = () => {
 				</div>
 			);
 		},
-		renderer: (row: IEvent) => (
+		renderer: (row: IApplication) => (
 			<div>
-				<h5>Event Information</h5>
+				<h5>Application Information</h5>
 				<div className="row">
-					<div className="col-md-3 col-sm-12">
-						<img
-							src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${row.imageUrl}`}
-							className="event-flyer"
-							alt="event-flyer"
-						/>
+					<div className="col-md-2 col-sm-12">
+						<h5 className="row-header">Academic Year</h5>
 					</div>
-					<div className="col-md-9 col-sm-12">
-						<h6 className="row-header">
-							<span className="fas fa-link" /> &nbsp; Event Link
-						</h6>
-						<a href={row.link} target="_blank" rel="noreferrer">
-							{row.link}
+					<div className="col-md-10 col-sm-12">
+						<p>Y{row.currentAcademicYear}</p>
+					</div>
+					<div className="col-md-2 col-sm-12">
+						<h5 className="row-header">Self Introdction</h5>
+					</div>
+					<div className="col-md-10 col-sm-12">
+						<p>{row.selfIntroduction}</p>
+					</div>
+					<div className="col-md-2 col-sm-12">
+						<h5 className="row-header">Reason for Join</h5>
+					</div>
+					<div className="col-md-10 col-sm-12">
+						<p>{row.reasonForJoin}</p>
+					</div>
+					<div className="col-md-2 col-sm-12">
+						<h5 className="row-header">LinkedIn</h5>
+					</div>
+					<div className="col-md-10 col-sm-12">
+						<p>{row.linkedIn}</p>
+					</div>
+					<div className="col-md-2 col-sm-12">
+						<h5 className="row-header">GitHub</h5>
+					</div>
+					<div className="col-md-10 col-sm-12">
+						<a href={row.gitHub} target="_blank" rel="noreferrer">
+							{row.gitHub}
 						</a>
-
-						<h6 className="row-header my-3">
-							<span className="fas fa-link" /> &nbsp; Registration Link
-						</h6>
-						<a href={row.registrationLink} target="_blank" rel="noreferrer">
-							{row.registrationLink}
-						</a>
-
-						{row.tags && row.tags.length > 0 ? (
-							<div>
-								<h6 className="row-header my-3">
-									<span className="fas fa-tags" /> Tags &nbsp;
-								</h6>
-								<div className="d-flex">
-									{row.tags.map((tag, index) => (
-										<div className="tag-badge" key={index}>
-											#{tag}
-										</div>
-									))}
-								</div>
+					</div>
+					{row.blog ? (
+						<>
+							<div className="col-md-2 col-sm-12">
+								<h5 className="row-header">Blog</h5>
 							</div>
-						) : null}
-
-						<h6 className="row-header">
-							<span className="fas fa-align-left my-2" />
-							&nbsp; Description
-						</h6>
-						<p>{convertToPlain(row.description)}</p>
+							<div className="col-md-10 col-sm-12">
+								<p>{row.blog}</p>
+							</div>
+						</>
+					) : null}
+					{row.experiences ? (
+						<>
+							<div className="col-md-2 col-sm-12">
+								<h5 className="row-header">Experiences</h5>
+							</div>
+							<div className="col-md-10 col-sm-12">
+								<p>{row.experiences}</p>
+							</div>
+						</>
+					) : null}
+					{row.challenges ? (
+						<>
+							<div className="col-md-2 col-sm-12">
+								<h5 className="row-header">Challenges</h5>
+							</div>
+							<div className="col-md-10 col-sm-12">
+								<p>{row.challenges}</p>
+							</div>
+						</>
+					) : null}
+					<div className="col-md-2 col-sm-12">
+						<h5 className="row-header">Goal</h5>
 					</div>
+					<div className="col-md-10 col-sm-12">
+						<p>{row.goal}</p>
+					</div>
+					<div className="col-md-2 col-sm-12">
+						<h5 className="row-header">Skills and Talents</h5>
+					</div>
+					<div className="col-md-10 col-sm-12">
+						{row.skillsAndTalents.map((Skills, index) => (
+							<p key={index}>
+								<span className="fas fa-circle fa-xs" />
+								&nbsp;
+								{Skills}
+							</p>
+						))}
+					</div>
+					{row.pastWork ? (
+						<>
+							<div className="col-md-2 col-sm-12">
+								<h5 className="row-header">Past Work</h5>
+							</div>
+							<div className="col-md-10 col-sm-12">
+								<p>{row.pastWork}</p>
+							</div>
+						</>
+					) : null}
+					{row.deletedAt ? (
+						<>
+							<div className="col-md-2 col-sm-12">
+								<h5 className="row-header">Deleted At</h5>
+							</div>
+							<div className="col-md-10 col-sm-12">
+								<p>{row.deletedAt}</p>
+							</div>
+						</>
+					) : null}
 				</div>
 			</div>
 		),
 	};
 
-	const handleGoBackToEvents = (event: any) => {
-		if (event) {
-			history.push("/events/");
+	const handleGoBackToApplications = (applications: any) => {
+		if (applications) {
+			history.push("/applications/");
 		}
 	};
 
@@ -214,40 +263,28 @@ const DeletedApplicationList: React.FC = () => {
 		<div className="card">
 			<div className="row">
 				<div className="col-6">
-					<h3 className="page-title">Events</h3>
-					<p className="page-description text-muted">Manage all the event informations</p>
-				</div>
-				<div className="col-6">
-					<div className="d-flex justify-content-end">
-						<button
-							className="btn btn-primary btn-rounded shadow-none"
-							data-mdb-toggle="modal"
-							data-mdb-target="#addEventModal"
-						>
-							<span className="fas fa-plus" />
-							<span className="mx-2">Add New Event</span>
-						</button>
-					</div>
+					<h3 className="page-title">Applications</h3>
+					<p className="page-description text-muted">Manage all the application informations</p>
 				</div>
 			</div>
 
 			<div>
 				<div className="d-flex">
-					<button className="btn btn-sm btn-light shadow-none btn-rounded" onClick={handleGoBackToEvents}>
+					<button className="btn btn-sm btn-light shadow-none btn-rounded" onClick={handleGoBackToApplications}>
 						Go Back
 					</button>
 				</div>
 			</div>
 
-			<ToolkitProvider keyField="_id" data={events} columns={tableColumnData} search>
+			<ToolkitProvider keyField="_id" data={applications} columns={tableColumnData} search>
 				{(props) => (
 					<div>
 						<div className="d-flex justify-content-end">
-							<SearchBar {...props.searchProps} placeholder="Search events" className="mb-3 search-bar" />
+							<SearchBar {...props.searchProps} placeholder="Search applications" className="mb-3 search-bar" />
 						</div>
 						<p className="table-description text-muted">
-							*If you experience any difficulty in viewing the event information, please make sure your cache is cleared
-							and completed a hard refresh.
+							*If you experience any difficulty in viewing the application information, please make sure your cache is
+							cleared and completed a hard refresh.
 						</p>
 						<BootstrapTable
 							{...props.baseProps}
@@ -263,6 +300,8 @@ const DeletedApplicationList: React.FC = () => {
 					</div>
 				)}
 			</ToolkitProvider>
+			<RecoverDeletedApplication />
+			<PermanentDeleteApplication />
 		</div>
 	);
 };

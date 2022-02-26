@@ -22,7 +22,7 @@ const DeleteInquiry: React.FC = () => {
 		dispatch(setInquiryId(""));
 
 		if (state.deleteInquiry) {
-			toastNotification("Event removed successfully", "success");
+			toastNotification("Inquiry removed successfully", "success");
 		}
 
 		closeModal();

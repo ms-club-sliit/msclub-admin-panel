@@ -17,9 +17,11 @@ const EventList: React.FC = () => {
 	const history = useHistory();
 	const HtmlToReactParser = require("html-to-react").Parser;
 	const state = useSelector((state) => state.eventReducer);
-	const events: IEvent[] = state.events;
-	const [selectedTypeEvents, setSelectedTypeEvents] = useState<IEvent[]>(events);
+	const userState = useSelector((userState) => userState.userReducer);
+	const [selectedTypeEvents, setSelectedTypeEvents] = useState<IEvent[]>([]);
+	const [events, setEvents] = useState<IEvent[]>([]);
 	const [selectedTab, setSelectedTab] = useState<string>("All");
+	const [permission, setPermission] = useState<string>("");
 
 	const convertToPlain = (html: string) => {
 		const htmlToParser = new HtmlToReactParser();
@@ -40,7 +42,18 @@ const EventList: React.FC = () => {
 	// Fetch events information
 	useEffect(() => {
 		dispatch(getEvents());
-	}, [selectedTypeEvents, dispatch]);
+	}, [getEvents, dispatch]);
+
+	// Set fetched event info to state
+	useEffect(() => {
+		setEvents(state.events);
+	}, [state.events, setEvents]);
+
+	useEffect(() => {
+		if (userState.authUser && userState.authUser.authToken && userState.authUser.permissionLevel) {
+			setPermission(userState.authUser.permissionLevel);
+		}
+	}, [userState.authUser]);
 
 	// Table column configurations
 	const tableColumnData = [
@@ -121,12 +134,16 @@ const EventList: React.FC = () => {
 						<span className="dropdown-item" onClick={(e) => handleSetViewEvent(e, row._id)}>
 							<i className="far fa-eye" /> View
 						</span>
-						<span className="dropdown-item" onClick={(e) => handleSetUpdateEvent(e, row._id)}>
-							<i className="far fa-edit" /> Edit
-						</span>
-						<button className="dropdown-item" onClick={(e) => handleSetDeleteEvent(e, row._id)}>
-							<i className="far fa-trash-alt" /> Delete
-						</button>
+						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+							<span className="dropdown-item" onClick={(e) => handleSetUpdateEvent(e, row._id)}>
+								<i className="far fa-edit" /> Edit
+							</span>
+						)}
+						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+							<button className="dropdown-item" onClick={(e) => handleSetDeleteEvent(e, row._id)}>
+								<i className="far fa-trash-alt" /> Delete
+							</button>
+						)}
 					</div>
 				</span>
 			</span>
@@ -141,14 +158,14 @@ const EventList: React.FC = () => {
 	};
 
 	const handleSetUpdateEvent = (event: any, eventId: string) => {
-		if (event) {
+		if (event && (permission === "ROOT_ADMIN" || permission === "ADMIN")) {
 			dispatch(setEventId(eventId));
 			$("#eventUpdateModal").modal("show");
 		}
 	};
 
 	const handleSetDeleteEvent = (event: any, eventId: string) => {
-		if (event) {
+		if (event && (permission === "ROOT_ADMIN" || permission === "ADMIN")) {
 			dispatch(setEventId(eventId));
 			$("#eventDeleteModal").modal("show");
 		}
@@ -339,8 +356,8 @@ const EventList: React.FC = () => {
 			</ToolkitProvider>
 
 			<AddEvent />
-			<UpdateEvent />
-			<DeleteEvent />
+			{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <UpdateEvent />}
+			{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <DeleteEvent />}
 			<EventView />
 		</div>
 	);
