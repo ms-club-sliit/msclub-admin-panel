@@ -9,7 +9,6 @@ import moment from "moment";
 import { useHistory } from "react-router-dom";
 import RecoverDeletedTopSpeaker from "../recover-delete";
 
-
 const DeletedTopSpeakerList: React.FC = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -105,8 +104,8 @@ const DeletedTopSpeakerList: React.FC = () => {
 	];
 
 	//function to recover deleted top speaker information
-	const handleRecoverDeletedTopSpeaker = (event: any, topSpeakerId: string) => {		
-		if(event) {
+	const handleRecoverDeletedTopSpeaker = (event: any, topSpeakerId: string) => {
+		if (event) {
 			dispatch(setTopSpeakerId(topSpeakerId));
 			$("#recoverDeletedTopSpeakerModal").modal("show");
 		}
@@ -241,7 +240,7 @@ const DeletedTopSpeakerList: React.FC = () => {
 					</div>
 				)}
 			</ToolkitProvider>
-			<RecoverDeletedTopSpeaker/>
+			<RecoverDeletedTopSpeaker />
 		</div>
 	);
 };

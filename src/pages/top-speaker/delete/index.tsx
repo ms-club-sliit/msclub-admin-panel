@@ -5,31 +5,31 @@ import { ITopSpeaker } from "../../../interfaces";
 import { toastNotification } from "../../../constants";
 
 const DeleteTopSpeaker: React.FC = () => {
-    const dispatch = useDispatch();
-    const [topSpeakerId, setId] = useState<string>();
-    const state = useSelector((state) => state.topSpeakerReducer);
+	const dispatch = useDispatch();
+	const [topSpeakerId, setId] = useState<string>();
+	const state = useSelector((state) => state.topSpeakerReducer);
 
-    useEffect(()=>{
-        let topSpeakerData = state.topSpeakers.find(
-            (topSpeaker: ITopSpeaker) => topSpeaker._id === state.selectedTopSpeakerId
-        );
+	useEffect(() => {
+		let topSpeakerData = state.topSpeakers.find(
+			(topSpeaker: ITopSpeaker) => topSpeaker._id === state.selectedTopSpeakerId
+		);
 
-        if(topSpeakerData && topSpeakerData._id){
-            setId(topSpeakerData._id);
-        }
-    },[state.topSpeakers, state.selectedTopSpeakerId]);
+		if (topSpeakerData && topSpeakerData._id) {
+			setId(topSpeakerData._id);
+		}
+	}, [state.topSpeakers, state.selectedTopSpeakerId]);
 
-    useEffect(()=>{
-        dispatch(setTopSpeakerId(""));
+	useEffect(() => {
+		dispatch(setTopSpeakerId(""));
 
-        if(state.deletedTopSpeaker){
-            toastNotification("Top Speaker removed successfully", "success");
-        }
+		if (state.deletedTopSpeaker) {
+			toastNotification("Top Speaker removed successfully", "success");
+		}
 
-        closeModal();
-    },[state.deletedTopSpeaker, dispatch]);
+		closeModal();
+	}, [state.deletedTopSpeaker, dispatch]);
 
-    useEffect(() => {
+	useEffect(() => {
 		if (state.error) {
 			toastNotification("Something went wrong", "error");
 		}
@@ -39,7 +39,7 @@ const DeleteTopSpeaker: React.FC = () => {
 		$("#topSpeakerDeleteModal").modal("hide");
 	};
 
-    const onSubmit = (event: any) => {
+	const onSubmit = (event: any) => {
 		event.preventDefault();
 
 		if (topSpeakerId) {
@@ -47,9 +47,9 @@ const DeleteTopSpeaker: React.FC = () => {
 		}
 	};
 
-    return (
-	<div>
-		<div
+	return (
+		<div>
+			<div
 				className="modal fade"
 				id="topSpeakerDeleteModal"
 				data-mdb-backdrop="static"
@@ -58,31 +58,31 @@ const DeleteTopSpeaker: React.FC = () => {
 				aria-labelledby="exampleModalLabel"
 				aria-hidden="true"
 			>
-			<div className="modal-dialog">
-				<div className="modal-content">
-					<div className="modal-header">
-						<h5 className="modal-title" id="exampleModalLabel">
-							Remove Top Speaker
-						</h5>
-						<button type="button" className="btn-close" onClick={closeModal}></button>
-					</div>
+				<div className="modal-dialog">
+					<div className="modal-content">
+						<div className="modal-header">
+							<h5 className="modal-title" id="exampleModalLabel">
+								Remove Top Speaker
+							</h5>
+							<button type="button" className="btn-close" onClick={closeModal}></button>
+						</div>
 
-					<div className="modal-body">
-						<div className="text">Are you sure about deleting this top speaker information?</div>
-					</div>
+						<div className="modal-body">
+							<div className="text">Are you sure about deleting this top speaker information?</div>
+						</div>
 
-					<div className="modal-footer">
-						<button type="button" className="btn btn-light shadow-none btn-rounded" onClick={closeModal}>
-							No
-						</button>
-						<button type="button" className="btn btn-primary shadow-none btn-rounded" onClick={onSubmit}>
-							Yes
-						</button>
+						<div className="modal-footer">
+							<button type="button" className="btn btn-light shadow-none btn-rounded" onClick={closeModal}>
+								No
+							</button>
+							<button type="button" className="btn btn-primary shadow-none btn-rounded" onClick={onSubmit}>
+								Yes
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 	);
 };
 
