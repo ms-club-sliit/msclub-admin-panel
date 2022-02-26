@@ -9,6 +9,7 @@ const initialState: ITopSpeakerStore = {
 	addTopSpeaker: null,
 	updatedTopSpeaker: null,
 	deletedTopSpeaker: null,
+	permenentDeletedTopSpeaker: null,
 	loading: false,
 	error: null,
 };
@@ -19,6 +20,7 @@ const topSpeakerReducer = (state = initialState, action: any) => {
 		case `${TopSpeakerActionTypes.GET_TOP_SPEAKER}_PENDING`:
 		case `${TopSpeakerActionTypes.GET_ALL_TOP_SPEAKERS}_PENDING`:
 		case `${TopSpeakerActionTypes.DELETE_TOP_SPEAKER}_PENDING`:
+		case `${TopSpeakerActionTypes.PERMENENT_DELETE_TOP_SPEAKER}_PENDING`:
 		case `${TopSpeakerActionTypes.UPDATE_TOP_SPEAKER}_PENDING`:
 			return { ...state, loading: true };
 
@@ -43,6 +45,9 @@ const topSpeakerReducer = (state = initialState, action: any) => {
 		case `${TopSpeakerActionTypes.DELETE_TOP_SPEAKER}_FULFILLED`:
 			let deletedTopSpeaker = action.payload.data;
 			return { ...state, loading: false, deletedTopSpeaker };
+		case `${TopSpeakerActionTypes.PERMENENT_DELETE_TOP_SPEAKER}_FULFILLED`:
+			let permenentDeletedTopSpeaker = action.payload.data;
+			return { ...state, loading: false, permenentDeletedTopSpeaker };
 
 		case `${TopSpeakerActionTypes.CREATE_TOP_SPEAKER}_REJECTED`:
 		case `${TopSpeakerActionTypes.GET_TOP_SPEAKER}_REJECTED`:
@@ -50,6 +55,7 @@ const topSpeakerReducer = (state = initialState, action: any) => {
 		case `${TopSpeakerActionTypes.GET_DELETED_TOP_SPEAKERS}_REJECTED`:
 		case `${TopSpeakerActionTypes.UPDATE_TOP_SPEAKER}_REJECTED`:
 		case `${TopSpeakerActionTypes.DELETE_TOP_SPEAKER}_REJECTED`:
+		case `${TopSpeakerActionTypes.PERMENENT_DELETE_TOP_SPEAKER}_REJECTED`:
 			return {
 				...state,
 				loading: false,

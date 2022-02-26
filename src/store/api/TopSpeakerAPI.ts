@@ -24,6 +24,10 @@ class TopSpeakerAPI {
 	static getDeletedTopSpeakers(): Promise<ITopSpeaker> {
 		return axios.get(`${BASE_URL}/admin/topspeaker/delete/`, requestConfig);
 	}
+
+	static permenentDeleteTopSpeaker(topSpeakerId: string): Promise<ITopSpeaker> {
+		return axios.delete(`${BASE_URL}/admin/topspeaker/permanentdelete/${topSpeakerId}`, requestConfig);
+	}
 }
 
 export default TopSpeakerAPI;
