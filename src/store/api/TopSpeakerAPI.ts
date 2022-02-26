@@ -25,8 +25,8 @@ class TopSpeakerAPI {
 		return axios.get(`${BASE_URL}/admin/topspeaker/deleted/`, requestConfig);
 	}
 
-	static recoverDeletedTopSpeaker(topSpeakerId: string): Promise<ITopSpeaker>{
-		return axios.put(`${BASE_URL}/admin/topspeaker/recover/${topSpeakerId}`,null,requestConfig);
+	static recoverDeletedTopSpeaker(topSpeakerId: string): Promise<ITopSpeaker> {
+		return axios.put(`${BASE_URL}/admin/topspeaker/recover/${topSpeakerId}`, null, requestConfig);
 	}
 }
 

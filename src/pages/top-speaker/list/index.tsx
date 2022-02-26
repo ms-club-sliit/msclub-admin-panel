@@ -255,9 +255,9 @@ const TopSpeakerList: React.FC = () => {
 	};
 
 	const handleDeletedTopSpeakerClick = (event: any) => {
-		if(event){
+		if (event) {
 			history.push("/topSpeakers/deleted");
-		}		
+		}
 	};
 
 	return (
@@ -331,7 +331,7 @@ const TopSpeakerList: React.FC = () => {
 			<TopSpeakerView />
 			<AddTopSpeaker />
 			<UpdateTopSpeaker />
-			<DeleteTopSpeaker/>
+			<DeleteTopSpeaker />
 		</div>
 	);
 };
