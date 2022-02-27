@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-	permenentDeleteTopSpeaker,
+	permanentDeleteTopSpeaker,
 	setTopSpeakerId,
 	getDeletedTopSpeakers,
 } from "../../../store/top-speaker-store/topSpeakerActions";
 import { ITopSpeaker } from "../../../interfaces";
 import { toastNotification } from "../../../constants";
 
-const PermenentDeleteTopSpeaker: React.FC = () => {
+const PermanentDeleteTopSpeaker: React.FC = () => {
 	const dispatch = useDispatch();
 	const [topSpeakerId, setId] = useState<string>();
 	const state = useSelector((state) => state.topSpeakerReducer);
@@ -27,12 +27,12 @@ const PermenentDeleteTopSpeaker: React.FC = () => {
 		dispatch(getDeletedTopSpeakers());
 		dispatch(setTopSpeakerId(""));
 
-		if (state.permenentDeletedTopSpeaker) {
+		if (state.permanentDeletedTopSpeaker) {
 			toastNotification("Top Speaker removed successfully", "success");
 		}
 
 		closeModal();
-	}, [state.permenentDeletedTopSpeaker, dispatch]);
+	}, [state.permanentDeletedTopSpeaker, dispatch]);
 
 	useEffect(() => {
 		if (state.error) {
@@ -41,14 +41,14 @@ const PermenentDeleteTopSpeaker: React.FC = () => {
 	}, [state.error, dispatch]);
 
 	const closeModal = () => {
-		$("#permenentDeleteTopSpeakerModal").modal("hide");
+		$("#permanentDeleteTopSpeakerModal").modal("hide");
 	};
 
 	const onSubmit = (event: any) => {
 		event.preventDefault();
 
 		if (topSpeakerId) {
-			dispatch(permenentDeleteTopSpeaker(topSpeakerId));
+			dispatch(permanentDeleteTopSpeaker(topSpeakerId));
 		}
 	};
 
@@ -56,7 +56,7 @@ const PermenentDeleteTopSpeaker: React.FC = () => {
 		<div>
 			<div
 				className="modal fade"
-				id="permenentDeleteTopSpeakerModal"
+				id="permanentDeleteTopSpeakerModal"
 				data-mdb-backdrop="static"
 				data-mdb-keyboard="false"
 				tabIndex={-1}
@@ -91,4 +91,4 @@ const PermenentDeleteTopSpeaker: React.FC = () => {
 	);
 };
 
-export default PermenentDeleteTopSpeaker;
+export default PermanentDeleteTopSpeaker;

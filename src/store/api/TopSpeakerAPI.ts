@@ -29,7 +29,7 @@ class TopSpeakerAPI {
 		return axios.put(`${BASE_URL}/admin/topspeaker/recover/${topSpeakerId}`, null, requestConfig);
 	}
 
-	static permenentDeleteTopSpeaker(topSpeakerId: string): Promise<ITopSpeaker> {
+	static permanentDeleteTopSpeaker(topSpeakerId: string): Promise<ITopSpeaker> {
 		return axios.delete(`${BASE_URL}/admin/topspeaker/permanentdelete/${topSpeakerId}`, requestConfig);
 	}
 }

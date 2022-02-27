@@ -8,7 +8,7 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
 import RecoverDeletedTopSpeaker from "../recover-delete";
-import PermenentDeleteTopSpeaker from "../permenent-delete";
+import PermanentDeleteTopSpeaker from "../permenent-delete";
 
 const DeletedTopSpeakerList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -114,7 +114,7 @@ const DeletedTopSpeakerList: React.FC = () => {
 	const handlePermenentDeleteTopSpeaker = (event: any, topSpeakerId: string) => {
 		if (event) {
 			dispatch(setTopSpeakerId(topSpeakerId));
-			$("#permenentDeleteTopSpeakerModal").modal("show");
+			$("#permanentDeleteTopSpeakerModal").modal("show");
 		}
 	};
 
@@ -249,7 +249,7 @@ const DeletedTopSpeakerList: React.FC = () => {
 				)}
 			</ToolkitProvider>
 			<RecoverDeletedTopSpeaker />
-			<PermenentDeleteTopSpeaker />
+			<PermanentDeleteTopSpeaker />
 		</div>
 	);
 };

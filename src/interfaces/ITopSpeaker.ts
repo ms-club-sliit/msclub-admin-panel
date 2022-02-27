@@ -23,7 +23,7 @@ interface ITopSpeakerStore {
 	addTopSpeaker: ITopSpeaker | null;
 	updatedTopSpeaker: ITopSpeaker | null;
 	deletedTopSpeaker: ITopSpeaker | null;
-	permenentDeletedTopSpeaker: ITopSpeaker | null;
+	permanentDeletedTopSpeaker: ITopSpeaker | null;
 	loading: boolean;
 	error: string | null;
 }

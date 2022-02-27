@@ -43,10 +43,10 @@ export const setTopSpeakerId = (topSpeakerId: string) => {
 	};
 };
 
-export const permenentDeleteTopSpeaker = (topSpeakerId: string) => {
+export const permanentDeleteTopSpeaker = (topSpeakerId: string) => {
 	return {
-		type: topSpeakerActionTypes.PERMENENT_DELETE_TOP_SPEAKER,
-		payload: TopSpeakerAPI.permenentDeleteTopSpeaker(topSpeakerId),
+		type: topSpeakerActionTypes.PERMANENT_DELETE_TOP_SPEAKER,
+		payload: TopSpeakerAPI.permanentDeleteTopSpeaker(topSpeakerId),
 	};
 };
 export const recoverDeletedTopSpeaker = (topSpeakerId: string) => {
