@@ -27,12 +27,12 @@ const PermanentDeleteTopSpeaker: React.FC = () => {
 		dispatch(getDeletedTopSpeakers());
 		dispatch(setTopSpeakerId(""));
 
-		if (state.permanentDeletedTopSpeaker) {
+		if (state.deletedTopSpeaker) {
 			toastNotification("Top Speaker removed successfully", "success");
 		}
 
 		closeModal();
-	}, [state.permanentDeletedTopSpeaker, dispatch]);
+	}, [state.deletedTopSpeaker, dispatch]);
 
 	useEffect(() => {
 		if (state.error) {
@@ -67,7 +67,7 @@ const PermanentDeleteTopSpeaker: React.FC = () => {
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title" id="exampleModalLabel">
-								Permenent Remove Top Speaker
+								Permanent Remove Top Speaker
 							</h5>
 							<button type="button" className="btn-close" onClick={closeModal}></button>
 						</div>
