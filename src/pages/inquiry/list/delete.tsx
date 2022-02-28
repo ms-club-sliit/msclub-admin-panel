@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDeletedInquiries } from "../../../store/inquiry-store/inquiryAction";
-import { IInquiry } from "../../../interfaces";
+import { getDeletedInquiries, setInquiryId } from "../../../store/inquiry-store/inquiryAction";
+import { IInquiry, IModifiedBy } from "../../../interfaces";
+import RecoverDeletedInquiry from "../recover-delete";
+import PermanentDeleteInquiry from "../permanent-delete";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
@@ -54,6 +56,19 @@ const DeletedInquiryList: React.FC = () => {
 		},
 	];
 
+	const handleSetRecoverInquiryPermanently = (inquiry: any, inquiryId: string) => {
+		if (inquiry) {
+			dispatch(setInquiryId(inquiryId));
+			$("#inquiryRecoverDeletedModal").modal("show");
+		}
+	};
+	const handleSetDeleteInquiryPermanently = (inquiry: any, inquiryId: string) => {
+		if (inquiry) {
+			dispatch(setInquiryId(inquiryId));
+			$("#deleteInquiryPermanentlyModal").modal("show");
+		}
+	};
+
 	// Table action buttons
 	const actionButtonFormatter = (row: any) => {
 		return (
@@ -65,10 +80,10 @@ const DeletedInquiryList: React.FC = () => {
 								<i className="fas fa-ellipsis-h"></i>
 							</span>
 							<div className="dropdown-menu dropdown-menu-right">
-								<span className="dropdown-item">
+								<button className="dropdown-item" onClick={(e) => handleSetRecoverInquiryPermanently(e, row._id)}>
 									<i className="fas fa-undo" /> Recover
-								</span>
-								<button className="dropdown-item">
+								</button>
+								<button className="dropdown-item" onClick={(e) => handleSetDeleteInquiryPermanently(e, row._id)}>
 									<i className="far fa-trash-alt" /> Delete Permanently
 								</button>
 							</div>
@@ -161,6 +176,8 @@ const DeletedInquiryList: React.FC = () => {
 					</div>
 				)}
 			</ToolkitProvider>
+			<RecoverDeletedInquiry />
+			<PermanentDeleteInquiry />
 		</div>
 	);
 };

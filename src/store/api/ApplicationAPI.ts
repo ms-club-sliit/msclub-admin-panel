@@ -30,6 +30,10 @@ class ApplicationAPI {
 		return axios.put(`${BASE_URL}/admin/application/delete/${studentId}`, null, requestConfig);
 	}
 
+	static recoverDeletedApplication(applicationId: string): Promise<IApplication> {
+		return axios.put(`${BASE_URL}/admin/application/recover/${applicationId}`, null, requestConfig);
+	}
+
 	static changeApplicationStatusIntoInterview(studentId: string, data: any): Promise<IApplication> {
 		return axios.put(`${BASE_URL}/admin/application/interview/${studentId}`, data, requestConfigJson);
 	}

@@ -1,30 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteInquiry, getInquiries, setInquiryId } from "../../../store/inquiry-store/inquiryAction";
+import {
+	deleteInquiryPermanently,
+	getDeletedInquiries,
+	setInquiryId,
+} from "../../../store/inquiry-store/inquiryAction";
 import { IInquiry } from "../../../interfaces";
 import { toastNotification } from "../../../constants";
 
-const DeleteInquiry: React.FC = () => {
+const PermanentDeleteInquiry: React.FC = () => {
 	const dispatch = useDispatch();
 	const [inquiryId, setId] = useState<string>();
 	const state = useSelector((state) => state.inquiryReducer);
 
 	useEffect(() => {
-		let inquiryData = state.inquiries.find((inquiry: IInquiry) => inquiry._id === state.selectedInquiryId);
-
+		let inquiryData = state.deleteInquiries.find((inquiry: IInquiry) => inquiry._id === state.selectedInquiryId);
 		if (inquiryData && inquiryData._id) {
 			setId(inquiryData._id);
 		}
 	}, [state.inquiries, state.selectedInquiryId]);
 
 	useEffect(() => {
-		dispatch(getInquiries());
+		dispatch(getDeletedInquiries());
 		dispatch(setInquiryId(""));
-
 		if (state.deleteInquiry) {
-			toastNotification("Inquiry removed successfully", "success");
+			toastNotification("Inquiry deleted successfully", "success");
 		}
-
 		closeModal();
 	}, [state.deleteInquiry, dispatch]);
 
@@ -35,14 +36,15 @@ const DeleteInquiry: React.FC = () => {
 	}, [state.error, dispatch]);
 
 	const closeModal = () => {
-		$("#inquiryDeleteModal").modal("hide");
+		$("#deleteInquiryPermanentlyModal").modal("hide");
+		dispatch(setInquiryId(""));
 	};
 
 	const onSubmit = (inquiry: any) => {
 		inquiry.preventDefault();
 
 		if (inquiryId) {
-			dispatch(deleteInquiry(inquiryId));
+			dispatch(deleteInquiryPermanently(inquiryId));
 		}
 	};
 
@@ -50,7 +52,7 @@ const DeleteInquiry: React.FC = () => {
 		<div>
 			<div
 				className="modal fade"
-				id="inquiryDeleteModal"
+				id="deleteInquiryPermanentlyModal"
 				data-mdb-backdrop="static"
 				data-mdb-keyboard="false"
 				tabIndex={-1}
@@ -61,13 +63,13 @@ const DeleteInquiry: React.FC = () => {
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title" id="exampleModalLabel">
-								Remove Inquiry
+								Delete Event
 							</h5>
 							<button type="button" className="btn-close" onClick={closeModal}></button>
 						</div>
 
-						<div className="modal-body delete-event">
-							<div className="text">Are you sure about deleting this Inquiry information?</div>
+						<div className="modal-body delete-inquiry">
+							<div className="text">Are you sure about permanently this deleted inquiry?</div>
 						</div>
 
 						<div className="modal-footer">
@@ -85,4 +87,4 @@ const DeleteInquiry: React.FC = () => {
 	);
 };
 
-export default DeleteInquiry;
+export default PermanentDeleteInquiry;

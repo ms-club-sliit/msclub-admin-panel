@@ -6,6 +6,7 @@ const initialState: IInquiryStore = {
 	inquiries: [],
 	selectedInquiryId: null,
 	deleteInquiry: null,
+	updatedInquiry: null,
 	deleteInquiries: [],
 	loading: false,
 	error: null,
@@ -17,6 +18,7 @@ const inquiryReducer = (state = initialState, action: any) => {
 		case `${InquiryActionTypes.GET_ALL_INQUIRIES}_PENDING`:
 		case `${InquiryActionTypes.SET_INQUIRY_ERROR}_PENDING`:
 		case `${InquiryActionTypes.GET_DELETED_INQUIRIES}_PENDING`:
+		case `${InquiryActionTypes.UPDATE_INQUIRY}_PENDING`:
 		case `${InquiryActionTypes.DELETE_INQUIRY}_PENDING`:
 			return { ...state, loading: true };
 
@@ -29,6 +31,9 @@ const inquiryReducer = (state = initialState, action: any) => {
 		case `${InquiryActionTypes.SET_INQUIRY_ID}`:
 			let selectedInquiryId = action.payload;
 			return { ...state, loading: false, selectedInquiryId };
+		case `${InquiryActionTypes.UPDATE_INQUIRY}_FULFILLED`:
+			let updatedInquiry = action.payload.data;
+			return { ...state, loading: false, updatedInquiry };
 		case `${InquiryActionTypes.SET_INQUIRY_ERROR}_FULFILLED`:
 			let getInquiryError = action.payload.data;
 			return { ...state, loading: false, getInquiryError };
@@ -44,6 +49,7 @@ const inquiryReducer = (state = initialState, action: any) => {
 		case `${InquiryActionTypes.SET_INQUIRY_ID}_REJECTED`:
 		case `${InquiryActionTypes.SET_INQUIRY_ERROR}_REJECTED`:
 		case `${InquiryActionTypes.GET_DELETED_INQUIRIES}_REJECTED`:
+		case `${InquiryActionTypes.UPDATE_INQUIRY}_REJECTED`:
 		case `${InquiryActionTypes.DELETE_INQUIRY}_REJECTED`:
 			return {
 				...state,

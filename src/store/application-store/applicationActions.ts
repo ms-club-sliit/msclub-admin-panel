@@ -36,6 +36,13 @@ export const deletedApplication = (studentId: string) => {
 	};
 };
 
+export const recoverDeletedApplication = (applicationId: string) => {
+	return {
+		type: ApplicationActionTypes.UPDATE_APPLICATION,
+		payload: ApplicationAPI.recoverDeletedApplication(applicationId),
+	};
+};
+
 export const setApplicationId = (studentId: string) => {
 	return {
 		type: ApplicationActionTypes.SELECTED_APPLICATION_ID,

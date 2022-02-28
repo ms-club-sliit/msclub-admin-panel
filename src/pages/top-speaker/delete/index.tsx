@@ -1,32 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteInquiry, getInquiries, setInquiryId } from "../../../store/inquiry-store/inquiryAction";
-import { IInquiry } from "../../../interfaces";
+import { deleteTopSpeaker, setTopSpeakerId } from "../../../store/top-speaker-store/topSpeakerActions";
+import { ITopSpeaker } from "../../../interfaces";
 import { toastNotification } from "../../../constants";
 
-const DeleteInquiry: React.FC = () => {
+const DeleteTopSpeaker: React.FC = () => {
 	const dispatch = useDispatch();
-	const [inquiryId, setId] = useState<string>();
-	const state = useSelector((state) => state.inquiryReducer);
+	const [topSpeakerId, setId] = useState<string>();
+	const state = useSelector((state) => state.topSpeakerReducer);
 
 	useEffect(() => {
-		let inquiryData = state.inquiries.find((inquiry: IInquiry) => inquiry._id === state.selectedInquiryId);
+		let topSpeakerData = state.topSpeakers.find(
+			(topSpeaker: ITopSpeaker) => topSpeaker._id === state.selectedTopSpeakerId
+		);
 
-		if (inquiryData && inquiryData._id) {
-			setId(inquiryData._id);
+		if (topSpeakerData && topSpeakerData._id) {
+			setId(topSpeakerData._id);
 		}
-	}, [state.inquiries, state.selectedInquiryId]);
+	}, [state.topSpeakers, state.selectedTopSpeakerId]);
 
 	useEffect(() => {
-		dispatch(getInquiries());
-		dispatch(setInquiryId(""));
+		dispatch(setTopSpeakerId(""));
 
-		if (state.deleteInquiry) {
-			toastNotification("Inquiry removed successfully", "success");
+		if (state.deletedTopSpeaker) {
+			toastNotification("Top Speaker removed successfully", "success");
 		}
 
 		closeModal();
-	}, [state.deleteInquiry, dispatch]);
+	}, [state.deletedTopSpeaker, dispatch]);
 
 	useEffect(() => {
 		if (state.error) {
@@ -35,14 +36,14 @@ const DeleteInquiry: React.FC = () => {
 	}, [state.error, dispatch]);
 
 	const closeModal = () => {
-		$("#inquiryDeleteModal").modal("hide");
+		$("#topSpeakerDeleteModal").modal("hide");
 	};
 
-	const onSubmit = (inquiry: any) => {
-		inquiry.preventDefault();
+	const onSubmit = (event: any) => {
+		event.preventDefault();
 
-		if (inquiryId) {
-			dispatch(deleteInquiry(inquiryId));
+		if (topSpeakerId) {
+			dispatch(deleteTopSpeaker(topSpeakerId));
 		}
 	};
 
@@ -50,7 +51,7 @@ const DeleteInquiry: React.FC = () => {
 		<div>
 			<div
 				className="modal fade"
-				id="inquiryDeleteModal"
+				id="topSpeakerDeleteModal"
 				data-mdb-backdrop="static"
 				data-mdb-keyboard="false"
 				tabIndex={-1}
@@ -61,13 +62,13 @@ const DeleteInquiry: React.FC = () => {
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title" id="exampleModalLabel">
-								Remove Inquiry
+								Remove Top Speaker
 							</h5>
 							<button type="button" className="btn-close" onClick={closeModal}></button>
 						</div>
 
-						<div className="modal-body delete-event">
-							<div className="text">Are you sure about deleting this Inquiry information?</div>
+						<div className="modal-body">
+							<div className="text">Are you sure about deleting this top speaker information?</div>
 						</div>
 
 						<div className="modal-footer">
@@ -85,4 +86,4 @@ const DeleteInquiry: React.FC = () => {
 	);
 };
 
-export default DeleteInquiry;
+export default DeleteTopSpeaker;

@@ -283,7 +283,7 @@ const ViewUser: React.FC = () => {
 											onChange={onChange}
 										/>
 									) : (
-										<span>{email}</span>
+										<span>{userName}</span>
 									)}
 									{edit && formData.userName === null && isFormNotValid && (
 										<span className="text-danger validation-message">Username is required</span>
@@ -361,10 +361,14 @@ const ViewUser: React.FC = () => {
 											onChange={onChange}
 											value={permissionLevel as string}
 										>
-											<option value="ROOT_ADMIN">Root Admin</option>
-											<option value="ADMIN">Admin</option>
-											<option value="EDITOR">Editor</option>
-											<option value="VIEWER">Viewer</option>
+											{permission === "ROOT_ADMIN" && <option value="ROOT_ADMIN">Root Admin</option>}
+											{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <option value="ADMIN">Admin</option>}
+											{(permission === "ROOT_ADMIN" || permission === "EDITOR") && (
+												<option value="EDITOR">Editor</option>
+											)}
+											{(permission === "ROOT_ADMIN" || permission === "VIEWER") && (
+												<option value="VIEWER">Viewer</option>
+											)}
 										</select>
 									) : (
 										<span>
