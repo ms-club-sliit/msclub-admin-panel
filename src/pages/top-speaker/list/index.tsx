@@ -70,7 +70,7 @@ const TopSpeakerList: React.FC = () => {
 			},
 		},
 		{
-			dataField: "dateTime",
+			dataField: "createdAt",
 			text: "Date & Time",
 			headerStyle: { width: "220px" },
 			formatter: (cell: string) => {
