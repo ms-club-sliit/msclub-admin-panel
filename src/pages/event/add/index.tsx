@@ -8,6 +8,7 @@ import {
 } from "../../../store/event-store/eventActions";
 import { useDispatch, useSelector } from "react-redux";
 import { IEventFormData, IEventState } from "../interfaces";
+import {translation} from '../../../locales/en-US/translation.json';
 
 let formData: IEventFormData = {
   imageSrc: null,
@@ -174,7 +175,7 @@ const AddEvent: React.FC = () => {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="addEventModalLabel">
-              Add New Event
+              {translation.label["add-new-event"]}
             </h5>
             <button
               type="button"
@@ -191,7 +192,7 @@ const AddEvent: React.FC = () => {
             <div className="d-flex justify-content-center">
               {formData.imageSrc === null && isFormNotValid ? (
                 <span className="text-danger validation-message my-2">
-                  Event flyer is required
+                  {translation.label["event-add-event-flyer"]}
                 </span>
               ) : null}
             </div>
@@ -200,7 +201,7 @@ const AddEvent: React.FC = () => {
               <div className="form-group row my-3">
                 <label className="col-sm-3 col-form-label form-label text-dark">
                   <i className="far fa-file-alt fa-sm" />
-                  &nbsp;Event Title
+                  &nbsp;{translation.label["event-add-event-title"]}
                 </label>
                 <div className="col-sm-9">
                   <input
@@ -212,7 +213,7 @@ const AddEvent: React.FC = () => {
                   />
                   {formData.eventName === null && isFormNotValid ? (
                     <span className="text-danger validation-message">
-                      Event name is required
+                      {translation.label["event-name-required"]}
                     </span>
                   ) : null}
                 </div>
@@ -220,7 +221,7 @@ const AddEvent: React.FC = () => {
 
               <div className="form-group row my-3">
                 <label className="col-sm-3 col-form-label form-label text-dark">
-                  Event Type
+                  {translation.label["event-type"]}
                 </label>
                 <div className="col-sm-9">
                   <select
@@ -235,7 +236,7 @@ const AddEvent: React.FC = () => {
                   </select>
                   {formData.eventType === null && isFormNotValid ? (
                     <span className="text-danger validation-message">
-                      Event type is required
+                      {translation.label["event-type-required"]}
                     </span>
                   ) : null}
                 </div>
@@ -244,7 +245,7 @@ const AddEvent: React.FC = () => {
               <div className="form-group row my-3">
                 <label className="col-sm-3 col-form-label form-label text-dark">
                   <i className="far fa-clock fa-sm" />
-                  &nbsp;Date & Time
+                  &nbsp;{translation.label["date-time"]}
                 </label>
                 <div className="col-sm-9">
                   <input
@@ -257,7 +258,7 @@ const AddEvent: React.FC = () => {
                   />
                   {formData.dateTime === null && isFormNotValid ? (
                     <span className="text-danger validation-message">
-                      Date & time is required
+                      {translation.label["date-time-required"]}
                     </span>
                   ) : null}
                 </div>
@@ -266,7 +267,7 @@ const AddEvent: React.FC = () => {
               <div className="form-group row my-3">
                 <label className="col-sm-3 col-form-label form-label text-dark">
                   <i className="fas fa-link fa-sm" />
-                  &nbsp;Registration Link
+                  &nbsp;{translation.label["registration-link"]}
                 </label>
                 <div className="col-sm-9">
                   <input
@@ -278,7 +279,7 @@ const AddEvent: React.FC = () => {
                   />
                   {formData.registrationLink === null && isFormNotValid ? (
                     <span className="text-danger validation-message">
-                      Registration link is required
+                      {translation.label["registration-link-required"]}
                     </span>
                   ) : null}
                 </div>
@@ -287,7 +288,7 @@ const AddEvent: React.FC = () => {
               <div className="form-group row my-3">
                 <label className="col-sm-3 col-form-label form-label text-dark">
                   <i className="fas fa-link fa-sm" />
-                  &nbsp;Event Link
+                  &nbsp;{translation.label["event-link"]}
                 </label>
                 <div className="col-sm-9">
                   <input
@@ -299,7 +300,7 @@ const AddEvent: React.FC = () => {
                   />
                   {formData.eventLink === null && isFormNotValid ? (
                     <span className="text-danger validation-message">
-                      Event type is required
+                      {translation.label["event-link-required"]}
                     </span>
                   ) : null}
                 </div>
@@ -308,7 +309,7 @@ const AddEvent: React.FC = () => {
               <div className="form-group row my-3">
                 <label className="col-sm-3 col-form-label form-label text-dark">
                   <i className="fas fa-tags fa-sm" />
-                  &nbsp;Tags
+                  &nbsp;{translation.label["tags"]}
                 </label>
                 <div className="col-sm-9">
                   <input
@@ -318,13 +319,12 @@ const AddEvent: React.FC = () => {
                     onChange={(e) => handleTags(e.target.value)}
                   />
                   <small className="text-muted tag-text">
-                    Sperate tag names using , (example: ITP, GitHub,
-                    Microservice)
+                    {translation.label["seperate-tags"]}
                   </small>
                   <br />
                   {formData.filteredTags === null && isFormNotValid ? (
                     <span className="text-danger validation-message">
-                      Tags are is required
+                      {translation.label["tags-required"]}
                     </span>
                   ) : null}
                 </div>
@@ -333,7 +333,7 @@ const AddEvent: React.FC = () => {
               <div className="form-group row my-3">
                 <label className="col-sm-12 col-form-label form-label text-dark">
                   <i className="fas fa-align-left" />
-                  &nbsp;Description
+                  &nbsp;{translation.label["description"]}
                 </label>
                 <div className="col-sm-12">
                   <RichTextEditor
@@ -345,7 +345,7 @@ const AddEvent: React.FC = () => {
                   />
                   {formData.description === null && isFormNotValid ? (
                     <span className="text-danger validation-message">
-                      Description is required
+                      {translation.label["event-add-description-required"]}
                     </span>
                   ) : null}
                 </div>
@@ -358,14 +358,14 @@ const AddEvent: React.FC = () => {
               className="btn btn-light shadow-none btn-rounded"
               onClick={closeModal}
             >
-              Cancel
+              {translation.button["cancel"]}
             </button>
             <button
               type="button"
               className="btn btn-primary shadow-none btn-rounded"
               onClick={onSubmit}
             >
-              Submit
+              {translation.button["submit"]}
             </button>
           </div>
         </div>

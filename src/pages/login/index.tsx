@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ILoginFormData, ILoginState } from "./interfaces";
 import {loginUser} from "../../store/user-store/userActions";
 import { toastNotification } from "../../constants";
+import {translation} from '../../locales/en-US/translation.json';
 
 let formData: ILoginFormData = {
   userName: null,
@@ -92,12 +93,12 @@ const Login: React.FC = () => {
             alt="ms-club-logo"
             className="logo"
           />
-          <h4 className="text-dark">Admin Panel</h4>
+          <h4 className="text-dark">{translation.label["admin-panel"]}</h4>
         </div>
 
         <div>
           <div className="form-group">
-            <label className="form-label">Username</label>
+            <label className="form-label">{translation.label["username"]}</label>
             <input
               type="text"
               className="form-control"
@@ -107,13 +108,13 @@ const Login: React.FC = () => {
             />
             {formData.userName === null && isFormNotValid ? (
               <span className="text-danger validation-message">
-                Username is required
+                {translation.label["username-required"]}
               </span>
             ) : null}
           </div>
 
           <div className="form-group my-3">
-            <label className="form-label">Password</label>
+            <label className="form-label">{translation.label["password"]}</label>
             <input
               type="password"
               className="form-control"
@@ -123,17 +124,17 @@ const Login: React.FC = () => {
             />
             {formData.password === null && isFormNotValid ? (
               <span className="text-danger validation-message">
-                Password is required
+                {translation.label["password-required"]}
               </span>
             ) : null}
           </div>
         </div>
 
         <span className="form-label">
-          Forgot Password? <a href="/">Reset</a>
+          {translation.label["forgot-password"]}<a href="/">{translation.label["reset"]}</a>
         </span>
         <span className="form-label">
-          Don't have an account? <a href="/">Contact Admin</a>
+          {translation.label["dont-have-account"]}<a href="/">{translation.label["contact-admin"]}</a>
         </span>
 
         <div className="d-flex justify-content-end my-3">
@@ -143,7 +144,7 @@ const Login: React.FC = () => {
               className="btn btn-primary shadow-none btn-rounded"
               onClick={onSubmit}
             >
-              Sign In
+              {translation.label["signin"]}
             </button>
           ) : (
             <button
@@ -157,7 +158,7 @@ const Login: React.FC = () => {
                   role="status"
                   aria-hidden="true"
                 ></span>
-                <span>Signing...</span>
+                <span>{translation.label["signing"]}</span>
               </span>
             </button>
           )}

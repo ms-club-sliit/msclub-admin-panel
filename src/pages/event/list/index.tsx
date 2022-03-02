@@ -12,6 +12,7 @@ import AddEvent from "../add";
 import UpdateEvent from "../update";
 import DeleteEvent from "../delete";
 import { useHistory } from "react-router-dom";
+import {translation} from '../../../locales/en-US/translation.json';
 
 const EventList: React.FC = () => {
   const dispatch = useDispatch();
@@ -121,13 +122,13 @@ const EventList: React.FC = () => {
           </span>
           <div className="dropdown-menu dropdown-menu-right">
             <span className="dropdown-item" onClick={(e) => handleSetViewEvent(row._id)}>
-              <i className="far fa-eye" /> View
+              <i className="far fa-eye" /> {translation.label["view"]}
             </span>
             <span className="dropdown-item" onClick={(e) => handleSetUpdateEvent(row._id)}>
-              <i className="far fa-edit" /> Edit
+              <i className="far fa-edit" /> {translation.label["edit"]}
             </span>
             <button className="dropdown-item" onClick={(e) => handleSetDeleteEvent(row._id)}>
-              <i className="far fa-trash-alt" /> Delete
+              <i className="far fa-trash-alt" /> {translation.label["delete"]}
             </button>
           </div>
         </span>
@@ -176,7 +177,7 @@ const EventList: React.FC = () => {
     },
     renderer: (row: IEvent) => (
       <div>
-        <h5>Event Information</h5>
+        <h5>{translation.label["event-list-index-event-info"]}</h5>
         <div className="row">
           <div className="col-md-3 col-sm-12">
             <img
@@ -187,14 +188,14 @@ const EventList: React.FC = () => {
           </div>
           <div className="col-md-9 col-sm-12">
             <h6 className="row-header">
-              <span className="fas fa-link" /> &nbsp; Event Link
+              <span className="fas fa-link" /> &nbsp; {translation.label["event-link"]}
             </h6>
             <a href={row.link} target="_blank" rel="noreferrer">
               {row.link}
             </a>
 
             <h6 className="row-header my-3">
-              <span className="fas fa-link" /> &nbsp; Registration Link
+              <span className="fas fa-link" /> &nbsp; {translation.label["registration-link"]}
             </h6>
             <a href={row.registrationLink} target="_blank" rel="noreferrer">
               {row.registrationLink}
@@ -203,7 +204,7 @@ const EventList: React.FC = () => {
             {row.tags && row.tags.length > 0 ? (
               <div>
                 <h6 className="row-header my-3">
-                  <span className="fas fa-tags" /> Tags &nbsp;
+                  <span className="fas fa-tags" /> {translation.label["tags"]} &nbsp;
                 </h6>
                 <div className="d-flex">
                   {row.tags.map((tag, index) => (
@@ -217,7 +218,7 @@ const EventList: React.FC = () => {
 
             <h6 className="row-header">
               <span className="fas fa-align-left my-2" />
-              &nbsp; Description
+              &nbsp; {translation.label["description"]}
             </h6>
             <p>{convertToPlain(row.description)}</p>
           </div>
@@ -253,8 +254,8 @@ const EventList: React.FC = () => {
     <div className="card">
       <div className="row">
         <div className="col-6">
-          <h3 className="page-title">Events</h3>
-          <p className="page-description text-muted">Manage all the event informations</p>
+          <h3 className="page-title">{translation.label["events"]}</h3>
+          <p className="page-description text-muted">{translation.label["manage-all-event-info"]}</p>
         </div>
         <div className="col-6">
           <div className="d-flex justify-content-end">
@@ -264,7 +265,7 @@ const EventList: React.FC = () => {
               data-mdb-target="#addEventModal"
             >
               <span className="fas fa-plus" />
-              <span className="mx-2">Add New Event</span>
+              <span className="mx-2">{translation.label["add-new-event"]}</span>
             </button>
           </div>
         </div>
@@ -276,28 +277,28 @@ const EventList: React.FC = () => {
             className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
             onClick={(e) => handleViewClick(e, "All")}
           >
-            All
+            {translation.button["all"]}
           </button>
           &nbsp;
           <button
             className={`btn btn-sm ${selectedTab === "Upcoming" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
             onClick={(e) => handleViewClick(e, "Upcoming")}
           >
-            Upcoming
+            {translation.button["upcoming"]}
           </button>
           &nbsp;
           <button
             className={`btn btn-sm ${selectedTab === "Past" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
             onClick={(e) => handleViewClick(e, "Past")}
           >
-            Past
+            {translation.button["past"]}
           </button>
           &nbsp;
           <button
             className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
             onClick={(e) => handleDeletedEventClick(e)}
           >
-            Deleted
+            {translation.button["deleted"]}
           </button>
         </div>
       </div>
@@ -314,8 +315,7 @@ const EventList: React.FC = () => {
               <SearchBar {...props.searchProps} placeholder="Search events" className="mb-3 search-bar" />
             </div>
             <p className="table-description text-muted">
-              *If you experience any difficulty in viewing the event information, please make sure your cache is cleared
-              and completed a hard refresh.
+              {translation.label["difficulty-message"]}
             </p>
             <BootstrapTable
               {...props.baseProps}

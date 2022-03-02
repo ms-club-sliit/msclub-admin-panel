@@ -1,0 +1,89 @@
+{
+    "translation":{    
+        "button":{
+            "cancel":"Cancel",
+            "submit":"Submit",
+            "yes":"Yes",
+            "no":"No",
+            "all":"All",
+            "upcoming":"Upcoming",
+            "past":"Past",
+            "deleted":"Deleted",
+            "update":"Update",
+            "close":"Close"                     
+        },
+    
+        "label":{    
+            "tags": "Tags",
+            "tags-required": "Tags are is required",
+            "event-link": "Event Link",
+            "event-link-required": "Event Link is required",
+            "registration-link": "Registration Link",            
+            "registration-link-required": "Registration Link is required",  
+            "description": "Description",
+            "view": "View",
+            "edit": "Edit",
+            "delete": "Delete",
+            "add-new-event": "Add New Event",
+            "events": "Events",
+            "event-name-required": "Event name is required",
+            "event-type": "Event Type",  
+            "event-type-required": "Event type is required", 
+            "difficulty-message": "*If you experience any difficulty in viewing the event information, please make sure your cache is cleared and completed a hard refresh",   
+            "manage-all-event-info": "Manage all the event informations",
+            "event-add-event-flyer": "Event flyer is required",    
+            "event-add-event-title": "Event Title", 
+            "date-time": "Date & Time",
+            "date-time-required": "Date & time is required",  
+            "seperate-tags": "Sperate tag names using , (example: ITP, GitHub, Microservice)",
+            "event-document": "Date & Time",
+            "information": "Information",
+            "v-event-title": "Event Title :",
+            "v-date-time": "Date & Time :",
+            "v-event-link": "Event Link :",
+            "v-event-type": "Event Type :",  
+            "upcoming-event": "Upcoming Event",
+            "past-event": "Past Event",
+            "v-tags": "Tags :",
+            "v-description": "Description :",
+            "v-document-history": "Document History",
+            "v-created-at": "Created At :",
+            "v-modification-info": "Modification Info :",
+            "admin-panel": "Admin Panel",
+            "username": "Username",
+            "username-required": "Username is required",
+            "password": "Password",
+            "password-required": "Password is required",
+            "forgot-password": "Forgot Password ?",
+            "reset": "Reset",
+            "dont-have-account": "Don't have an account?",
+            "contact-admin": "Contact Admin",            
+            "signin": "Sign In",
+            "signing": "Signing...",
+
+            
+            
+            
+                       
+                    
+                      
+            
+                        
+            "event-add-description-required": "Description is required",
+            "event-delete-title": "Remove Event",
+            "event-delete-are-you-sure": "Are you sure about deleting this event information?",
+            "event-list-delete-upcoming-event": "Upcoming Event",
+            "event-list-delete-past-event": "Past Event",
+            "event-list-delete-recover": "Recover",
+            "event-list-delete-delete-permanently": "Delete Permanently",
+            "event-list-delete-event-information": "RecoverEvent Information",    
+            "event-list-delete-go-back": "Go Back",
+            "event-list-index-event-info": "Event Information",
+            "event-update-title": "Edit Event Document",
+            "event-update-current-flyer": "Current Event Flyer",
+            "event-update-flyer-required": "Event flyer is required",
+            "event-update-event-name": "Event Name"
+        }    
+    }
+    
+}
