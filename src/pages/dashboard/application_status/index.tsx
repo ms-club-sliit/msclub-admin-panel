@@ -2,6 +2,7 @@ import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { useSelector } from "react-redux";
+import Loader from "../loader";
 import { IApplication } from "../../../interfaces";
 
 interface IDataSet {
@@ -16,7 +17,7 @@ interface IChartData {
 }
 
 const ApplicationStatus: React.FC = () => {
-	const applications = useSelector((state) => state.applicationReducer.applications);
+	const applicationState = useSelector((state) => state.applicationReducer);
 	const [data, setData] = useState<IChartData>();
 	const [pendingArr, setPendingArr] = useState<IApplication[]>([]);
 	const [interviewArr, setInterviewArr] = useState<IApplication[]>([]);
@@ -24,12 +25,20 @@ const ApplicationStatus: React.FC = () => {
 	const [selectedArr, setSelectedArr] = useState<IApplication[]>([]);
 
 	useEffect(() => {
-		if (applications && applications.length > 0) {
+		if (applicationState && applicationState.applications.length > 0) {
 			// Set application status
-			setPendingArr(applications.filter((application: IApplication) => application.status === "PENDING"));
-			setInterviewArr(applications.filter((application: IApplication) => application.status === "INTERVIEW"));
-			setSelectedArr(applications.filter((application: IApplication) => application.status === "SELECTED"));
-			setRejectedArr(applications.filter((application: IApplication) => application.status === "REJECTED"));
+			setPendingArr(
+				applicationState.applications.filter((application: IApplication) => application.status === "PENDING")
+			);
+			setInterviewArr(
+				applicationState.applications.filter((application: IApplication) => application.status === "INTERVIEW")
+			);
+			setSelectedArr(
+				applicationState.applications.filter((application: IApplication) => application.status === "SELECTED")
+			);
+			setRejectedArr(
+				applicationState.applications.filter((application: IApplication) => application.status === "REJECTED")
+			);
 
 			// Configure chart data
 			let pending = 0;
@@ -37,7 +46,7 @@ const ApplicationStatus: React.FC = () => {
 			let selected = 0;
 			let rejected = 0;
 
-			for (let application of applications) {
+			for (let application of applicationState.applications) {
 				switch (application.status) {
 					case "PENDING":
 						pending += 1;
@@ -67,73 +76,79 @@ const ApplicationStatus: React.FC = () => {
 				],
 			});
 		}
-	}, [applications, setData]);
+	}, [applicationState, setData]);
 
 	return (
 		<div className="application__status">
 			<div className="card">
-				<h5 className="m-0">
-					<i className="fa fa-file-text text-info"></i>&nbsp;Application Status
-				</h5>
-				<div className="card-body">
-					<div className="chart__container">
-						{data ? (
-							<Doughnut
-								width={300}
-								data={data}
-								options={{
-									legend: {
-										display: true,
-										position: "right",
-									},
-									layout: {
-										padding: {
-											left: 0,
-											right: 0,
-											top: 0,
-											bottom: 0,
-										},
-									},
-								}}
-							/>
-						) : null}
+				{!applicationState.loading ? (
+					<div>
+						<h5 className="m-0">
+							<i className="fa fa-file-text text-info"></i>&nbsp;Application Status
+						</h5>
+						<div className="card-body">
+							<div className="chart__container">
+								{data ? (
+									<Doughnut
+										width={300}
+										data={data}
+										options={{
+											legend: {
+												display: true,
+												position: "right",
+											},
+											layout: {
+												padding: {
+													left: 0,
+													right: 0,
+													top: 0,
+													bottom: 0,
+												},
+											},
+										}}
+									/>
+								) : null}
+							</div>
+							<div className="status__info">
+								<div className="d-flex justify-content-between">
+									<div>
+										<i className="fa fa-clock text-warning"></i>&nbsp;Pending
+									</div>
+									<div>{pendingArr.length > 0 ? pendingArr.length : 0}</div>
+								</div>
+								<div className="d-flex justify-content-between">
+									<div>
+										<i className="fa fa-video-camera text-primary"></i>&nbsp;Interview
+									</div>
+									<div>{interviewArr.length > 0 ? interviewArr.length : 0}</div>
+								</div>
+								<div className="d-flex justify-content-between">
+									<div>
+										<i className="fa fa-check text-success"></i>&nbsp;Selected
+									</div>
+									<div>{selectedArr.length > 0 ? selectedArr.length : 0}</div>
+								</div>
+								<div className="d-flex justify-content-between">
+									<div>
+										<i className="fa fa-times text-danger"></i>&nbsp;Rejected
+									</div>
+									<div>{rejectedArr.length > 0 ? rejectedArr.length : 0}</div>
+								</div>
+								<hr />
+								<div className="d-flex justify-content-between">
+									<div>
+										<strong>Total</strong>
+									</div>
+									<div>
+										<strong>{applicationState && applicationState.applications.length}</strong>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div className="status__info">
-						<div className="d-flex justify-content-between">
-							<div>
-								<i className="fa fa-clock text-warning"></i>&nbsp;Pending
-							</div>
-							<div>{pendingArr.length > 0 ? pendingArr.length : 0}</div>
-						</div>
-						<div className="d-flex justify-content-between">
-							<div>
-								<i className="fa fa-video-camera text-primary"></i>&nbsp;Interview
-							</div>
-							<div>{interviewArr.length > 0 ? interviewArr.length : 0}</div>
-						</div>
-						<div className="d-flex justify-content-between">
-							<div>
-								<i className="fa fa-check text-success"></i>&nbsp;Selected
-							</div>
-							<div>{selectedArr.length > 0 ? selectedArr.length : 0}</div>
-						</div>
-						<div className="d-flex justify-content-between">
-							<div>
-								<i className="fa fa-times text-danger"></i>&nbsp;Rejected
-							</div>
-							<div>{rejectedArr.length > 0 ? rejectedArr.length : 0}</div>
-						</div>
-						<hr />
-						<div className="d-flex justify-content-between">
-							<div>
-								<strong>Total</strong>
-							</div>
-							<div>
-								<strong>{applications && applications.length}</strong>
-							</div>
-						</div>
-					</div>
-				</div>
+				) : (
+					<Loader type="status_loader" />
+				)}
 			</div>
 		</div>
 	);

@@ -1,32 +1,39 @@
 import moment from "moment";
 import React from "react";
 import { useSelector } from "react-redux";
+import Loader from "../loader";
 import { IApplication } from "../../../interfaces";
 
 const RecentApplication: React.FC = () => {
-	const applications = useSelector((state) => state.applicationReducer.applications);
+	const applications = useSelector((state) => state.applicationReducer);
 	return (
 		<div className="recent__application">
 			<div className="card">
-				<h5 className="m-0">
-					<i className="fa fa-file-text text-info"></i>&nbsp;Resent Applications
-				</h5>
-				<div className="card-body">
-					{applications &&
-						applications.length > 0 &&
-						applications
-							.slice(0, 6)
-							.map((application: IApplication) => (
-								<ApplicationItem
-									key={application._id}
-									studentID={application.studentId}
-									studentName={application.name}
-									academicYear={application.currentAcademicYear}
-									status={application.status}
-									sendAt={application.createdAt}
-								/>
-							))}
-				</div>
+				{!applications.loading ? (
+					<div>
+						<h5 className="m-0">
+							<i className="fa fa-file-text text-info"></i>&nbsp;Resent Applications
+						</h5>
+						<div className="card-body">
+							{applications.applications &&
+								applications.applications.length > 0 &&
+								applications.applications
+									.slice(0, 6)
+									.map((application: IApplication) => (
+										<ApplicationItem
+											key={application._id}
+											studentID={application.studentId}
+											studentName={application.name}
+											academicYear={application.currentAcademicYear}
+											status={application.status}
+											sendAt={application.createdAt}
+										/>
+									))}
+						</div>
+					</div>
+				) : (
+					<Loader type="application_loader" />
+				)}
 			</div>
 		</div>
 	);
