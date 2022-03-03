@@ -40,10 +40,10 @@ const InquiryList: React.FC = () => {
 	}, [state.inquiries, setInquiries]);
 
 	useEffect(() => {
-		if (userState.authUser && userState.authUser.authToken && userState.authUser.permissionLevel) {
+		if (userState.authUser && userState.authUser.permissionLevel) {
 			setPermission(userState.authUser.permissionLevel);
 		}
-	}, [userState.authUser]);
+	}, [userState.authUser, setPermission]);
 
 	// Table column configurations
 	const tableColumnData = [
