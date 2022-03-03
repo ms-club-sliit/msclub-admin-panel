@@ -49,7 +49,7 @@ const TopSpeakerList: React.FC = () => {
 	}, [state.deletedTopSpeaker, dispatch]);
 
 	useEffect(() => {
-		if (userState.authUser && userState.authUser.authToken && userState.authUser.permissionLevel) {
+		if (userState.authUser && userState.authUser.permissionLevel) {
 			setPermission(userState.authUser.permissionLevel);
 		}
 	}, [userState.authUser]);
