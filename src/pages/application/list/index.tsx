@@ -13,6 +13,7 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import { useHistory } from "react-router-dom";
 import ApplicationInterviewForm from "../interview";
 import DeleteApplication from "../delete";
+import ApplicationLoader from "../loader";
 
 const ApplicationList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -335,91 +336,103 @@ const ApplicationList: React.FC = () => {
 
 	return (
 		<div className="card">
-			<div className="row">
-				<div className="col-6">
-					<h3 className="page-title">Applications</h3>
-					<p className="page-description text-muted">Manage all the application informations</p>
-				</div>
-			</div>
-
-			<div>
-				<div className="d-flex">
-					<button
-						className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "All")}
-					>
-						All
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "PENDING" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "PENDING")}
-					>
-						Pending
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "INTERVIEW" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "INTERVIEW")}
-					>
-						Interview
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "SELECTED" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "SELECTED")}
-					>
-						Selected
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "REJECTED" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "REJECTED")}
-					>
-						Rejected
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleDeletedApplicationClick(e)}
-					>
-						Deleted
-					</button>
-				</div>
-			</div>
-
-			<ToolkitProvider
-				keyField="_id"
-				data={selectedTab === "All" ? applications : selectedTypeApplications}
-				columns={tableColumnData}
-				search
-			>
-				{(props) => (
-					<div>
-						<div className="d-flex justify-content-end">
-							<SearchBar {...props.searchProps} placeholder="Search Applications" className="mb-3 search-bar" />
+			{!state.loading ? (
+				<div>
+					<div className="row">
+						<div className="col-6">
+							<h3 className="page-title">Applications</h3>
+							<p className="page-description text-muted">Manage all the application informations</p>
 						</div>
-						<p className="table-description text-muted">
-							*If you experience any difficulty in viewing the application information, please make sure your cache is
-							cleared and completed a hard refresh.
-						</p>
-						<BootstrapTable
-							{...props.baseProps}
-							pagination={paginationFactory(options)}
-							expandRow={expandRow}
-							bordered
-							striped
-							headerClasses="header-class"
-							wrapperClasses="table-responsive"
-							hover
-							rowClasses="table-row"
-						/>
 					</div>
-				)}
-			</ToolkitProvider>
 
-			<ApplicationInterviewForm />
-			<DeleteApplication />
+					<div>
+						<div className="d-flex">
+							<button
+								className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
+								onClick={(e) => handleViewClick(e, "All")}
+							>
+								All
+							</button>
+							&nbsp;
+							<button
+								className={`btn btn-sm ${selectedTab === "PENDING" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
+								onClick={(e) => handleViewClick(e, "PENDING")}
+							>
+								Pending
+							</button>
+							&nbsp;
+							<button
+								className={`btn btn-sm ${
+									selectedTab === "INTERVIEW" ? "btn-info" : "btn-light"
+								} btn-rounded shadow-none`}
+								onClick={(e) => handleViewClick(e, "INTERVIEW")}
+							>
+								Interview
+							</button>
+							&nbsp;
+							<button
+								className={`btn btn-sm ${
+									selectedTab === "SELECTED" ? "btn-info" : "btn-light"
+								} btn-rounded shadow-none`}
+								onClick={(e) => handleViewClick(e, "SELECTED")}
+							>
+								Selected
+							</button>
+							&nbsp;
+							<button
+								className={`btn btn-sm ${
+									selectedTab === "REJECTED" ? "btn-info" : "btn-light"
+								} btn-rounded shadow-none`}
+								onClick={(e) => handleViewClick(e, "REJECTED")}
+							>
+								Rejected
+							</button>
+							&nbsp;
+							<button
+								className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
+								onClick={(e) => handleDeletedApplicationClick(e)}
+							>
+								Deleted
+							</button>
+						</div>
+					</div>
+
+					<ToolkitProvider
+						keyField="_id"
+						data={selectedTab === "All" ? applications : selectedTypeApplications}
+						columns={tableColumnData}
+						search
+					>
+						{(props) => (
+							<div>
+								<div className="d-flex justify-content-end">
+									<SearchBar {...props.searchProps} placeholder="Search Applications" className="mb-3 search-bar" />
+								</div>
+								<p className="table-description text-muted">
+									*If you experience any difficulty in viewing the application information, please make sure your cache
+									is cleared and completed a hard refresh.
+								</p>
+								<BootstrapTable
+									{...props.baseProps}
+									pagination={paginationFactory(options)}
+									expandRow={expandRow}
+									bordered
+									striped
+									headerClasses="header-class"
+									wrapperClasses="table-responsive"
+									hover
+									rowClasses="table-row"
+								/>
+							</div>
+						)}
+					</ToolkitProvider>
+
+					<ApplicationInterviewForm />
+					<DeleteApplication />
+				</div>
+			) : (
+				<ApplicationLoader />
+			)}
 		</div>
 	);
 };

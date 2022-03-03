@@ -11,6 +11,7 @@ import DeleteWebinar from "../delete";
 import WebinarUpdate from "../update";
 import { useHistory } from "react-router-dom";
 import AddWebinar from "../add";
+import WebinarLoader from "../loader";
 
 const WebinarList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -256,91 +257,99 @@ const WebinarList: React.FC = () => {
 
 	return (
 		<div className="card">
-			<div className="row">
-				<div className="col-6">
-					<h3 className="page-title">Webinar</h3>
-					<p className="page-description text-muted">Manage all the Webinar informations</p>
-				</div>
-				<div className="col-6">
-					<div className="d-flex justify-content-end">
-						<button
-							className="btn btn-primary btn-rounded shadow-none"
-							data-mdb-toggle="modal"
-							data-mdb-target="#addWebinarModal"
-						>
-							<span className="fas fa-plus" />
-							<span className="mx-2">Add New Webinar</span>
-						</button>
-					</div>
-				</div>
-			</div>
-
-			<div>
-				<div className="d-flex">
-					<button
-						className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "All")}
-					>
-						All
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "Upcoming" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "Upcoming")}
-					>
-						Upcoming
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "Past" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "Past")}
-					>
-						Past
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleDeletedWebinarClick(e)}
-					>
-						Deleted
-					</button>
-				</div>
-			</div>
-
-			<ToolkitProvider
-				keyField="_id"
-				data={selectedTab === "All" ? webinars : selectedTypeWebinars}
-				columns={tableColumnData}
-				search
-			>
-				{(props) => (
-					<div>
-						<div className="d-flex justify-content-end">
-							<SearchBar {...props.searchProps} placeholder="Search Webinars" className="mb-3 search-bar" />
+			{!state.loading ? (
+				<div>
+					<div className="row">
+						<div className="col-6">
+							<h3 className="page-title">Webinar</h3>
+							<p className="page-description text-muted">Manage all the Webinar informations</p>
 						</div>
-						<p className="table-description text-muted">
-							*If you experience any difficulty in viewing the webinar information, please make sure your cache is
-							cleared and completed a hard refresh.
-						</p>
-						<BootstrapTable
-							{...props.baseProps}
-							pagination={paginationFactory(options)}
-							expandRow={expandRow}
-							bordered
-							striped
-							headerClasses="header-class"
-							wrapperClasses="table-responsive"
-							hover
-							rowClasses="table-row"
-						/>
+						<div className="col-6">
+							<div className="d-flex justify-content-end">
+								<button
+									className="btn btn-primary btn-rounded shadow-none"
+									data-mdb-toggle="modal"
+									data-mdb-target="#addWebinarModal"
+								>
+									<span className="fas fa-plus" />
+									<span className="mx-2">Add New Webinar</span>
+								</button>
+							</div>
+						</div>
 					</div>
-				)}
-			</ToolkitProvider>
 
-			<WebinarView />
-			<AddWebinar />
-			<DeleteWebinar />
-			<WebinarUpdate />
+					<div>
+						<div className="d-flex">
+							<button
+								className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
+								onClick={(e) => handleViewClick(e, "All")}
+							>
+								All
+							</button>
+							&nbsp;
+							<button
+								className={`btn btn-sm ${
+									selectedTab === "Upcoming" ? "btn-info" : "btn-light"
+								} btn-rounded shadow-none`}
+								onClick={(e) => handleViewClick(e, "Upcoming")}
+							>
+								Upcoming
+							</button>
+							&nbsp;
+							<button
+								className={`btn btn-sm ${selectedTab === "Past" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
+								onClick={(e) => handleViewClick(e, "Past")}
+							>
+								Past
+							</button>
+							&nbsp;
+							<button
+								className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
+								onClick={(e) => handleDeletedWebinarClick(e)}
+							>
+								Deleted
+							</button>
+						</div>
+					</div>
+
+					<ToolkitProvider
+						keyField="_id"
+						data={selectedTab === "All" ? webinars : selectedTypeWebinars}
+						columns={tableColumnData}
+						search
+					>
+						{(props) => (
+							<div>
+								<div className="d-flex justify-content-end">
+									<SearchBar {...props.searchProps} placeholder="Search Webinars" className="mb-3 search-bar" />
+								</div>
+								<p className="table-description text-muted">
+									*If you experience any difficulty in viewing the webinar information, please make sure your cache is
+									cleared and completed a hard refresh.
+								</p>
+								<BootstrapTable
+									{...props.baseProps}
+									pagination={paginationFactory(options)}
+									expandRow={expandRow}
+									bordered
+									striped
+									headerClasses="header-class"
+									wrapperClasses="table-responsive"
+									hover
+									rowClasses="table-row"
+								/>
+							</div>
+						)}
+					</ToolkitProvider>
+
+					<WebinarView />
+					<AddWebinar />
+					<DeleteWebinar />
+					<WebinarUpdate />
+				</div>
+			) : (
+				<WebinarLoader />
+			)}
 		</div>
 	);
 };

@@ -8,6 +8,7 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
 import DeleteInquiry from "../delete";
+import InquiryLoader from "../loader";
 
 const InquiryList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -141,62 +142,68 @@ const InquiryList: React.FC = () => {
 
 	return (
 		<div className="card">
-			<div className="row">
-				<div className="col-6">
-					<h3 className="page-title">Inquiries</h3>
-					<p className="page-description text-muted">Manage all the Inquiry informations</p>
-				</div>
-			</div>
-
-			<div>
-				<div className="d-flex">
-					<button
-						className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "All")}
-					>
-						All
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleDeletedInquriesClick(e)}
-					>
-						Deleted
-					</button>
-				</div>
-			</div>
-
-			<ToolkitProvider
-				keyField="_id"
-				data={selectedTab === "All" ? inquiries : selectedTypeInquiry}
-				columns={tableColumnData}
-				search
-			>
-				{(props) => (
-					<div>
-						<div className="d-flex justify-content-end">
-							<SearchBar {...props.searchProps} placeholder="Search Inquiries" className="mb-3 search-bar" />
+			{!state.loading ? (
+				<div>
+					<div className="row">
+						<div className="col-6">
+							<h3 className="page-title">Inquiries</h3>
+							<p className="page-description text-muted">Manage all the Inquiry informations</p>
 						</div>
-						<p className="table-description text-muted">
-							*If you experience any difficulty in viewing the Inquiry information, please make sure your cache is
-							cleared and completed a hard refresh.
-						</p>
-						<BootstrapTable
-							{...props.baseProps}
-							pagination={paginationFactory(options)}
-							expandRow={expandRow}
-							bordered
-							striped
-							headerClasses="header-class"
-							wrapperClasses="table-responsive"
-							hover
-							rowClasses="table-row"
-						/>
 					</div>
-				)}
-			</ToolkitProvider>
 
-			<DeleteInquiry />
+					<div>
+						<div className="d-flex">
+							<button
+								className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
+								onClick={(e) => handleViewClick(e, "All")}
+							>
+								All
+							</button>
+							&nbsp;
+							<button
+								className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
+								onClick={(e) => handleDeletedInquriesClick(e)}
+							>
+								Deleted
+							</button>
+						</div>
+					</div>
+
+					<ToolkitProvider
+						keyField="_id"
+						data={selectedTab === "All" ? inquiries : selectedTypeInquiry}
+						columns={tableColumnData}
+						search
+					>
+						{(props) => (
+							<div>
+								<div className="d-flex justify-content-end">
+									<SearchBar {...props.searchProps} placeholder="Search Inquiries" className="mb-3 search-bar" />
+								</div>
+								<p className="table-description text-muted">
+									*If you experience any difficulty in viewing the Inquiry information, please make sure your cache is
+									cleared and completed a hard refresh.
+								</p>
+								<BootstrapTable
+									{...props.baseProps}
+									pagination={paginationFactory(options)}
+									expandRow={expandRow}
+									bordered
+									striped
+									headerClasses="header-class"
+									wrapperClasses="table-responsive"
+									hover
+									rowClasses="table-row"
+								/>
+							</div>
+						)}
+					</ToolkitProvider>
+
+					<DeleteInquiry />
+				</div>
+			) : (
+				<InquiryLoader />
+			)}
 		</div>
 	);
 };

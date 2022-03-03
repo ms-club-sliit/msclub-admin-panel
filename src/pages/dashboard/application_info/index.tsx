@@ -60,7 +60,7 @@ const ApplicationItem: React.FC<ApplicationItemProps> = ({ studentID, studentNam
 						<div>
 							<div className="name">{studentName}</div>
 							<div>
-								{studentID} - Year {academicYear}
+								{studentID} - {academicYear}
 							</div>
 							<div>
 								{status === "PENDING" ? <span className="text-warning">Pending</span> : null}

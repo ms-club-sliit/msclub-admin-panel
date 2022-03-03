@@ -11,6 +11,7 @@ import TopSpeakerView from "../view";
 import AddTopSpeaker from "../add";
 import UpdateTopSpeaker from "../update";
 import DeleteTopSpeaker from "../delete";
+import TopSpeakerLoader from "../loader";
 
 const TopSpeakerList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -262,76 +263,82 @@ const TopSpeakerList: React.FC = () => {
 
 	return (
 		<div className="card">
-			<div className="row">
-				<div className="col-6">
-					<h3 className="page-title">Top Speakers</h3>
-					<p className="page-description text-muted">Manage all the Top Speaker informations</p>
-				</div>
-				<div className="col-6">
-					<div className="d-flex justify-content-end">
-						<button
-							className="btn btn-primary btn-rounded shadow-none"
-							data-mdb-toggle="modal"
-							data-mdb-target="#addTopSpeakerModal"
-						>
-							<span className="fas fa-plus" />
-							<span className="mx-2">Add New Top Speaker</span>
-						</button>
-					</div>
-				</div>
-			</div>
-
-			<div>
-				<div className="d-flex">
-					<button
-						className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "All")}
-					>
-						All
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleDeletedTopSpeakerClick(e)}
-					>
-						Deleted
-					</button>
-				</div>
-			</div>
-
-			<ToolkitProvider
-				keyField="_id"
-				data={selectedTab === "All" ? topSpeakers : selectedTypeTopSpeakers}
-				columns={tableColumnData}
-				search
-			>
-				{(props) => (
-					<div>
-						<div className="d-flex justify-content-end">
-							<SearchBar {...props.searchProps} placeholder="Search topSpeakers" className="mb-3 search-bar" />
+			{!state.loading ? (
+				<div>
+					<div className="row">
+						<div className="col-6">
+							<h3 className="page-title">Top Speakers</h3>
+							<p className="page-description text-muted">Manage all the Top Speaker informations</p>
 						</div>
-						<p className="table-description text-muted">
-							*If you experience any difficulty in viewing the top Speaker information, please make sure your cache is
-							cleared and completed a hard refresh.
-						</p>
-						<BootstrapTable
-							{...props.baseProps}
-							pagination={paginationFactory(options)}
-							expandRow={expandRow}
-							bordered
-							striped
-							headerClasses="header-class"
-							wrapperClasses="table-responsive"
-							hover
-							rowClasses="table-row"
-						/>
+						<div className="col-6">
+							<div className="d-flex justify-content-end">
+								<button
+									className="btn btn-primary btn-rounded shadow-none"
+									data-mdb-toggle="modal"
+									data-mdb-target="#addTopSpeakerModal"
+								>
+									<span className="fas fa-plus" />
+									<span className="mx-2">Add New Top Speaker</span>
+								</button>
+							</div>
+						</div>
 					</div>
-				)}
-			</ToolkitProvider>
-			<TopSpeakerView />
-			<AddTopSpeaker />
-			<UpdateTopSpeaker />
-			<DeleteTopSpeaker />
+
+					<div>
+						<div className="d-flex">
+							<button
+								className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
+								onClick={(e) => handleViewClick(e, "All")}
+							>
+								All
+							</button>
+							&nbsp;
+							<button
+								className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
+								onClick={(e) => handleDeletedTopSpeakerClick(e)}
+							>
+								Deleted
+							</button>
+						</div>
+					</div>
+
+					<ToolkitProvider
+						keyField="_id"
+						data={selectedTab === "All" ? topSpeakers : selectedTypeTopSpeakers}
+						columns={tableColumnData}
+						search
+					>
+						{(props) => (
+							<div>
+								<div className="d-flex justify-content-end">
+									<SearchBar {...props.searchProps} placeholder="Search topSpeakers" className="mb-3 search-bar" />
+								</div>
+								<p className="table-description text-muted">
+									*If you experience any difficulty in viewing the top Speaker information, please make sure your cache
+									is cleared and completed a hard refresh.
+								</p>
+								<BootstrapTable
+									{...props.baseProps}
+									pagination={paginationFactory(options)}
+									expandRow={expandRow}
+									bordered
+									striped
+									headerClasses="header-class"
+									wrapperClasses="table-responsive"
+									hover
+									rowClasses="table-row"
+								/>
+							</div>
+						)}
+					</ToolkitProvider>
+					<TopSpeakerView />
+					<AddTopSpeaker />
+					<UpdateTopSpeaker />
+					<DeleteTopSpeaker />
+				</div>
+			) : (
+				<TopSpeakerLoader />
+			)}
 		</div>
 	);
 };

@@ -18,7 +18,7 @@ const Loader: React.FC<ILoaderProps> = ({ type }) => {
 					foregroundColor="#ecebeb"
 				>
 					<rect x="44" y="255" rx="3" ry="3" width="86" height="34" />
-					<rect x="22" y="25" rx="5" ry="5" width="353" height="205" />
+					<rect x="15" y="15" rx="5" ry="5" width="370" height="220" />
 					<rect x="44" y="304" rx="5" ry="5" width="119" height="15" />
 					<rect x="45" y="332" rx="5" ry="5" width="54" height="28" />
 					<rect x="227" y="254" rx="3" ry="3" width="86" height="34" />
