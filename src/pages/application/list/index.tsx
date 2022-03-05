@@ -22,6 +22,9 @@ const ApplicationList: React.FC = () => {
 	const applications: IApplication[] = state.applications;
 	const [selectedTypeApplications, setSelectedTypeApplications] = useState<IApplication[]>(applications);
 	const [selectedTab, setSelectedTab] = useState<string>("All");
+	const userState = useSelector((userState) => userState.userReducer);
+	const [permission, setPermission] = useState<string>("");
+
 
 	// Table confuguration
 	const { SearchBar } = Search;
@@ -45,6 +48,12 @@ const ApplicationList: React.FC = () => {
 	useEffect(() => {
 		dispatch(getApplications());
 	}, [state.deletedApplication, dispatch]);
+
+	useEffect(() => {
+		if (userState.authUser && userState.authUser.authToken && userState.authUser.permissionLevel) {
+			setPermission(userState.authUser.permissionLevel);
+		}
+	}, [userState.authUser]);
 
 	// Change Application Status Into Selected
 	const onSumbitSelected = (applicationId: string) => {
@@ -110,9 +119,11 @@ const ApplicationList: React.FC = () => {
 						<i className="fas fa-ellipsis-h"></i>
 					</span>
 					<div className="dropdown-menu dropdown-menu-right">
-						<button className="dropdown-item" onClick={() => handleSetDeleteApplication(row._id)}>
-							<i className="far fa-trash-alt" /> Delete
-						</button>
+						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+							<button className="dropdown-item" onClick={() => handleSetDeleteApplication(row._id)}>
+								<i className="far fa-trash-alt" /> Delete
+							</button>
+						)}
 					</div>
 				</span>
 			</span>
@@ -125,8 +136,10 @@ const ApplicationList: React.FC = () => {
 	};
 
 	const handleSetDeleteApplication = (applicationId: string) => {
-		dispatch(setApplicationId(applicationId));
-		$("#applicationDeleteModal").modal("show");
+		if (permission === "ROOT_ADMIN" || permission === "ADMIN") {
+			dispatch(setApplicationId(applicationId));
+			$("#applicationDeleteModal").modal("show");
+		}
 	};
 
 	const handleSetApplicationInterview = (applicationId: string) => {
@@ -419,7 +432,7 @@ const ApplicationList: React.FC = () => {
 			</ToolkitProvider>
 
 			<ApplicationInterviewForm />
-			<DeleteApplication />
+			{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <DeleteApplication />}
 		</div>
 	);
 };
