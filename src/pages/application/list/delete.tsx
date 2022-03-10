@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDeletedApplications, setApplicationId } from "../../../store/application-store/applicationActions";
 import { IApplication } from "../../../interfaces";
@@ -14,7 +14,9 @@ const DeletedApplicationList: React.FC = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const state = useSelector((state) => state.applicationReducer);
-	const applications: IApplication[] = state.deletedApplications;
+	const [applications, setApplications] = useState<IApplication[]>([]);
+	const userState = useSelector((userState) => userState.userReducer);
+	const [permission, setPermission] = useState<string>("");
 
 	// Table confuguration
 	const { SearchBar } = Search;
@@ -24,25 +26,6 @@ const DeletedApplicationList: React.FC = () => {
 		sizePerPage: 15,
 		hideSizePerPage: true,
 		alwaysShowAllBtns: true,
-	};
-
-	const handleSetDeleteApplicationPermanently = (application: any, applicationId: string) => {
-		if (application) {
-			dispatch(setApplicationId(applicationId));
-			$("#applicationDeletePermanentlyModal").modal("show");
-		}
-	};
-
-	// Fetch deleted applications information
-	useEffect(() => {
-		dispatch(getDeletedApplications());
-	}, [dispatch]);
-
-	const handleSetRecoverDeletedApplication = (application: any, applicationId: string) => {
-		if (application) {
-			dispatch(setApplicationId(applicationId));
-			$("#recoverDeletedApplicationModal").modal("show");
-		}
 	};
 
 	// Table column configurations
@@ -94,6 +77,25 @@ const DeletedApplicationList: React.FC = () => {
 		},
 	];
 
+	const handleSetDeleteApplicationPermanently = (application: any, applicationId: string) => {
+		if (application) {
+			dispatch(setApplicationId(applicationId));
+			$("#applicationDeletePermanentlyModal").modal("show");
+		}
+	};
+
+	// Fetch deleted applications information
+	useEffect(() => {
+		dispatch(getDeletedApplications());
+	}, [dispatch]);
+
+	const handleSetRecoverDeletedApplication = (application: any, applicationId: string) => {
+		if (application) {
+			dispatch(setApplicationId(applicationId));
+			$("#recoverDeletedApplicationModal").modal("show");
+		}
+	};
+
 	// Table action buttons
 	const actionButtonFormatter = (row: any) => {
 		return (
@@ -105,13 +107,16 @@ const DeletedApplicationList: React.FC = () => {
 								<i className="fas fa-ellipsis-h"></i>
 							</span>
 							<div className="dropdown-menu dropdown-menu-right">
-								<button className="dropdown-item" onClick={(e) => handleSetRecoverDeletedApplication(e, row._id)}>
-									<i className="fas fa-undo" /> Recover
-								</button>
-
-								<button className="dropdown-item" onClick={(e) => handleSetDeleteApplicationPermanently(e, row._id)}>
-									<i className="far fa-trash-alt" /> Delete Permanently
-								</button>
+								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+									<>
+										<button className="dropdown-item" onClick={(e) => handleSetRecoverDeletedApplication(e, row._id)}>
+											<i className="fas fa-undo" /> Recover
+										</button>
+										<button className="dropdown-item" onClick={(e) => handleSetDeleteApplicationPermanently(e, row._id)}>
+											<i className="far fa-trash-alt" /> Delete Permanently
+										</button>
+									</>
+								)}
 							</div>
 						</span>
 					</span>
