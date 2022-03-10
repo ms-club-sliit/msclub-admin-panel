@@ -11,6 +11,7 @@ import TopSpeakerView from "../view";
 import AddTopSpeaker from "../add";
 import UpdateTopSpeaker from "../update";
 import DeleteTopSpeaker from "../delete";
+import TopSpeakerLoader from "../loader";
 
 const TopSpeakerList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -20,6 +21,8 @@ const TopSpeakerList: React.FC = () => {
 	const topSpeakers: ITopSpeaker[] = state.topSpeakers;
 	const [selectedTypeTopSpeakers, setSelectedTypeTopSpeakers] = useState<ITopSpeaker[]>(topSpeakers);
 	const [selectedTab, setSelectedTab] = useState<string>("All");
+	const userState = useSelector((userState) => userState.userReducer);
+	const [permission, setPermission] = useState<string>("");
 
 	const convertToPlain = (html: string) => {
 		const htmlToParser = new HtmlToReactParser();
@@ -45,6 +48,12 @@ const TopSpeakerList: React.FC = () => {
 	useEffect(() => {
 		dispatch(getTopSpeakers());
 	}, [state.deletedTopSpeaker, dispatch]);
+
+	useEffect(() => {
+		if (userState.authUser && userState.authUser.permissionLevel) {
+			setPermission(userState.authUser.permissionLevel);
+		}
+	}, [userState.authUser]);
 
 	// Table column configurations
 	const tableColumnData = [
@@ -124,12 +133,16 @@ const TopSpeakerList: React.FC = () => {
 						<span className="dropdown-item" onClick={() => handleSetViewTopSpeaker(row._id)}>
 							<i className="far fa-eye" /> View
 						</span>
-						<span className="dropdown-item" onClick={() => handleSetUpdateTopSpeaker(row._id)}>
-							<i className="far fa-edit" /> Edit
-						</span>
-						<button className="dropdown-item" onClick={() => handleSetDeleteTopSpeaker(row._id)}>
-							<i className="far fa-trash-alt" /> Delete
-						</button>
+						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+							<span className="dropdown-item" onClick={(e) => handleSetUpdateTopSpeaker(e, row._id)}>
+								<i className="far fa-edit" /> Edit
+							</span>
+						)}
+						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+							<button className="dropdown-item" onClick={(e) => handleSetDeleteTopSpeaker(e, row._id)}>
+								<i className="far fa-trash-alt" /> Delete
+							</button>
+						)}
 					</div>
 				</span>
 			</span>
@@ -141,14 +154,18 @@ const TopSpeakerList: React.FC = () => {
 		$("#topSpeakerViewModal").modal("show");
 	};
 
-	const handleSetUpdateTopSpeaker = (topSpeakerId: string) => {
-		dispatch(setTopSpeakerId(topSpeakerId));
-		$("#topSpeakerUpdateModal").modal("show");
+	const handleSetUpdateTopSpeaker = (topSpeaker: any, topSpeakerId: string) => {
+		if (topSpeaker) {
+			dispatch(setTopSpeakerId(topSpeakerId));
+			$("#topSpeakerUpdateModal").modal("show");
+		}
 	};
 
-	const handleSetDeleteTopSpeaker = (topSpeakerId: string) => {
-		dispatch(setTopSpeakerId(topSpeakerId));
-		$("#topSpeakerDeleteModal").modal("show");
+	const handleSetDeleteTopSpeaker = (topSpeaker: any, topSpeakerId: string) => {
+		if (topSpeaker) {
+			dispatch(setTopSpeakerId(topSpeakerId));
+			$("#topSpeakerDeleteModal").modal("show");
+		}
 	};
 
 	const expandRow = {
@@ -262,76 +279,84 @@ const TopSpeakerList: React.FC = () => {
 
 	return (
 		<div className="card">
-			<div className="row">
-				<div className="col-6">
-					<h3 className="page-title">Top Speakers</h3>
-					<p className="page-description text-muted">Manage all the Top Speaker informations</p>
-				</div>
-				<div className="col-6">
-					<div className="d-flex justify-content-end">
-						<button
-							className="btn btn-primary btn-rounded shadow-none"
-							data-mdb-toggle="modal"
-							data-mdb-target="#addTopSpeakerModal"
-						>
-							<span className="fas fa-plus" />
-							<span className="mx-2">Add New Top Speaker</span>
-						</button>
-					</div>
-				</div>
-			</div>
-
-			<div>
-				<div className="d-flex">
-					<button
-						className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "All")}
-					>
-						All
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleDeletedTopSpeakerClick(e)}
-					>
-						Deleted
-					</button>
-				</div>
-			</div>
-
-			<ToolkitProvider
-				keyField="_id"
-				data={selectedTab === "All" ? topSpeakers : selectedTypeTopSpeakers}
-				columns={tableColumnData}
-				search
-			>
-				{(props) => (
-					<div>
-						<div className="d-flex justify-content-end">
-							<SearchBar {...props.searchProps} placeholder="Search topSpeakers" className="mb-3 search-bar" />
+			{!state.loading ? (
+				<div>
+					<div className="row">
+						<div className="col-6">
+							<h3 className="page-title">Top Speakers</h3>
+							<p className="page-description text-muted">Manage all the Top Speaker informations</p>
 						</div>
-						<p className="table-description text-muted">
-							*If you experience any difficulty in viewing the top Speaker information, please make sure your cache is
-							cleared and completed a hard refresh.
-						</p>
-						<BootstrapTable
-							{...props.baseProps}
-							pagination={paginationFactory(options)}
-							expandRow={expandRow}
-							bordered
-							striped
-							headerClasses="header-class"
-							wrapperClasses="table-responsive"
-							hover
-							rowClasses="table-row"
-						/>
+						<div className="col-6">
+							<div className="d-flex justify-content-end">
+								<button
+									className="btn btn-primary btn-rounded shadow-none"
+									data-mdb-toggle="modal"
+									data-mdb-target="#addTopSpeakerModal"
+								>
+									<span className="fas fa-plus" />
+									<span className="mx-2">Add New Top Speaker</span>
+								</button>
+							</div>
+						</div>
 					</div>
-				)}
-			</ToolkitProvider>
-			<TopSpeakerView />
-			<AddTopSpeaker />
-			<UpdateTopSpeaker />
-			<DeleteTopSpeaker />
+
+					<div>
+						<div className="d-flex">
+							<button
+								className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
+								onClick={(e) => handleViewClick(e, "All")}
+							>
+								All
+							</button>
+							&nbsp;
+							<button
+								className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
+								onClick={(e) => handleDeletedTopSpeakerClick(e)}
+							>
+								Deleted
+							</button>
+						</div>
+					</div>
+
+					<ToolkitProvider
+						keyField="_id"
+						data={selectedTab === "All" ? topSpeakers : selectedTypeTopSpeakers}
+						columns={tableColumnData}
+						search
+					>
+						{(props) => (
+							<div>
+								<div className="d-flex justify-content-end">
+									<SearchBar {...props.searchProps} placeholder="Search topSpeakers" className="mb-3 search-bar" />
+								</div>
+								<p className="table-description text-muted">
+									*If you experience any difficulty in viewing the top Speaker information, please make sure your cache
+									is cleared and completed a hard refresh.
+								</p>
+								<BootstrapTable
+									{...props.baseProps}
+									pagination={paginationFactory(options)}
+									expandRow={expandRow}
+									bordered
+									striped
+									headerClasses="header-class"
+									wrapperClasses="table-responsive"
+									hover
+									rowClasses="table-row"
+								/>
+							</div>
+						)}
+					</ToolkitProvider>
+					<TopSpeakerView />
+					<AddTopSpeaker />
+					<UpdateTopSpeaker />
+					<DeleteTopSpeaker />
+					{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <UpdateTopSpeaker />}
+					{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <DeleteTopSpeaker />}
+				</div>
+			) : (
+				<TopSpeakerLoader />
+			)}
 		</div>
 	);
 };

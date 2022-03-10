@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDeletedEvents, setEventId } from "../../../store/event-store/eventActions";
 import { IEvent, IModifiedBy } from "../../../interfaces";
@@ -16,6 +16,8 @@ const DeletedEventList: React.FC = () => {
 	const HtmlToReactParser = require("html-to-react").Parser;
 	const state = useSelector((state) => state.eventReducer);
 	const events: IEvent[] = state.deletedEvents;
+	const userState = useSelector((userState) => userState.userReducer);
+	const [permission, setPermission] = useState<string>("");
 
 	const convertToPlain = (html: string) => {
 		const htmlToParser = new HtmlToReactParser();
@@ -37,6 +39,12 @@ const DeletedEventList: React.FC = () => {
 	useEffect(() => {
 		dispatch(getDeletedEvents());
 	}, [dispatch]);
+
+	useEffect(() => {
+		if (userState.authUser && userState.authUser.permissionLevel) {
+			setPermission(userState.authUser.permissionLevel);
+		}
+	}, [userState.authUser, setPermission]);
 
 	const handleSetRecoverDeletedEvent = (event: any, eventId: string) => {
 		if (event) {
@@ -130,12 +138,16 @@ const DeletedEventList: React.FC = () => {
 								<i className="fas fa-ellipsis-h"></i>
 							</span>
 							<div className="dropdown-menu dropdown-menu-right">
-								<button className="dropdown-item" onClick={(e) => handleSetRecoverDeletedEvent(e, row._id)}>
-									<i className="fas fa-undo" /> Recover
-								</button>
-								<button className="dropdown-item" onClick={(e) => handleSetDeleteEventPermanently(e, row._id)}>
-									<i className="far fa-trash-alt" /> Delete Permanently
-								</button>
+								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+									<>
+										<button className="dropdown-item" onClick={(e) => handleSetRecoverDeletedEvent(e, row._id)}>
+											<i className="fas fa-undo" /> Recover
+										</button>
+										<button className="dropdown-item" onClick={(e) => handleSetDeleteEventPermanently(e, row._id)}>
+											<i className="far fa-trash-alt" /> Delete Permanently
+										</button>
+									</>
+								)}
 							</div>
 						</span>
 					</span>

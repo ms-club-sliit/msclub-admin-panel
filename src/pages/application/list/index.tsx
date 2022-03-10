@@ -13,6 +13,7 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import { useHistory } from "react-router-dom";
 import ApplicationInterviewForm from "../interview";
 import DeleteApplication from "../delete";
+import ApplicationLoader from "../loader";
 
 const ApplicationList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -22,6 +23,8 @@ const ApplicationList: React.FC = () => {
 	const applications: IApplication[] = state.applications;
 	const [selectedTypeApplications, setSelectedTypeApplications] = useState<IApplication[]>(applications);
 	const [selectedTab, setSelectedTab] = useState<string>("All");
+	const userState = useSelector((userState) => userState.userReducer);
+	const [permission, setPermission] = useState<string>("");
 
 	// Table confuguration
 	const { SearchBar } = Search;
@@ -59,6 +62,12 @@ const ApplicationList: React.FC = () => {
 			dispatch(changeApplicationStatusIntoRejected(applicationId));
 		}
 	};
+
+	useEffect(() => {
+		if (userState.authUser && userState.authUser.permissionLevel) {
+			setPermission(userState.authUser.permissionLevel);
+		}
+	}, [userState.authUser, setPermission]);
 
 	// Table column configurations
 	const tableColumnData = [
@@ -110,9 +119,11 @@ const ApplicationList: React.FC = () => {
 						<i className="fas fa-ellipsis-h"></i>
 					</span>
 					<div className="dropdown-menu dropdown-menu-right">
-						<button className="dropdown-item" onClick={() => handleSetDeleteApplication(row._id)}>
-							<i className="far fa-trash-alt" /> Delete
-						</button>
+						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+							<button className="dropdown-item" onClick={() => handleSetDeleteApplication(row._id)}>
+								<i className="far fa-trash-alt" /> Delete
+							</button>
+						)}
 					</div>
 				</span>
 			</span>
@@ -266,36 +277,42 @@ const ApplicationList: React.FC = () => {
 					<div className="col-md-4 col-sm-12">
 						<div className="row">
 							<div className="col-md-4 col-sm-12">
-								<button
-									className={`btn btn-sm btn-primary ${row.status === "INTERVIEW" ? "disabled" : ""}`}
-									onClick={() => {
-										handleSetApplicationInterview(row._id);
-									}}
-								>
-									INTERVIEW
-								</button>
+								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+									<button
+										className={`btn btn-sm btn-primary ${row.status === "INTERVIEW" ? "disabled" : ""}`}
+										onClick={() => {
+											handleSetApplicationInterview(row._id);
+										}}
+									>
+										INTERVIEW
+									</button>
+								)}
 							</div>
 
 							<div className="col-md-4 col-sm-12">
-								<button
-									className={`btn  btn-sm btn-success ${row.status === "SELECTED" ? "disabled" : ""}`}
-									onClick={() => {
-										onSumbitSelected(row._id);
-									}}
-								>
-									SELECTED
-								</button>
+								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+									<button
+										className={`btn  btn-sm btn-success ${row.status === "SELECTED" ? "disabled" : ""}`}
+										onClick={() => {
+											onSumbitSelected(row._id);
+										}}
+									>
+										SELECTED
+									</button>
+								)}
 							</div>
 
 							<div className="col-md-4 col-sm-12">
-								<button
-									className={`btn  btn-sm btn-danger ${row.status === "REJECTED" ? "disabled" : ""}`}
-									onClick={() => {
-										onSumbitRejected(row._id);
-									}}
-								>
-									REJECTED
-								</button>
+								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+									<button
+										className={`btn  btn-sm btn-danger ${row.status === "REJECTED" ? "disabled" : ""}`}
+										onClick={() => {
+											onSumbitRejected(row._id);
+										}}
+									>
+										REJECTED
+									</button>
+								)}
 							</div>
 						</div>
 					</div>
@@ -335,91 +352,103 @@ const ApplicationList: React.FC = () => {
 
 	return (
 		<div className="card">
-			<div className="row">
-				<div className="col-6">
-					<h3 className="page-title">Applications</h3>
-					<p className="page-description text-muted">Manage all the application informations</p>
-				</div>
-			</div>
-
-			<div>
-				<div className="d-flex">
-					<button
-						className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "All")}
-					>
-						All
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "PENDING" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "PENDING")}
-					>
-						Pending
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "INTERVIEW" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "INTERVIEW")}
-					>
-						Interview
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "SELECTED" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "SELECTED")}
-					>
-						Selected
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "REJECTED" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "REJECTED")}
-					>
-						Rejected
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleDeletedApplicationClick(e)}
-					>
-						Deleted
-					</button>
-				</div>
-			</div>
-
-			<ToolkitProvider
-				keyField="_id"
-				data={selectedTab === "All" ? applications : selectedTypeApplications}
-				columns={tableColumnData}
-				search
-			>
-				{(props) => (
-					<div>
-						<div className="d-flex justify-content-end">
-							<SearchBar {...props.searchProps} placeholder="Search Applications" className="mb-3 search-bar" />
+			{!state.loading ? (
+				<div>
+					<div className="row">
+						<div className="col-6">
+							<h3 className="page-title">Applications</h3>
+							<p className="page-description text-muted">Manage all the application informations</p>
 						</div>
-						<p className="table-description text-muted">
-							*If you experience any difficulty in viewing the application information, please make sure your cache is
-							cleared and completed a hard refresh.
-						</p>
-						<BootstrapTable
-							{...props.baseProps}
-							pagination={paginationFactory(options)}
-							expandRow={expandRow}
-							bordered
-							striped
-							headerClasses="header-class"
-							wrapperClasses="table-responsive"
-							hover
-							rowClasses="table-row"
-						/>
 					</div>
-				)}
-			</ToolkitProvider>
 
-			<ApplicationInterviewForm />
-			<DeleteApplication />
+					<div>
+						<div className="d-flex">
+							<button
+								className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
+								onClick={(e) => handleViewClick(e, "All")}
+							>
+								All
+							</button>
+							&nbsp;
+							<button
+								className={`btn btn-sm ${selectedTab === "PENDING" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
+								onClick={(e) => handleViewClick(e, "PENDING")}
+							>
+								Pending
+							</button>
+							&nbsp;
+							<button
+								className={`btn btn-sm ${
+									selectedTab === "INTERVIEW" ? "btn-info" : "btn-light"
+								} btn-rounded shadow-none`}
+								onClick={(e) => handleViewClick(e, "INTERVIEW")}
+							>
+								Interview
+							</button>
+							&nbsp;
+							<button
+								className={`btn btn-sm ${
+									selectedTab === "SELECTED" ? "btn-info" : "btn-light"
+								} btn-rounded shadow-none`}
+								onClick={(e) => handleViewClick(e, "SELECTED")}
+							>
+								Selected
+							</button>
+							&nbsp;
+							<button
+								className={`btn btn-sm ${
+									selectedTab === "REJECTED" ? "btn-info" : "btn-light"
+								} btn-rounded shadow-none`}
+								onClick={(e) => handleViewClick(e, "REJECTED")}
+							>
+								Rejected
+							</button>
+							&nbsp;
+							<button
+								className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
+								onClick={(e) => handleDeletedApplicationClick(e)}
+							>
+								Deleted
+							</button>
+						</div>
+					</div>
+
+					<ToolkitProvider
+						keyField="_id"
+						data={selectedTab === "All" ? applications : selectedTypeApplications}
+						columns={tableColumnData}
+						search
+					>
+						{(props) => (
+							<div>
+								<div className="d-flex justify-content-end">
+									<SearchBar {...props.searchProps} placeholder="Search Applications" className="mb-3 search-bar" />
+								</div>
+								<p className="table-description text-muted">
+									*If you experience any difficulty in viewing the application information, please make sure your cache
+									is cleared and completed a hard refresh.
+								</p>
+								<BootstrapTable
+									{...props.baseProps}
+									pagination={paginationFactory(options)}
+									expandRow={expandRow}
+									bordered
+									striped
+									headerClasses="header-class"
+									wrapperClasses="table-responsive"
+									hover
+									rowClasses="table-row"
+								/>
+							</div>
+						)}
+					</ToolkitProvider>
+
+					<ApplicationInterviewForm />
+					<DeleteApplication />
+				</div>
+			) : (
+				<ApplicationLoader />
+			)}
 		</div>
 	);
 };
