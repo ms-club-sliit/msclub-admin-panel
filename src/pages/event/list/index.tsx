@@ -19,8 +19,8 @@ const EventList: React.FC = () => {
 	const HtmlToReactParser = require("html-to-react").Parser;
 	const state = useSelector((state) => state.eventReducer);
 	const userState = useSelector((userState) => userState.userReducer);
-	const [selectedTypeEvents, setSelectedTypeEvents] = useState<IEvent[]>([]);
-	const [events, setEvents] = useState<IEvent[]>([]);
+	const events: IEvent[] = state.events;
+	const [selectedTypeEvents, setSelectedTypeEvents] = useState<IEvent[]>(events);
 	const [selectedTab, setSelectedTab] = useState<string>("All");
 	const [permission, setPermission] = useState<string>("");
 
@@ -43,12 +43,12 @@ const EventList: React.FC = () => {
 	// Fetch events information
 	useEffect(() => {
 		dispatch(getEvents());
-	}, [getEvents, dispatch]);
+	}, [dispatch]);
 
 	// Set fetched event info to state
 	useEffect(() => {
-		setEvents(state.events);
-	}, [state.events, setEvents]);
+		setSelectedTypeEvents(state.events);
+	}, [state.events]);
 
 	useEffect(() => {
 		if (userState.authUser && userState.authUser.permissionLevel) {
@@ -359,15 +359,14 @@ const EventList: React.FC = () => {
 							</div>
 						)}
 					</ToolkitProvider>
-
-					<AddEvent />
-					{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <UpdateEvent />}
-					{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <DeleteEvent />}
-					<EventView />
 				</div>
 			) : (
 				<EventLoader />
 			)}
+			<AddEvent />
+			<EventView />
+			{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <UpdateEvent />}
+			{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <DeleteEvent />}
 		</div>
 	);
 };

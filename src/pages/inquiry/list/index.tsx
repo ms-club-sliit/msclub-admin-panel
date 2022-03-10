@@ -227,8 +227,6 @@ const InquiryList: React.FC = () => {
 							</div>
 						)}
 					</ToolkitProvider>
-
-					<DeleteInquiry />
 				</div>
 			) : (
 				<InquiryLoader />

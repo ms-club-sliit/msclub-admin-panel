@@ -347,16 +347,16 @@ const TopSpeakerList: React.FC = () => {
 							</div>
 						)}
 					</ToolkitProvider>
-					<TopSpeakerView />
-					<AddTopSpeaker />
-					<UpdateTopSpeaker />
-					<DeleteTopSpeaker />
-					{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <UpdateTopSpeaker />}
-					{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <DeleteTopSpeaker />}
 				</div>
 			) : (
 				<TopSpeakerLoader />
 			)}
+			<TopSpeakerView />
+			<AddTopSpeaker />
+			<UpdateTopSpeaker />
+			<DeleteTopSpeaker />
+			{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <UpdateTopSpeaker />}
+			{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <DeleteTopSpeaker />}
 		</div>
 	);
 };
