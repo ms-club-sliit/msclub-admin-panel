@@ -8,6 +8,7 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
 import RecoverDeletedTopSpeaker from "../recover-delete";
+import PermanentDeleteTopSpeaker from "../permenent-delete";
 
 const DeletedTopSpeakerList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -110,6 +111,12 @@ const DeletedTopSpeakerList: React.FC = () => {
 			$("#recoverDeletedTopSpeakerModal").modal("show");
 		}
 	};
+	const handlePermenentDeleteTopSpeaker = (event: any, topSpeakerId: string) => {
+		if (event) {
+			dispatch(setTopSpeakerId(topSpeakerId));
+			$("#permanentDeleteTopSpeakerModal").modal("show");
+		}
+	};
 
 	// Table action buttons
 	const actionButtonFormatter = (row: any) => {
@@ -125,7 +132,7 @@ const DeletedTopSpeakerList: React.FC = () => {
 								<button className="dropdown-item" onClick={(e) => handleRecoverDeletedTopSpeaker(e, row._id)}>
 									<i className="fas fa-undo" /> Recover
 								</button>
-								<button className="dropdown-item">
+								<button className="dropdown-item" onClick={(e) => handlePermenentDeleteTopSpeaker(e, row._id)}>
 									<i className="far fa-trash-alt" /> Delete Permanently
 								</button>
 							</div>
@@ -241,6 +248,7 @@ const DeletedTopSpeakerList: React.FC = () => {
 				)}
 			</ToolkitProvider>
 			<RecoverDeletedTopSpeaker />
+			<PermanentDeleteTopSpeaker />
 		</div>
 	);
 };
