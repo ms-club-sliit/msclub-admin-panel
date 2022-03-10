@@ -132,9 +132,8 @@ const DeletedTopSpeakerList: React.FC = () => {
 								<button className="dropdown-item" onClick={(e) => handleRecoverDeletedTopSpeaker(e, row._id)}>
 									<i className="fas fa-undo" /> Recover
 								</button>
-								<button className="dropdown-item">
-									<i className="far fa-trash-alt" onClick={(e) => handlePermenentDeleteTopSpeaker(e, row._id)} /> Delete
-									Permanently
+								<button className="dropdown-item" onClick={(e) => handlePermenentDeleteTopSpeaker(e, row._id)}>
+									<i className="far fa-trash-alt" /> Delete Permanently
 								</button>
 							</div>
 						</span>

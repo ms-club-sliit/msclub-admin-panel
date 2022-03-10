@@ -17,6 +17,8 @@ const InquiryList: React.FC = () => {
 	const [inquiries, setInquiries] = useState<IInquiry[]>([]);
 	const [selectedTypeInquiry, setselectedTypeInquiry] = useState<IInquiry[]>(inquiries);
 	const [selectedTab, setSelectedTab] = useState<string>("All");
+	const userState = useSelector((userState) => userState.userReducer);
+	const [permission, setPermission] = useState<string>("");
 
 	// Table confuguration
 	const { SearchBar } = Search;
@@ -37,6 +39,12 @@ const InquiryList: React.FC = () => {
 	useEffect(() => {
 		setInquiries(state.inquiries);
 	}, [state.inquiries, setInquiries]);
+
+	useEffect(() => {
+		if (userState.authUser && userState.authUser.permissionLevel) {
+			setPermission(userState.authUser.permissionLevel);
+		}
+	}, [userState.authUser, setPermission]);
 
 	// Table column configurations
 	const tableColumnData = [
@@ -67,9 +75,23 @@ const InquiryList: React.FC = () => {
 						<i className="fas fa-ellipsis-h"></i>
 					</span>
 					<div className="dropdown-menu dropdown-menu-right">
-						<button className="dropdown-item" onClick={(e) => handleSetDeleteInquiry(e, row._id)}>
-							<i className="far fa-trash-alt" /> Archive
-						</button>
+						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+							<button className="dropdown-item" onClick={(e) => handleSetDeleteInquiry(e, row._id)}>
+								<i className="far fa-trash-alt" /> Archive
+							</button>
+						)}
+
+						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+							<span className="dropdown-item" onClick={(e) => handleSetUpdateInquiry(e, row._id)}>
+								<i className="far fa-edit" />
+								Edit
+							</span>
+						)}
+						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+							<span className="dropdown-item" onClick={(e) => handleSetDeleteInquiry(e, row._id)}>
+								<i className="far fa-trash-alt" /> Delete
+							</span>
+						)}
 					</div>
 				</span>
 			</span>
@@ -77,9 +99,16 @@ const InquiryList: React.FC = () => {
 	};
 
 	const handleSetDeleteInquiry = (inquiry: any, inquiryId: string) => {
-		if (inquiry) {
+		if (inquiry && (permission === "ROOT_ADMIN" || permission === "ADMIN")) {
 			dispatch(setInquiryId(inquiryId));
 			$("#inquiryDeleteModal").modal("show");
+		}
+	};
+
+	const handleSetUpdateInquiry = (inquiry: any, inquiryId: string) => {
+		if (inquiry && (permission === "ROOT_ADMIN" || permission === "ADMIN")) {
+			dispatch(setInquiryId(inquiryId));
+			$("#inquiryUpdateModal").modal("show");
 		}
 	};
 
@@ -204,6 +233,7 @@ const InquiryList: React.FC = () => {
 			) : (
 				<InquiryLoader />
 			)}
+			{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <DeleteInquiry />}
 		</div>
 	);
 };
