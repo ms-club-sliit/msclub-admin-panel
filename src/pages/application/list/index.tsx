@@ -277,36 +277,42 @@ const ApplicationList: React.FC = () => {
 					<div className="col-md-4 col-sm-12">
 						<div className="row">
 							<div className="col-md-4 col-sm-12">
-								<button
-									className={`btn btn-sm btn-primary ${row.status === "INTERVIEW" ? "disabled" : ""}`}
-									onClick={() => {
-										handleSetApplicationInterview(row._id);
-									}}
-								>
-									INTERVIEW
-								</button>
+								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+									<button
+										className={`btn btn-sm btn-primary ${row.status === "INTERVIEW" ? "disabled" : ""}`}
+										onClick={() => {
+											handleSetApplicationInterview(row._id);
+										}}
+									>
+										INTERVIEW
+									</button>
+								)}
 							</div>
 
 							<div className="col-md-4 col-sm-12">
-								<button
-									className={`btn  btn-sm btn-success ${row.status === "SELECTED" ? "disabled" : ""}`}
-									onClick={() => {
-										onSumbitSelected(row._id);
-									}}
-								>
-									SELECTED
-								</button>
+								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+									<button
+										className={`btn  btn-sm btn-success ${row.status === "SELECTED" ? "disabled" : ""}`}
+										onClick={() => {
+											onSumbitSelected(row._id);
+										}}
+									>
+										SELECTED
+									</button>
+								)}
 							</div>
 
 							<div className="col-md-4 col-sm-12">
-								<button
-									className={`btn  btn-sm btn-danger ${row.status === "REJECTED" ? "disabled" : ""}`}
-									onClick={() => {
-										onSumbitRejected(row._id);
-									}}
-								>
-									REJECTED
-								</button>
+								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+									<button
+										className={`btn  btn-sm btn-danger ${row.status === "REJECTED" ? "disabled" : ""}`}
+										onClick={() => {
+											onSumbitRejected(row._id);
+										}}
+									>
+										REJECTED
+									</button>
+								)}
 							</div>
 						</div>
 					</div>
