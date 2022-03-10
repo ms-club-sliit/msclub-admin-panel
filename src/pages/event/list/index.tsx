@@ -50,7 +50,7 @@ const EventList: React.FC = () => {
 	}, [state.events, setEvents]);
 
 	useEffect(() => {
-		if (userState.authUser && userState.authUser.authToken && userState.authUser.permissionLevel) {
+		if (userState.authUser && userState.authUser.permissionLevel) {
 			setPermission(userState.authUser.permissionLevel);
 		}
 	}, [userState.authUser]);

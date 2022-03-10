@@ -74,13 +74,16 @@ const InquiryList: React.FC = () => {
 						<i className="fas fa-ellipsis-h"></i>
 					</span>
 					<div className="dropdown-menu dropdown-menu-right">
-						<button className="dropdown-item" onClick={(e) => handleSetDeleteInquiry(e, row._id)}>
-							<i className="far fa-trash-alt" /> Archive
-						</button>
+						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+							<button className="dropdown-item" onClick={(e) => handleSetDeleteInquiry(e, row._id)}>
+								<i className="far fa-trash-alt" /> Archive
+							</button>
+						)}
 
 						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
 							<span className="dropdown-item" onClick={(e) => handleSetUpdateInquiry(e, row._id)}>
-								<i className="far fa-edit" />Edit
+								<i className="far fa-edit" />
+								Edit
 							</span>
 						)}
 						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
@@ -222,7 +225,7 @@ const InquiryList: React.FC = () => {
 				)}
 			</ToolkitProvider>
 
-			{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <DeleteInquiry/>}
+			{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <DeleteInquiry />}
 		</div>
 	);
 };

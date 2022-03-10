@@ -15,6 +15,8 @@ const DeletedInquiryList: React.FC = () => {
 	const history = useHistory();
 	const state = useSelector((state) => state.inquiryReducer);
 	const [inquiries, setInquiries] = useState<IInquiry[]>([]);
+	const userState = useSelector((userState) => userState.userReducer);
+	const [permission, setPermission] = useState<string>("");
 
 	// Table confuguration
 	const { SearchBar } = Search;
@@ -34,6 +36,12 @@ const DeletedInquiryList: React.FC = () => {
 	useEffect(() => {
 		setInquiries(state.deleteInquiries);
 	}, [state.deleteInquiries, setInquiries]);
+
+	useEffect(() => {
+		if (userState.authUser && userState.authUser.permissionLevel) {
+			setPermission(userState.authUser.permissionLevel);
+		}
+	}, [userState.authUser, setPermission]);
 
 	// Table column configurations
 	const tableColumnData = [
@@ -80,12 +88,16 @@ const DeletedInquiryList: React.FC = () => {
 								<i className="fas fa-ellipsis-h"></i>
 							</span>
 							<div className="dropdown-menu dropdown-menu-right">
-								<button className="dropdown-item" onClick={(e) => handleSetRecoverInquiryPermanently(e, row._id)}>
-									<i className="fas fa-undo" /> Recover
-								</button>
-								<button className="dropdown-item" onClick={(e) => handleSetDeleteInquiryPermanently(e, row._id)}>
-									<i className="far fa-trash-alt" /> Delete Permanently
-								</button>
+								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+									<>
+										<button className="dropdown-item" onClick={(e) => handleSetRecoverInquiryPermanently(e, row._id)}>
+											<i className="fas fa-undo" /> Recover
+										</button>
+										<button className="dropdown-item" onClick={(e) => handleSetDeleteInquiryPermanently(e, row._id)}>
+											<i className="far fa-trash-alt" /> Delete Permanently
+										</button>
+									</>
+								)}
 							</div>
 						</span>
 					</span>
