@@ -112,7 +112,10 @@ const DeletedApplicationList: React.FC = () => {
 										<button className="dropdown-item" onClick={(e) => handleSetRecoverDeletedApplication(e, row._id)}>
 											<i className="fas fa-undo" /> Recover
 										</button>
-										<button className="dropdown-item" onClick={(e) => handleSetDeleteApplicationPermanently(e, row._id)}>
+										<button
+											className="dropdown-item"
+											onClick={(e) => handleSetDeleteApplicationPermanently(e, row._id)}
+										>
 											<i className="far fa-trash-alt" /> Delete Permanently
 										</button>
 									</>

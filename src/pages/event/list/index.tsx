@@ -11,6 +11,7 @@ import AddEvent from "../add";
 import UpdateEvent from "../update";
 import DeleteEvent from "../delete";
 import { useHistory } from "react-router-dom";
+import EventLoader from "../loader";
 
 const EventList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -274,91 +275,99 @@ const EventList: React.FC = () => {
 
 	return (
 		<div className="card">
-			<div className="row">
-				<div className="col-6">
-					<h3 className="page-title">Events</h3>
-					<p className="page-description text-muted">Manage all the event informations</p>
-				</div>
-				<div className="col-6">
-					<div className="d-flex justify-content-end">
-						<button
-							className="btn btn-primary btn-rounded shadow-none"
-							data-mdb-toggle="modal"
-							data-mdb-target="#addEventModal"
-						>
-							<span className="fas fa-plus" />
-							<span className="mx-2">Add New Event</span>
-						</button>
-					</div>
-				</div>
-			</div>
-
-			<div>
-				<div className="d-flex">
-					<button
-						className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "All")}
-					>
-						All
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "Upcoming" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "Upcoming")}
-					>
-						Upcoming
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "Past" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleViewClick(e, "Past")}
-					>
-						Past
-					</button>
-					&nbsp;
-					<button
-						className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
-						onClick={(e) => handleDeletedEventClick(e)}
-					>
-						Deleted
-					</button>
-				</div>
-			</div>
-
-			<ToolkitProvider
-				keyField="_id"
-				data={selectedTab === "All" ? events : selectedTypeEvents}
-				columns={tableColumnData}
-				search
-			>
-				{(props) => (
-					<div>
-						<div className="d-flex justify-content-end">
-							<SearchBar {...props.searchProps} placeholder="Search events" className="mb-3 search-bar" />
+			{!state.loading ? (
+				<div>
+					<div className="row">
+						<div className="col-6">
+							<h3 className="page-title">Events</h3>
+							<p className="page-description text-muted">Manage all the event informations</p>
 						</div>
-						<p className="table-description text-muted">
-							*If you experience any difficulty in viewing the event information, please make sure your cache is cleared
-							and completed a hard refresh.
-						</p>
-						<BootstrapTable
-							{...props.baseProps}
-							pagination={paginationFactory(options)}
-							expandRow={expandRow}
-							bordered
-							striped
-							headerClasses="header-class"
-							wrapperClasses="table-responsive"
-							hover
-							rowClasses="table-row"
-						/>
+						<div className="col-6">
+							<div className="d-flex justify-content-end">
+								<button
+									className="btn btn-primary btn-rounded shadow-none"
+									data-mdb-toggle="modal"
+									data-mdb-target="#addEventModal"
+								>
+									<span className="fas fa-plus" />
+									<span className="mx-2">Add New Event</span>
+								</button>
+							</div>
+						</div>
 					</div>
-				)}
-			</ToolkitProvider>
 
-			<AddEvent />
-			{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <UpdateEvent />}
-			{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <DeleteEvent />}
-			<EventView />
+					<div>
+						<div className="d-flex">
+							<button
+								className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
+								onClick={(e) => handleViewClick(e, "All")}
+							>
+								All
+							</button>
+							&nbsp;
+							<button
+								className={`btn btn-sm ${
+									selectedTab === "Upcoming" ? "btn-info" : "btn-light"
+								} btn-rounded shadow-none`}
+								onClick={(e) => handleViewClick(e, "Upcoming")}
+							>
+								Upcoming
+							</button>
+							&nbsp;
+							<button
+								className={`btn btn-sm ${selectedTab === "Past" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
+								onClick={(e) => handleViewClick(e, "Past")}
+							>
+								Past
+							</button>
+							&nbsp;
+							<button
+								className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
+								onClick={(e) => handleDeletedEventClick(e)}
+							>
+								Deleted
+							</button>
+						</div>
+					</div>
+
+					<ToolkitProvider
+						keyField="_id"
+						data={selectedTab === "All" ? events : selectedTypeEvents}
+						columns={tableColumnData}
+						search
+					>
+						{(props) => (
+							<div>
+								<div className="d-flex justify-content-end">
+									<SearchBar {...props.searchProps} placeholder="Search events" className="mb-3 search-bar" />
+								</div>
+								<p className="table-description text-muted">
+									*If you experience any difficulty in viewing the event information, please make sure your cache is
+									cleared and completed a hard refresh.
+								</p>
+								<BootstrapTable
+									{...props.baseProps}
+									pagination={paginationFactory(options)}
+									expandRow={expandRow}
+									bordered
+									striped
+									headerClasses="header-class"
+									wrapperClasses="table-responsive"
+									hover
+									rowClasses="table-row"
+								/>
+							</div>
+						)}
+					</ToolkitProvider>
+
+					<AddEvent />
+					{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <UpdateEvent />}
+					{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <DeleteEvent />}
+					<EventView />
+				</div>
+			) : (
+				<EventLoader />
+			)}
 		</div>
 	);
 };

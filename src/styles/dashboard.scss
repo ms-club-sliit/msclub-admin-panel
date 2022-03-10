@@ -1,0 +1,209 @@
+// Stylings for Overview component
+.overview {
+	.card {
+		padding: 0px;
+		width: 400px;
+		height: 500px;
+		background: #ffffff;
+	}
+	.card-img-top {
+		padding: 0px;
+		margin: 0px;
+		border-radius: 5px 5px 0px 0px;
+		height: 250px;
+		object-fit: cover;
+	}
+
+	.row__1 {
+		position: absolute;
+		top: 200px;
+	}
+
+	.row__2 {
+		position: absolute;
+		top: 350px;
+	}
+
+	.info-card {
+		.card {
+			padding: 16px;
+			margin-left: 5px;
+			background: #fff;
+			height: 130px;
+			width: 130px;
+			background: rgb(247, 253, 246);
+
+			.fa-3x {
+				font-size: 60px;
+			}
+		}
+
+		.title {
+			font-size: 12px;
+			padding: 0px;
+		}
+
+		.value {
+			font-size: 22px;
+			font-weight: 600;
+			margin: 0px;
+			padding: 0px;
+		}
+	}
+}
+
+// Stylings for RecentLogin component
+.resent__login {
+	.card {
+		width: 400px;
+		height: 500px;
+		background: #ffffff;
+
+		.card-body {
+			padding-left: 10px;
+		}
+	}
+
+	.login__item {
+		padding-bottom: 10px;
+		margin-bottom: 8px;
+
+		.col-7 {
+			padding: 0px;
+		}
+
+		.line {
+			width: 3px;
+			background-color: rgb(random(255), random(255), random(255));
+			height: 90%;
+			float: left;
+		}
+
+		.time {
+			font-size: 14px;
+		}
+
+		.profile__icon {
+			width: 39px;
+			height: 39px;
+			object-fit: cover;
+			border-radius: 50%;
+		}
+
+		.login__item_container {
+			display: grid;
+			grid-template-columns: auto auto;
+			gap: 5px;
+			padding: 5px;
+
+			div {
+				font-size: 12px;
+				text-align: left;
+			}
+
+			.badge {
+				font-size: 11px;
+				padding-left: 5px !important;
+				padding-right: 5px !important;
+			}
+
+			.name {
+				padding-top: 0px;
+				font-size: 14px;
+			}
+		}
+	}
+}
+
+// Stylings for RecentApplication component
+.recent__application {
+	.card {
+		width: 400px;
+		height: 500px;
+		background: #ffffff;
+
+		.card-body {
+			padding-left: 10px;
+		}
+	}
+
+	.application__item {
+		margin-bottom: 12px;
+
+		.line {
+			width: 3px;
+			background-color: rgb(random(255), random(255), random(255));
+			height: 90%;
+			float: left;
+		}
+
+		.time {
+			font-size: 14px;
+		}
+
+		.application__item__container {
+			display: grid;
+			grid-template-columns: auto auto;
+			gap: 5px;
+
+			div {
+				font-size: 12px;
+				text-align: left;
+			}
+		}
+
+		.status {
+			.badge {
+				padding-left: 7px;
+				padding-right: 7px;
+				padding-top: 4px;
+				padding-bottom: 4px;
+			}
+		}
+	}
+}
+
+// Stylings for ApplicationStatus component
+.application__status {
+	.card {
+		width: 400px;
+		height: 380px;
+		background: #ffffff;
+
+		.card-body {
+			padding-left: 10px;
+		}
+	}
+
+	.status__info {
+		margin-top: 18px;
+
+		div {
+			font-size: 14px;
+		}
+
+		hr {
+			margin: 2px;
+		}
+	}
+
+	.application__item__container {
+		display: grid;
+		grid-template-columns: auto auto;
+		gap: 5px;
+
+		div {
+			font-size: 12px;
+			text-align: left;
+		}
+	}
+
+	.status {
+		.badge {
+			padding-left: 7px;
+			padding-right: 7px;
+			padding-top: 4px;
+			padding-bottom: 4px;
+		}
+	}
+}
