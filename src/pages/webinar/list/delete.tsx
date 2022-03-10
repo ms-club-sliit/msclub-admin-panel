@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDeletedWebinars, setWebinarId } from "../../../store/webinar-store/webinarActions";
 import { IWebinar, IModifiedBy } from "../../../interfaces";
@@ -16,6 +16,8 @@ const DeletedWebinarList: React.FC = () => {
 	const HtmlToReactParser = require("html-to-react").Parser;
 	const state = useSelector((state) => state.webinarReducer);
 	const webinars: IWebinar[] = state.deletedWebinars;
+	const userState = useSelector((userState) => userState.userReducer);
+	const [permission, setPermission] = useState<string>("");
 
 	const convertToPlain = (html: string) => {
 		const htmlToParser = new HtmlToReactParser();
@@ -37,6 +39,12 @@ const DeletedWebinarList: React.FC = () => {
 	useEffect(() => {
 		dispatch(getDeletedWebinars());
 	}, [dispatch]);
+
+	useEffect(() => {
+		if (userState.authUser && userState.authUser.permissionLevel) {
+			setPermission(userState.authUser.permissionLevel);
+		}
+	}, [userState.authUser, setPermission]);
 
 	const handleSetRecoverDeletedWebinar = (webinar: any, webinarId: string) => {
 		if (webinar) {
@@ -131,12 +139,16 @@ const DeletedWebinarList: React.FC = () => {
 								<i className="fas fa-ellipsis-h"></i>
 							</span>
 							<div className="dropdown-menu dropdown-menu-right">
-								<button className="dropdown-item" onClick={(e) => handleSetRecoverDeletedWebinar(e, row._id)}>
-									<i className="fas fa-undo" /> Recover
-								</button>
-								<button className="dropdown-item" onClick={(e) => handleSetDeleteWebinarPermanently(e, row._id)}>
-									<i className="far fa-trash-alt" /> Delete Permanently
-								</button>
+								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+									<>
+										<button className="dropdown-item" onClick={(e) => handleSetRecoverDeletedWebinar(e, row._id)}>
+											<i className="fas fa-undo" /> Recover
+										</button>
+										<button className="dropdown-item" onClick={(e) => handleSetDeleteWebinarPermanently(e, row._id)}>
+											<i className="far fa-trash-alt" /> Delete Permanently
+										</button>
+									</>
+								)}
 							</div>
 						</span>
 					</span>
