@@ -12,7 +12,7 @@ const RecentApplication: React.FC = () => {
 				{!applications.loading ? (
 					<div>
 						<h5 className="m-0">
-							<i className="fa fa-file-text text-info"></i>&nbsp;Resent Applications
+							<i className="fa fa-file-text text-info"></i>&nbsp;Recent Applications
 						</h5>
 						<div className="card-body">
 							{applications.applications &&
