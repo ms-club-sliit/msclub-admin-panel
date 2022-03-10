@@ -21,6 +21,8 @@ const TopSpeakerList: React.FC = () => {
 	const topSpeakers: ITopSpeaker[] = state.topSpeakers;
 	const [selectedTypeTopSpeakers, setSelectedTypeTopSpeakers] = useState<ITopSpeaker[]>(topSpeakers);
 	const [selectedTab, setSelectedTab] = useState<string>("All");
+	const userState = useSelector((userState) => userState.userReducer);
+	const [permission, setPermission] = useState<string>("");
 
 	const convertToPlain = (html: string) => {
 		const htmlToParser = new HtmlToReactParser();
@@ -46,6 +48,12 @@ const TopSpeakerList: React.FC = () => {
 	useEffect(() => {
 		dispatch(getTopSpeakers());
 	}, [state.deletedTopSpeaker, dispatch]);
+
+	useEffect(() => {
+		if (userState.authUser && userState.authUser.permissionLevel) {
+			setPermission(userState.authUser.permissionLevel);
+		}
+	}, [userState.authUser]);
 
 	// Table column configurations
 	const tableColumnData = [
@@ -125,12 +133,16 @@ const TopSpeakerList: React.FC = () => {
 						<span className="dropdown-item" onClick={() => handleSetViewTopSpeaker(row._id)}>
 							<i className="far fa-eye" /> View
 						</span>
-						<span className="dropdown-item" onClick={() => handleSetUpdateTopSpeaker(row._id)}>
-							<i className="far fa-edit" /> Edit
-						</span>
-						<button className="dropdown-item" onClick={() => handleSetDeleteTopSpeaker(row._id)}>
-							<i className="far fa-trash-alt" /> Delete
-						</button>
+						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+							<span className="dropdown-item" onClick={(e) => handleSetUpdateTopSpeaker(e, row._id)}>
+								<i className="far fa-edit" /> Edit
+							</span>
+						)}
+						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+							<button className="dropdown-item" onClick={(e) => handleSetDeleteTopSpeaker(e, row._id)}>
+								<i className="far fa-trash-alt" /> Delete
+							</button>
+						)}
 					</div>
 				</span>
 			</span>
@@ -142,14 +154,18 @@ const TopSpeakerList: React.FC = () => {
 		$("#topSpeakerViewModal").modal("show");
 	};
 
-	const handleSetUpdateTopSpeaker = (topSpeakerId: string) => {
-		dispatch(setTopSpeakerId(topSpeakerId));
-		$("#topSpeakerUpdateModal").modal("show");
+	const handleSetUpdateTopSpeaker = (topSpeaker: any, topSpeakerId: string) => {
+		if (topSpeaker) {
+			dispatch(setTopSpeakerId(topSpeakerId));
+			$("#topSpeakerUpdateModal").modal("show");
+		}
 	};
 
-	const handleSetDeleteTopSpeaker = (topSpeakerId: string) => {
-		dispatch(setTopSpeakerId(topSpeakerId));
-		$("#topSpeakerDeleteModal").modal("show");
+	const handleSetDeleteTopSpeaker = (topSpeaker: any, topSpeakerId: string) => {
+		if (topSpeaker) {
+			dispatch(setTopSpeakerId(topSpeakerId));
+			$("#topSpeakerDeleteModal").modal("show");
+		}
 	};
 
 	const expandRow = {
@@ -335,6 +351,8 @@ const TopSpeakerList: React.FC = () => {
 					<AddTopSpeaker />
 					<UpdateTopSpeaker />
 					<DeleteTopSpeaker />
+					{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <UpdateTopSpeaker />}
+					{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <DeleteTopSpeaker />}
 				</div>
 			) : (
 				<TopSpeakerLoader />
