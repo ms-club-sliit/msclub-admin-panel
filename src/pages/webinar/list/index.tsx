@@ -341,15 +341,14 @@ const WebinarList: React.FC = () => {
 							</div>
 						)}
 					</ToolkitProvider>
-
-					<WebinarView />
-					<AddWebinar />
-					<DeleteWebinar />
-					<WebinarUpdate />
 				</div>
 			) : (
 				<WebinarLoader />
 			)}
+			<WebinarView />
+			<AddWebinar />
+			<DeleteWebinar />
+			<WebinarUpdate />
 		</div>
 	);
 };

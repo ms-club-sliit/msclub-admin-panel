@@ -442,13 +442,12 @@ const ApplicationList: React.FC = () => {
 							</div>
 						)}
 					</ToolkitProvider>
-
-					<ApplicationInterviewForm />
-					<DeleteApplication />
 				</div>
 			) : (
 				<ApplicationLoader />
 			)}
+			<ApplicationInterviewForm />
+			<DeleteApplication />
 		</div>
 	);
 };
