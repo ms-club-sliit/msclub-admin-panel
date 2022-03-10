@@ -207,3 +207,83 @@
 		}
 	}
 }
+
+// Stylings for RecentLogin component
+.resent__login {
+	.card {
+		width: 400px;
+		height: 500px;
+		background: #ffffff;
+
+		.card-body {
+			padding-left: 10px;
+		}
+	}
+
+	.login__item {
+		padding-bottom: 10px;
+		margin-bottom: 8px;
+
+		.col-7 {
+			padding: 0px;
+		}
+
+		.line {
+			width: 3px;
+			background-color: rgb(random(255), random(255), random(255));
+			height: 90%;
+			float: left;
+		}
+
+		.time {
+			font-size: 14px;
+		}
+
+		.profile__icon {
+			width: 39px;
+			height: 39px;
+			object-fit: cover;
+			border-radius: 50%;
+		}
+
+		.login__item_container {
+			display: grid;
+			grid-template-columns: auto auto;
+			gap: 5px;
+			padding: 5px;
+
+			div {
+				font-size: 12px;
+				text-align: left;
+			}
+
+			.badge {
+				font-size: 11px;
+				padding-left: 5px !important;
+				padding-right: 5px !important;
+			}
+
+			.name {
+				padding-top: 0px;
+				font-size: 14px;
+			}
+		}
+	}
+}
+
+// Stylings for MSShort component
+.ms-short {
+	.card-img-top {
+		padding: 0px;
+		margin: 0px;
+		border-radius: 5px 5px 0px 0px;
+		height: 190px;
+		width: fit-content;
+		object-fit: cover;
+	}
+
+	.card-body {
+		font-size: 14px;
+		text-align: center;
+	}
+}

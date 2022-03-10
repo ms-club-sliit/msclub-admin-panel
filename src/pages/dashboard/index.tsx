@@ -4,6 +4,7 @@ import Overview from "./overview";
 import RecentLogin from "./login_info";
 import RecentApplication from "./application_info";
 import ApplicationStatus from "./application_status";
+import MSShort from "./msshort";
 import { applications as getApplications } from "../../store/application-store/applicationActions";
 import { getAllUsers } from "../../store/user-store/userActions";
 import { getEvents } from "../../store/event-store/eventActions";
@@ -38,6 +39,9 @@ const Dashboard: React.FC = () => {
 			<div className="row my-4">
 				<div className="col-md-4 my-2 d-flex justify-content-center">
 					<ApplicationStatus />
+				</div>
+				<div className="col-md-4 my-2 d-flex justify-content-center">
+					<MSShort />
 				</div>
 			</div>
 		</div>
