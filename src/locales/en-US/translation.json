@@ -1,0 +1,21 @@
+{
+	"translation": {
+		"table": {
+			"table-action-header": "Actions",
+			"table-title-header": "Title",
+			"table-type-header": "Type",
+			"table-data-time-header": "Date&Time",
+			"table-last-modified-at-header": "Last Modified At",
+			"table-last-modified-by-header": "Last Modified By",
+			"table-student-id-header": "Student Id",
+			"table-contact-number-header": "Contact Number",
+			"table-status-header": "Status"
+		},
+		"page-title": {
+			"event-page-header": "Events"
+		},
+		"page-description": {
+			"event-page-description": "Manage all the event informations"
+		}
+	}
+}

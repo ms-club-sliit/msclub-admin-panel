@@ -5,6 +5,7 @@ import { IEvent, IModifiedBy } from "../../../interfaces";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
+import { translation } from "../../../locales/en-US/translation.json";
 import moment from "moment";
 import EventView from "../view";
 import AddEvent from "../add";
@@ -60,14 +61,14 @@ const EventList: React.FC = () => {
 	const tableColumnData = [
 		{
 			dataField: "actions",
-			text: "Actions",
+			text: translation.table["table-action-header"],
 			formatter: (cell: any, row: IEvent) => actionButtonFormatter(row),
 			headerStyle: { width: "90px" },
 		},
 		{ dataField: "title", text: "Title", headerStyle: { width: "200px" } },
 		{
 			dataField: "eventType",
-			text: "Type",
+			text: translation.table["table-title-header"],
 			headerStyle: { width: "110px" },
 			formatter: (cell: string) => {
 				return (
@@ -82,7 +83,7 @@ const EventList: React.FC = () => {
 		},
 		{
 			dataField: "dateTime",
-			text: "Date & Time",
+			text: translation.table["table-data-time-header"],
 			headerStyle: { width: "220px" },
 			formatter: (cell: string) => {
 				return moment(cell).format("LLL");
@@ -90,7 +91,7 @@ const EventList: React.FC = () => {
 		},
 		{
 			dataField: "updatedAt",
-			text: "Last Modified At",
+			text: translation.table["table-last-modified-at-header"],
 			headerStyle: { width: "220px" },
 			formatter: (cell: string) => {
 				return moment(cell).format("LLL");
@@ -98,7 +99,7 @@ const EventList: React.FC = () => {
 		},
 		{
 			dataField: "updatedBy",
-			text: "Last Modified By",
+			text: translation.table["table-last-modified-by-header"],
 			headerStyle: { width: "250px" },
 			formatter: (cell: IModifiedBy[]) => {
 				let lastModifiedUser = cell.slice(-1)[0];
@@ -279,8 +280,8 @@ const EventList: React.FC = () => {
 				<div>
 					<div className="row">
 						<div className="col-6">
-							<h3 className="page-title">Events</h3>
-							<p className="page-description text-muted">Manage all the event informations</p>
+							<h3 className="page-title">{translation["page-title"]["event-page-header"]}</h3>
+							<p className="page-description text-muted">{translation["page-description"]["event-page-description"]}</p>
 						</div>
 						<div className="col-6">
 							<div className="d-flex justify-content-end">
