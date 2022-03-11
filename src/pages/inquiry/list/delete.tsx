@@ -88,15 +88,15 @@ const DeletedInquiryList: React.FC = () => {
 								<i className="fas fa-ellipsis-h"></i>
 							</span>
 							<div className="dropdown-menu dropdown-menu-right">
+								{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
+									<button className="dropdown-item" onClick={(e) => handleSetRecoverInquiryPermanently(e, row._id)}>
+										<i className="fas fa-undo" /> Recover
+									</button>
+								)}
 								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
-									<>
-										<button className="dropdown-item" onClick={(e) => handleSetRecoverInquiryPermanently(e, row._id)}>
-											<i className="fas fa-undo" /> Recover
-										</button>
-										<button className="dropdown-item" onClick={(e) => handleSetDeleteInquiryPermanently(e, row._id)}>
-											<i className="far fa-trash-alt" /> Delete Permanently
-										</button>
-									</>
+									<button className="dropdown-item" onClick={(e) => handleSetDeleteInquiryPermanently(e, row._id)}>
+										<i className="far fa-trash-alt" /> Delete Permanently
+									</button>
 								)}
 							</div>
 						</span>
