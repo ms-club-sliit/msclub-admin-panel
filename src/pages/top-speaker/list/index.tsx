@@ -130,15 +130,15 @@ const TopSpeakerList: React.FC = () => {
 						<i className="fas fa-ellipsis-h"></i>
 					</span>
 					<div className="dropdown-menu dropdown-menu-right">
-						<span className="dropdown-item" onClick={() => handleSetViewTopSpeaker(row._id)}>
+						<button className="dropdown-item" onClick={() => handleSetViewTopSpeaker(row._id)}>
 							<i className="far fa-eye" /> View
-						</span>
-						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
-							<span className="dropdown-item" onClick={(e) => handleSetUpdateTopSpeaker(e, row._id)}>
+						</button>
+						{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
+							<button className="dropdown-item" onClick={(e) => handleSetUpdateTopSpeaker(e, row._id)}>
 								<i className="far fa-edit" /> Edit
-							</span>
+							</button>
 						)}
-						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+						{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
 							<button className="dropdown-item" onClick={(e) => handleSetDeleteTopSpeaker(e, row._id)}>
 								<i className="far fa-trash-alt" /> Delete
 							</button>
@@ -355,8 +355,8 @@ const TopSpeakerList: React.FC = () => {
 			<AddTopSpeaker />
 			<UpdateTopSpeaker />
 			<DeleteTopSpeaker />
-			{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <UpdateTopSpeaker />}
-			{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <DeleteTopSpeaker />}
+			{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && <UpdateTopSpeaker />}
+			{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && <DeleteTopSpeaker />}
 		</div>
 	);
 };

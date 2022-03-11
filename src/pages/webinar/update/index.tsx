@@ -205,7 +205,7 @@ const UpdateWebinar: React.FC = () => {
 								</div>
 								<div className="col-md-6">
 									<div className="my-3 my-lg-0">
-										<ImageCanvas width={300} height={300} getEditedImage={handleImage} />
+										<ImageCanvas width={320} height={180} getEditedImage={handleImage} />
 										<div className="d-flex justify-content-center">
 											{formData.imageSrc === null && isFormNotValid ? (
 												<span className="text-danger validation-message my-2">Webinar flyer is required</span>

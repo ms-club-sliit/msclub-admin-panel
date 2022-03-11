@@ -165,7 +165,7 @@ const AddEvent: React.FC = () => {
 						<button type="button" className="btn-close" onClick={closeModal}></button>
 					</div>
 					<div className="modal-body add-event">
-						<ImageCanvas width={300} height={300} getEditedImage={handleImage} />
+						<ImageCanvas width={320} height={180} getEditedImage={handleImage} />
 						<div className="d-flex justify-content-center">
 							{formData.imageSrc === null && isFormNotValid ? (
 								<span className="text-danger validation-message my-2">Event flyer is required</span>

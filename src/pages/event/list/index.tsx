@@ -135,12 +135,12 @@ const EventList: React.FC = () => {
 						<span className="dropdown-item" onClick={(e) => handleSetViewEvent(e, row._id)}>
 							<i className="far fa-eye" /> View
 						</span>
-						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+						{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
 							<span className="dropdown-item" onClick={(e) => handleSetUpdateEvent(e, row._id)}>
 								<i className="far fa-edit" /> Edit
 							</span>
 						)}
-						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+						{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
 							<button className="dropdown-item" onClick={(e) => handleSetDeleteEvent(e, row._id)}>
 								<i className="far fa-trash-alt" /> Delete
 							</button>
@@ -159,17 +159,13 @@ const EventList: React.FC = () => {
 	};
 
 	const handleSetUpdateEvent = (event: any, eventId: string) => {
-		if (event && (permission === "ROOT_ADMIN" || permission === "ADMIN")) {
-			dispatch(setEventId(eventId));
-			$("#eventUpdateModal").modal("show");
-		}
+		dispatch(setEventId(eventId));
+		$("#eventUpdateModal").modal("show");
 	};
 
 	const handleSetDeleteEvent = (event: any, eventId: string) => {
-		if (event && (permission === "ROOT_ADMIN" || permission === "ADMIN")) {
-			dispatch(setEventId(eventId));
-			$("#eventDeleteModal").modal("show");
-		}
+		dispatch(setEventId(eventId));
+		$("#eventDeleteModal").modal("show");
 	};
 
 	const expandRow = {
@@ -365,8 +361,8 @@ const EventList: React.FC = () => {
 			)}
 			<AddEvent />
 			<EventView />
-			{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <UpdateEvent />}
-			{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <DeleteEvent />}
+			{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && <UpdateEvent />}
+			{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && <DeleteEvent />}
 		</div>
 	);
 };
