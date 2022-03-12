@@ -16,6 +16,8 @@ const DeletedTopSpeakerList: React.FC = () => {
 	const HtmlToReactParser = require("html-to-react").Parser;
 	const state = useSelector((state) => state.topSpeakerReducer);
 	const topSpeakers: ITopSpeaker[] = state.deletedTopSpeakers;
+	const userState = useSelector((userState) => userState.userReducer);
+	const [permission, setPermission] = useState<string>("");
 
 	const convertToPlain = (html: string) => {
 		const htmlToParser = new HtmlToReactParser();
@@ -37,6 +39,16 @@ const DeletedTopSpeakerList: React.FC = () => {
 	useEffect(() => {
 		dispatch(getDeletedTopSpeakers());
 	}, [dispatch]);
+
+
+	useEffect(() => {
+		if (userState.authUser && userState.authUser.permissionLevel) {
+			setPermission(userState.authUser.permissionLevel);
+		}
+	}, [userState.authUser, setPermission]);
+
+	
+
 
 	// Table column configurations
 	const tableColumnData = [
@@ -104,6 +116,9 @@ const DeletedTopSpeakerList: React.FC = () => {
 		},
 	];
 
+
+
+
 	//function to recover deleted top speaker information
 	const handleRecoverDeletedTopSpeaker = (event: any, topSpeakerId: string) => {
 		if (event) {
@@ -129,12 +144,17 @@ const DeletedTopSpeakerList: React.FC = () => {
 								<i className="fas fa-ellipsis-h"></i>
 							</span>
 							<div className="dropdown-menu dropdown-menu-right">
-								<button className="dropdown-item" onClick={(e) => handleRecoverDeletedTopSpeaker(e, row._id)}>
-									<i className="fas fa-undo" /> Recover
-								</button>
-								<button className="dropdown-item" onClick={(e) => handlePermenentDeleteTopSpeaker(e, row._id)}>
-									<i className="far fa-trash-alt" /> Delete Permanently
-								</button>
+							{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
+									<button className="dropdown-item" onClick={(e) => handleRecoverDeletedTopSpeaker(e, row._id)}>
+										<i className="fas fa-undo" /> Recover
+									</button>
+								)}
+
+								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+									<button className="dropdown-item" onClick={(e) => handlePermenentDeleteTopSpeaker(e, row._id)}>
+										<i className="far fa-trash-alt" /> Delete Permanently
+									</button>
+								)}
 							</div>
 						</span>
 					</span>
