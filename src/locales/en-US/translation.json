@@ -16,6 +16,49 @@
 		},
 		"page-description": {
 			"event-page-description": "Manage all the event informations"
+		},
+		"table-description": {
+			"event-table-description": "*If you experience any difficulty in viewing the event information, please make sure your cache is cleared and completed a hard refresh."
+		},
+
+		"data-row-action-dropdown": {
+			"view-button": "View",
+			"edit-button": "Edit",
+			"delete-button": "Delete"
+		},
+
+		"add-new-button": {
+			"events": "Add New Event"
+		},
+
+		"table-row-information": {
+			"event-information": {
+				"event-information-title": "Event Information",
+				"event-link": "Event Link"
+			},
+			"common-information": {
+				"tags": "Tags",
+				"description": "Description",
+				"registration-link": "Registration Link"
+			}
+		},
+
+		"table-data-filter-label": {
+			"all": "All",
+			"upcomming": "Upcomming",
+			"past": "Past",
+			"deleted": "Deleted",
+			"pending": "Pending",
+			"interview": "Interview",
+			"selected": "Selected",
+			"rejected": "Rejected"
+		},
+
+		"table-type-header-label": {
+			"event-table": {
+				"past-event": "Past Event",
+				"upcomming-event": "Upcomming Event"
+			}
 		}
 	}
 }
