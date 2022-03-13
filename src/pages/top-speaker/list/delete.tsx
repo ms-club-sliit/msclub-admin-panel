@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDeletedTopSpeakers, setTopSpeakerId } from "../../../store/top-speaker-store/topSpeakerActions";
 import { ITopSpeaker, IModifiedBy } from "../../../interfaces";
@@ -40,15 +40,11 @@ const DeletedTopSpeakerList: React.FC = () => {
 		dispatch(getDeletedTopSpeakers());
 	}, [dispatch]);
 
-
 	useEffect(() => {
 		if (userState.authUser && userState.authUser.permissionLevel) {
 			setPermission(userState.authUser.permissionLevel);
 		}
 	}, [userState.authUser, setPermission]);
-
-	
-
 
 	// Table column configurations
 	const tableColumnData = [
@@ -116,9 +112,6 @@ const DeletedTopSpeakerList: React.FC = () => {
 		},
 	];
 
-
-
-
 	//function to recover deleted top speaker information
 	const handleRecoverDeletedTopSpeaker = (event: any, topSpeakerId: string) => {
 		if (event) {
@@ -144,7 +137,7 @@ const DeletedTopSpeakerList: React.FC = () => {
 								<i className="fas fa-ellipsis-h"></i>
 							</span>
 							<div className="dropdown-menu dropdown-menu-right">
-							{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
+								{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
 									<button className="dropdown-item" onClick={(e) => handleRecoverDeletedTopSpeaker(e, row._id)}>
 										<i className="fas fa-undo" /> Recover
 									</button>
