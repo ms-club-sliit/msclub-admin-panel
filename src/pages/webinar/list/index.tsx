@@ -18,9 +18,11 @@ const WebinarList: React.FC = () => {
 	const history = useHistory();
 	const HtmlToReactParser = require("html-to-react").Parser;
 	const state = useSelector((state) => state.webinarReducer);
+	const userState = useSelector((userState) => userState.userReducer);
 	const webinars: IWebinar[] = state.webinars;
 	const [selectedTypeWebinars, setSelectedTypeWebinar] = useState<IWebinar[]>(webinars);
 	const [selectedTab, setSelectedTab] = useState<string>("All");
+	const [permission, setPermission] = useState<string>("");
 
 	const convertToPlain = (html: string) => {
 		const htmlToParser = new HtmlToReactParser();
@@ -47,6 +49,12 @@ const WebinarList: React.FC = () => {
 	useEffect(() => {
 		setSelectedTypeWebinar(state.webinars);
 	}, [state.webinars]);
+
+	useEffect(() => {
+		if (userState.authUser && userState.authUser.permissionLevel) {
+			setPermission(userState.authUser.permissionLevel);
+		}
+	}, [userState.authUser]);
 
 	// Table column configurations
 	const tableColumnData = [
@@ -127,12 +135,17 @@ const WebinarList: React.FC = () => {
 						<span className="dropdown-item" onClick={() => handleSetViewWebinar(row._id)}>
 							<i className="far fa-eye" /> View
 						</span>
-						<span className="dropdown-item" onClick={() => handleSetUpdateWebinar(row._id)}>
-							<i className="far fa-edit" /> Edit
-						</span>
-						<button className="dropdown-item" onClick={() => handleSetDeleteWebinar(row._id)}>
-							<i className="far fa-trash-alt" /> Delete
-						</button>
+						{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
+							<span className="dropdown-item" onClick={() => handleSetUpdateWebinar(row._id)}>
+								<i className="far fa-edit" /> Edit
+							</span>
+						)}
+
+						{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
+							<button className="dropdown-item" onClick={() => handleSetDeleteWebinar(row._id)}>
+								<i className="far fa-trash-alt" /> Delete
+							</button>
+						)}
 					</div>
 				</span>
 			</span>
