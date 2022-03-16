@@ -4,7 +4,7 @@
 			"table-action-header": "Actions",
 			"table-title-header": "Title",
 			"table-type-header": "Type",
-			"table-data-time-header": "Date&Time",
+			"table-date-time-header": "Date&Time",
 			"table-last-modified-at-header": "Last Modified At",
 			"table-last-modified-by-header": "Last Modified By",
 			"table-student-id-header": "Student Id",
@@ -12,13 +12,19 @@
 			"table-status-header": "Status"
 		},
 		"page-title": {
-			"event-page-header": "Events"
+			"event-page-header": "Events",
+			"webinar-page-header": "Webinar",
+			"top-speakers-page-header": "Top Speakers"
 		},
 		"page-description": {
-			"event-page-description": "Manage all the event informations"
+			"event-page-description": "Manage all the event informations",
+			"webinar-page-description": "Manage all the Webinar informations",
+			"top-speakers-page-description": "Manage all the Top Speaker informations"
 		},
 		"table-description": {
-			"event-table-description": "*If you experience any difficulty in viewing the event information, please make sure your cache is cleared and completed a hard refresh."
+			"event-table-description": "*If you experience any difficulty in viewing the event information, please make sure your cache is cleared and completed a hard refresh.",
+			"webinar-table-description": "*If you experience any difficulty in viewing the webinar information, please make sure your cache is cleared and completed a hard refresh.",
+			"top-speakers-table-description": "*If you experience any difficulty in viewing the top Speaker information, please make sure your cache is cleared and completed a hard refresh."
 		},
 
 		"data-row-action-dropdown": {
@@ -27,14 +33,31 @@
 			"delete-button": "Delete"
 		},
 
-		"add-new-button": {
-			"events": "Add New Event"
+		"buttons": {
+			"add-new-button": {
+				"events": "Add New Event",
+				"webinar": "Add New Webinar",
+				"top-speakers": "Add New Speakers"
+			}
 		},
 
 		"table-row-information": {
 			"event-information": {
 				"event-information-title": "Event Information",
 				"event-link": "Event Link"
+			},
+			"webinar-information": {
+				"webinar-information-title": "Webinar Information",
+				"webinar-link": "Webinar Link"
+			},
+			"top-speakers-information": {
+				"top-speakers-information-title": "Top Speaker Information",
+				"title": "Title",
+				"facebook-link": "Facebook Link",
+				"instergram-link": "Instergram Link",
+				"twitter-link": "Twitter Link",
+				"linkedin-link": "Linkedin Link",
+				"website-link": "Website Link"
 			},
 			"common-information": {
 				"tags": "Tags",
@@ -58,6 +81,10 @@
 			"event-table": {
 				"past-event": "Past Event",
 				"upcomming-event": "Upcomming Event"
+			},
+			"webinar-table": {
+				"past-webinar": "Past Webinar",
+				"upcomming-event": "Upcomming Webinar"
 			}
 		}
 	}

@@ -89,7 +89,7 @@ const EventList: React.FC = () => {
 		},
 		{
 			dataField: "dateTime",
-			text: translation.table["table-data-time-header"],
+			text: translation.table["table-date-time-header"],
 			headerStyle: { width: "220px" },
 			formatter: (cell: string) => {
 				return moment(cell).format("LLL");
@@ -301,7 +301,7 @@ const EventList: React.FC = () => {
 									data-mdb-target="#addEventModal"
 								>
 									<span className="fas fa-plus" />
-									<span className="mx-2">{translation["add-new-button"].events}</span>
+									<span className="mx-2">{translation.buttons["add-new-button"].events}</span>
 								</button>
 							</div>
 						</div>

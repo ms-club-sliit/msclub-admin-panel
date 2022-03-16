@@ -12,6 +12,7 @@ import AddTopSpeaker from "../add";
 import UpdateTopSpeaker from "../update";
 import DeleteTopSpeaker from "../delete";
 import TopSpeakerLoader from "../loader";
+import { translation } from "../../../locales/en-US/translation.json";
 
 const TopSpeakerList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -59,14 +60,14 @@ const TopSpeakerList: React.FC = () => {
 	const tableColumnData = [
 		{
 			dataField: "actions",
-			text: "Actions",
+			text: translation.table["table-action-header"],
 			formatter: (cell: any, row: ITopSpeaker) => actionButtonFormatter(row),
 			headerStyle: { width: "90px" },
 		},
-		{ dataField: "title", text: "Title", headerStyle: { width: "200px" } },
+		{ dataField: "title", text: translation.table["table-title-header"], headerStyle: { width: "200px" } },
 		{
 			dataField: "topSpeakerType",
-			text: "Type",
+			text: translation.table["table-type-header"],
 			headerStyle: { width: "110px" },
 			formatter: (cell: string) => {
 				return (
@@ -80,7 +81,7 @@ const TopSpeakerList: React.FC = () => {
 		},
 		{
 			dataField: "createdAt",
-			text: "Date & Time",
+			text: translation.table["table-date-time-header"],
 			headerStyle: { width: "220px" },
 			formatter: (cell: string) => {
 				return moment(cell).format("LLL");
@@ -88,7 +89,7 @@ const TopSpeakerList: React.FC = () => {
 		},
 		{
 			dataField: "updatedAt",
-			text: "Last Modified At",
+			text: translation.table["table-last-modified-at-header"],
 			headerStyle: { width: "220px" },
 			formatter: (cell: string) => {
 				return moment(cell).format("LLL");
@@ -96,7 +97,7 @@ const TopSpeakerList: React.FC = () => {
 		},
 		{
 			dataField: "updatedBy",
-			text: "Last Modified By",
+			text: translation.table["table-last-modified-by-header"],
 			headerStyle: { width: "250px" },
 			formatter: (cell: IModifiedBy[]) => {
 				let lastModifiedUser = cell.slice(-1)[0];
@@ -131,16 +132,16 @@ const TopSpeakerList: React.FC = () => {
 					</span>
 					<div className="dropdown-menu dropdown-menu-right">
 						<span className="dropdown-item" onClick={() => handleSetViewTopSpeaker(row._id)}>
-							<i className="far fa-eye" /> View
+							<i className="far fa-eye" /> {translation["data-row-action-dropdown"]["view-button"]}
 						</span>
 						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
 							<span className="dropdown-item" onClick={(e) => handleSetUpdateTopSpeaker(e, row._id)}>
-								<i className="far fa-edit" /> Edit
+								<i className="far fa-edit" /> {translation["data-row-action-dropdown"]["edit-button"]}
 							</span>
 						)}
 						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
 							<button className="dropdown-item" onClick={(e) => handleSetDeleteTopSpeaker(e, row._id)}>
-								<i className="far fa-trash-alt" /> Delete
+								<i className="far fa-trash-alt" /> {translation["data-row-action-dropdown"]["delete-button"]}
 							</button>
 						)}
 					</div>
@@ -194,7 +195,7 @@ const TopSpeakerList: React.FC = () => {
 		},
 		renderer: (row: ITopSpeaker) => (
 			<div>
-				<h5>Top Speaker Information</h5>
+				<h5>{translation["table-row-information"]["top-speakers-information"]["top-speakers-information-title"]}</h5>
 				<div className="row">
 					<div className="col-md-3 col-sm-12">
 						<img
@@ -206,46 +207,51 @@ const TopSpeakerList: React.FC = () => {
 					<div className="col-md-9 col-sm-12">
 						<h6 className="row-header">
 							<span className="fas fa-align-left my-2" />
-							&nbsp; Title
+							&nbsp; {translation["table-row-information"]["top-speakers-information"].title}
 						</h6>
 						<p>{convertToPlain(row.title)}</p>
 
 						<h6 className="row-header">
 							<span className="fas fa-align-left my-2" />
-							&nbsp; Description
+							&nbsp; {translation["table-row-information"]["common-information"].description}
 						</h6>
 						<p>{convertToPlain(row.description)}</p>
 
 						<h6 className="row-header">
-							<span className="fas fa-link" /> &nbsp; Facebook Link
+							<span className="fas fa-link" /> &nbsp;
+							{translation["table-row-information"]["top-speakers-information"]["facebook-link"]}
 						</h6>
 						<a href={row.socialMediaURLs.facebook || ""} target="_blank" rel="noreferrer">
 							{row.socialMediaURLs.facebook}
 						</a>
 
 						<h6 className="row-header">
-							<span className="fas fa-link" /> &nbsp; Instagram Link
+							<span className="fas fa-link" /> &nbsp;
+							{translation["table-row-information"]["top-speakers-information"]["instergram-link"]}
 						</h6>
 						<a href={row.socialMediaURLs.instagram || ""} target="_blank" rel="noreferrer">
 							{row.socialMediaURLs.instagram}
 						</a>
 
 						<h6 className="row-header">
-							<span className="fas fa-link" /> &nbsp; Twitter Link
+							<span className="fas fa-link" /> &nbsp;
+							{translation["table-row-information"]["top-speakers-information"]["twitter-link"]}
 						</h6>
 						<a href={row.socialMediaURLs.twitter || ""} target="_blank" rel="noreferrer">
 							{row.socialMediaURLs.twitter}
 						</a>
 
 						<h6 className="row-header">
-							<span className="fas fa-link" /> &nbsp; LinkedIn Link
+							<span className="fas fa-link" /> &nbsp;
+							{translation["table-row-information"]["top-speakers-information"]["linkedin-link"]}
 						</h6>
 						<a href={row.socialMediaURLs.linkedIn || ""} target="_blank" rel="noreferrer">
 							{row.socialMediaURLs.linkedIn}
 						</a>
 
 						<h6 className="row-header">
-							<span className="fas fa-link" /> &nbsp; Website Link
+							<span className="fas fa-link" /> &nbsp;
+							{translation["table-row-information"]["top-speakers-information"]["website-link"]}
 						</h6>
 						<a href={row.socialMediaURLs.web || ""} target="_blank" rel="noreferrer">
 							{row.socialMediaURLs.web}
@@ -283,8 +289,10 @@ const TopSpeakerList: React.FC = () => {
 				<div>
 					<div className="row">
 						<div className="col-6">
-							<h3 className="page-title">Top Speakers</h3>
-							<p className="page-description text-muted">Manage all the Top Speaker informations</p>
+							<h3 className="page-title">{translation["page-title"]["top-speakers-page-header"]}</h3>
+							<p className="page-description text-muted">
+								{translation["page-description"]["top-speakers-page-description"]}
+							</p>
 						</div>
 						<div className="col-6">
 							<div className="d-flex justify-content-end">
@@ -294,7 +302,7 @@ const TopSpeakerList: React.FC = () => {
 									data-mdb-target="#addTopSpeakerModal"
 								>
 									<span className="fas fa-plus" />
-									<span className="mx-2">Add New Top Speaker</span>
+									<span className="mx-2">{translation.buttons["add-new-button"]["top-speakers"]}</span>
 								</button>
 							</div>
 						</div>
@@ -306,14 +314,14 @@ const TopSpeakerList: React.FC = () => {
 								className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
 								onClick={(e) => handleViewClick(e, "All")}
 							>
-								All
+								{translation["table-data-filter-label"].all}
 							</button>
 							&nbsp;
 							<button
 								className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
 								onClick={(e) => handleDeletedTopSpeakerClick(e)}
 							>
-								Deleted
+								{translation["table-data-filter-label"].deleted}
 							</button>
 						</div>
 					</div>
@@ -330,8 +338,7 @@ const TopSpeakerList: React.FC = () => {
 									<SearchBar {...props.searchProps} placeholder="Search topSpeakers" className="mb-3 search-bar" />
 								</div>
 								<p className="table-description text-muted">
-									*If you experience any difficulty in viewing the top Speaker information, please make sure your cache
-									is cleared and completed a hard refresh.
+									{translation["table-description"]["top-speakers-table-description"]}
 								</p>
 								<BootstrapTable
 									{...props.baseProps}
