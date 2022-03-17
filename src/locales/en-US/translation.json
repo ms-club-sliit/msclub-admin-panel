@@ -7,6 +7,8 @@
 			"table-date-time-header": "Date&Time",
 			"table-last-modified-at-header": "Last Modified At",
 			"table-last-modified-by-header": "Last Modified By",
+			"table-deleted-at-header": "Deleted At",
+			"table-deleted-by-header": "Deleted By",
 			"table-student-id-header": "Student Id",
 			"table-contact-number-header": "Contact Number",
 			"table-status-header": "Status"
@@ -30,7 +32,9 @@
 		"data-row-action-dropdown": {
 			"view-button": "View",
 			"edit-button": "Edit",
-			"delete-button": "Delete"
+			"delete-button": "Delete",
+			"recover": "Recover",
+			"delete-permanently": "Delete Permanently"
 		},
 
 		"buttons": {
@@ -38,6 +42,10 @@
 				"events": "Add New Event",
 				"webinar": "Add New Webinar",
 				"top-speakers": "Add New Speakers"
+			},
+			"common": {
+				"yes": "Yes",
+				"no": "No"
 			}
 		},
 
@@ -74,7 +82,8 @@
 			"pending": "Pending",
 			"interview": "Interview",
 			"selected": "Selected",
-			"rejected": "Rejected"
+			"rejected": "Rejected",
+			"go-back": "Go Back"
 		},
 
 		"table-type-header-label": {
@@ -85,6 +94,33 @@
 			"webinar-table": {
 				"past-webinar": "Past Webinar",
 				"upcomming-event": "Upcomming Webinar"
+			}
+		},
+		"action-modal": {
+			"webinar": {
+				"webinar-remove": {
+					"title": "Remove Webinar",
+					"message": "Are you sure about deleting this webinar information?"
+				},
+				"webinar-permanently-delete": {
+					"title": "Delete Webinar",
+					"message": "Are you sure about permanently this deleted webinar?"
+				},
+				"webinar-recover": {
+					"title": "Recover Deleted Webinar",
+					"message": "Are you sure about recovering this deleted Webinar?"
+				}
+			}
+		},
+		"forms": {
+			"webinar": {
+				"title": "Add New Webinar",
+				"label": {
+					"webinar-title": "Webinar Title",
+					"webinar-type": "Webinar Type",
+					"date-time": "Date & Time",
+					"webinar-link": "Webinar Link"
+				}
 			}
 		}
 	}

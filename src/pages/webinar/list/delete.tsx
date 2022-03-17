@@ -9,6 +9,7 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
 import RecoverDeletedWebinar from "../recover-delete";
+import { translation } from "../../../locales/en-US/translation.json";
 
 const DeletedWebinarList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -57,11 +58,11 @@ const DeletedWebinarList: React.FC = () => {
 	const tableColumnData = [
 		{
 			dataField: "actions",
-			text: "Actions",
+			text: translation.table["table-action-header"],
 			formatter: (cell: any, row: IWebinar) => actionButtonFormatter(row),
 			headerStyle: { width: "90px" },
 		},
-		{ dataField: "title", text: "Title", headerStyle: { width: "200px" } },
+		{ dataField: "title", text: translation.table["table-title-header"], headerStyle: { width: "200px" } },
 		{
 			dataField: "webinarType",
 			text: "Type",
@@ -70,16 +71,22 @@ const DeletedWebinarList: React.FC = () => {
 				return (
 					<div>
 						{cell === "UPCOMING" ? (
-							<span className="badge rounded-pill bg-primary text-light">Upcoming Webinar</span>
+							<span className="badge rounded-pill bg-primary text-light">
+								{translation["table-type-header-label"]["webinar-table"]["upcomming-event"]}
+							</span>
 						) : null}
-						{cell === "PAST" ? <span className="badge rounded-pill bg-warning text-dark">Past Webinar</span> : null}
+						{cell === "PAST" ? (
+							<span className="badge rounded-pill bg-warning text-dark">
+								{translation["table-type-header-label"]["webinar-table"]["past-webinar"]}
+							</span>
+						) : null}
 					</div>
 				);
 			},
 		},
 		{
 			dataField: "dateTime",
-			text: "Date & Time",
+			text: translation.table["table-date-time-header"],
 			headerStyle: { width: "220px" },
 			formatter: (cell: string) => {
 				return moment(cell).format("LLL");
@@ -87,7 +94,7 @@ const DeletedWebinarList: React.FC = () => {
 		},
 		{
 			dataField: "deletedAt",
-			text: "Deleted At",
+			text: translation.table["table-deleted-at-header"],
 			headerStyle: { width: "220px" },
 			formatter: (cell: string) => {
 				return moment(cell).format("LLL");
@@ -95,7 +102,7 @@ const DeletedWebinarList: React.FC = () => {
 		},
 		{
 			dataField: "updatedBy",
-			text: "Deleted By",
+			text: translation.table["table-deleted-by-header"],
 			headerStyle: { width: "250px" },
 			formatter: (cell: IModifiedBy[]) => {
 				let lastModifiedUser = cell.slice(-1)[0];
@@ -142,10 +149,10 @@ const DeletedWebinarList: React.FC = () => {
 								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
 									<>
 										<button className="dropdown-item" onClick={(e) => handleSetRecoverDeletedWebinar(e, row._id)}>
-											<i className="fas fa-undo" /> Recover
+											<i className="fas fa-undo" /> {translation["data-row-action-dropdown"].recover}
 										</button>
 										<button className="dropdown-item" onClick={(e) => handleSetDeleteWebinarPermanently(e, row._id)}>
-											<i className="far fa-trash-alt" /> Delete Permanently
+											<i className="far fa-trash-alt" /> {translation["data-row-action-dropdown"]["delete-permanently"]}
 										</button>
 									</>
 								)}
@@ -183,7 +190,7 @@ const DeletedWebinarList: React.FC = () => {
 		},
 		renderer: (row: IWebinar) => (
 			<div>
-				<h5>Webinar Information</h5>
+				<h5>{translation["table-row-information"]["webinar-information"]["webinar-information-title"]}</h5>
 				<div className="row">
 					<div className="col-md-3 col-sm-12">
 						<img
@@ -194,14 +201,16 @@ const DeletedWebinarList: React.FC = () => {
 					</div>
 					<div className="col-md-9 col-sm-12">
 						<h6 className="row-header">
-							<span className="fas fa-link" /> &nbsp; Webinar Link
+							<span className="fas fa-link" /> &nbsp;
+							{translation["table-row-information"]["webinar-information"]["webinar-link"]}
 						</h6>
 						<a href={row.link} target="_blank" rel="noreferrer">
 							{row.link}
 						</a>
 
 						<h6 className="row-header my-3">
-							<span className="fas fa-link" /> &nbsp; Registration Link
+							<span className="fas fa-link" /> &nbsp;
+							{translation["table-row-information"]["common-information"]["registration-link"]}
 						</h6>
 						<a href={row.registrationLink} target="_blank" rel="noreferrer">
 							{row.registrationLink}
@@ -210,7 +219,8 @@ const DeletedWebinarList: React.FC = () => {
 						{row.tags && row.tags.length > 0 ? (
 							<div>
 								<h6 className="row-header my-3">
-									<span className="fas fa-tags" /> Tags &nbsp;
+									<span className="fas fa-tags" /> {translation["table-row-information"]["common-information"].tags}
+									&nbsp;
 								</h6>
 								<div className="d-flex">
 									{row.tags.map((tag, index) => (
@@ -224,7 +234,7 @@ const DeletedWebinarList: React.FC = () => {
 
 						<h6 className="row-header">
 							<span className="fas fa-align-left my-2" />
-							&nbsp; Description
+							&nbsp; {translation["table-row-information"]["common-information"].description}
 						</h6>
 						<p>{convertToPlain(row.description)}</p>
 					</div>
@@ -242,8 +252,8 @@ const DeletedWebinarList: React.FC = () => {
 		<div className="card">
 			<div className="row">
 				<div className="col-6">
-					<h3 className="page-title">Webinars</h3>
-					<p className="page-description text-muted">Manage all the webinar informations</p>
+					<h3 className="page-title">{translation["page-title"]["webinar-page-header"]}</h3>
+					<p className="page-description text-muted">{translation["page-description"]["webinar-page-description"]}</p>
 				</div>
 				<div className="col-6">
 					<div className="d-flex justify-content-end">
@@ -253,7 +263,7 @@ const DeletedWebinarList: React.FC = () => {
 							data-mdb-target="#addEventModal"
 						>
 							<span className="fas fa-plus" />
-							<span className="mx-2">Add New Webinar</span>
+							<span className="mx-2">{translation.buttons["add-new-button"].webinar}</span>
 						</button>
 					</div>
 				</div>
@@ -262,7 +272,7 @@ const DeletedWebinarList: React.FC = () => {
 			<div>
 				<div className="d-flex">
 					<button className="btn btn-sm btn-light shadow-none btn-rounded" onClick={handleGoBackToWebinars}>
-						Go Back
+						{translation["table-data-filter-label"]["go-back"]}
 					</button>
 				</div>
 			</div>
@@ -274,8 +284,7 @@ const DeletedWebinarList: React.FC = () => {
 							<SearchBar {...props.searchProps} placeholder="Search Webinars" className="mb-3 search-bar" />
 						</div>
 						<p className="table-description text-muted">
-							*If you experience any difficulty in viewing the Webinar information, please make sure your cache is
-							cleared and completed a hard refresh.
+							{translation["table-description"]["webinar-table-description"]}
 						</p>
 						<BootstrapTable
 							{...props.baseProps}
