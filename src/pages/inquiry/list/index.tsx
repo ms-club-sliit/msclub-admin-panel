@@ -57,7 +57,7 @@ const InquiryList: React.FC = () => {
 		{ dataField: "name", text: "Title", headerStyle: { width: "200px" } },
 		{ dataField: "email", text: "Email", headerStyle: { width: "200px" } },
 		{
-			dataField: "dateTime",
+			dataField: "createdAt",
 			text: "Date & Time",
 			headerStyle: { width: "220px" },
 			formatter: (cell: string) => {
