@@ -45,7 +45,7 @@ class UserAPI {
 	}
 
 	static loginFaceAuthentication(data: FormData): Promise<IUser> {
-		return axios.post(`${BASE_URL}/user/login/face/`, data);
+		return axios.post(`${BASE_URL}/user/login/faceauth/`, data);
 	}
 }
 

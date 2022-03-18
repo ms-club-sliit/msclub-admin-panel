@@ -1,28 +1,19 @@
 import React, { useEffect, useState, useRef } from "react";
 import Webcam from "react-webcam";
 import { useDispatch, useSelector } from "react-redux";
-import { ILoginFormData, ILoginState } from "../../interfaces";
+import { ILoginFaceAuthenticationState } from "../../interfaces";
 import { loginUserFaceAuthentication } from "../../store/user-store/userActions";
 import { toastNotification } from "../../constants";
-import { string } from "yup";
 
-let formData: ILoginFormData = {
-	userName: null,
-	password: null,
-};
-
-const initialState: ILoginState = {
-	userName: "",
-	password: "",
+const initialState: ILoginFaceAuthenticationState = {
 	isLoading: false,
-	isFormNotValid: false,
 };
 
 const LoginFaceAuthentication: React.FC = () => {
 	const dispatch = useDispatch();
 	const state = useSelector((state) => state.userReducer);
 	const [{ isLoading }, setState] = useState(initialState);
-	const [imgSrc, setImgSrc] = useState("https://i.stack.imgur.com/l60Hf.png");
+
 	// If the user login is success
 	useEffect(() => {
 		let authToken = state.loggedUser;
@@ -46,20 +37,19 @@ const LoginFaceAuthentication: React.FC = () => {
 		}
 	}, [state.error]);
 
-	const onSubmit = async (event: any) => {
-		if (event) {
-			if (imgSrc) {
-				let data = Object.values(formData).map((item) => {
-					return item !== null;
-				});
+	const onSubmit = async (imgSrc: any) => {
+		if (imgSrc) {
+			const base64Response = await fetch(`${imgSrc}`);
+			const blob = await base64Response.blob();
+			let loginFormData = new FormData();
 
-				const base64Response = await fetch(`${imgSrc}`);
-				const blob = await base64Response.blob();
-				let eventFormData = new FormData();
+			setState((prevState) => ({
+				...prevState,
+				isLoading: true,
+			}));
 
-				eventFormData.append("profileImage", blob as any);
-				dispatch(loginUserFaceAuthentication(eventFormData));
-			}
+			loginFormData.append("profileImage", blob as any);
+			dispatch(loginUserFaceAuthentication(loginFormData));
 		}
 	};
 
@@ -72,36 +62,29 @@ const LoginFaceAuthentication: React.FC = () => {
 				</div>
 
 				<div>
-					<div className="text-center">
-						<Webcam audio={false} height={720} screenshotFormat="image/jpeg" width={1280}>
-							{({ getScreenshot }) => (
+					<Webcam audio={false} height={450} screenshotFormat="image/jpeg" width={490}>
+						{({ getScreenshot }) =>
+							!isLoading ? (
 								<button
+									type="button"
+									className="btn btn-primary shadow-none btn-rounded"
 									onClick={() => {
 										const image = getScreenshot();
-										console.log(image);
-										setImgSrc(image || "ss");
+										onSubmit(image);
 									}}
 								>
-									Capture photo
+									Sign In
 								</button>
-							)}
-						</Webcam>
-					</div>
-				</div>
-
-				<div className="d-flex justify-content-end my-3">
-					{!isLoading ? (
-						<button type="button" className="btn btn-primary shadow-none btn-rounded" onClick={onSubmit}>
-							Sign In
-						</button>
-					) : (
-						<button type="button" disabled className="btn btn-primary shadow-none btn-rounded">
-							<span>
-								<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-								<span>Signing...</span>
-							</span>
-						</button>
-					)}
+							) : (
+								<button type="button" disabled className="btn btn-primary shadow-none btn-rounded">
+									<span>
+										<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+										<span>Signing...</span>
+									</span>
+								</button>
+							)
+						}
+					</Webcam>
 				</div>
 			</div>
 		</div>
