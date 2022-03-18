@@ -43,6 +43,10 @@ class UserAPI {
 
 		return axios.post(`${BASE_URL}/user/login/`, credentials);
 	}
+
+	static loginFaceAuthentication(data: FormData): Promise<IUser> {
+		return axios.post(`${BASE_URL}/user/login/face/`, data);
+	}
 }
 
 export default UserAPI;
