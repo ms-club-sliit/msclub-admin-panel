@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { NavBar } from "../components";
 import { refreshToken } from "../store/user-store/userActions";
@@ -22,10 +22,17 @@ import PrivateRoute from "./PrivateRoute";
 
 const PageRoutes: React.FC = () => {
 	const dispatch = useDispatch();
+	const state = useSelector((state) => state.userReducer);
 
 	useEffect(() => {
 		dispatch(refreshToken());
 	}, [dispatch]);
+
+	useEffect(() => {
+		if (state.error) {
+			localStorage.removeItem("token");
+		}
+	}, [state.error]);
 
 	return (
 		<div>
