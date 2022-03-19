@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { IEvent } from "../../../interfaces";
+import { translation } from "../../../locales/en-US/translation.json";
 
 const EventView: React.FC = () => {
 	const HtmlToReactParser = require("html-to-react").Parser;
@@ -34,17 +35,17 @@ const EventView: React.FC = () => {
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title" id="exampleModalLabel">
-								Event Document
+								{translation.forms.event.view.title}
 							</h5>
 							<button type="button" className="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div className="modal-body">
 							<div className="event-view">
-								<h5 className="header">Information</h5>
+								<h5 className="header">{translation.forms["common-row-view"].information}</h5>
 								<div className="form-group row mx-5">
 									<label className="col-sm-3 text-dark text">
 										<i className="far fa-file-alt fa-sm" />
-										&nbsp;Event Title :
+										&nbsp;{translation.forms.event.view["event-title"]}
 									</label>
 									<span className="col-sm-9 text-dark text">{eventDetails?.title}</span>
 								</div>
@@ -52,7 +53,7 @@ const EventView: React.FC = () => {
 								<div className="form-group row mx-5 my-2">
 									<label className="col-sm-3 text-dark text">
 										<i className="far fa-clock fa-sm" />
-										&nbsp;Date & Time :
+										&nbsp;{translation.forms["common-row-view"]["date-time"]}
 									</label>
 									<span className="col-sm-9 text-dark text">{moment(eventDetails?.dateTime).format("LLL")}</span>
 								</div>
@@ -60,7 +61,7 @@ const EventView: React.FC = () => {
 								<div className="form-group row mx-5 my-2">
 									<label className="col-sm-3 text-dark text">
 										<i className="fas fa-link fa-sm" />
-										&nbsp;Event Link :
+										&nbsp;{translation.forms.event.view["event-link"]}
 									</label>
 									<a
 										href={eventDetails && eventDetails.link}
@@ -75,16 +76,20 @@ const EventView: React.FC = () => {
 								<div className="form-group row mx-5 my-2">
 									<label className="col-sm-3 text-dark text">
 										<i className="far fa-circle fa-sm" />
-										&nbsp;Event Type :
+										&nbsp;{translation.forms.event.view["event-type"]}
 									</label>
 									<span className="col-sm-9 text-dark text">
 										{eventDetails && (
 											<span>
 												{eventDetails.eventType === "UPCOMING" ? (
-													<span className="badge rounded-pill bg-primary text-light">Upcoming Event</span>
+													<span className="badge rounded-pill bg-primary text-light">
+														{translation["table-type-header-label"]["event-table"]["upcomming-event"]}
+													</span>
 												) : null}
 												{eventDetails.eventType === "PAST" ? (
-													<span className="badge rounded-pill bg-warning text-dark">Past Event</span>
+													<span className="badge rounded-pill bg-warning text-dark">
+														{translation["table-type-header-label"]["event-table"]["past-event"]}
+													</span>
 												) : null}
 											</span>
 										)}
@@ -94,7 +99,7 @@ const EventView: React.FC = () => {
 								<div className="form-group row mx-5 my-2">
 									<label className="col-sm-3 text-dark text">
 										<i className="fas fa-tags fa-sm" />
-										&nbsp;Tags :
+										&nbsp;{translation.forms["common-data-view-label"].tags}
 									</label>
 									<span className="col-sm-9 text-dark text">
 										{eventDetails &&
@@ -110,7 +115,7 @@ const EventView: React.FC = () => {
 								<div className="form-group row mx-5">
 									<label className="col-sm-3 text-dark text">
 										<i className="fas fa-align-left" />
-										&nbsp;Description :
+										&nbsp;{translation.forms["common-data-view-label"].description}
 									</label>
 									<span className="col-sm-9 text-dark text">
 										{eventDetails && convertToPlain(eventDetails.description)}
@@ -119,11 +124,11 @@ const EventView: React.FC = () => {
 
 								<hr className="mx-5" />
 
-								<h5 className="header">Document History</h5>
+								<h5 className="header">{translation.forms["common-row-view"]["document-history"]}</h5>
 								<div className="form-group row mx-5">
 									<label className="col-sm-3 text-dark text">
 										<i className="far fa-calendar fa-sm" />
-										&nbsp;Created At :
+										&nbsp;{translation.forms["common-row-view"]["created-at"]}
 									</label>
 									<span className="col-sm-9 text-dark text">
 										{eventDetails && moment(eventDetails.createdAt).format("LLL")}
@@ -136,7 +141,7 @@ const EventView: React.FC = () => {
 								<div className="form-group row mx-5 my-2">
 									<label className="col text-dark text">
 										<i className="far fa-edit fa-sm" />
-										&nbsp;Modification Info :
+										&nbsp;{translation.forms["common-row-view"]["modification-info"]}
 									</label>
 								</div>
 								<div className="form-group row mx-5 my-2">
@@ -182,7 +187,7 @@ const EventView: React.FC = () => {
 						</div>
 						<div className="modal-footer">
 							<button type="button" className="btn btn-light shadow-none btn-rounded" data-mdb-dismiss="modal">
-								Close
+								{translation.buttons.common.close}
 							</button>
 						</div>
 					</div>

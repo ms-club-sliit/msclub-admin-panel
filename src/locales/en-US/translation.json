@@ -47,7 +47,9 @@
 				"yes": "Yes",
 				"no": "No",
 				"cancel": "Cancel",
-				"submit": "Submit"
+				"close": "Close",
+				"submit": "Submit",
+				"update": "update"
 			}
 		},
 
@@ -99,6 +101,20 @@
 			}
 		},
 		"action-modal": {
+			"event": {
+				"event-remove": {
+					"title": "Remove Event",
+					"message": "Are you sure about deleting this event information?"
+				},
+				"event-permanently-delete": {
+					"title": "Delete Event",
+					"message": "Are you sure about permanently this deleted event?"
+				},
+				"event-recover": {
+					"title": "Recover Deleted Event",
+					"message": "Are you sure about recovering this deleted event?"
+				}
+			},
 			"webinar": {
 				"webinar-remove": {
 					"title": "Remove Webinar",
@@ -118,10 +134,46 @@
 			}
 		},
 		"forms": {
+			"event": {
+				"title": "Add New Event",
+				"label": {
+					"event-title": "Event Title",
+					"event-type": "Event Type",
+					"event-link": "Event Link",
+					"event-name": "Event Name"
+				},
+				"validation-message": {
+					"event-flyer": "Event flyer is required",
+					"event-title": "Event name is required",
+					"event-name": "Event name is required",
+					"event-type": "Event type is required",
+					"event-link": "Event link is required"
+				},
+				"event-type-dropdown-option": {
+					"past": "PAST",
+					"upcomming": "UPCOMMING"
+				},
+				"event-input-descrption": {
+					"tags": "Sperate tag names using , (example: ITP, GitHub, Microservice)"
+				},
+				"event-type-select": "Select Event type",
+				"view": {
+					"title": "Event Document",
+					"event-title": "Event Title :",
+					"event-type": "Event Type :",
+					"event-link": "Event Link :",
+					"event-name": "Event Name :"
+				},
+				"edit": {
+					"title": "Edit Event Document",
+					"current-event-flyer": "Current Event Flyer"
+				}
+			},
 			"webinar": {
 				"title": "Add New Webinar",
 				"label": {
 					"webinar-title": "Webinar Title",
+					"webinar-name": "Webinar Name",
 					"webinar-type": "Webinar Type",
 					"date-time": "Date & Time",
 					"webinar-link": "Webinar Link"
@@ -139,7 +191,19 @@
 				"webinar-input-descrption": {
 					"tags": "Sperate tag names using , (example: ITP, GitHub, Microservice)"
 				},
-				"webinar-type-select": "Select webinar type"
+				"webinar-type-select": "Select Webinar type",
+				"view": {
+					"title": "Webinar Document",
+					"webinar-title": "Webinar Title :",
+					"webinar-name": "Webinar Name :",
+					"webinar-type": "Webinar Type :",
+					"date-time": "Date & Time :",
+					"webinar-link": "Webinar Link :"
+				},
+				"edit": {
+					"title": "Edit Webinar Document",
+					"current-webinar-flyer": "Current Webinar Flyer"
+				}
 			},
 			"common-label": {
 				"date-time": "Date & Time",
@@ -147,11 +211,23 @@
 				"tags": "Tags",
 				"description": "Description"
 			},
+			"common-data-view-label": {
+				"registration-link": "Registration Link:",
+				"tags": "Tags :",
+				"description": "Description :"
+			},
 			"common-validation-message": {
 				"date-time": "Date & time is required",
 				"registration-link": "Registration link is required",
 				"tags": "Tags are is required",
 				"description": "Description is required"
+			},
+			"common-row-view": {
+				"information": "Infromation",
+				"document-history": "Document History",
+				"date-time": "Date & Time :",
+				"created-at": "Created At :",
+				"modification-info": "Modification Info :"
 			}
 		}
 	}
