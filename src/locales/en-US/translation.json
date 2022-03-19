@@ -45,7 +45,9 @@
 			},
 			"common": {
 				"yes": "Yes",
-				"no": "No"
+				"no": "No",
+				"cancel": "Cancel",
+				"submit": "Submit"
 			}
 		},
 
@@ -109,6 +111,9 @@
 				"webinar-recover": {
 					"title": "Recover Deleted Webinar",
 					"message": "Are you sure about recovering this deleted Webinar?"
+				},
+				"webinar-input-descrption": {
+					"tangs": "Sperate tag names using , (example: ITP, GitHub, Microservice)"
 				}
 			}
 		},
@@ -120,7 +125,33 @@
 					"webinar-type": "Webinar Type",
 					"date-time": "Date & Time",
 					"webinar-link": "Webinar Link"
-				}
+				},
+				"validation-message": {
+					"webinar-file": "Webinar flyer is required",
+					"webinar-name": "Webinar name is required",
+					"webinar-type": "Webinar type is required",
+					"webinar-link": "Webinar link is required"
+				},
+				"webinar-type-dropdown-option": {
+					"past": "PAST",
+					"upcomming": "UPCOMMING"
+				},
+				"webinar-input-descrption": {
+					"tags": "Sperate tag names using , (example: ITP, GitHub, Microservice)"
+				},
+				"webinar-type-select": "Select webinar type"
+			},
+			"common-label": {
+				"date-time": "Date & Time",
+				"registration-link": "Registration Link",
+				"tags": "Tags",
+				"description": "Description"
+			},
+			"common-validation-message": {
+				"date-time": "Date & time is required",
+				"registration-link": "Registration link is required",
+				"tags": "Tags are is required",
+				"description": "Description is required"
 			}
 		}
 	}
