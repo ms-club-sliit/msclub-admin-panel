@@ -145,6 +145,11 @@ const DeletedEventList: React.FC = () => {
 								<i className="fas fa-ellipsis-h"></i>
 							</span>
 							<div className="dropdown-menu dropdown-menu-right">
+								{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
+									<button className="dropdown-item" onClick={(e) => handleSetRecoverDeletedEvent(e, row._id)}>
+										<i className="fas fa-undo" /> Recover
+									</button>
+								)}
 								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
 									<>
 										<button className="dropdown-item" onClick={(e) => handleSetRecoverDeletedEvent(e, row._id)}>

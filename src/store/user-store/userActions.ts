@@ -58,6 +58,13 @@ export const loginUser = (userName: string, password: string) => {
 	};
 };
 
+export const loginUserFaceAuthentication = (data: FormData) => {
+	return {
+		type: UserActionTypes.LOGIN_USER,
+		payload: UserAPI.loginFaceAuthentication(data),
+	};
+};
+
 export const setUserId = (userId: string) => {
 	return {
 		type: UserActionTypes.SET_USER_ID,

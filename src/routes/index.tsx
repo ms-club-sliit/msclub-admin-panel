@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { NavBar } from "../components";
 import { refreshToken } from "../store/user-store/userActions";
@@ -9,6 +9,7 @@ import {
 	EventList,
 	DeletedEventList,
 	Login,
+	LoginFaceAuthentication,
 	WebinarList,
 	DeletedWebinarList,
 	ApplicationList,
@@ -22,10 +23,17 @@ import PrivateRoute from "./PrivateRoute";
 
 const PageRoutes: React.FC = () => {
 	const dispatch = useDispatch();
+	const state = useSelector((state) => state.userReducer);
 
 	useEffect(() => {
 		dispatch(refreshToken());
 	}, [dispatch]);
+
+	useEffect(() => {
+		if (state.error) {
+			localStorage.removeItem("token");
+		}
+	}, [state.error]);
 
 	return (
 		<div>
@@ -46,6 +54,7 @@ const PageRoutes: React.FC = () => {
 						<PrivateRoute path="/inquiries" component={InquiryList} />
 						<PrivateRoute path="/speakers" component={TopSpeakerList} />
 						<Route path="/signin" component={Login} exact />
+						<Route path="/signin/faceauth" component={LoginFaceAuthentication} exact />
 						<PrivateRoute path="/" component={Dashboard} />
 					</Switch>
 				</div>

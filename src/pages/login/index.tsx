@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ILoginFormData, ILoginState } from "../../interfaces";
 import { loginUser } from "../../store/user-store/userActions";
@@ -123,10 +124,13 @@ const Login: React.FC = () => {
 				</div>
 
 				<span className="form-label">
-					Forgot Password? <a href="/">Reset</a>
+					<Link to="/signin/faceauth">Use Face Authentication</Link>
 				</span>
 				<span className="form-label">
-					Don't have an account? <a href="/">Contact Admin</a>
+					Forgot Password? <Link to="/">Reset</Link>
+				</span>
+				<span className="form-label">
+					Don't have an account? <Link to="/">Contact Admin</Link>
 				</span>
 
 				<div className="d-flex justify-content-end my-3">

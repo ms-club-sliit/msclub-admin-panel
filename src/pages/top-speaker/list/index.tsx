@@ -139,7 +139,7 @@ const TopSpeakerList: React.FC = () => {
 								<i className="far fa-edit" /> {translation["data-row-action-dropdown"]["edit-button"]}
 							</span>
 						)}
-						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+						{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
 							<button className="dropdown-item" onClick={(e) => handleSetDeleteTopSpeaker(e, row._id)}>
 								<i className="far fa-trash-alt" /> {translation["data-row-action-dropdown"]["delete-button"]}
 							</button>
@@ -362,8 +362,8 @@ const TopSpeakerList: React.FC = () => {
 			<AddTopSpeaker />
 			<UpdateTopSpeaker />
 			<DeleteTopSpeaker />
-			{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <UpdateTopSpeaker />}
-			{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <DeleteTopSpeaker />}
+			{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && <UpdateTopSpeaker />}
+			{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && <DeleteTopSpeaker />}
 		</div>
 	);
 };

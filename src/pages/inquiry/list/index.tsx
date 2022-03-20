@@ -57,7 +57,7 @@ const InquiryList: React.FC = () => {
 		{ dataField: "name", text: "Title", headerStyle: { width: "200px" } },
 		{ dataField: "email", text: "Email", headerStyle: { width: "200px" } },
 		{
-			dataField: "dateTime",
+			dataField: "createdAt",
 			text: "Date & Time",
 			headerStyle: { width: "220px" },
 			formatter: (cell: string) => {
@@ -75,19 +75,7 @@ const InquiryList: React.FC = () => {
 						<i className="fas fa-ellipsis-h"></i>
 					</span>
 					<div className="dropdown-menu dropdown-menu-right">
-						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
-							<button className="dropdown-item" onClick={(e) => handleSetDeleteInquiry(e, row._id)}>
-								<i className="far fa-trash-alt" /> Archive
-							</button>
-						)}
-
-						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
-							<span className="dropdown-item" onClick={(e) => handleSetUpdateInquiry(e, row._id)}>
-								<i className="far fa-edit" />
-								Edit
-							</span>
-						)}
-						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+						{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
 							<span className="dropdown-item" onClick={(e) => handleSetDeleteInquiry(e, row._id)}>
 								<i className="far fa-trash-alt" /> Delete
 							</span>
@@ -99,17 +87,8 @@ const InquiryList: React.FC = () => {
 	};
 
 	const handleSetDeleteInquiry = (inquiry: any, inquiryId: string) => {
-		if (inquiry && (permission === "ROOT_ADMIN" || permission === "ADMIN")) {
-			dispatch(setInquiryId(inquiryId));
-			$("#inquiryDeleteModal").modal("show");
-		}
-	};
-
-	const handleSetUpdateInquiry = (inquiry: any, inquiryId: string) => {
-		if (inquiry && (permission === "ROOT_ADMIN" || permission === "ADMIN")) {
-			dispatch(setInquiryId(inquiryId));
-			$("#inquiryUpdateModal").modal("show");
-		}
+		dispatch(setInquiryId(inquiryId));
+		$("#inquiryDeleteModal").modal("show");
 	};
 
 	const handleViewClick = (inquiry: any, type: string) => {
@@ -231,7 +210,7 @@ const InquiryList: React.FC = () => {
 			) : (
 				<InquiryLoader />
 			)}
-			{(permission === "ROOT_ADMIN" || permission === "ADMIN") && <DeleteInquiry />}
+			{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && <DeleteInquiry />}
 		</div>
 	);
 };

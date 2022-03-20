@@ -119,7 +119,7 @@ const ApplicationList: React.FC = () => {
 						<i className="fas fa-ellipsis-h"></i>
 					</span>
 					<div className="dropdown-menu dropdown-menu-right">
-						{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+						{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
 							<button className="dropdown-item" onClick={() => handleSetDeleteApplication(row._id)}>
 								<i className="far fa-trash-alt" /> Delete
 							</button>
