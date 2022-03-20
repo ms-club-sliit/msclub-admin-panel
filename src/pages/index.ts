@@ -11,6 +11,7 @@ import Dashboard from "./dashboard";
 import DeletedApplicationList from "./application/list/delete";
 import TopSpeakerList from "./top-speaker/list";
 import DeletedTopSpeakerList from "./top-speaker/list/delete";
+import LoginFaceAuthentication from "./login-face-authentication";
 
 export {
 	DeletedTopSpeakerList,
@@ -18,6 +19,7 @@ export {
 	EventList,
 	DeletedEventList,
 	Login,
+	LoginFaceAuthentication,
 	WebinarList,
 	SettingsPage,
 	ApplicationList,

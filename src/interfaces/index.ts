@@ -7,6 +7,7 @@ import { IInquiry, IInquiryStore } from "./IInquiry";
 import { ILoginState, ILoginFormData } from "./ILogin";
 import { IOrganization, IOrganizationStore } from "./IOrganization";
 import { IWebinar, IWebinarStore, IwebinarFormData, IWebinarState } from "./IWebinar";
+import { ILoginFaceAuthenticationState } from "./ILoginFaceAuthentication";
 
 export type {
 	IEvent,
@@ -37,4 +38,5 @@ export type {
 	IOrganizationStore,
 	IInterviewState,
 	IInterviewFormData,
+	ILoginFaceAuthenticationState,
 };

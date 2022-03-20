@@ -9,6 +9,7 @@ import {
 	EventList,
 	DeletedEventList,
 	Login,
+	LoginFaceAuthentication,
 	WebinarList,
 	DeletedWebinarList,
 	ApplicationList,
@@ -53,6 +54,7 @@ const PageRoutes: React.FC = () => {
 						<PrivateRoute path="/inquiries" component={InquiryList} />
 						<PrivateRoute path="/speakers" component={TopSpeakerList} />
 						<Route path="/signin" component={Login} exact />
+						<Route path="/signin/faceauth" component={LoginFaceAuthentication} exact />
 						<PrivateRoute path="/" component={Dashboard} />
 					</Switch>
 				</div>
