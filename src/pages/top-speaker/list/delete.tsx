@@ -9,6 +9,7 @@ import moment from "moment";
 import { useHistory } from "react-router-dom";
 import RecoverDeletedTopSpeaker from "../recover-delete";
 import PermanentDeleteTopSpeaker from "../permenent-delete";
+import { translation } from "../../../locales/en-US/translation.json";
 
 const DeletedTopSpeakerList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -50,11 +51,11 @@ const DeletedTopSpeakerList: React.FC = () => {
 	const tableColumnData = [
 		{
 			dataField: "actions",
-			text: "Actions",
+			text: translation.table["table-action-header"],
 			formatter: (cell: any, row: ITopSpeaker) => actionButtonFormatter(row),
 			headerStyle: { width: "90px" },
 		},
-		{ dataField: "title", text: "Title", headerStyle: { width: "200px" } },
+		{ dataField: "title", text: translation.table["table-title-header"], headerStyle: { width: "200px" } },
 		{
 			dataField: "topSpeakerType",
 			text: "Type",
@@ -63,7 +64,9 @@ const DeletedTopSpeakerList: React.FC = () => {
 				return (
 					<div>
 						{cell === "DELETED" ? (
-							<span className="badge rounded-pill bg-primary text-light">Deleted Top Speakers</span>
+							<span className="badge rounded-pill bg-primary text-light">
+								{translation["table-type-header-label"]["top-speakers"]["deleted-top-speakers"]}
+							</span>
 						) : null}
 					</div>
 				);
@@ -71,7 +74,7 @@ const DeletedTopSpeakerList: React.FC = () => {
 		},
 		{
 			dataField: "dateTime",
-			text: "Date & Time",
+			text: translation.table["table-date-time-header"],
 			headerStyle: { width: "220px" },
 			formatter: (cell: string) => {
 				return moment(cell).format("LLL");
@@ -79,7 +82,7 @@ const DeletedTopSpeakerList: React.FC = () => {
 		},
 		{
 			dataField: "deletedAt",
-			text: "Deleted At",
+			text: translation.table["table-deleted-at-header"],
 			headerStyle: { width: "220px" },
 			formatter: (cell: string) => {
 				return moment(cell).format("LLL");
@@ -87,7 +90,7 @@ const DeletedTopSpeakerList: React.FC = () => {
 		},
 		{
 			dataField: "updatedBy",
-			text: "Deleted By",
+			text: translation.table["table-deleted-by-header"],
 			headerStyle: { width: "250px" },
 			formatter: (cell: IModifiedBy[]) => {
 				let lastModifiedUser = cell.slice(-1)[0];
@@ -139,13 +142,13 @@ const DeletedTopSpeakerList: React.FC = () => {
 							<div className="dropdown-menu dropdown-menu-right">
 								{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
 									<button className="dropdown-item" onClick={(e) => handleRecoverDeletedTopSpeaker(e, row._id)}>
-										<i className="fas fa-undo" /> Recover
+										<i className="fas fa-undo" /> {translation["data-row-action-dropdown"].recover}
 									</button>
 								)}
 
 								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
 									<button className="dropdown-item" onClick={(e) => handlePermenentDeleteTopSpeaker(e, row._id)}>
-										<i className="far fa-trash-alt" /> Delete Permanently
+										<i className="far fa-trash-alt" /> {translation["data-row-action-dropdown"]["delete-permanently"]}
 									</button>
 								)}
 							</div>
@@ -182,7 +185,7 @@ const DeletedTopSpeakerList: React.FC = () => {
 		},
 		renderer: (row: ITopSpeaker) => (
 			<div>
-				<h5>Top Speaker Information</h5>
+				<h5>{translation["table-row-information"]["top-speakers-information"]["top-speakers-information-title"]}</h5>
 				<div className="row">
 					<div className="col-md-3 col-sm-12">
 						<img
@@ -194,7 +197,7 @@ const DeletedTopSpeakerList: React.FC = () => {
 					<div className="col-md-9 col-sm-12">
 						<h6 className="row-header">
 							<span className="fas fa-align-left my-2" />
-							&nbsp; Description
+							&nbsp; {translation["table-row-information"]["common-information"].description}
 						</h6>
 						<p>{convertToPlain(row.description)}</p>
 					</div>
@@ -211,8 +214,10 @@ const DeletedTopSpeakerList: React.FC = () => {
 		<div className="card">
 			<div className="row">
 				<div className="col-6">
-					<h3 className="page-title">Top Speakers</h3>
-					<p className="page-description text-muted">Manage all the top speaker informations</p>
+					<h3 className="page-title">{translation["page-title"]["top-speakers-page-header"]}</h3>
+					<p className="page-description text-muted">
+						{translation["page-description"]["top-speakers-page-description"]}
+					</p>
 				</div>
 				<div className="col-6">
 					<div className="d-flex justify-content-end">
@@ -222,7 +227,7 @@ const DeletedTopSpeakerList: React.FC = () => {
 							data-mdb-target="#addTopSpeakerModal"
 						>
 							<span className="fas fa-plus" />
-							<span className="mx-2">Add New Top Speaker</span>
+							<span className="mx-2">{translation.buttons["add-new-button"]["top-speakers"]}</span>
 						</button>
 					</div>
 				</div>
@@ -231,7 +236,7 @@ const DeletedTopSpeakerList: React.FC = () => {
 			<div>
 				<div className="d-flex">
 					<button className="btn btn-sm btn-light shadow-none btn-rounded" onClick={handleGoBackToTopSpeakers}>
-						Go Back
+						{translation["table-data-filter-label"]["go-back"]}
 					</button>
 				</div>
 			</div>
@@ -243,8 +248,7 @@ const DeletedTopSpeakerList: React.FC = () => {
 							<SearchBar {...props.searchProps} placeholder="Search topSpeakers" className="mb-3 search-bar" />
 						</div>
 						<p className="table-description text-muted">
-							*If you experience any difficulty in viewing the top speaker information, please make sure your cache is
-							cleared and completed a hard refresh.
+							{translation["table-description"]["top-speakers-table-description"]}
 						</p>
 						<BootstrapTable
 							{...props.baseProps}

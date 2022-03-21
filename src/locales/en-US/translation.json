@@ -98,6 +98,9 @@
 			"webinar-table": {
 				"past-webinar": "Past Webinar",
 				"upcomming-event": "Upcomming Webinar"
+			},
+			"top-speakers": {
+				"deleted-top-speakers": "Deleted Top Speakers"
 			}
 		},
 		"action-modal": {
@@ -129,7 +132,21 @@
 					"message": "Are you sure about recovering this deleted Webinar?"
 				},
 				"webinar-input-descrption": {
-					"tangs": "Sperate tag names using , (example: ITP, GitHub, Microservice)"
+					"tags": "Sperate tag names using , (example: ITP, GitHub, Microservice)"
+				}
+			},
+			"top-speakers": {
+				"top-speakers-remove": {
+					"title": "Remove Top Speaker",
+					"message": "Are you sure about deleting this top speaker information?"
+				},
+				"top-speakers-permanently-delete": {
+					"title": "Permanent Remove Top Speaker",
+					"message": "Are you sure about deleting this top speaker information?"
+				},
+				"top-speakers-recover": {
+					"title": "Recover Deleted Top Speaker",
+					"message": "Are you sure about recovering this deleted Top Speaker?"
 				}
 			}
 		},
@@ -203,6 +220,36 @@
 				"edit": {
 					"title": "Edit Webinar Document",
 					"current-webinar-flyer": "Current Webinar Flyer"
+				}
+			},
+			"top-speakers": {
+				"title": "Add New Top Speaker",
+				"label": {
+					"top-speakers-title": "Top Speaker Title",
+					"facebook": "Facebook",
+					"instagram": "Instagram",
+					"twitter": "Twitter",
+					"linkedIn": "LinkedIn",
+					"website": "Website"
+				},
+				"validation-message": {
+					"top-speakers-image": "Top speaker image is required",
+					"top-speakers-title": "Top speaker title is required",
+					"url": "URL is required"
+				},
+
+				"view": {
+					"title": "Top Speaker Document",
+					"top-speakers-title": "Top SpeakerTitle:",
+					"facebook": "Facebook Link :",
+					"instagram": "Instagram Link : ",
+					"twitter": "Twitter Link :",
+					"linkedIn": "LinkedIn Link :",
+					"website": "Website Link :"
+				},
+				"edit": {
+					"title": "Edit Top Speaker",
+					"current-top-speakers-image": "Current Top Speaker Image"
 				}
 			},
 			"common-label": {

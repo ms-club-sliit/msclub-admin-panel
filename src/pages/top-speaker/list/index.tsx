@@ -73,7 +73,9 @@ const TopSpeakerList: React.FC = () => {
 				return (
 					<div>
 						{cell === "DELETED" ? (
-							<span className="badge rounded-pill bg-primary text-light">Deleted Top Speakers</span>
+							<span className="badge rounded-pill bg-primary text-light">
+								{translation["table-type-header-label"]["top-speakers"]["deleted-top-speakers"]}
+							</span>
 						) : null}
 					</div>
 				);

@@ -7,6 +7,7 @@ import {
 } from "../../../store/top-speaker-store/topSpeakerActions";
 import { ITopSpeaker } from "../../../interfaces";
 import { toastNotification } from "../../../constants";
+import { translation } from "../../../locales/en-US/translation.json";
 
 const PermanentDeleteTopSpeaker: React.FC = () => {
 	const dispatch = useDispatch();
@@ -67,21 +68,23 @@ const PermanentDeleteTopSpeaker: React.FC = () => {
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title" id="exampleModalLabel">
-								Permanent Remove Top Speaker
+								{translation["action-modal"]["top-speakers"]["top-speakers-permanently-delete"].title}
 							</h5>
 							<button type="button" className="btn-close" onClick={closeModal}></button>
 						</div>
 
 						<div className="modal-body">
-							<div className="text">Are you sure about deleting this top speaker information?</div>
+							<div className="text">
+								{translation["action-modal"]["top-speakers"]["top-speakers-permanently-delete"].message}
+							</div>
 						</div>
 
 						<div className="modal-footer">
 							<button type="button" className="btn btn-light shadow-none btn-rounded" onClick={closeModal}>
-								No
+								{translation.buttons.common.no}
 							</button>
 							<button type="button" className="btn btn-primary shadow-none btn-rounded" onClick={onSubmit}>
-								Yes
+								{translation.buttons.common.yes}
 							</button>
 						</div>
 					</div>

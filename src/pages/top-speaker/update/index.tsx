@@ -5,6 +5,7 @@ import { ITopSpeaker, ITopSpeakerState, ITopSpeakerFormData } from "../../../int
 import ImageCanvas from "../../../components/image-canvas";
 import RichTextEditor from "react-rte";
 import { ToolBarConfig } from "../../../constants";
+import { translation } from "../../../locales/en-US/translation.json";
 
 let formData: ITopSpeakerFormData = {
 	imageSrc: null,
@@ -178,14 +179,16 @@ const UpdateTopSpeaker: React.FC = () => {
 				<div className="modal-content">
 					<div className="modal-header">
 						<h5 className="modal-title" id="exampleModalLabel">
-							Edit Top Speaker
+							{translation.forms["top-speakers"].edit.title}
 						</h5>
 						<button type="button" className="btn-close" onClick={closeModal}></button>
 					</div>
 					<div className="modal-body update-topSpeaker">
 						<div className="row mx-5">
 							<div className="col-md-6">
-								<span className="flyer-title">Current Top Speaker Image</span>
+								<span className="flyer-title">
+									{translation.forms["top-speakers"].edit["current-top-speakers-image"]}
+								</span>
 								<img
 									src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${topSpeakerDetails?.imageUrl}`}
 									className="flyer"
@@ -197,7 +200,9 @@ const UpdateTopSpeaker: React.FC = () => {
 									<ImageCanvas width={300} height={300} getEditedImage={handleImage} />
 									<div className="d-flex justify-content-center">
 										{formData.imageSrc === null && isFormNotValid ? (
-											<span className="text-danger validation-message my-2">Top Speaker image is required</span>
+											<span className="text-danger validation-message my-2">
+												{translation.forms["top-speakers"]["validation-message"]["top-speakers-image"]}
+											</span>
 										) : null}
 									</div>
 								</div>
@@ -208,7 +213,7 @@ const UpdateTopSpeaker: React.FC = () => {
 							<div className="form-group row my-3">
 								<label className="col-sm-3 col-form-label form-label text-dark">
 									<i className="far fa-file-alt fa-sm" />
-									&nbsp;Top Speaker Title
+									&nbsp;{translation.forms["top-speakers"].label["top-speakers-title"]}
 								</label>
 								<div className="col-sm-9">
 									<input
@@ -219,7 +224,9 @@ const UpdateTopSpeaker: React.FC = () => {
 										onChange={onChange}
 									/>
 									{formData.topSpeakerName === null && isFormNotValid ? (
-										<span className="text-danger validation-message">Top speaker title is required</span>
+										<span className="text-danger validation-message">
+											{translation.forms["top-speakers"]["validation-message"]["top-speakers-title"]}
+										</span>
 									) : null}
 								</div>
 							</div>
@@ -227,7 +234,7 @@ const UpdateTopSpeaker: React.FC = () => {
 							<div className="form-group row my-3">
 								<label className="col-sm-3 col-form-label form-label text-dark">
 									<i className="fas fa-link fa-sm" />
-									&nbsp;Facebook
+									&nbsp;{translation.forms["top-speakers"].label.facebook}
 								</label>
 								<div className="col-sm-9">
 									<input
@@ -238,7 +245,9 @@ const UpdateTopSpeaker: React.FC = () => {
 										onChange={onChangeSocialMedia}
 									/>
 									{formData.socialMediaURLs.facebook === null && isFormNotValid ? (
-										<span className="text-danger validation-message">URL is required</span>
+										<span className="text-danger validation-message">
+											{translation.forms["top-speakers"]["validation-message"].url}
+										</span>
 									) : null}
 								</div>
 							</div>
@@ -246,7 +255,7 @@ const UpdateTopSpeaker: React.FC = () => {
 							<div className="form-group row my-3">
 								<label className="col-sm-3 col-form-label form-label text-dark">
 									<i className="fas fa-link fa-sm" />
-									&nbsp;Instagram
+									&nbsp;{translation.forms["top-speakers"].label.instagram}
 								</label>
 								<div className="col-sm-9">
 									<input
@@ -257,7 +266,9 @@ const UpdateTopSpeaker: React.FC = () => {
 										onChange={onChange}
 									/>
 									{formData.socialMediaURLs.instagram === null && isFormNotValid ? (
-										<span className="text-danger validation-message">URL is required</span>
+										<span className="text-danger validation-message">
+											{translation.forms["top-speakers"]["validation-message"].url}
+										</span>
 									) : null}
 								</div>
 							</div>
@@ -265,7 +276,7 @@ const UpdateTopSpeaker: React.FC = () => {
 							<div className="form-group row my-3">
 								<label className="col-sm-3 col-form-label form-label text-dark">
 									<i className="fas fa-link fa-sm" />
-									&nbsp;Twitter
+									&nbsp;{translation.forms["top-speakers"].label.twitter}
 								</label>
 								<div className="col-sm-9">
 									<input
@@ -276,7 +287,9 @@ const UpdateTopSpeaker: React.FC = () => {
 										onChange={onChange}
 									/>
 									{formData.socialMediaURLs.twitter === null && isFormNotValid ? (
-										<span className="text-danger validation-message">URL is required</span>
+										<span className="text-danger validation-message">
+											{translation.forms["top-speakers"]["validation-message"].url}
+										</span>
 									) : null}
 								</div>
 							</div>
@@ -284,7 +297,7 @@ const UpdateTopSpeaker: React.FC = () => {
 							<div className="form-group row my-3">
 								<label className="col-sm-3 col-form-label form-label text-dark">
 									<i className="fas fa-link fa-sm" />
-									&nbsp;LinkedIn
+									&nbsp;{translation.forms["top-speakers"].label.linkedIn}
 								</label>
 								<div className="col-sm-9">
 									<input
@@ -295,7 +308,9 @@ const UpdateTopSpeaker: React.FC = () => {
 										onChange={onChange}
 									/>
 									{formData.socialMediaURLs.linkedIn === null && isFormNotValid ? (
-										<span className="text-danger validation-message">URL is required</span>
+										<span className="text-danger validation-message">
+											{translation.forms["top-speakers"]["validation-message"].url}
+										</span>
 									) : null}
 								</div>
 							</div>
@@ -303,19 +318,21 @@ const UpdateTopSpeaker: React.FC = () => {
 							<div className="form-group row my-3">
 								<label className="col-sm-3 col-form-label form-label text-dark">
 									<i className="fas fa-link fa-sm" />
-									&nbsp;Website
+									&nbsp;{translation.forms["top-speakers"].label.website}
 								</label>
 								<div className="col-sm-9">
 									<input type="text" className="form-control" name="web" value={web as string} onChange={onChange} />
 									{formData.socialMediaURLs.web === null && isFormNotValid ? (
-										<span className="text-danger validation-message">URL is required</span>
+										<span className="text-danger validation-message">
+											{translation.forms["top-speakers"]["validation-message"].url}
+										</span>
 									) : null}
 								</div>
 							</div>
 							<div className="form-group row my-3 mx-5">
 								<label className="col-sm-12 col-form-label form-label text-dark">
 									<i className="fas fa-align-left" />
-									&nbsp;Description
+									&nbsp;{translation.forms["common-label"].description}
 								</label>
 								<div className="col-sm-12">
 									<RichTextEditor
@@ -330,10 +347,10 @@ const UpdateTopSpeaker: React.FC = () => {
 
 							<div className="modal-footer">
 								<button type="button" className="btn btn-light shadow-none btn-rounded" onClick={closeModal}>
-									Cancel
+									{translation.buttons.common.cancel}
 								</button>
 								<button type="button" className="btn btn-primary shadow-none btn-rounded" onClick={onSubmit}>
-									Update
+									{translation.buttons.common.submit}
 								</button>
 							</div>
 						</div>
