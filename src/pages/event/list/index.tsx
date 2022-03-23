@@ -5,6 +5,7 @@ import { IEvent, IModifiedBy } from "../../../interfaces";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
+import { translation } from "../../../locales/en-US/translation.json";
 import moment from "moment";
 import EventView from "../view";
 import AddEvent from "../add";
@@ -60,29 +61,35 @@ const EventList: React.FC = () => {
 	const tableColumnData = [
 		{
 			dataField: "actions",
-			text: "Actions",
+			text: translation.table["table-action-header"],
 			formatter: (cell: any, row: IEvent) => actionButtonFormatter(row),
 			headerStyle: { width: "90px" },
 		},
-		{ dataField: "title", text: "Title", headerStyle: { width: "200px" } },
+		{ dataField: "title", text: translation.table["table-title-header"], headerStyle: { width: "200px" } },
 		{
 			dataField: "eventType",
-			text: "Type",
+			text: translation.table["table-type-header"],
 			headerStyle: { width: "110px" },
 			formatter: (cell: string) => {
 				return (
 					<div>
 						{cell === "UPCOMING" ? (
-							<span className="badge rounded-pill bg-primary text-light">Upcoming Event</span>
+							<span className="badge rounded-pill bg-primary text-light">
+								{translation["table-type-header-label"]["event-table"]["upcoming-event"]}
+							</span>
 						) : null}
-						{cell === "PAST" ? <span className="badge rounded-pill bg-warning text-dark">Past Event</span> : null}
+						{cell === "PAST" ? (
+							<span className="badge rounded-pill bg-warning text-dark">
+								{translation["table-type-header-label"]["event-table"]["past-event"]}
+							</span>
+						) : null}
 					</div>
 				);
 			},
 		},
 		{
 			dataField: "dateTime",
-			text: "Date & Time",
+			text: translation.table["table-date-time-header"],
 			headerStyle: { width: "220px" },
 			formatter: (cell: string) => {
 				return moment(cell).format("LLL");
@@ -90,7 +97,7 @@ const EventList: React.FC = () => {
 		},
 		{
 			dataField: "updatedAt",
-			text: "Last Modified At",
+			text: translation.table["table-last-modified-at-header"],
 			headerStyle: { width: "220px" },
 			formatter: (cell: string) => {
 				return moment(cell).format("LLL");
@@ -98,7 +105,7 @@ const EventList: React.FC = () => {
 		},
 		{
 			dataField: "updatedBy",
-			text: "Last Modified By",
+			text: translation.table["table-last-modified-by-header"],
 			headerStyle: { width: "250px" },
 			formatter: (cell: IModifiedBy[]) => {
 				let lastModifiedUser = cell.slice(-1)[0];
@@ -133,16 +140,17 @@ const EventList: React.FC = () => {
 					</span>
 					<div className="dropdown-menu dropdown-menu-right">
 						<span className="dropdown-item" onClick={(e) => handleSetViewEvent(e, row._id)}>
-							<i className="far fa-eye" /> View
+							<i className="far fa-eye" /> {translation["data-row-action-dropdown"]["view-button"]}
 						</span>
 						{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
 							<span className="dropdown-item" onClick={(e) => handleSetUpdateEvent(e, row._id)}>
-								<i className="far fa-edit" /> Edit
+								<i className="far fa-edit" />
+								{translation["data-row-action-dropdown"]["edit-button"]}
 							</span>
 						)}
 						{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
 							<button className="dropdown-item" onClick={(e) => handleSetDeleteEvent(e, row._id)}>
-								<i className="far fa-trash-alt" /> Delete
+								<i className="far fa-trash-alt" /> {translation["data-row-action-dropdown"]["delete-button"]}
 							</button>
 						)}
 					</div>
@@ -194,7 +202,7 @@ const EventList: React.FC = () => {
 		},
 		renderer: (row: IEvent) => (
 			<div>
-				<h5>Event Information</h5>
+				<h5>{translation["table-row-information"]["event-information"]["event-information-title"]}</h5>
 				<div className="row">
 					<div className="col-md-3 col-sm-12">
 						<img
@@ -205,14 +213,16 @@ const EventList: React.FC = () => {
 					</div>
 					<div className="col-md-9 col-sm-12">
 						<h6 className="row-header">
-							<span className="fas fa-link" /> &nbsp; Event Link
+							<span className="fas fa-link" /> &nbsp;{" "}
+							{translation["table-row-information"]["event-information"]["event-link"]}
 						</h6>
 						<a href={row.link} target="_blank" rel="noreferrer">
 							{row.link}
 						</a>
 
 						<h6 className="row-header my-3">
-							<span className="fas fa-link" /> &nbsp; Registration Link
+							<span className="fas fa-link" /> &nbsp;{" "}
+							{translation["table-row-information"]["common-information"]["registration-link"]}
 						</h6>
 						<a href={row.registrationLink} target="_blank" rel="noreferrer">
 							{row.registrationLink}
@@ -221,7 +231,8 @@ const EventList: React.FC = () => {
 						{row.tags && row.tags.length > 0 ? (
 							<div>
 								<h6 className="row-header my-3">
-									<span className="fas fa-tags" /> Tags &nbsp;
+									<span className="fas fa-tags" /> {translation["table-row-information"]["common-information"].tags}{" "}
+									&nbsp;
 								</h6>
 								<div className="d-flex">
 									{row.tags.map((tag, index) => (
@@ -235,7 +246,7 @@ const EventList: React.FC = () => {
 
 						<h6 className="row-header">
 							<span className="fas fa-align-left my-2" />
-							&nbsp; Description
+							&nbsp; {translation["table-row-information"]["common-information"].description}
 						</h6>
 						<p>{convertToPlain(row.description)}</p>
 					</div>
@@ -275,8 +286,8 @@ const EventList: React.FC = () => {
 				<div>
 					<div className="row">
 						<div className="col-6">
-							<h3 className="page-title">Events</h3>
-							<p className="page-description text-muted">Manage all the event informations</p>
+							<h3 className="page-title">{translation["page-title"]["event-page-header"]}</h3>
+							<p className="page-description text-muted">{translation["page-description"]["event-page-description"]}</p>
 						</div>
 						<div className="col-6">
 							<div className="d-flex justify-content-end">
@@ -286,7 +297,7 @@ const EventList: React.FC = () => {
 									data-mdb-target="#addEventModal"
 								>
 									<span className="fas fa-plus" />
-									<span className="mx-2">Add New Event</span>
+									<span className="mx-2">{translation.buttons["add-new-button"].events}</span>
 								</button>
 							</div>
 						</div>
@@ -298,7 +309,7 @@ const EventList: React.FC = () => {
 								className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
 								onClick={(e) => handleViewClick(e, "All")}
 							>
-								All
+								{translation["table-data-filter-label"].all}
 							</button>
 							&nbsp;
 							<button
@@ -307,21 +318,21 @@ const EventList: React.FC = () => {
 								} btn-rounded shadow-none`}
 								onClick={(e) => handleViewClick(e, "Upcoming")}
 							>
-								Upcoming
+								{translation["table-data-filter-label"].upcoming}
 							</button>
 							&nbsp;
 							<button
 								className={`btn btn-sm ${selectedTab === "Past" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
 								onClick={(e) => handleViewClick(e, "Past")}
 							>
-								Past
+								{translation["table-data-filter-label"].past}
 							</button>
 							&nbsp;
 							<button
 								className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
 								onClick={(e) => handleDeletedEventClick(e)}
 							>
-								Deleted
+								{translation["table-data-filter-label"].deleted}
 							</button>
 						</div>
 					</div>
@@ -338,8 +349,7 @@ const EventList: React.FC = () => {
 									<SearchBar {...props.searchProps} placeholder="Search events" className="mb-3 search-bar" />
 								</div>
 								<p className="table-description text-muted">
-									*If you experience any difficulty in viewing the event information, please make sure your cache is
-									cleared and completed a hard refresh.
+									{translation["table-description"]["event-table-description"]}
 								</p>
 								<BootstrapTable
 									{...props.baseProps}

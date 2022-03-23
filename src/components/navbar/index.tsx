@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ApplicationConstants } from "../../constants";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { translation } from "../../locales/en-US/translation.json";
 
 const NavBar: React.FC = () => {
 	const state = useSelector((state) => state.userReducer);
@@ -95,7 +96,7 @@ const NavBar: React.FC = () => {
 								</li>
 							))}
 							<li onClick={handleLogOut}>
-								<span className="dropdown-item">Logout</span>
+								<span className="dropdown-item">{translation["nav-bar"]["log-out"]}</span>
 							</li>
 						</ul>
 					</div>

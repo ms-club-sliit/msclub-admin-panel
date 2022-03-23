@@ -7,6 +7,7 @@ import {
 	changeApplicationStatusIntoInterview,
 } from "../../../store/application-store/applicationActions";
 import { IInterviewState, IInterviewFormData, IApplication } from "../../../interfaces";
+import { translation } from "../../../locales/en-US/translation.json";
 
 const options = [
 	{ value: "it19132310@my.sliit.lk", label: "Lasal Hettiarchchi" },
@@ -131,7 +132,7 @@ const ApplicationInterviewForm: React.FC = () => {
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title" id="exampleModalLabel">
-								Interview Details
+								{translation["action-modal"].applications.interview.title}
 							</h5>
 							<button type="button" className="btn-close" onClick={closeModal}></button>
 						</div>
@@ -140,7 +141,7 @@ const ApplicationInterviewForm: React.FC = () => {
 							<div className="form-group row my-3 mx-5">
 								<label className="col-sm-3 col-form-label form-label text-dark">
 									<i className="far fa-clock fa-sm" />
-									&nbsp;Start Time
+									&nbsp;{translation["action-modal"].applications.interview["start-time"]}
 								</label>
 								<div className="col-sm-9">
 									<input
@@ -152,7 +153,9 @@ const ApplicationInterviewForm: React.FC = () => {
 										onChange={onChange}
 									/>
 									{formData.applicationStartDateTime === null && isFormNotValid ? (
-										<span className="text-danger validation-message">Date & time is required</span>
+										<span className="text-danger validation-message">
+											{translation.forms["common-validation-message"]["date-time"]}
+										</span>
 									) : null}
 								</div>
 							</div>
@@ -160,7 +163,7 @@ const ApplicationInterviewForm: React.FC = () => {
 							<div className="form-group row my-3 mx-5">
 								<label className="col-sm-3 col-form-label form-label text-dark">
 									<i className="far fa-clock fa-sm" />
-									&nbsp;End Time
+									&nbsp;{translation["action-modal"].applications.interview["end-time"]}
 								</label>
 								<div className="col-sm-9">
 									<input
@@ -172,7 +175,9 @@ const ApplicationInterviewForm: React.FC = () => {
 										onChange={onChange}
 									/>
 									{formData.applicationEndDateTime === null && isFormNotValid ? (
-										<span className="text-danger validation-message">Date & time is required</span>
+										<span className="text-danger validation-message">
+											{translation.forms["common-validation-message"]["date-time"]}
+										</span>
 									) : null}
 								</div>
 							</div>
@@ -180,7 +185,7 @@ const ApplicationInterviewForm: React.FC = () => {
 							<div className="form-group row mx-5 my-3">
 								<label className="col-sm-3 col-form-label form-label text-dark">
 									<i className="fas fa-check fa-sm" />
-									&nbsp;Platform
+									&nbsp;{translation["action-modal"].applications.interview.platform}
 								</label>
 								<div className="col-sm-9">
 									<select
@@ -189,13 +194,27 @@ const ApplicationInterviewForm: React.FC = () => {
 										value={applicationFormat as string}
 										onChange={onChange}
 									>
-										<option selected>Select Platform</option>
-										<option value="Microsoft Teams">Microsoft Teams</option>
-										<option value="Zoom">Zoom</option>
-										<option value="Google Meets">Google Meets</option>
+										<option selected>
+											{translation["action-modal"].applications.interview["platform-dropdown"]["option-selected-value"]}
+										</option>
+										<option value="Microsoft Teams">
+											{translation["action-modal"].applications.interview["platform-dropdown"]["microsoft-teams"]}
+										</option>
+										<option value="Zoom">
+											{translation["action-modal"].applications.interview["platform-dropdown"].zoom}
+										</option>
+										<option value="Google Meets">
+											{translation["action-modal"].applications.interview["platform-dropdown"]["google-meets"]}
+										</option>
 									</select>
 									{formData.applicationFormat === null && isFormNotValid ? (
-										<span className="text-danger validation-message">Platform is required</span>
+										<span className="text-danger validation-message">
+											{
+												translation["action-modal"].applications.interview["platform-dropdown"][
+													"platform-validation-message"
+												]
+											}
+										</span>
 									) : null}
 								</div>
 							</div>
@@ -203,7 +222,7 @@ const ApplicationInterviewForm: React.FC = () => {
 							<div className="form-group row mx-5 my-3">
 								<label className="col-sm-3 col-form-label form-label text-dark">
 									<i className="fas fa-check fa-sm" />
-									&nbsp;Attendees
+									&nbsp;{translation["action-modal"].applications.interview.attendees}
 								</label>
 								<div className="col-sm-9">
 									<MultiSelect options={options} value={selected} onChange={setSelected} labelledBy="Select" />
@@ -213,10 +232,10 @@ const ApplicationInterviewForm: React.FC = () => {
 
 						<div className="modal-footer">
 							<button type="button" className="btn btn-light shadow-none btn-rounded" onClick={closeModal}>
-								Cancel
+								{translation.buttons.common.cancel}
 							</button>
 							<button type="button" className="btn btn-primary shadow-none btn-rounded" onClick={onSubmit}>
-								Send
+								{translation.buttons.common.send}
 							</button>
 						</div>
 					</div>

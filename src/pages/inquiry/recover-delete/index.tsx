@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { recoverDeletedInquiry, getDeletedInquiries, setInquiryId } from "../../../store/inquiry-store/inquiryAction";
 import { IInquiry } from "../../../interfaces";
 import { toastNotification } from "../../../constants";
+import { translation } from "../../../locales/en-US/translation.json";
 
 const RecoverDeletedInquiry: React.FC = () => {
 	const dispatch = useDispatch();
@@ -61,21 +62,21 @@ const RecoverDeletedInquiry: React.FC = () => {
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title" id="exampleModalLabel">
-								Recover Inquiry
+								{translation["action-modal"].inquiries["inquirie-recover"].title}
 							</h5>
 							<button type="button" className="btn-close" onClick={closeModal}></button>
 						</div>
 
 						<div className="modal-body delete-event">
-							<div className="text">Are you sure about recovering this deleted Inquiry information?</div>
+							<div className="text">{translation["action-modal"].inquiries["inquirie-recover"].message}</div>
 						</div>
 
 						<div className="modal-footer">
 							<button type="button" className="btn btn-light shadow-none btn-rounded" onClick={closeModal}>
-								No
+								{translation.buttons.common.no}
 							</button>
 							<button type="button" className="btn btn-primary shadow-none btn-rounded" onClick={onSubmit}>
-								Yes
+								{translation.buttons.common.yes}
 							</button>
 						</div>
 					</div>

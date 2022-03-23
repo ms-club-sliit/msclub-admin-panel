@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
 import { ITopSpeaker } from "../../../interfaces";
+import { translation } from "../../../locales/en-US/translation.json";
 
 const TopSpeakerView: React.FC = () => {
 	const HtmlToReactParser = require("html-to-react").Parser;
@@ -36,17 +37,17 @@ const TopSpeakerView: React.FC = () => {
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title" id="exampleModalLabel">
-								Top Speaker Document
+								{translation.forms["top-speakers"].view.title}
 							</h5>
 							<button type="button" className="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div className="modal-body">
 							<div className="topSpeaker-view">
-								<h5 className="header">Information</h5>
+								<h5 className="header">{translation.forms["common-row-view"].information}</h5>
 								<div className="form-group row mx-5">
 									<label className="col-sm-3 text-dark text">
 										<i className="far fa-file-alt fa-sm" />
-										&nbsp;Speaker Title :
+										&nbsp;{translation.forms["top-speakers"].view["top-speakers-title"]}
 									</label>
 									<span className="col-sm-9 text-dark text">{topSpeakerDetails?.title}</span>
 								</div>
@@ -54,7 +55,7 @@ const TopSpeakerView: React.FC = () => {
 								<div className="form-group row mx-5 my-2">
 									<label className="col-sm-3 text-dark text">
 										<i className="fas fa-link fa-sm" />
-										&nbsp;Facebook Link :
+										&nbsp;{translation.forms["top-speakers"].view.facebook}
 									</label>
 									<a
 										href={topSpeakerDetails?.socialMediaURLs.facebook || ""}
@@ -69,7 +70,7 @@ const TopSpeakerView: React.FC = () => {
 								<div className="form-group row mx-5 my-2">
 									<label className="col-sm-3 text-dark text">
 										<i className="fas fa-link fa-sm" />
-										&nbsp;Instagram Link :
+										&nbsp;{translation.forms["top-speakers"].view.instagram}
 									</label>
 									<a
 										href={topSpeakerDetails?.socialMediaURLs.instagram || ""}
@@ -84,7 +85,7 @@ const TopSpeakerView: React.FC = () => {
 								<div className="form-group row mx-5 my-2">
 									<label className="col-sm-3 text-dark text">
 										<i className="fas fa-link fa-sm" />
-										&nbsp;Twitter Link :
+										&nbsp;{translation.forms["top-speakers"].view.twitter}
 									</label>
 									<a
 										href={topSpeakerDetails?.socialMediaURLs.twitter || ""}
@@ -99,7 +100,7 @@ const TopSpeakerView: React.FC = () => {
 								<div className="form-group row mx-5 my-2">
 									<label className="col-sm-3 text-dark text">
 										<i className="fas fa-link fa-sm" />
-										&nbsp;LinkedIn Link :
+										&nbsp;{translation.forms["top-speakers"].view.linkedIn}
 									</label>
 									<a
 										href={topSpeakerDetails?.socialMediaURLs.linkedIn || ""}
@@ -114,7 +115,7 @@ const TopSpeakerView: React.FC = () => {
 								<div className="form-group row mx-5 my-2">
 									<label className="col-sm-3 text-dark text">
 										<i className="fas fa-link fa-sm" />
-										&nbsp;Website Link :
+										&nbsp;{translation.forms["top-speakers"].view.website}
 									</label>
 									<a
 										href={topSpeakerDetails?.socialMediaURLs.web || ""}
@@ -129,7 +130,7 @@ const TopSpeakerView: React.FC = () => {
 								<div className="form-group row mx-5">
 									<label className="col-sm-3 text-dark text">
 										<i className="fas fa-align-left" />
-										&nbsp;Description :
+										&nbsp;{translation.forms["common-data-view-label"].description}
 									</label>
 									<span className="col-sm-9 text-dark text">
 										{topSpeakerDetails && convertToPlain(topSpeakerDetails?.description)}
@@ -138,7 +139,7 @@ const TopSpeakerView: React.FC = () => {
 
 								<hr className="mx-5" />
 
-								<h5 className="header">Document History</h5>
+								<h5 className="header">{translation.forms["common-row-view"]["document-history"]}</h5>
 								<div className="form-group row mx-5">
 									<label className="col-sm-3 text-dark text">
 										<i className="far fa-calendar fa-sm" />
@@ -155,7 +156,7 @@ const TopSpeakerView: React.FC = () => {
 								<div className="form-group row mx-5 my-2">
 									<label className="col text-dark text">
 										<i className="far fa-edit fa-sm" />
-										&nbsp;Modification Info :
+										&nbsp;{translation.forms["common-row-view"]["modification-info"]}
 									</label>
 								</div>
 								<div className="form-group row mx-5 my-2">
@@ -201,7 +202,7 @@ const TopSpeakerView: React.FC = () => {
 						</div>
 						<div className="modal-footer">
 							<button type="button" className="btn btn-light shadow-none btn-rounded" data-mdb-dismiss="modal">
-								Close
+								{translation.buttons.common.close}
 							</button>
 						</div>
 					</div>

@@ -4,6 +4,7 @@ import { Doughnut } from "react-chartjs-2";
 import { useSelector } from "react-redux";
 import Loader from "../loader";
 import { IApplication } from "../../../interfaces";
+import { translation } from "../../../locales/en-US/translation.json";
 
 interface IDataSet {
 	label: string;
@@ -84,7 +85,7 @@ const ApplicationStatus: React.FC = () => {
 				{!applicationState.loading ? (
 					<div>
 						<h5 className="m-0">
-							<i className="fa fa-file-text text-info"></i>&nbsp;Application Status
+							<i className="fa fa-file-text text-info"></i>&nbsp;{translation.dashboard["application-status"].title}
 						</h5>
 						<div className="card-body">
 							<div className="chart__container">
@@ -112,32 +113,33 @@ const ApplicationStatus: React.FC = () => {
 							<div className="status__info">
 								<div className="d-flex justify-content-between">
 									<div>
-										<i className="fa fa-clock text-warning"></i>&nbsp;Pending
+										<i className="fa fa-clock text-warning"></i>&nbsp;{translation["table-data-filter-label"].pending}
 									</div>
 									<div>{pendingArr.length > 0 ? pendingArr.length : 0}</div>
 								</div>
 								<div className="d-flex justify-content-between">
 									<div>
-										<i className="fa fa-video-camera text-primary"></i>&nbsp;Interview
+										<i className="fa fa-video-camera text-primary"></i>&nbsp;
+										{translation["table-data-filter-label"].interview}
 									</div>
 									<div>{interviewArr.length > 0 ? interviewArr.length : 0}</div>
 								</div>
 								<div className="d-flex justify-content-between">
 									<div>
-										<i className="fa fa-check text-success"></i>&nbsp;Selected
+										<i className="fa fa-check text-success"></i>&nbsp;{translation["table-data-filter-label"].selected}
 									</div>
 									<div>{selectedArr.length > 0 ? selectedArr.length : 0}</div>
 								</div>
 								<div className="d-flex justify-content-between">
 									<div>
-										<i className="fa fa-times text-danger"></i>&nbsp;Rejected
+										<i className="fa fa-times text-danger"></i>&nbsp;{translation["table-data-filter-label"].rejected}
 									</div>
 									<div>{rejectedArr.length > 0 ? rejectedArr.length : 0}</div>
 								</div>
 								<hr />
 								<div className="d-flex justify-content-between">
 									<div>
-										<strong>Total</strong>
+										<strong>{translation.dashboard["application-status"].total}</strong>
 									</div>
 									<div>
 										<strong>{applicationState && applicationState.applications.length}</strong>
