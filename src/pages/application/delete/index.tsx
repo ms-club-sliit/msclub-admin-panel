@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deletedApplication, setApplicationId } from "../../../store/application-store/applicationActions";
 import { IApplication } from "../../../interfaces";
 import { toastNotification } from "../../../constants";
+import { translation } from "../../../locales/en-US/translation.json";
 
 const DeleteApplication: React.FC = () => {
 	const dispatch = useDispatch();
@@ -62,21 +63,21 @@ const DeleteApplication: React.FC = () => {
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title" id="exampleModalLabel">
-								Remove Application
+								{translation["action-modal"].applications["applications-remove"].title}
 							</h5>
 							<button type="button" className="btn-close" onClick={closeModal}></button>
 						</div>
 
 						<div className="modal-body">
-							<div className="text">Are you sure about deleting this application information?</div>
+							<div className="text">{translation["action-modal"].applications["applications-remove"].message}</div>
 						</div>
 
 						<div className="modal-footer">
 							<button type="button" className="btn btn-light shadow-none btn-rounded" onClick={closeModal}>
-								No
+								{translation.buttons.common.no}
 							</button>
 							<button type="button" className="btn btn-primary shadow-none btn-rounded" onClick={onSubmit}>
-								Yes
+								{translation.buttons.common.yes}
 							</button>
 						</div>
 					</div>

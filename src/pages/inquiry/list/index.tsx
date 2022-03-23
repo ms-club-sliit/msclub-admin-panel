@@ -9,6 +9,7 @@ import moment from "moment";
 import { useHistory } from "react-router-dom";
 import DeleteInquiry from "../delete";
 import InquiryLoader from "../loader";
+import { translation } from "../../../locales/en-US/translation.json";
 
 const InquiryList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -50,15 +51,15 @@ const InquiryList: React.FC = () => {
 	const tableColumnData = [
 		{
 			dataField: "actions",
-			text: "Actions",
+			text: translation.table["table-action-header"],
 			formatter: (cell: any, row: IInquiry) => actionButtonFormatter(row),
 			headerStyle: { width: "90px" },
 		},
-		{ dataField: "name", text: "Title", headerStyle: { width: "200px" } },
-		{ dataField: "email", text: "Email", headerStyle: { width: "200px" } },
+		{ dataField: "name", text: translation.table["table-title-header"], headerStyle: { width: "200px" } },
+		{ dataField: "email", text: translation.table["table-email-header"], headerStyle: { width: "200px" } },
 		{
 			dataField: "createdAt",
-			text: "Date & Time",
+			text: translation.table["table-date-time-header"],
 			headerStyle: { width: "220px" },
 			formatter: (cell: string) => {
 				return moment(cell).format("LLL");
@@ -77,7 +78,7 @@ const InquiryList: React.FC = () => {
 					<div className="dropdown-menu dropdown-menu-right">
 						{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
 							<span className="dropdown-item" onClick={(e) => handleSetDeleteInquiry(e, row._id)}>
-								<i className="far fa-trash-alt" /> Delete
+								<i className="far fa-trash-alt" /> {translation["data-row-action-dropdown"]["delete-button"]}
 							</span>
 						)}
 					</div>
@@ -132,7 +133,7 @@ const InquiryList: React.FC = () => {
 		},
 		renderer: (row: IInquiry) => (
 			<div>
-				<h5>Message</h5>
+				<h5>{translation["table-row-information"]["common-information"].message}</h5>
 				<div className="row">
 					<div className="col-md-10 col-sm-12">
 						<p>{row.message}</p>
@@ -154,8 +155,10 @@ const InquiryList: React.FC = () => {
 				<div>
 					<div className="row">
 						<div className="col-6">
-							<h3 className="page-title">Inquiries</h3>
-							<p className="page-description text-muted">Manage all the Inquiry informations</p>
+							<h3 className="page-title">{translation["page-title"]["inquiries-page-header"]}</h3>
+							<p className="page-description text-muted">
+								{translation["page-description"]["inquiries-page-description"]}
+							</p>
 						</div>
 					</div>
 
@@ -165,14 +168,14 @@ const InquiryList: React.FC = () => {
 								className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
 								onClick={(e) => handleViewClick(e, "All")}
 							>
-								All
+								{translation["table-data-filter-label"].all}
 							</button>
 							&nbsp;
 							<button
 								className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
 								onClick={(e) => handleDeletedInquriesClick(e)}
 							>
-								Deleted
+								{translation["table-data-filter-label"].deleted}
 							</button>
 						</div>
 					</div>
@@ -189,8 +192,7 @@ const InquiryList: React.FC = () => {
 									<SearchBar {...props.searchProps} placeholder="Search Inquiries" className="mb-3 search-bar" />
 								</div>
 								<p className="table-description text-muted">
-									*If you experience any difficulty in viewing the Inquiry information, please make sure your cache is
-									cleared and completed a hard refresh.
+									{translation["table-description"]["inquiries-table-description"]}
 								</p>
 								<BootstrapTable
 									{...props.baseProps}

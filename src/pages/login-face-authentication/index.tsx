@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ILoginFaceAuthenticationState } from "../../interfaces";
 import { loginUserFaceAuthentication } from "../../store/user-store/userActions";
 import { toastNotification } from "../../constants";
+import { translation } from "../../locales/en-US/translation.json";
 
 const initialState: ILoginFaceAuthenticationState = {
 	isLoading: false,
@@ -58,7 +59,7 @@ const LoginFaceAuthentication: React.FC = () => {
 			<div className="card">
 				<div className="d-flex justify-content-center">
 					<img src="/images/ms_club_logo_crop.png" alt="ms-club-logo" className="logo" />
-					<h4 className="text-dark">Admin Panel</h4>
+					<h4 className="text-dark">{translation.forms.login.title}</h4>
 				</div>
 
 				<div>
@@ -73,13 +74,13 @@ const LoginFaceAuthentication: React.FC = () => {
 										onSubmit(image);
 									}}
 								>
-									Sign In
+									{translation.forms.login["sign-in"]}
 								</button>
 							) : (
 								<button type="button" disabled className="btn btn-primary shadow-none btn-rounded">
 									<span>
 										<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-										<span>Signing...</span>
+										<span>{translation.forms.login.signing}</span>
 									</span>
 								</button>
 							)

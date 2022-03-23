@@ -1,5 +1,22 @@
 {
 	"translation": {
+		"nav-bar": {
+			"log-out": "Logout"
+		},
+		"dashboard": {
+			"application_info": {
+				"title": "Recent Applications"
+			},
+			"application-status": {
+				"title": " Application Status",
+				"total": "Total"
+			},
+			"ms-short": {
+				"title": "MS Short",
+				"description": "Use our tool to create a short, unique URL that will redirect to the specific website",
+				"shorten-button": "Shorten"
+			}
+		},
 		"table": {
 			"table-action-header": "Actions",
 			"table-title-header": "Title",
@@ -11,22 +28,31 @@
 			"table-deleted-by-header": "Deleted By",
 			"table-student-id-header": "Student Id",
 			"table-contact-number-header": "Contact Number",
-			"table-status-header": "Status"
+			"table-status-header": "Status",
+			"table-name-header": "Name",
+			"table-email-header": "Email",
+			"table-message-header": "Message"
 		},
 		"page-title": {
 			"event-page-header": "Events",
 			"webinar-page-header": "Webinar",
-			"top-speakers-page-header": "Top Speakers"
+			"top-speakers-page-header": "Top Speakers",
+			"application-page-header": "Applications",
+			"inquiries-page-header": "Inquiries"
 		},
 		"page-description": {
 			"event-page-description": "Manage all the event informations",
 			"webinar-page-description": "Manage all the Webinar informations",
-			"top-speakers-page-description": "Manage all the Top Speaker informations"
+			"top-speakers-page-description": "Manage all the Top Speaker informations",
+			"application-page-description": "Manage all the application informations",
+			"inquiries-page-description": "Manage all the Inquiry informations"
 		},
 		"table-description": {
 			"event-table-description": "*If you experience any difficulty in viewing the event information, please make sure your cache is cleared and completed a hard refresh.",
 			"webinar-table-description": "*If you experience any difficulty in viewing the webinar information, please make sure your cache is cleared and completed a hard refresh.",
-			"top-speakers-table-description": "*If you experience any difficulty in viewing the top Speaker information, please make sure your cache is cleared and completed a hard refresh."
+			"top-speakers-table-description": "*If you experience any difficulty in viewing the top Speaker information, please make sure your cache is cleared and completed a hard refresh.",
+			"application-table-description": "*If you experience any difficulty in viewing the application information, please make sure your cache is cleared and completed a hard refresh.",
+			"inquiries-table-description": "*If you experience any difficulty in viewing the Inquiry information, please make sure your cache is cleared and completed a hard refresh."
 		},
 
 		"data-row-action-dropdown": {
@@ -49,7 +75,14 @@
 				"cancel": "Cancel",
 				"close": "Close",
 				"submit": "Submit",
-				"update": "update"
+				"update": "update",
+				"send": "Send",
+				"save": "Save"
+			},
+			"applications": {
+				"interview": "INTERVIEW",
+				"selected": "SELECTED",
+				"rejected": "REJECTED"
 			}
 		},
 
@@ -71,10 +104,26 @@
 				"linkedin-link": "Linkedin Link",
 				"website-link": "Website Link"
 			},
+			"applications": {
+				"applications-information-title": "Application Information",
+				"academic-year": "Academic Year",
+				"self-introdction": "Self Introdction",
+				"reason-for-join": "Reason for Join",
+				"linkedIn": "LinkedIn",
+				"gitHub": "GitHub",
+				"goal": "Goal",
+				"blog": "Blog",
+				"experiences": "Experiences",
+				"challenges": "Challenges",
+				"skills-and-talents": "Skills and Talents",
+				"past-works": "Past Work",
+				"deleted-at": "Deleted At"
+			},
 			"common-information": {
 				"tags": "Tags",
 				"description": "Description",
-				"registration-link": "Registration Link"
+				"registration-link": "Registration Link",
+				"message": "Message"
 			}
 		},
 
@@ -87,7 +136,13 @@
 			"interview": "Interview",
 			"selected": "Selected",
 			"rejected": "Rejected",
-			"go-back": "Go Back"
+			"go-back": "Go Back",
+			"applications": {
+				"pending": "PENDING",
+				"interview": "INTERVIEW",
+				"selected": "SELECTED",
+				"rejected": "REJECTED"
+			}
 		},
 
 		"table-type-header-label": {
@@ -148,9 +203,65 @@
 					"title": "Recover Deleted Top Speaker",
 					"message": "Are you sure about recovering this deleted Top Speaker?"
 				}
+			},
+			"applications": {
+				"applications-remove": {
+					"title": "Remove Application",
+					"message": "Are you sure about deleting this application information?"
+				},
+				"interview": {
+					"title": "Interview Details",
+					"start-time": " Start Time",
+					"end-time": "End Time",
+					"platform": "Platform",
+					"attendees": "Attendees",
+					"platform-dropdown": {
+						"option-selected-value": "Selected Platform",
+						"microsoft-teams": "Microsoft Teams",
+						"zoom": "Zoom,",
+						"google-meets": "Google Meets",
+						"platform-validation-message": "Platform is required"
+					}
+				},
+				"applications-recover": {
+					"title": "Recover Deleted Application",
+					"message": "Are you sure about recovering this deleted Application?"
+				}
+			},
+			"inquiries": {
+				"inquirie-remove": {
+					"title": "Remove Inquiry",
+					"message": "Are you sure about deleting this Inquiry information?"
+				},
+				"inquirie-permanently-delete": {
+					"title": "Delete Inquiry",
+					"message": "Are you sure about permanently this deleted inquiry?"
+				},
+				"inquirie-recover": {
+					"title": "Recover Inquiry",
+					"message": "Are you sure about recovering this deleted Inquiry information?"
+				}
 			}
 		},
 		"forms": {
+			"login": {
+				"title": "Admin Panel",
+				"use-face-authentication": "Use Face Authentication",
+				"forgot-password": "Forgot Password",
+				"reset": "Reset",
+				"do-not-have-an-account": "Don't have an account?",
+				"contact-admin": "Contact Admin",
+				"sign-in": "Sign In",
+				"signing": "Signing...",
+				"label": {
+					"username": "Username",
+					"password": "Password"
+				},
+				"validation-message": {
+					"username": "Username is required",
+					"password": "Password is required"
+				}
+			},
 			"event": {
 				"title": "Add New Event",
 				"label": {
@@ -276,6 +387,26 @@
 				"created-at": "Created At :",
 				"modification-info": "Modification Info :"
 			}
+		},
+		"organization-information": {
+			"title": "Organization Information",
+			"name": "Name:",
+			"email": "Email:",
+			"university": "University:",
+			"address": "Address:",
+			"website": "Website"
+		},
+		"setting": {
+			"title": "Settings",
+			"page-description": "Manage the application information",
+			"data-filter-button": {
+				"organization-info": "Organization Info",
+				"Users": "Users"
+			}
+		},
+		"footer": {
+			"copyright": "© 2022 Copyright:",
+			"website": "msclubadmin.com"
 		}
 	}
 }
