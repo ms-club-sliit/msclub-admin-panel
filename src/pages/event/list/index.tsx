@@ -75,7 +75,7 @@ const EventList: React.FC = () => {
 					<div>
 						{cell === "UPCOMING" ? (
 							<span className="badge rounded-pill bg-primary text-light">
-								{translation["table-type-header-label"]["event-table"]["upcomming-event"]}
+								{translation["table-type-header-label"]["event-table"]["upcoming-event"]}
 							</span>
 						) : null}
 						{cell === "PAST" ? (
@@ -318,7 +318,7 @@ const EventList: React.FC = () => {
 								} btn-rounded shadow-none`}
 								onClick={(e) => handleViewClick(e, "Upcoming")}
 							>
-								{translation["table-data-filter-label"].upcomming}
+								{translation["table-data-filter-label"].upcoming}
 							</button>
 							&nbsp;
 							<button

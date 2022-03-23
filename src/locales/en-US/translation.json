@@ -129,7 +129,7 @@
 
 		"table-data-filter-label": {
 			"all": "All",
-			"upcomming": "Upcomming",
+			"upcoming": "Upcoming",
 			"past": "Past",
 			"deleted": "Deleted",
 			"pending": "Pending",
@@ -148,7 +148,7 @@
 		"table-type-header-label": {
 			"event-table": {
 				"past-event": "Past Event",
-				"upcomming-event": "Upcomming Event"
+				"upcoming-event": "Upcoming Event"
 			},
 			"webinar-table": {
 				"past-webinar": "Past Webinar",

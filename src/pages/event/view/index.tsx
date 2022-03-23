@@ -83,7 +83,7 @@ const EventView: React.FC = () => {
 											<span>
 												{eventDetails.eventType === "UPCOMING" ? (
 													<span className="badge rounded-pill bg-primary text-light">
-														{translation["table-type-header-label"]["event-table"]["upcomming-event"]}
+														{translation["table-type-header-label"]["event-table"]["upcoming-event"]}
 													</span>
 												) : null}
 												{eventDetails.eventType === "PAST" ? (

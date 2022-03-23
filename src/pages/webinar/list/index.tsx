@@ -313,7 +313,7 @@ const WebinarList: React.FC = () => {
 								} btn-rounded shadow-none`}
 								onClick={(e) => handleViewClick(e, "Upcoming")}
 							>
-								{translation["table-data-filter-label"].upcomming}
+								{translation["table-data-filter-label"].upcoming}
 							</button>
 							&nbsp;
 							<button

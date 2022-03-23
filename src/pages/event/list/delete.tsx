@@ -79,7 +79,7 @@ const DeletedEventList: React.FC = () => {
 					<div>
 						{cell === "UPCOMING" ? (
 							<span className="badge rounded-pill bg-primary text-light">
-								{translation["table-type-header-label"]["event-table"]["upcomming-event"]}
+								{translation["table-type-header-label"]["event-table"]["upcoming-event"]}
 							</span>
 						) : null}
 						{cell === "PAST" ? (
@@ -147,7 +147,7 @@ const DeletedEventList: React.FC = () => {
 							<div className="dropdown-menu dropdown-menu-right">
 								{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
 									<button className="dropdown-item" onClick={(e) => handleSetRecoverDeletedEvent(e, row._id)}>
-										<i className="fas fa-undo" /> Recover
+										<i className="fas fa-undo" /> {translation["data-row-action-dropdown"].recover}
 									</button>
 								)}
 								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
