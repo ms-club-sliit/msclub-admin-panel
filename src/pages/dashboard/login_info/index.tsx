@@ -13,6 +13,8 @@ const RecentLogin: React.FC = () => {
 	}, [dispatch]);
 	console.log(recentLogins);
 
+	const URL = process.env.REACT_APP_STORAGE_BUCKET_URL + "/" + process.env.REACT_APP_STORAGE_BUCKET_NAME + "/";
+
 	return (
 		<div className="resent__login">
 			<div className="card">
@@ -32,7 +34,7 @@ const RecentLogin: React.FC = () => {
 										firstName={recentLogin.user.firstName}
 										lastName={recentLogin.user.lastName}
 										role={recentLogin.user.permissionLevel}
-										profileIcon="/images/profile.png"
+										profileIcon={URL + recentLogin.user.profileImage}
 									/>
 								))}
 					</div>
