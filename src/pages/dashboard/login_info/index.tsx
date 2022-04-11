@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import moment from "moment";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +10,6 @@ const RecentLogin: React.FC = () => {
 	useEffect(() => {
 		dispatch(getLoginInfo());
 	}, [dispatch]);
-	console.log(recentLogins);
 
 	const URL = process.env.REACT_APP_STORAGE_BUCKET_URL + "/" + process.env.REACT_APP_STORAGE_BUCKET_NAME + "/";
 
