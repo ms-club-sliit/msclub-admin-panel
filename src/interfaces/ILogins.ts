@@ -10,7 +10,6 @@ interface IRecentLogin {
 	user: IUser;
 	createdAt: Date;
 	updatedAt: Date;
-	__v: number;
 }
 
 export type { IRecentLogin, ILoginsStore };
