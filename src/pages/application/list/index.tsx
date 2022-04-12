@@ -14,6 +14,7 @@ import { useHistory } from "react-router-dom";
 import ApplicationInterviewForm from "../interview";
 import DeleteApplication from "../delete";
 import ApplicationLoader from "../loader";
+import { translation } from "../../../locales/en-US/translation.json";
 
 const ApplicationList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -73,37 +74,53 @@ const ApplicationList: React.FC = () => {
 	const tableColumnData = [
 		{
 			dataField: "actions",
-			text: "Actions",
+			text: translation.table["table-action-header"],
 			formatter: (cell: any, row: IApplication) => actionButtonFormatter(row),
 			headerStyle: { width: "90px" },
 		},
 		{ dataField: "name", text: "Name", headerStyle: { width: "200px" } },
 		{
 			dataField: "studentId",
-			text: "Student ID",
+			text: translation.table["table-student-id-header"],
 			headerStyle: { width: "110px" },
 		},
 		{
 			dataField: "email",
-			text: "Email",
+			text: translation.table["table-email-header"],
 			headerStyle: { width: "220px" },
 		},
 		{
 			dataField: "contactNumber",
-			text: "Contact Number",
+			text: translation.table["table-contact-number-header"],
 			headerStyle: { width: "220px" },
 		},
 		{
 			dataField: "status",
-			text: "Status",
+			text: translation.table["table-status-header"],
 			headerStyle: { width: "110px" },
 			formatter: (cell: string) => {
 				return (
 					<div>
-						{cell === "PENDING" ? <span className="badge rounded-pill bg-warning text-light">PENDING</span> : null}
-						{cell === "INTERVIEW" ? <span className="badge rounded-pill bg-primary text-light">INTERVIEW</span> : null}
-						{cell === "SELECTED" ? <span className="badge rounded-pill bg-success text-light">SELECTED</span> : null}
-						{cell === "REJECTED" ? <span className="badge rounded-pill bg-danger text-light">REJECTED</span> : null}
+						{cell === "PENDING" ? (
+							<span className="badge rounded-pill bg-warning text-light">
+								{translation["table-data-filter-label"].applications.pending}
+							</span>
+						) : null}
+						{cell === "INTERVIEW" ? (
+							<span className="badge rounded-pill bg-primary text-light">
+								{translation["table-data-filter-label"].applications.interview}
+							</span>
+						) : null}
+						{cell === "SELECTED" ? (
+							<span className="badge rounded-pill bg-success text-light">
+								{translation["table-data-filter-label"].applications.selected}
+							</span>
+						) : null}
+						{cell === "REJECTED" ? (
+							<span className="badge rounded-pill bg-danger text-light">
+								{translation["table-data-filter-label"].applications.rejected}
+							</span>
+						) : null}
 					</div>
 				);
 			},
@@ -121,7 +138,7 @@ const ApplicationList: React.FC = () => {
 					<div className="dropdown-menu dropdown-menu-right">
 						{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
 							<button className="dropdown-item" onClick={() => handleSetDeleteApplication(row._id)}>
-								<i className="far fa-trash-alt" /> Delete
+								<i className="far fa-trash-alt" /> {translation["data-row-action-dropdown"]["delete-button"]}
 							</button>
 						)}
 					</div>
@@ -171,34 +188,34 @@ const ApplicationList: React.FC = () => {
 		},
 		renderer: (row: IApplication) => (
 			<div>
-				<h5>Application Information</h5>
+				<h5>{translation["table-row-information"].applications["applications-information-title"]}</h5>
 				<div className="row">
 					<div className="col-md-2 col-sm-12">
-						<h5 className="row-header">Academic Year</h5>
+						<h5 className="row-header">{translation["table-row-information"].applications["academic-year"]}</h5>
 					</div>
 					<div className="col-md-10 col-sm-12">
 						<p>{row.currentAcademicYear}</p>
 					</div>
 					<div className="col-md-2 col-sm-12">
-						<h5 className="row-header">Self Introdction</h5>
+						<h5 className="row-header">{translation["table-row-information"].applications["self-introdction"]}</h5>
 					</div>
 					<div className="col-md-10 col-sm-12">
 						<p>{row.selfIntroduction}</p>
 					</div>
 					<div className="col-md-2 col-sm-12">
-						<h5 className="row-header">Reason for Join</h5>
+						<h5 className="row-header">{translation["table-row-information"].applications["reason-for-join"]}</h5>
 					</div>
 					<div className="col-md-10 col-sm-12">
 						<p>{row.reasonForJoin}</p>
 					</div>
 					<div className="col-md-2 col-sm-12">
-						<h5 className="row-header">LinkedIn</h5>
+						<h5 className="row-header">{translation["table-row-information"].applications.linkedIn}</h5>
 					</div>
 					<div className="col-md-10 col-sm-12">
 						<p>{row.linkedIn}</p>
 					</div>
 					<div className="col-md-2 col-sm-12">
-						<h5 className="row-header">GitHub</h5>
+						<h5 className="row-header">{translation["table-row-information"].applications.gitHub}</h5>
 					</div>
 					<div className="col-md-10 col-sm-12">
 						<a href={row.gitHub} target="_blank" rel="noreferrer">
@@ -208,7 +225,7 @@ const ApplicationList: React.FC = () => {
 					{row.blog ? (
 						<>
 							<div className="col-md-2 col-sm-12">
-								<h5 className="row-header">Blog</h5>
+								<h5 className="row-header">{translation["table-row-information"].applications.blog}</h5>
 							</div>
 							<div className="col-md-10 col-sm-12">
 								<p>{row.blog}</p>
@@ -218,7 +235,7 @@ const ApplicationList: React.FC = () => {
 					{row.experiences ? (
 						<>
 							<div className="col-md-2 col-sm-12">
-								<h5 className="row-header">Experiences</h5>
+								<h5 className="row-header">{translation["table-row-information"].applications.experiences}</h5>
 							</div>
 							<div className="col-md-10 col-sm-12">
 								<p>{row.experiences}</p>
@@ -228,7 +245,7 @@ const ApplicationList: React.FC = () => {
 					{row.challenges ? (
 						<>
 							<div className="col-md-2 col-sm-12">
-								<h5 className="row-header">Challenges</h5>
+								<h5 className="row-header">{translation["table-row-information"].applications.challenges}</h5>
 							</div>
 							<div className="col-md-10 col-sm-12">
 								<p>{row.challenges}</p>
@@ -236,13 +253,13 @@ const ApplicationList: React.FC = () => {
 						</>
 					) : null}
 					<div className="col-md-2 col-sm-12">
-						<h5 className="row-header">Goal</h5>
+						<h5 className="row-header">{translation["table-row-information"].applications.goal}</h5>
 					</div>
 					<div className="col-md-10 col-sm-12">
 						<p>{row.goal}</p>
 					</div>
 					<div className="col-md-2 col-sm-12">
-						<h5 className="row-header">Skills and Talents</h5>
+						<h5 className="row-header">{translation["table-row-information"].applications["skills-and-talents"]}</h5>
 					</div>
 					<div className="col-md-10 col-sm-12">
 						{row.skillsAndTalents.map((Skills, index) => (
@@ -256,7 +273,7 @@ const ApplicationList: React.FC = () => {
 					{row.pastWork ? (
 						<>
 							<div className="col-md-2 col-sm-12">
-								<h5 className="row-header">Past Work</h5>
+								<h5 className="row-header">{translation["table-row-information"].applications["past-works"]}</h5>
 							</div>
 							<div className="col-md-10 col-sm-12">
 								<p>{row.pastWork}</p>
@@ -266,7 +283,7 @@ const ApplicationList: React.FC = () => {
 					{row.deletedAt ? (
 						<>
 							<div className="col-md-2 col-sm-12">
-								<h5 className="row-header">Deleted At</h5>
+								<h5 className="row-header">{translation["table-row-information"].applications["deleted-at"]}</h5>
 							</div>
 							<div className="col-md-10 col-sm-12">
 								<p>{row.deletedAt}</p>
@@ -284,7 +301,7 @@ const ApplicationList: React.FC = () => {
 											handleSetApplicationInterview(row._id);
 										}}
 									>
-										INTERVIEW
+										{translation["table-data-filter-label"].applications.interview}
 									</button>
 								)}
 							</div>
@@ -297,7 +314,7 @@ const ApplicationList: React.FC = () => {
 											onSumbitSelected(row._id);
 										}}
 									>
-										SELECTED
+										{translation["table-data-filter-label"].applications.selected}
 									</button>
 								)}
 							</div>
@@ -310,7 +327,7 @@ const ApplicationList: React.FC = () => {
 											onSumbitRejected(row._id);
 										}}
 									>
-										REJECTED
+										{translation["table-data-filter-label"].applications.rejected}
 									</button>
 								)}
 							</div>
@@ -356,8 +373,10 @@ const ApplicationList: React.FC = () => {
 				<div>
 					<div className="row">
 						<div className="col-6">
-							<h3 className="page-title">Applications</h3>
-							<p className="page-description text-muted">Manage all the application informations</p>
+							<h3 className="page-title">{translation["page-title"]["application-page-header"]}</h3>
+							<p className="page-description text-muted">
+								{translation["page-description"]["application-page-description"]}
+							</p>
 						</div>
 					</div>
 
@@ -367,14 +386,14 @@ const ApplicationList: React.FC = () => {
 								className={`btn btn-sm ${selectedTab === "All" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
 								onClick={(e) => handleViewClick(e, "All")}
 							>
-								All
+								{translation["table-data-filter-label"].all}
 							</button>
 							&nbsp;
 							<button
 								className={`btn btn-sm ${selectedTab === "PENDING" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
 								onClick={(e) => handleViewClick(e, "PENDING")}
 							>
-								Pending
+								{translation["table-data-filter-label"].pending}
 							</button>
 							&nbsp;
 							<button
@@ -383,7 +402,7 @@ const ApplicationList: React.FC = () => {
 								} btn-rounded shadow-none`}
 								onClick={(e) => handleViewClick(e, "INTERVIEW")}
 							>
-								Interview
+								{translation["table-data-filter-label"].interview}
 							</button>
 							&nbsp;
 							<button
@@ -392,7 +411,7 @@ const ApplicationList: React.FC = () => {
 								} btn-rounded shadow-none`}
 								onClick={(e) => handleViewClick(e, "SELECTED")}
 							>
-								Selected
+								{translation["table-data-filter-label"].selected}
 							</button>
 							&nbsp;
 							<button
@@ -401,14 +420,14 @@ const ApplicationList: React.FC = () => {
 								} btn-rounded shadow-none`}
 								onClick={(e) => handleViewClick(e, "REJECTED")}
 							>
-								Rejected
+								{translation["table-data-filter-label"].rejected}
 							</button>
 							&nbsp;
 							<button
 								className={`btn btn-sm ${selectedTab === "Deleted" ? "btn-info" : "btn-light"} btn-rounded shadow-none`}
 								onClick={(e) => handleDeletedApplicationClick(e)}
 							>
-								Deleted
+								{translation["table-data-filter-label"].deleted}
 							</button>
 						</div>
 					</div>
@@ -425,8 +444,7 @@ const ApplicationList: React.FC = () => {
 									<SearchBar {...props.searchProps} placeholder="Search Applications" className="mb-3 search-bar" />
 								</div>
 								<p className="table-description text-muted">
-									*If you experience any difficulty in viewing the application information, please make sure your cache
-									is cleared and completed a hard refresh.
+									{translation["table-description"]["application-table-description"]}
 								</p>
 								<BootstrapTable
 									{...props.baseProps}

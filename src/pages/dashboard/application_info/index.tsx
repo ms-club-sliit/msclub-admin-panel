@@ -3,6 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import Loader from "../loader";
 import { IApplication } from "../../../interfaces";
+import { translation } from "../../../locales/en-US/translation.json";
 
 const RecentApplication: React.FC = () => {
 	const applications = useSelector((state) => state.applicationReducer);
@@ -12,7 +13,7 @@ const RecentApplication: React.FC = () => {
 				{!applications.loading ? (
 					<div>
 						<h5 className="m-0">
-							<i className="fa fa-file-text text-info"></i>&nbsp;Recent Applications
+							<i className="fa fa-file-text text-info"></i>&nbsp;{translation.dashboard.application_info.title}
 						</h5>
 						<div className="card-body">
 							{applications.applications &&
@@ -23,7 +24,7 @@ const RecentApplication: React.FC = () => {
 										<ApplicationItem
 											key={application._id}
 											studentID={application.studentId}
-											studentName={application.name}
+											studentName={application.name.split(" ").slice(0, 2).join(" ") + " ..."}
 											academicYear={application.currentAcademicYear}
 											status={application.status}
 											sendAt={application.createdAt}
@@ -63,10 +64,18 @@ const ApplicationItem: React.FC<ApplicationItemProps> = ({ studentID, studentNam
 								{studentID} - {academicYear}
 							</div>
 							<div>
-								{status === "PENDING" ? <span className="text-warning">Pending</span> : null}
-								{status === "INTERVIEW" ? <span className="text-primary">Interview</span> : null}
-								{status === "SELECTED" ? <span className="text-success">Selected</span> : null}
-								{status === "REJECTED" ? <span className="text-danger">Rejected</span> : null}
+								{status === "PENDING" ? (
+									<span className="text-warning">{translation["table-data-filter-label"].pending}</span>
+								) : null}
+								{status === "INTERVIEW" ? (
+									<span className="text-primary">{translation["table-data-filter-label"].interview}</span>
+								) : null}
+								{status === "SELECTED" ? (
+									<span className="text-success">{translation["table-data-filter-label"].selected}</span>
+								) : null}
+								{status === "REJECTED" ? (
+									<span className="text-danger">{translation["table-data-filter-label"].rejected}</span>
+								) : null}
 							</div>
 						</div>
 					</span>

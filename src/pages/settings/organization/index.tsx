@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IOrganization } from "../../../interfaces";
 import { getOrganizationInfo } from "../../../store/organization-store/organizationActions";
+import { translation } from "../../../locales/en-US/translation.json";
 
 const OrganizationInfo: React.FC = () => {
 	const dispatch = useDispatch();
@@ -47,13 +48,14 @@ const OrganizationInfo: React.FC = () => {
 				</div>
 				<div className="col-md-6">
 					<div className="d-flex">
-						<h4 className="info-title">Organization Information</h4>
+						<h4 className="info-title">{translation["organization-information"].title}</h4>
 						<i className="far fa-edit mx-2" onClick={handleEditClick}></i>
 					</div>
 
 					<div>
 						<p className="info-text">
-							<i className="fas fa-link"></i>Name:{" "}
+							<i className="fas fa-link"></i>
+							{translation["organization-information"].name}{" "}
 							{!isEditEnable ? (
 								<span>{organization && organization.name}</span>
 							) : (
@@ -61,7 +63,8 @@ const OrganizationInfo: React.FC = () => {
 							)}
 						</p>
 						<p className="info-text">
-							<i className="fas fa-at"></i>Email:{" "}
+							<i className="fas fa-at"></i>
+							{translation["organization-information"].email}{" "}
 							{!isEditEnable ? (
 								<a href={`mailto:${organization && organization.email}`}>{organization && organization.email}</a>
 							) : (
@@ -69,7 +72,8 @@ const OrganizationInfo: React.FC = () => {
 							)}
 						</p>
 						<p className="info-text">
-							<i className="fas fa-graduation-cap"></i>University:{" "}
+							<i className="fas fa-graduation-cap"></i>
+							{translation["organization-information"].university}{" "}
 							{!isEditEnable ? (
 								<span>{organization && organization.university}</span>
 							) : (
@@ -81,7 +85,8 @@ const OrganizationInfo: React.FC = () => {
 							)}
 						</p>
 						<p className="info-text">
-							<i className="fas fa-map-marker-alt"></i>Address:{" "}
+							<i className="fas fa-map-marker-alt"></i>
+							{translation["organization-information"].address}{" "}
 							{!isEditEnable ? (
 								<span>{organization && organization.address}</span>
 							) : (
@@ -89,7 +94,8 @@ const OrganizationInfo: React.FC = () => {
 							)}
 						</p>
 						<p className="info-text">
-							<i className="fas fa-globe-americas"></i>Website:{" "}
+							<i className="fas fa-globe-americas"></i>
+							{translation["organization-information"].website}{" "}
 							{!isEditEnable ? (
 								<a href={`${organization && organization.website}`} target="_blank" rel="noreferrer">
 									{organization && organization.website}
@@ -103,9 +109,11 @@ const OrganizationInfo: React.FC = () => {
 					{isEditEnable ? (
 						<div className="d-flex justify-content-end my-4">
 							<button className="btn btn-light btn-sm btn-rounded shadow-none" onClick={handleCancelEdit}>
-								Cancel
+								{translation.buttons.common.cancel}
 							</button>
-							<button className="btn btn-primary btn-sm btn-rounded shadow-none">Save</button>
+							<button className="btn btn-primary btn-sm btn-rounded shadow-none">
+								{translation.buttons.common.save}
+							</button>
 						</div>
 					) : null}
 				</div>

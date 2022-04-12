@@ -59,7 +59,7 @@ const RecentLogin: React.FC = () => {
 		<div className="resent__login">
 			<div className="card">
 				<h5 className="m-0">
-					<i className="fa fa-sign-in text-info"></i>&nbsp;Resent Logins
+					<i className="fa fa-sign-in text-info"></i>&nbsp;Recent Logins
 				</h5>
 				<div className="card-body">
 					{resentLogins.map((logItem, index) => (

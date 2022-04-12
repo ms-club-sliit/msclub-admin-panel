@@ -7,6 +7,7 @@ import {
 	recoverDeletedApplication,
 	setApplicationId,
 } from "../../../store/application-store/applicationActions";
+import { translation } from "../../../locales/en-US/translation.json";
 
 const RecoverDeletedApplication: React.FC = () => {
 	const dispatch = useDispatch();
@@ -64,22 +65,22 @@ const RecoverDeletedApplication: React.FC = () => {
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title" id="exampleModalLabel">
-								Recover Deleted Application
+								{translation["action-modal"].applications["applications-recover"].title}
 							</h5>
 							<button className="btn-close" type="submit" onClick={closeModal}></button>
 						</div>
 
 						<div className="modal-body delete-event">
-							<div className="text">Are you sure about recovering this deleted Application</div>
+							<div className="text"> {translation["action-modal"].applications["applications-recover"].message}</div>
 						</div>
 
 						<div className="modal-footer">
 							<button className="btn btn-light shadow-none btn-rounded" type="button" onClick={closeModal}>
-								No
+								{translation.buttons.common.no}
 							</button>
 
 							<button className="btn btn-primary shadow-none btn-rounded" onClick={onSubmit}>
-								Yes
+								{translation.buttons.common.yes}
 							</button>
 						</div>
 					</div>

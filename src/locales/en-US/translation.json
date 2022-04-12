@@ -1,0 +1,412 @@
+{
+	"translation": {
+		"nav-bar": {
+			"log-out": "Logout"
+		},
+		"dashboard": {
+			"application_info": {
+				"title": "Recent Applications"
+			},
+			"application-status": {
+				"title": " Application Status",
+				"total": "Total"
+			},
+			"ms-short": {
+				"title": "MS Short",
+				"description": "Use our tool to create a short, unique URL that will redirect to the specific website",
+				"shorten-button": "Shorten"
+			}
+		},
+		"table": {
+			"table-action-header": "Actions",
+			"table-title-header": "Title",
+			"table-type-header": "Type",
+			"table-date-time-header": "Date&Time",
+			"table-last-modified-at-header": "Last Modified At",
+			"table-last-modified-by-header": "Last Modified By",
+			"table-deleted-at-header": "Deleted At",
+			"table-deleted-by-header": "Deleted By",
+			"table-student-id-header": "Student Id",
+			"table-contact-number-header": "Contact Number",
+			"table-status-header": "Status",
+			"table-name-header": "Name",
+			"table-email-header": "Email",
+			"table-message-header": "Message"
+		},
+		"page-title": {
+			"event-page-header": "Events",
+			"webinar-page-header": "Webinar",
+			"top-speakers-page-header": "Top Speakers",
+			"application-page-header": "Applications",
+			"inquiries-page-header": "Inquiries"
+		},
+		"page-description": {
+			"event-page-description": "Manage all the event informations",
+			"webinar-page-description": "Manage all the Webinar informations",
+			"top-speakers-page-description": "Manage all the Top Speaker informations",
+			"application-page-description": "Manage all the application informations",
+			"inquiries-page-description": "Manage all the Inquiry informations"
+		},
+		"table-description": {
+			"event-table-description": "*If you experience any difficulty in viewing the event information, please make sure your cache is cleared and completed a hard refresh.",
+			"webinar-table-description": "*If you experience any difficulty in viewing the webinar information, please make sure your cache is cleared and completed a hard refresh.",
+			"top-speakers-table-description": "*If you experience any difficulty in viewing the top Speaker information, please make sure your cache is cleared and completed a hard refresh.",
+			"application-table-description": "*If you experience any difficulty in viewing the application information, please make sure your cache is cleared and completed a hard refresh.",
+			"inquiries-table-description": "*If you experience any difficulty in viewing the Inquiry information, please make sure your cache is cleared and completed a hard refresh."
+		},
+
+		"data-row-action-dropdown": {
+			"view-button": "View",
+			"edit-button": "Edit",
+			"delete-button": "Delete",
+			"recover": "Recover",
+			"delete-permanently": "Delete Permanently"
+		},
+
+		"buttons": {
+			"add-new-button": {
+				"events": "Add New Event",
+				"webinar": "Add New Webinar",
+				"top-speakers": "Add New Speakers"
+			},
+			"common": {
+				"yes": "Yes",
+				"no": "No",
+				"cancel": "Cancel",
+				"close": "Close",
+				"submit": "Submit",
+				"update": "update",
+				"send": "Send",
+				"save": "Save"
+			},
+			"applications": {
+				"interview": "INTERVIEW",
+				"selected": "SELECTED",
+				"rejected": "REJECTED"
+			}
+		},
+
+		"table-row-information": {
+			"event-information": {
+				"event-information-title": "Event Information",
+				"event-link": "Event Link"
+			},
+			"webinar-information": {
+				"webinar-information-title": "Webinar Information",
+				"webinar-link": "Webinar Link"
+			},
+			"top-speakers-information": {
+				"top-speakers-information-title": "Top Speaker Information",
+				"title": "Title",
+				"facebook-link": "Facebook Link",
+				"instergram-link": "Instergram Link",
+				"twitter-link": "Twitter Link",
+				"linkedin-link": "Linkedin Link",
+				"website-link": "Website Link"
+			},
+			"applications": {
+				"applications-information-title": "Application Information",
+				"academic-year": "Academic Year",
+				"self-introdction": "Self Introdction",
+				"reason-for-join": "Reason for Join",
+				"linkedIn": "LinkedIn",
+				"gitHub": "GitHub",
+				"goal": "Goal",
+				"blog": "Blog",
+				"experiences": "Experiences",
+				"challenges": "Challenges",
+				"skills-and-talents": "Skills and Talents",
+				"past-works": "Past Work",
+				"deleted-at": "Deleted At"
+			},
+			"common-information": {
+				"tags": "Tags",
+				"description": "Description",
+				"registration-link": "Registration Link",
+				"message": "Message"
+			}
+		},
+
+		"table-data-filter-label": {
+			"all": "All",
+			"upcoming": "Upcoming",
+			"past": "Past",
+			"deleted": "Deleted",
+			"pending": "Pending",
+			"interview": "Interview",
+			"selected": "Selected",
+			"rejected": "Rejected",
+			"go-back": "Go Back",
+			"applications": {
+				"pending": "PENDING",
+				"interview": "INTERVIEW",
+				"selected": "SELECTED",
+				"rejected": "REJECTED"
+			}
+		},
+
+		"table-type-header-label": {
+			"event-table": {
+				"past-event": "Past Event",
+				"upcoming-event": "Upcoming Event"
+			},
+			"webinar-table": {
+				"past-webinar": "Past Webinar",
+				"upcomming-event": "Upcomming Webinar"
+			},
+			"top-speakers": {
+				"deleted-top-speakers": "Deleted Top Speakers"
+			}
+		},
+		"action-modal": {
+			"event": {
+				"event-remove": {
+					"title": "Remove Event",
+					"message": "Are you sure about deleting this event information?"
+				},
+				"event-permanently-delete": {
+					"title": "Delete Event",
+					"message": "Are you sure about permanently this deleted event?"
+				},
+				"event-recover": {
+					"title": "Recover Deleted Event",
+					"message": "Are you sure about recovering this deleted event?"
+				}
+			},
+			"webinar": {
+				"webinar-remove": {
+					"title": "Remove Webinar",
+					"message": "Are you sure about deleting this webinar information?"
+				},
+				"webinar-permanently-delete": {
+					"title": "Delete Webinar",
+					"message": "Are you sure about permanently this deleted webinar?"
+				},
+				"webinar-recover": {
+					"title": "Recover Deleted Webinar",
+					"message": "Are you sure about recovering this deleted Webinar?"
+				},
+				"webinar-input-descrption": {
+					"tags": "Sperate tag names using , (example: ITP, GitHub, Microservice)"
+				}
+			},
+			"top-speakers": {
+				"top-speakers-remove": {
+					"title": "Remove Top Speaker",
+					"message": "Are you sure about deleting this top speaker information?"
+				},
+				"top-speakers-permanently-delete": {
+					"title": "Permanent Remove Top Speaker",
+					"message": "Are you sure about deleting this top speaker information?"
+				},
+				"top-speakers-recover": {
+					"title": "Recover Deleted Top Speaker",
+					"message": "Are you sure about recovering this deleted Top Speaker?"
+				}
+			},
+			"applications": {
+				"applications-remove": {
+					"title": "Remove Application",
+					"message": "Are you sure about deleting this application information?"
+				},
+				"interview": {
+					"title": "Interview Details",
+					"start-time": " Start Time",
+					"end-time": "End Time",
+					"platform": "Platform",
+					"attendees": "Attendees",
+					"platform-dropdown": {
+						"option-selected-value": "Selected Platform",
+						"microsoft-teams": "Microsoft Teams",
+						"zoom": "Zoom,",
+						"google-meets": "Google Meets",
+						"platform-validation-message": "Platform is required"
+					}
+				},
+				"applications-recover": {
+					"title": "Recover Deleted Application",
+					"message": "Are you sure about recovering this deleted Application?"
+				}
+			},
+			"inquiries": {
+				"inquirie-remove": {
+					"title": "Remove Inquiry",
+					"message": "Are you sure about deleting this Inquiry information?"
+				},
+				"inquirie-permanently-delete": {
+					"title": "Delete Inquiry",
+					"message": "Are you sure about permanently this deleted inquiry?"
+				},
+				"inquirie-recover": {
+					"title": "Recover Inquiry",
+					"message": "Are you sure about recovering this deleted Inquiry information?"
+				}
+			}
+		},
+		"forms": {
+			"login": {
+				"title": "Admin Panel",
+				"use-face-authentication": "Use Face Authentication",
+				"forgot-password": "Forgot Password",
+				"reset": "Reset",
+				"do-not-have-an-account": "Don't have an account?",
+				"contact-admin": "Contact Admin",
+				"sign-in": "Sign In",
+				"signing": "Signing...",
+				"label": {
+					"username": "Username",
+					"password": "Password"
+				},
+				"validation-message": {
+					"username": "Username is required",
+					"password": "Password is required"
+				}
+			},
+			"event": {
+				"title": "Add New Event",
+				"label": {
+					"event-title": "Event Title",
+					"event-type": "Event Type",
+					"event-link": "Event Link",
+					"event-name": "Event Name"
+				},
+				"validation-message": {
+					"event-flyer": "Event flyer is required",
+					"event-title": "Event name is required",
+					"event-name": "Event name is required",
+					"event-type": "Event type is required",
+					"event-link": "Event link is required"
+				},
+				"event-type-dropdown-option": {
+					"past": "PAST",
+					"upcomming": "UPCOMMING"
+				},
+				"event-input-descrption": {
+					"tags": "Sperate tag names using , (example: ITP, GitHub, Microservice)"
+				},
+				"event-type-select": "Select Event type",
+				"view": {
+					"title": "Event Document",
+					"event-title": "Event Title :",
+					"event-type": "Event Type :",
+					"event-link": "Event Link :",
+					"event-name": "Event Name :"
+				},
+				"edit": {
+					"title": "Edit Event Document",
+					"current-event-flyer": "Current Event Flyer"
+				}
+			},
+			"webinar": {
+				"title": "Add New Webinar",
+				"label": {
+					"webinar-title": "Webinar Title",
+					"webinar-name": "Webinar Name",
+					"webinar-type": "Webinar Type",
+					"date-time": "Date & Time",
+					"webinar-link": "Webinar Link"
+				},
+				"validation-message": {
+					"webinar-file": "Webinar flyer is required",
+					"webinar-name": "Webinar name is required",
+					"webinar-type": "Webinar type is required",
+					"webinar-link": "Webinar link is required"
+				},
+				"webinar-type-dropdown-option": {
+					"past": "PAST",
+					"upcomming": "UPCOMMING"
+				},
+				"webinar-input-descrption": {
+					"tags": "Sperate tag names using , (example: ITP, GitHub, Microservice)"
+				},
+				"webinar-type-select": "Select Webinar type",
+				"view": {
+					"title": "Webinar Document",
+					"webinar-title": "Webinar Title :",
+					"webinar-name": "Webinar Name :",
+					"webinar-type": "Webinar Type :",
+					"date-time": "Date & Time :",
+					"webinar-link": "Webinar Link :"
+				},
+				"edit": {
+					"title": "Edit Webinar Document",
+					"current-webinar-flyer": "Current Webinar Flyer"
+				}
+			},
+			"top-speakers": {
+				"title": "Add New Top Speaker",
+				"label": {
+					"top-speakers-title": "Top Speaker Title",
+					"facebook": "Facebook",
+					"instagram": "Instagram",
+					"twitter": "Twitter",
+					"linkedIn": "LinkedIn",
+					"website": "Website"
+				},
+				"validation-message": {
+					"top-speakers-image": "Top speaker image is required",
+					"top-speakers-title": "Top speaker title is required",
+					"url": "URL is required"
+				},
+
+				"view": {
+					"title": "Top Speaker Document",
+					"top-speakers-title": "Top SpeakerTitle:",
+					"facebook": "Facebook Link :",
+					"instagram": "Instagram Link : ",
+					"twitter": "Twitter Link :",
+					"linkedIn": "LinkedIn Link :",
+					"website": "Website Link :"
+				},
+				"edit": {
+					"title": "Edit Top Speaker",
+					"current-top-speakers-image": "Current Top Speaker Image"
+				}
+			},
+			"common-label": {
+				"date-time": "Date & Time",
+				"registration-link": "Registration Link",
+				"tags": "Tags",
+				"description": "Description"
+			},
+			"common-data-view-label": {
+				"registration-link": "Registration Link:",
+				"tags": "Tags :",
+				"description": "Description :"
+			},
+			"common-validation-message": {
+				"date-time": "Date & time is required",
+				"registration-link": "Registration link is required",
+				"tags": "Tags are is required",
+				"description": "Description is required"
+			},
+			"common-row-view": {
+				"information": "Infromation",
+				"document-history": "Document History",
+				"date-time": "Date & Time :",
+				"created-at": "Created At :",
+				"modification-info": "Modification Info :"
+			}
+		},
+		"organization-information": {
+			"title": "Organization Information",
+			"name": "Name:",
+			"email": "Email:",
+			"university": "University:",
+			"address": "Address:",
+			"website": "Website"
+		},
+		"setting": {
+			"title": "Settings",
+			"page-description": "Manage the application information",
+			"data-filter-button": {
+				"organization-info": "Organization Info",
+				"Users": "Users"
+			}
+		},
+		"footer": {
+			"copyright": "© 2022 Copyright:",
+			"website": "msclubadmin.com"
+		}
+	}
+}

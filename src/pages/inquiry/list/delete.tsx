@@ -9,6 +9,7 @@ import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
+import { translation } from "../../../locales/en-US/translation.json";
 
 const DeletedInquiryList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -47,16 +48,16 @@ const DeletedInquiryList: React.FC = () => {
 	const tableColumnData = [
 		{
 			dataField: "actions",
-			text: "Actions",
+			text: translation.table["table-action-header"],
 			formatter: (cell: any, row: IInquiry) => actionButtonFormatter(row),
 			headerStyle: { width: "90px" },
 		},
-		{ dataField: "name", text: "Title", headerStyle: { width: "200px" } },
-		{ dataField: "email", text: "Email", headerStyle: { width: "200px" } },
-		{ dataField: "message", text: "Message", headerStyle: { width: "200px" } },
+		{ dataField: "name", text: translation.table["table-title-header"], headerStyle: { width: "200px" } },
+		{ dataField: "email", text: translation.table["table-email-header"], headerStyle: { width: "200px" } },
+		{ dataField: "message", text: translation.table["table-message-header"], headerStyle: { width: "200px" } },
 		{
 			dataField: "deletedAt",
-			text: "Deleted At",
+			text: translation.table["table-deleted-at-header"],
 			headerStyle: { width: "220px" },
 			formatter: (cell: string) => {
 				return moment(cell).format("LLL");
@@ -90,12 +91,12 @@ const DeletedInquiryList: React.FC = () => {
 							<div className="dropdown-menu dropdown-menu-right">
 								{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
 									<button className="dropdown-item" onClick={(e) => handleSetRecoverInquiryPermanently(e, row._id)}>
-										<i className="fas fa-undo" /> Recover
+										<i className="fas fa-undo" /> {translation["data-row-action-dropdown"].recover}
 									</button>
 								)}
 								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
 									<button className="dropdown-item" onClick={(e) => handleSetDeleteInquiryPermanently(e, row._id)}>
-										<i className="far fa-trash-alt" /> Delete Permanently
+										<i className="far fa-trash-alt" /> {translation["data-row-action-dropdown"]["delete-permanently"]}
 									</button>
 								)}
 							</div>
@@ -132,7 +133,7 @@ const DeletedInquiryList: React.FC = () => {
 		},
 		renderer: (row: IInquiry) => (
 			<div>
-				<h5>Message</h5>
+				<h5>{translation["table-row-information"]["common-information"].message}</h5>
 				<div className="row">
 					<div className="col-md-10 col-sm-12">
 						<p>{row.message}</p>
@@ -151,15 +152,15 @@ const DeletedInquiryList: React.FC = () => {
 		<div className="card">
 			<div className="row">
 				<div className="col-6">
-					<h3 className="page-title">Inquiries</h3>
-					<p className="page-description text-muted">Manage all the Inquiry informations</p>
+					<h3 className="page-title">{translation["page-title"]["inquiries-page-header"]}</h3>
+					<p className="page-description text-muted">{translation["page-description"]["inquiries-page-description"]}</p>
 				</div>
 			</div>
 
 			<div>
 				<div className="d-flex">
 					<button className="btn btn-sm btn-light shadow-none btn-rounded" onClick={handleGoBackToInquiries}>
-						Go Back
+						{translation["table-data-filter-label"]["go-back"]}
 					</button>
 				</div>
 			</div>
@@ -171,8 +172,7 @@ const DeletedInquiryList: React.FC = () => {
 							<SearchBar {...props.searchProps} placeholder="Search Webinars" className="mb-3 search-bar" />
 						</div>
 						<p className="table-description text-muted">
-							*If you experience any difficulty in viewing the Inquiry information, please make sure your cache is
-							cleared and completed a hard refresh.
+							{translation["table-description"]["inquiries-table-description"]}
 						</p>
 						<BootstrapTable
 							{...props.baseProps}

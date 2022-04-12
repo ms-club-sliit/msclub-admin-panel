@@ -5,6 +5,7 @@ import { ToolBarConfig } from "../../../constants";
 import { createEvent, getEvents } from "../../../store/event-store/eventActions";
 import { useDispatch, useSelector } from "react-redux";
 import { IEventFormData, IEventState } from "../../../interfaces";
+import { translation } from "../../../locales/en-US/translation.json";
 
 let formData: IEventFormData = {
 	imageSrc: null,
@@ -160,7 +161,7 @@ const AddEvent: React.FC = () => {
 				<div className="modal-content">
 					<div className="modal-header">
 						<h5 className="modal-title" id="addEventModalLabel">
-							Add New Event
+							{translation.forms.event.title}
 						</h5>
 						<button type="button" className="btn-close" onClick={closeModal}></button>
 					</div>
@@ -168,7 +169,9 @@ const AddEvent: React.FC = () => {
 						<ImageCanvas width={320} height={180} getEditedImage={handleImage} />
 						<div className="d-flex justify-content-center">
 							{formData.imageSrc === null && isFormNotValid ? (
-								<span className="text-danger validation-message my-2">Event flyer is required</span>
+								<span className="text-danger validation-message my-2">
+									{translation.forms.event["validation-message"]["event-flyer"]}
+								</span>
 							) : null}
 						</div>
 
@@ -176,7 +179,7 @@ const AddEvent: React.FC = () => {
 							<div className="form-group row my-3">
 								<label className="col-sm-3 col-form-label form-label text-dark">
 									<i className="far fa-file-alt fa-sm" />
-									&nbsp;Event Title
+									&nbsp;{translation.forms.event.label["event-title"]}
 								</label>
 								<div className="col-sm-9">
 									<input
@@ -187,21 +190,27 @@ const AddEvent: React.FC = () => {
 										onChange={onChange}
 									/>
 									{formData.eventName === null && isFormNotValid ? (
-										<span className="text-danger validation-message">Event name is required</span>
+										<span className="text-danger validation-message">
+											{translation.forms.event["validation-message"]["event-name"]}
+										</span>
 									) : null}
 								</div>
 							</div>
 
 							<div className="form-group row my-3">
-								<label className="col-sm-3 col-form-label form-label text-dark">Event Type</label>
+								<label className="col-sm-3 col-form-label form-label text-dark">
+									{translation.forms.event.label["event-type"]}
+								</label>
 								<div className="col-sm-9">
 									<select className="form-control" name="eventType" value={eventType as string} onChange={onChange}>
-										<option selected>Select event type</option>
-										<option value="PAST">PAST</option>
-										<option value="UPCOMING">UPCOMING</option>
+										<option selected>{translation.forms.event["event-type-select"]}</option>
+										<option value="PAST">{translation.forms.event["event-type-dropdown-option"].past}</option>
+										<option value="UPCOMING">{translation.forms.event["event-type-dropdown-option"].upcomming}</option>
 									</select>
 									{formData.eventType === null && isFormNotValid ? (
-										<span className="text-danger validation-message">Event type is required</span>
+										<span className="text-danger validation-message">
+											{translation.forms.event["validation-message"]["event-type"]}
+										</span>
 									) : null}
 								</div>
 							</div>
@@ -209,7 +218,7 @@ const AddEvent: React.FC = () => {
 							<div className="form-group row my-3">
 								<label className="col-sm-3 col-form-label form-label text-dark">
 									<i className="far fa-clock fa-sm" />
-									&nbsp;Date & Time
+									&nbsp;{translation.forms["common-label"]["date-time"]}
 								</label>
 								<div className="col-sm-9">
 									<input
@@ -221,7 +230,9 @@ const AddEvent: React.FC = () => {
 										onChange={onChange}
 									/>
 									{formData.dateTime === null && isFormNotValid ? (
-										<span className="text-danger validation-message">Date & time is required</span>
+										<span className="text-danger validation-message">
+											{translation.forms["common-validation-message"]["date-time"]}
+										</span>
 									) : null}
 								</div>
 							</div>
@@ -229,7 +240,7 @@ const AddEvent: React.FC = () => {
 							<div className="form-group row my-3">
 								<label className="col-sm-3 col-form-label form-label text-dark">
 									<i className="fas fa-link fa-sm" />
-									&nbsp;Registration Link
+									&nbsp;{translation.forms["common-label"]["registration-link"]}
 								</label>
 								<div className="col-sm-9">
 									<input
@@ -240,7 +251,9 @@ const AddEvent: React.FC = () => {
 										onChange={onChange}
 									/>
 									{formData.registrationLink === null && isFormNotValid ? (
-										<span className="text-danger validation-message">Registration link is required</span>
+										<span className="text-danger validation-message">
+											{translation.forms["common-validation-message"]["registration-link"]}
+										</span>
 									) : null}
 								</div>
 							</div>
@@ -248,7 +261,7 @@ const AddEvent: React.FC = () => {
 							<div className="form-group row my-3">
 								<label className="col-sm-3 col-form-label form-label text-dark">
 									<i className="fas fa-link fa-sm" />
-									&nbsp;Event Link
+									&nbsp;{translation.forms.event.label["event-link"]}
 								</label>
 								<div className="col-sm-9">
 									<input
@@ -259,7 +272,9 @@ const AddEvent: React.FC = () => {
 										onChange={onChange}
 									/>
 									{formData.eventLink === null && isFormNotValid ? (
-										<span className="text-danger validation-message">Event type is required</span>
+										<span className="text-danger validation-message">
+											{translation.forms.event["validation-message"]["event-link"]}
+										</span>
 									) : null}
 								</div>
 							</div>
@@ -267,7 +282,7 @@ const AddEvent: React.FC = () => {
 							<div className="form-group row my-3">
 								<label className="col-sm-3 col-form-label form-label text-dark">
 									<i className="fas fa-tags fa-sm" />
-									&nbsp;Tags
+									&nbsp;{translation.forms["common-label"].tags}
 								</label>
 								<div className="col-sm-9">
 									<input
@@ -277,11 +292,13 @@ const AddEvent: React.FC = () => {
 										onChange={(e) => handleTags(e.target.value)}
 									/>
 									<small className="text-muted tag-text">
-										Sperate tag names using , (example: ITP, GitHub, Microservice)
+										{translation.forms.event["event-input-descrption"].tags}
 									</small>
 									<br />
 									{formData.filteredTags === null && isFormNotValid ? (
-										<span className="text-danger validation-message">Tags are is required</span>
+										<span className="text-danger validation-message">
+											{translation.forms["common-validation-message"].tags}
+										</span>
 									) : null}
 								</div>
 							</div>
@@ -289,7 +306,7 @@ const AddEvent: React.FC = () => {
 							<div className="form-group row my-3">
 								<label className="col-sm-12 col-form-label form-label text-dark">
 									<i className="fas fa-align-left" />
-									&nbsp;Description
+									&nbsp;{translation.forms["common-label"].description}
 								</label>
 								<div className="col-sm-12">
 									<RichTextEditor
@@ -300,7 +317,9 @@ const AddEvent: React.FC = () => {
 										toolbarConfig={ToolBarConfig}
 									/>
 									{formData.description === null && isFormNotValid ? (
-										<span className="text-danger validation-message">Description is required</span>
+										<span className="text-danger validation-message">
+											{translation.forms["common-validation-message"].description}
+										</span>
 									) : null}
 								</div>
 							</div>
@@ -308,10 +327,10 @@ const AddEvent: React.FC = () => {
 					</div>
 					<div className="modal-footer">
 						<button type="button" className="btn btn-light shadow-none btn-rounded" onClick={closeModal}>
-							Cancel
+							{translation.buttons.common.cancel}
 						</button>
 						<button type="button" className="btn btn-primary shadow-none btn-rounded" onClick={onSubmit}>
-							Submit
+							{translation.buttons.common.submit}
 						</button>
 					</div>
 				</div>

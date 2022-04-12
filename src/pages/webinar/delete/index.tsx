@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteWebinar, getWebinars, setWebinarId } from "../../../store/webinar-store/webinarActions";
 import { IWebinar } from "../../../interfaces";
 import { toastNotification } from "../../../constants";
+import { translation } from "../../../locales/en-US/translation.json";
 
 const DeleteWebinar: React.FC = () => {
 	const dispatch = useDispatch();
@@ -61,21 +62,21 @@ const DeleteWebinar: React.FC = () => {
 					<div className="modal-content">
 						<div className="modal-header">
 							<h5 className="modal-title" id="exampleModalLabel">
-								Remove Webinar
+								{translation["action-modal"].webinar["webinar-remove"].title}
 							</h5>
 							<button type="button" className="btn-close" onClick={closeModal}></button>
 						</div>
 
 						<div className="modal-body">
-							<div className="text">Are you sure about deleting this webinar information?</div>
+							<div className="text">{translation["action-modal"].webinar["webinar-remove"].message}</div>
 						</div>
 
 						<div className="modal-footer">
 							<button type="button" className="btn btn-light shadow-none btn-rounded" onClick={closeModal}>
-								No
+								{translation.buttons.common.no}
 							</button>
 							<button type="button" className="btn btn-primary shadow-none btn-rounded" onClick={onSubmit}>
-								Yes
+								{translation.buttons.common.yes}
 							</button>
 						</div>
 					</div>
