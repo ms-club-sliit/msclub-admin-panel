@@ -224,7 +224,7 @@ const ApplicationInterviewForm: React.FC = () => {
 
 							<div className="form-group row mx-5 my-3">
 								<label className="col-sm-3 col-form-label form-label text-dark">
-									<i className="fas fa-check fa-sm" />
+									<i className="fas fa-user fa-sm" />
 									&nbsp;{translation["action-modal"].applications.interview.attendees}
 								</label>
 								<div className="col-sm-9">
