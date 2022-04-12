@@ -6,6 +6,7 @@ import webinarReducer from "./webinar-store/webinarReducer";
 import applicationReducer from "./application-store/applicationReducer";
 import inquiryReducer from "./inquiry-store/inquiryReducer";
 import topSpeakerReducer from "./top-speaker-store/topSpeakerReducer";
+import loginsReducer from "./logins-store/loginsReducer";
 
 const reducers = combineReducers({
 	userReducer,
@@ -15,6 +16,7 @@ const reducers = combineReducers({
 	applicationReducer,
 	inquiryReducer,
 	topSpeakerReducer,
+	loginsReducer,
 });
 
 export type AppState = ReturnType<typeof reducers>;
