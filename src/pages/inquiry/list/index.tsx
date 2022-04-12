@@ -9,6 +9,7 @@ import moment from "moment";
 import { useHistory } from "react-router-dom";
 import DeleteInquiry from "../delete";
 import InquiryLoader from "../loader";
+import ReplyInquiry from "../reply";
 import { translation } from "../../../locales/en-US/translation.json";
 
 const InquiryList: React.FC = () => {
@@ -75,11 +76,16 @@ const InquiryList: React.FC = () => {
 					<span className="btn shadow-none btn-sm" data-mdb-toggle="dropdown">
 						<i className="fas fa-ellipsis-h"></i>
 					</span>
-					<div className="dropdown-menu dropdown-menu-right">
+					<div className="dropdown-menu dropdown-menu-right" style={{ cursor: "pointer" }}>
 						{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
-							<span className="dropdown-item" onClick={(e) => handleSetDeleteInquiry(e, row._id)}>
-								<i className="far fa-trash-alt" /> {translation["data-row-action-dropdown"]["delete-button"]}
-							</span>
+							<>
+								<span className="dropdown-item" onClick={(e) => handleSetDeleteInquiry(e, row._id)}>
+									<i className="far fa-trash-alt" /> {translation["data-row-action-dropdown"]["delete-button"]}
+								</span>
+								<span className="dropdown-item" onClick={(e) => handleSetReplyInquiry(e, row._id)}>
+									<i className="fas fa-reply ml-2" /> {translation["data-row-action-dropdown"]["reply-button"]}
+								</span>
+							</>
 						)}
 					</div>
 				</span>
@@ -90,6 +96,11 @@ const InquiryList: React.FC = () => {
 	const handleSetDeleteInquiry = (inquiry: any, inquiryId: string) => {
 		dispatch(setInquiryId(inquiryId));
 		$("#inquiryDeleteModal").modal("show");
+	};
+
+	const handleSetReplyInquiry = (inquiry: any, inquiryId: string) => {
+		dispatch(setInquiryId(inquiryId));
+		$("#inquiryReplyModal").modal("show");
 	};
 
 	const handleViewClick = (inquiry: any, type: string) => {
@@ -213,6 +224,7 @@ const InquiryList: React.FC = () => {
 				<InquiryLoader />
 			)}
 			{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && <DeleteInquiry />}
+			{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && <ReplyInquiry />}
 		</div>
 	);
 };

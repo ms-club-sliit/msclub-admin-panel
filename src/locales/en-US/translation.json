@@ -60,7 +60,8 @@
 			"edit-button": "Edit",
 			"delete-button": "Delete",
 			"recover": "Recover",
-			"delete-permanently": "Delete Permanently"
+			"delete-permanently": "Delete Permanently",
+			"reply-button": "Reply"
 		},
 
 		"buttons": {
@@ -240,6 +241,9 @@
 				"inquirie-recover": {
 					"title": "Recover Inquiry",
 					"message": "Are you sure about recovering this deleted Inquiry information?"
+				},
+				"inquiry-reply": {
+					"title": "Reply Inquiry"
 				}
 			}
 		},
@@ -361,6 +365,15 @@
 				"edit": {
 					"title": "Edit Top Speaker",
 					"current-top-speakers-image": "Current Top Speaker Image"
+				}
+			},
+			"inqury": {
+				"label": {
+					"inqury-reply": "Reply",
+					"inqury-message": "Message"
+				},
+				"validation-message": {
+					"inqury-reply": "Reply is required"
 				}
 			},
 			"common-label": {
