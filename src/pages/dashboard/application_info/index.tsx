@@ -24,7 +24,7 @@ const RecentApplication: React.FC = () => {
 										<ApplicationItem
 											key={application._id}
 											studentID={application.studentId}
-											studentName={application.name.split(" ")[0] + " " + application.name.split(" ")[1] + " ..."}
+											studentName={application.name.split(" ").slice(0, 2).join(" ") + " ..."}
 											academicYear={application.currentAcademicYear}
 											status={application.status}
 											sendAt={application.createdAt}
