@@ -11,7 +11,7 @@ const RecentLogin: React.FC = () => {
 		dispatch(getLoginInfo());
 	}, [dispatch]);
 
-	const URL = process.env.REACT_APP_STORAGE_BUCKET_URL + "/" + process.env.REACT_APP_STORAGE_BUCKET_NAME + "/";
+	const URL = `${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/`;
 
 	return (
 		<div className="resent__login">
@@ -22,7 +22,7 @@ const RecentLogin: React.FC = () => {
 					</h5>
 					<div className="card-body">
 						{recentLogins.recentLogins &&
-							recentLogins.recentLogins.length > 0 &&
+							recentLogins.recentLogins.length &&
 							recentLogins.recentLogins
 								.slice(0, 6)
 								.map((recentLogin: IRecentLogin) => (
