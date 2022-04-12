@@ -6,7 +6,7 @@ import { translation } from "../../../locales/en-US/translation.json";
 import { toastNotification } from "../../../constants";
 
 let formData: IInquiryReplyFormData = {
-    reply: null,
+	reply: null,
 };
 
 const initialState: IInquiryReplyState = {
@@ -19,14 +19,7 @@ const ReplyInquiry: React.FC = () => {
 	const dispatch = useDispatch();
 	const state = useSelector((state) => state.inquiryReducer);
 	const [inquiryDetails, setInquiryDetails] = useState<IInquiry>();
-    const [
-        {
-            inquiryId,
-            reply,
-            isFormNotValid
-        },
-        setState
-    ] = useState(initialState);
+	const [{ inquiryId, reply, isFormNotValid }, setState] = useState(initialState);
 
 	useEffect(() => {
 		let inquiryData = state.inquiries.find((inquiry: IInquiry) => inquiry._id === state.selectedInquiryId);
@@ -40,14 +33,13 @@ const ReplyInquiry: React.FC = () => {
 	}, [state.selectedInquiryId, state.inquiries]);
 
 	useEffect(() => {
-        dispatch(getInquiries());
-        setInquiryId("");
-        closeModal();
+		dispatch(getInquiries());
+		setInquiryId("");
+		closeModal();
 
 		if (state.replyInquiry) {
 			toastNotification("Inquiry replied successfully", "success");
 		}
-
 	}, [state.replyInquiry, dispatch]);
 
 	useEffect(() => {
@@ -70,10 +62,10 @@ const ReplyInquiry: React.FC = () => {
 	// Form Validation
 	const validateForm = () => {
 		const data = {
-            reply: reply && reply.trim().length > 0 ? reply : null,
+			reply: reply && reply.trim().length > 0 ? reply : null,
 		};
 
-	    formData = Object.assign({}, data);
+		formData = Object.assign({}, data);
 		return true;
 	};
 
@@ -89,14 +81,14 @@ const ReplyInquiry: React.FC = () => {
 			});
 
 			if (!data.includes(false)) {
-	            setState((prevState: any) => ({ ...prevState, isFormNotValid: false }));
+				setState((prevState: any) => ({ ...prevState, isFormNotValid: false }));
 
 				let replyFormData = {
 					reply: reply,
 				};
 
 				if (inquiryId) {
-	                dispatch(replyInquiry(inquiryId, replyFormData));
+					dispatch(replyInquiry(inquiryId, replyFormData));
 				}
 			} else {
 				setState((prevState: any) => ({ ...prevState, isFormNotValid: true }));

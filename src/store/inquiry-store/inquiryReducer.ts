@@ -23,7 +23,7 @@ const inquiryReducer = (state = initialState, action: any) => {
 		case `${InquiryActionTypes.UPDATE_INQUIRY}_PENDING`:
 		case `${InquiryActionTypes.DELETE_INQUIRY}_PENDING`:
 			return { ...state, loading: true };
-		
+
 		case `${InquiryActionTypes.GET_INQUIRY}_FULFILLED`:
 			let inquiry = action.payload.data;
 			return { ...state, loading: false, inquiry };

@@ -25,7 +25,7 @@ interface IInquiryStore {
 
 // Inquiry Reply Form Interface
 interface IInquiryReplyFormData {
-	reply: string| null;
+	reply: string | null;
 }
 
 // Inquiry Reply State Interface
