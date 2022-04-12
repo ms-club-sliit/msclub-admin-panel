@@ -20,6 +20,9 @@ const options = [
 	{ value: "it19115344@my.sliit.lk", label: "Hansidu Maniyangama" },
 	{ value: "it19102924@my.sliit.lk", label: "Lahiru Jayasinghe" },
 	{ value: "it20633790@my.sliit.lk", label: "Susith Rupasinghe" },
+	{ value: "it20006884@my.sliit.lk", label: "Shivani Rajkumar" },
+	{ value: "it20224820@my.sliit.lk", label: "Upendra Ihalagedara" },
+	{ value: "it20023614@my.sliit.lk", label: "Pasindu Wijesingha" },
 ];
 
 let formData: IInterviewFormData = {
