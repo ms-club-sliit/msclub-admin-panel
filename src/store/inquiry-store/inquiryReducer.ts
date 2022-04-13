@@ -8,6 +8,7 @@ const initialState: IInquiryStore = {
 	deleteInquiry: null,
 	updatedInquiry: null,
 	deleteInquiries: [],
+	replyInquiry: null,
 	loading: false,
 	error: null,
 };
@@ -15,6 +16,7 @@ const initialState: IInquiryStore = {
 const inquiryReducer = (state = initialState, action: any) => {
 	switch (action.type) {
 		case `${InquiryActionTypes.GET_INQUIRY}_PENDING`:
+		case `${InquiryActionTypes.REPLY_INQUIRY}_PENDING`:
 		case `${InquiryActionTypes.GET_ALL_INQUIRIES}_PENDING`:
 		case `${InquiryActionTypes.SET_INQUIRY_ERROR}_PENDING`:
 		case `${InquiryActionTypes.GET_DELETED_INQUIRIES}_PENDING`:
@@ -25,6 +27,9 @@ const inquiryReducer = (state = initialState, action: any) => {
 		case `${InquiryActionTypes.GET_INQUIRY}_FULFILLED`:
 			let inquiry = action.payload.data;
 			return { ...state, loading: false, inquiry };
+		case `${InquiryActionTypes.REPLY_INQUIRY}_FULFILLED`:
+			let replyInquiry = action.payload.data;
+			return { ...state, loading: false, replyInquiry };
 		case `${InquiryActionTypes.GET_ALL_INQUIRIES}_FULFILLED`:
 			let inquiries = action.payload.data;
 			return { ...state, loading: false, inquiries };
@@ -45,6 +50,7 @@ const inquiryReducer = (state = initialState, action: any) => {
 			return { ...state, loading: false, deleteInquiry };
 
 		case `${InquiryActionTypes.GET_INQUIRY}_REJECTED`:
+		case `${InquiryActionTypes.REPLY_INQUIRY}_REJECTED`:
 		case `${InquiryActionTypes.GET_ALL_INQUIRIES}_REJECTED`:
 		case `${InquiryActionTypes.SET_INQUIRY_ID}_REJECTED`:
 		case `${InquiryActionTypes.SET_INQUIRY_ERROR}_REJECTED`:
