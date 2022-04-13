@@ -79,11 +79,11 @@ const InquiryList: React.FC = () => {
 					<div className="dropdown-menu dropdown-menu-right" style={{ cursor: "pointer" }}>
 						{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
 							<>
-								<span className="dropdown-item" onClick={(e) => handleSetDeleteInquiry(e, row._id)}>
-									<i className="far fa-trash-alt" /> {translation["data-row-action-dropdown"]["delete-button"]}
-								</span>
 								<span className="dropdown-item" onClick={(e) => handleSetReplyInquiry(e, row._id)}>
 									<i className="fas fa-reply ml-2" /> {translation["data-row-action-dropdown"]["reply-button"]}
+								</span>
+								<span className="dropdown-item" onClick={(e) => handleSetDeleteInquiry(e, row._id)}>
+									<i className="far fa-trash-alt" /> {translation["data-row-action-dropdown"]["delete-button"]}
 								</span>
 							</>
 						)}
