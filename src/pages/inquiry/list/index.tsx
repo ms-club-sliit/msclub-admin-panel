@@ -76,7 +76,7 @@ const InquiryList: React.FC = () => {
 					<span className="btn shadow-none btn-sm" data-mdb-toggle="dropdown">
 						<i className="fas fa-ellipsis-h"></i>
 					</span>
-					<div className="dropdown-menu dropdown-menu-right" style={{ cursor: "pointer" }}>
+					<div className="dropdown-menu dropdown-menu-right">
 						{(permission === "ROOT_ADMIN" || permission === "ADMIN" || permission == "EDITOR") && (
 							<>
 								<span className="dropdown-item" onClick={(e) => handleSetReplyInquiry(e, row._id)}>
