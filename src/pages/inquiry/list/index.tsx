@@ -153,7 +153,7 @@ const InquiryList: React.FC = () => {
 
 				<h5>{translation["table-row-information"]["common-information"].reply}</h5>
 				{row.replies && row.replies.length ? (
-					row.replies.map((reply: any, index: number) => (
+					row.replies.map((reply: string, index: number) => (
 						<div key={index} className="col-md-10 col-sm-12">
 							<p>{reply}</p>
 						</div>
