@@ -123,7 +123,9 @@
 				"tags": "Tags",
 				"description": "Description",
 				"registration-link": "Registration Link",
-				"message": "Message"
+				"message": "Message",
+				"reply": "Reply",
+				"no-replies": "No Replies Yet"
 			}
 		},
 

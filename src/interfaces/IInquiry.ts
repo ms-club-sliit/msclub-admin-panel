@@ -7,6 +7,7 @@ interface IInquiry {
 	createdAt: Date;
 	updatedAt: Date;
 	deletedAt?: Date | null;
+	replies: string[];
 }
 
 //Inquiry Store interface
