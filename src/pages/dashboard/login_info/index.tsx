@@ -1,78 +1,41 @@
 import moment from "moment";
-import React from "react";
-
-// Temp data - Start
-const resentLogins = [
-	{
-		dateTime: new Date(),
-		userName: "rusiruavb",
-		firstName: "Rusiru",
-		lastName: "Abhisheak",
-		role: "Root Admin",
-		profileIcon: "/images/profile.png",
-	},
-	{
-		dateTime: new Date(),
-		userName: "rusiruavb",
-		firstName: "Rusiru",
-		lastName: "Abhisheak",
-		role: "Root Admin",
-		profileIcon: "/images/profile.png",
-	},
-	{
-		dateTime: new Date(),
-		userName: "rusiruavb",
-		firstName: "Rusiru",
-		lastName: "Abhisheak",
-		role: "Root Admin",
-		profileIcon: "/images/profile.png",
-	},
-	{
-		dateTime: new Date(),
-		userName: "rusiruavb",
-		firstName: "Rusiru",
-		lastName: "Abhisheak",
-		role: "Root Admin",
-		profileIcon: "/images/profile.png",
-	},
-	{
-		dateTime: new Date(),
-		userName: "rusiruavb",
-		firstName: "Rusiru",
-		lastName: "Abhisheak",
-		role: "Root Admin",
-		profileIcon: "/images/profile.png",
-	},
-	{
-		dateTime: new Date(),
-		userName: "rusiruavb",
-		firstName: "Rusiru",
-		lastName: "Abhisheak",
-		role: "Root Admin",
-		profileIcon: "/images/profile.png",
-	},
-];
-// Temp daa - End
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { IRecentLogin } from "../../../interfaces/ILogins";
+import { getLoginInfo } from "../../../store/logins-store/loginsActions";
 
 const RecentLogin: React.FC = () => {
+	const recentLogins = useSelector((state) => state.loginsReducer);
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(getLoginInfo());
+	}, [dispatch]);
+
+	const URL = `${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/`;
+
 	return (
 		<div className="resent__login">
 			<div className="card">
-				<h5 className="m-0">
-					<i className="fa fa-sign-in text-info"></i>&nbsp;Recent Logins
-				</h5>
-				<div className="card-body">
-					{resentLogins.map((logItem, index) => (
-						<LoginItem
-							key={index}
-							dateTime={logItem.dateTime}
-							userName={logItem.userName}
-							firstName={logItem.firstName}
-							lastName={logItem.lastName}
-							role={logItem.role}
-							profileIcon={logItem.profileIcon}
-						/>
-					))}
+				<div>
+					<h5 className="m-0">
+						<i className="fa fa-sign-in text-info"></i>&nbsp;Recent Logins
+					</h5>
+					<div className="card-body">
+						{recentLogins.recentLogins &&
+							recentLogins.recentLogins.length &&
+							recentLogins.recentLogins
+								.slice(0, 6)
+								.map((recentLogin: IRecentLogin) => (
+									<LoginItem
+										key={recentLogin._id}
+										dateTime={recentLogin.loggedAt}
+										firstName={recentLogin.user.firstName}
+										lastName={recentLogin.user.lastName}
+										role={recentLogin.user.permissionLevel}
+										profileIcon={URL + recentLogin.user.profileImage}
+									/>
+								))}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -81,14 +44,13 @@ const RecentLogin: React.FC = () => {
 
 interface LoginItemProps {
 	dateTime: string | any;
-	userName: string;
 	firstName: string;
 	lastName: string;
-	role: string;
+	role: string | null;
 	profileIcon: string;
 }
 
-const LoginItem: React.FC<LoginItemProps> = ({ dateTime, userName, firstName, lastName, profileIcon, role }) => {
+const LoginItem: React.FC<LoginItemProps> = ({ dateTime, firstName, lastName, profileIcon, role }) => {
 	return (
 		<div className="login__item">
 			<div className="row">

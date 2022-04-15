@@ -41,3 +41,10 @@ export const deleteInquiryPermanently = (inquiryId: string) => {
 		payload: InquiryAPI.permanantDeletedInquiry(inquiryId),
 	};
 };
+
+export const replyInquiry = (inquiryId: string, data: any) => {
+	return {
+		type: InquiryActionTypes.REPLY_INQUIRY,
+		payload: InquiryAPI.replyInquiry(inquiryId, data),
+	};
+};
