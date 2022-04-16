@@ -60,11 +60,13 @@
 		background: #ffffff;
 
 		.card-body {
+			width: 100%;
 			padding-left: 10px;
 		}
 	}
 
 	.login__item {
+		width: 100%;
 		padding-bottom: 10px;
 		margin-bottom: 8px;
 
@@ -80,14 +82,8 @@
 		}
 
 		.time {
+			width: 120px;
 			font-size: 14px;
-		}
-
-		.profile__icon {
-			width: 39px;
-			height: 39px;
-			object-fit: cover;
-			border-radius: 50%;
 		}
 
 		.login__item_container {
@@ -95,6 +91,15 @@
 			grid-template-columns: auto auto;
 			gap: 5px;
 			padding: 5px;
+			display: flex;
+
+			.profile__icon {
+				width: 39px;
+				height: 39px;
+				margin-right: 1.3rem;
+				object-fit: cover;
+				border-radius: 50%;
+			}
 
 			div {
 				font-size: 12px;
@@ -205,69 +210,6 @@
 			padding-right: 7px;
 			padding-top: 4px;
 			padding-bottom: 4px;
-		}
-	}
-}
-
-// Stylings for RecentLogin component
-.resent__login {
-	.card {
-		width: 400px;
-		height: 500px;
-		background: #ffffff;
-
-		.card-body {
-			padding-left: 10px;
-		}
-	}
-
-	.login__item {
-		padding-bottom: 10px;
-		margin-bottom: 8px;
-
-		.col-7 {
-			padding: 0px;
-		}
-
-		.line {
-			width: 3px;
-			background-color: rgb(random(255), random(255), random(255));
-			height: 90%;
-			float: left;
-		}
-
-		.time {
-			font-size: 14px;
-		}
-
-		.profile__icon {
-			width: 39px;
-			height: 39px;
-			object-fit: cover;
-			border-radius: 50%;
-		}
-
-		.login__item_container {
-			display: grid;
-			grid-template-columns: auto auto;
-			gap: 5px;
-			padding: 5px;
-
-			div {
-				font-size: 12px;
-				text-align: left;
-			}
-
-			.badge {
-				font-size: 11px;
-				padding-left: 5px !important;
-				padding-right: 5px !important;
-			}
-
-			.name {
-				padding-top: 0px;
-				font-size: 14px;
-			}
 		}
 	}
 }
