@@ -279,8 +279,7 @@
 		margin: 0px;
 		border-radius: 5px 5px 0px 0px;
 		height: 190px;
-		width: fit-content;
-		object-fit: cover;
+		object-fit: contain;
 	}
 
 	.card-body {
