@@ -3,7 +3,7 @@ import { IModifiedBy, IUser, IUserStore, IAuthUser, IUserFormData, IUserState } 
 import { ITopSpeaker, ITopSpeakerStore, ITopSpeakerFormData, ITopSpeakerState } from "./ITopSpeaker";
 import { IInterviewState, IInterviewFormData } from "./IInterview";
 import { IApplication, IApplicationStore } from "./IApplication";
-import { IInquiry, IInquiryStore } from "./IInquiry";
+import { IInquiry, IInquiryStore, IInquiryReplyFormData, IInquiryReplyState } from "./IInquiry";
 import { ILoginState, ILoginFormData } from "./ILogin";
 import { IOrganization, IOrganizationStore } from "./IOrganization";
 import { IWebinar, IWebinarStore, IwebinarFormData, IWebinarState } from "./IWebinar";
@@ -32,6 +32,8 @@ export type {
 	IWebinarState,
 	IInquiry,
 	IInquiryStore,
+	IInquiryReplyFormData,
+	IInquiryReplyState,
 	ILoginFormData,
 	ILoginState,
 	IOrganization,

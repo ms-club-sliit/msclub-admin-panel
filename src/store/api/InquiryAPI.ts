@@ -1,5 +1,6 @@
 import axios from "axios";
 import requestConfig from "./config";
+import requestConfigJson from "./configJson";
 import { IInquiry } from "../../interfaces";
 const BASE_URL = process.env.REACT_APP_API_ENDPOINT as string;
 
@@ -21,6 +22,10 @@ class InquiryAPI {
 	}
 	static permanantDeletedInquiry(inquiryId: string): Promise<IInquiry> {
 		return axios.delete(`${BASE_URL}/admin/contact/delete/${inquiryId}`, requestConfig);
+	}
+
+	static replyInquiry(inquiryId: string, data: any): Promise<IInquiry> {
+		return axios.put(`${BASE_URL}/admin/contact/reply/${inquiryId}`, data, requestConfigJson);
 	}
 }
 
