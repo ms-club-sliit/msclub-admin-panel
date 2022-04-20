@@ -9,6 +9,7 @@ import { applications as getApplications } from "../../store/application-store/a
 import { getAllUsers } from "../../store/user-store/userActions";
 import { getEvents } from "../../store/event-store/eventActions";
 import { getInquiries } from "../../store/inquiry-store/inquiryAction";
+import MeetingScheduler from "./meeting_scheduler";
 
 const Dashboard: React.FC = () => {
 	const dispatch = useDispatch();
@@ -42,6 +43,9 @@ const Dashboard: React.FC = () => {
 				</div>
 				<div className="col-md-4 my-2 d-flex justify-content-center">
 					<MSShort />
+				</div>
+				<div className="col-md-4 my-2 d-flex justify-content-center">
+					<MeetingScheduler />
 				</div>
 			</div>
 		</div>
