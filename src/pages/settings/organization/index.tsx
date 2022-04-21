@@ -7,11 +7,11 @@ import { translation } from "../../../locales/en-US/translation.json";
 const initialState: IIOrganizationState = {
 	name: "",
 	email: "",
-	phoneNumber: "" ,
-	university: "" ,
-	address: "" ,
+	phoneNumber: "",
+	university: "",
+	address: "",
 	website: "",
-	imagePath: ""
+	imagePath: "",
 };
 
 const OrganizationInfo: React.FC = () => {
@@ -19,19 +19,7 @@ const OrganizationInfo: React.FC = () => {
 	const state = useSelector((state) => state.organizationReducer);
 	const [isEditEnable, setEditEnable] = useState<boolean>(false);
 	const [organization, setOrganization] = useState<IOrganization>();
-		const [
-		{
-			name,
-			email,
-			phoneNumber,
-			university,
-			address,
-			website,
-			imagePath,
-		},
-		setState,
-	] = useState(initialState);
-
+	const [{ name, email, phoneNumber, university, address, website, imagePath }, setState] = useState(initialState);
 
 	useEffect(() => {
 		dispatch(getOrganizationInfo());
@@ -39,7 +27,7 @@ const OrganizationInfo: React.FC = () => {
 
 	useEffect(() => {
 		setOrganization(state.organization);
-		setState((prevState)=>({
+		setState((prevState) => ({
 			...prevState,
 			name: state.organization?.name,
 			email: state.organization?.email,
@@ -47,9 +35,14 @@ const OrganizationInfo: React.FC = () => {
 			university: state.organization?.university,
 			address: state.organization?.address,
 			website: state.organization?.website,
-			imagePath: "organization-images/1640356477197-322336.jpg"
+			imagePath: "organization-images/1640356477197-322336.jpg",
 		}));
 	}, [state.organization]);
+
+	const onChange = (event: any) => {
+		const { name, value } = event.target;
+		setState((prevState) => ({ ...prevState, [name]: value }));
+	};
 
 	const handleEditClick = (event: any) => {
 		if (event) {
@@ -92,7 +85,7 @@ const OrganizationInfo: React.FC = () => {
 							{!isEditEnable ? (
 								<span>{organization && organization.name}</span>
 							) : (
-								<input type="text" value={name as string} className="form-control" />
+								<input type="text" name="name" value={name as string} className="form-control" />
 							)}
 						</p>
 						<p className="info-text">
@@ -101,7 +94,7 @@ const OrganizationInfo: React.FC = () => {
 							{!isEditEnable ? (
 								<a href={`mailto:${organization && organization.email}`}>{organization && organization.email}</a>
 							) : (
-								<input type="text" value={email as string} className="form-control" />
+								<input type="text" name="email" value={email as string} className="form-control" />
 							)}
 						</p>
 						<p className="info-text">
@@ -110,11 +103,7 @@ const OrganizationInfo: React.FC = () => {
 							{!isEditEnable ? (
 								<span>{organization && organization.university}</span>
 							) : (
-								<input
-									type="text"
-									value={university as string}
-									className="form-control"
-								/>
+								<input type="text" name="university" value={university as string} className="form-control" />
 							)}
 						</p>
 						<p className="info-text">
@@ -123,7 +112,7 @@ const OrganizationInfo: React.FC = () => {
 							{!isEditEnable ? (
 								<span>{organization && organization.address}</span>
 							) : (
-								<input type="text" value={address as string} className="form-control" />
+								<input type="text" name="address" value={address as string} className="form-control" />
 							)}
 						</p>
 						<p className="info-text">
@@ -134,7 +123,7 @@ const OrganizationInfo: React.FC = () => {
 									{organization && organization.website}
 								</a>
 							) : (
-								<input type="text" value={website as string} className="form-control" />
+								<input type="text" name="website" value={website as string} className="form-control" />
 							)}
 						</p>
 					</div>

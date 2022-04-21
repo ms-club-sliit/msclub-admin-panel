@@ -27,4 +27,4 @@ interface IOrganizationStore {
 	error: any | null;
 }
 
-export type { IOrganization, IOrganizationStore,IIOrganizationState };
+export type { IOrganization, IOrganizationStore, IIOrganizationState };
