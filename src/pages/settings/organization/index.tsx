@@ -1,14 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { IOrganization } from "../../../interfaces";
+import { IOrganization, IIOrganizationState } from "../../../interfaces";
 import { getOrganizationInfo } from "../../../store/organization-store/organizationActions";
 import { translation } from "../../../locales/en-US/translation.json";
+
+const initialState: IIOrganizationState = {
+	name: "",
+	email: "",
+	phoneNumber: "" ,
+	university: "" ,
+	address: "" ,
+	website: "",
+	imagePath: ""
+};
 
 const OrganizationInfo: React.FC = () => {
 	const dispatch = useDispatch();
 	const state = useSelector((state) => state.organizationReducer);
 	const [isEditEnable, setEditEnable] = useState<boolean>(false);
 	const [organization, setOrganization] = useState<IOrganization>();
+		const [
+		{
+			name,
+			email,
+			phoneNumber,
+			university,
+			address,
+			website,
+			imagePath,
+		},
+		setState,
+	] = useState(initialState);
+
 
 	useEffect(() => {
 		dispatch(getOrganizationInfo());

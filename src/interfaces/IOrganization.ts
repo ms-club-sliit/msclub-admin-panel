@@ -1,5 +1,4 @@
 import { IModifiedBy } from ".";
-
 interface IOrganization {
 	name: string;
 	email: string;
@@ -10,7 +9,15 @@ interface IOrganization {
 	updatedBy: IModifiedBy[];
 	imagePath: string;
 }
-
+interface IIOrganizationState {
+	name: string | null;
+	email: string | null;
+	phoneNumber?: string | null;
+	university: string | null;
+	address: string | null;
+	website: string | null;
+	imagePath: string;
+}
 interface IOrganizationStore {
 	createOrganization: IOrganization | null;
 	organization: IOrganization | null;
@@ -20,4 +27,4 @@ interface IOrganizationStore {
 	error: any | null;
 }
 
-export type { IOrganization, IOrganizationStore };
+export type { IOrganization, IOrganizationStore,IIOrganizationState };
