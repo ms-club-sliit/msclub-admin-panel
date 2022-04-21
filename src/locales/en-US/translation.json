@@ -15,6 +15,11 @@
 				"title": "MS Short",
 				"description": "Use our tool to create a short, unique URL that will redirect to the specific website",
 				"shorten-button": "Shorten"
+			},
+			"meeting-scheduler": {
+				"title": "Meeting Scheduler",
+				"description": "Use our tool to schedule a meeting related to the MS club members",
+				"schduler-button": "Schedule a Meeting"
 			}
 		},
 		"table": {
