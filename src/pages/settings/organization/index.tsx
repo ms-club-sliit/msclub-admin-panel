@@ -85,7 +85,7 @@ const OrganizationInfo: React.FC = () => {
 							{!isEditEnable ? (
 								<span>{organization && organization.name}</span>
 							) : (
-								<input type="text" name="name" value={name as string} className="form-control" />
+								<input type="text" name="name" value={name as string} onChange={onChange} className="form-control" />
 							)}
 						</p>
 						<p className="info-text">
@@ -94,7 +94,7 @@ const OrganizationInfo: React.FC = () => {
 							{!isEditEnable ? (
 								<a href={`mailto:${organization && organization.email}`}>{organization && organization.email}</a>
 							) : (
-								<input type="text" name="email" value={email as string} className="form-control" />
+								<input type="text" name="email" value={email as string} onChange={onChange} className="form-control" />
 							)}
 						</p>
 						<p className="info-text">
@@ -103,7 +103,7 @@ const OrganizationInfo: React.FC = () => {
 							{!isEditEnable ? (
 								<span>{organization && organization.university}</span>
 							) : (
-								<input type="text" name="university" value={university as string} className="form-control" />
+								<input type="text" name="university" value={university as string} onChange={onChange} className="form-control" />
 							)}
 						</p>
 						<p className="info-text">
@@ -112,7 +112,7 @@ const OrganizationInfo: React.FC = () => {
 							{!isEditEnable ? (
 								<span>{organization && organization.address}</span>
 							) : (
-								<input type="text" name="address" value={address as string} className="form-control" />
+								<input type="text" name="address" value={address as string} onChange={onChange} className="form-control" />
 							)}
 						</p>
 						<p className="info-text">
@@ -123,7 +123,7 @@ const OrganizationInfo: React.FC = () => {
 									{organization && organization.website}
 								</a>
 							) : (
-								<input type="text" name="website" value={website as string} className="form-control" />
+								<input type="text" name="website" value={website as string} onChange={onChange} className="form-control" />
 							)}
 						</p>
 					</div>
