@@ -39,6 +39,16 @@ const OrganizationInfo: React.FC = () => {
 
 	useEffect(() => {
 		setOrganization(state.organization);
+		setState((prevState)=>({
+			...prevState,
+			name: state.organization?.name,
+			email: state.organization?.email,
+			phoneNumber: state.organization?.phoneNumber,
+			university: state.organization?.university,
+			address: state.organization?.address,
+			website: state.organization?.website,
+			imagePath: "organization-images/1640356477197-322336.jpg"
+		}));
 	}, [state.organization]);
 
 	const handleEditClick = (event: any) => {
@@ -82,7 +92,7 @@ const OrganizationInfo: React.FC = () => {
 							{!isEditEnable ? (
 								<span>{organization && organization.name}</span>
 							) : (
-								<input type="text" value={organization && organization.name} className="form-control" />
+								<input type="text" value={name as string} className="form-control" />
 							)}
 						</p>
 						<p className="info-text">
@@ -91,7 +101,7 @@ const OrganizationInfo: React.FC = () => {
 							{!isEditEnable ? (
 								<a href={`mailto:${organization && organization.email}`}>{organization && organization.email}</a>
 							) : (
-								<input type="text" value={organization && organization.email} className="form-control" />
+								<input type="text" value={email as string} className="form-control" />
 							)}
 						</p>
 						<p className="info-text">
@@ -102,7 +112,7 @@ const OrganizationInfo: React.FC = () => {
 							) : (
 								<input
 									type="text"
-									value={organization && (organization.university as string)}
+									value={university as string}
 									className="form-control"
 								/>
 							)}
@@ -113,7 +123,7 @@ const OrganizationInfo: React.FC = () => {
 							{!isEditEnable ? (
 								<span>{organization && organization.address}</span>
 							) : (
-								<input type="text" value={organization && (organization.address as string)} className="form-control" />
+								<input type="text" value={address as string} className="form-control" />
 							)}
 						</p>
 						<p className="info-text">
@@ -124,7 +134,7 @@ const OrganizationInfo: React.FC = () => {
 									{organization && organization.website}
 								</a>
 							) : (
-								<input type="text" value={organization && (organization.website as string)} className="form-control" />
+								<input type="text" value={website as string} className="form-control" />
 							)}
 						</p>
 					</div>
