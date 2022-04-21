@@ -5,11 +5,11 @@ import RecentLogin from "./login_info";
 import RecentApplication from "./application_info";
 import ApplicationStatus from "./application_status";
 import MSShort from "./msshort";
+import MeetingScheduler from "./meeting_scheduler";
 import { applications as getApplications } from "../../store/application-store/applicationActions";
 import { getAllUsers } from "../../store/user-store/userActions";
 import { getEvents } from "../../store/event-store/eventActions";
 import { getInquiries } from "../../store/inquiry-store/inquiryAction";
-import MeetingScheduler from "./meeting_scheduler";
 
 const Dashboard: React.FC = () => {
 	const dispatch = useDispatch();
