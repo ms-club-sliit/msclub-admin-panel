@@ -10,7 +10,7 @@ interface IOrganization {
 	imagePath: string;
 }
 
-interface IOrganizationFormData{
+interface IOrganizationFormData {
 	organizationId: string | null;
 	name: string | null;
 	email: string | null;

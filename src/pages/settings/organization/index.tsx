@@ -12,7 +12,7 @@ const initialState: IIOrganizationState = {
 	university: "",
 	address: "",
 	website: "",
-	imagePath: "",	
+	imagePath: "",
 	isFormNotValid: false,
 };
 
@@ -32,7 +32,10 @@ const OrganizationInfo: React.FC = () => {
 	const state = useSelector((state) => state.organizationReducer);
 	const [isEditEnable, setEditEnable] = useState<boolean>(false);
 	const [organization, setOrganization] = useState<IOrganization>();
-	const [{ organizationId, name, email, phoneNumber, university, address, website, imagePath, isFormNotValid }, setState] = useState(initialState);
+	const [
+		{ organizationId, name, email, phoneNumber, university, address, website, imagePath, isFormNotValid },
+		setState,
+	] = useState(initialState);
 
 	useEffect(() => {
 		dispatch(getOrganizationInfo());
@@ -50,7 +53,7 @@ const OrganizationInfo: React.FC = () => {
 			address: state.organization?.address,
 			website: state.organization?.website,
 			imagePath: state.organization?.imagePath,
-		}));				
+		}));
 		setEditEnable(false);
 	}, [state.organization]);
 
@@ -72,16 +75,16 @@ const OrganizationInfo: React.FC = () => {
 	};
 
 	//form validation
-	const validateForm = () =>{
+	const validateForm = () => {
 		const data = {
 			organizationId: organizationId,
-			name : name && name.trim().length > 0 ? name : null,
-			email : email && email.trim().length > 0 ? email : null,
-			phoneNumber : phoneNumber && phoneNumber.trim().length > 0 ? phoneNumber : null,
-			university : university && university.trim().length > 0 ? university : null,
-			address : address && address.trim().length > 0 ? address : null,
-			website : website && website.trim().length > 0 ? website : null,
-			imagePath : imagePath && imagePath.trim().length > 0 ? imagePath : null,
+			name: name && name.trim().length > 0 ? name : null,
+			email: email && email.trim().length > 0 ? email : null,
+			phoneNumber: phoneNumber && phoneNumber.trim().length > 0 ? phoneNumber : null,
+			university: university && university.trim().length > 0 ? university : null,
+			address: address && address.trim().length > 0 ? address : null,
+			website: website && website.trim().length > 0 ? website : null,
+			imagePath: imagePath && imagePath.trim().length > 0 ? imagePath : null,
 		};
 
 		formData = Object.assign({}, data);
@@ -94,15 +97,15 @@ const OrganizationInfo: React.FC = () => {
 
 		const isFormValid = validateForm();
 
-		if(isFormValid){
+		if (isFormValid) {
 			let data = Object.values(formData).map((item) => {
 				return item !== null;
 			});
-			if(!data.includes(false)){
-				setState((prevState) => ({ ...prevState, isFormNotValid: false}));
+			if (!data.includes(false)) {
+				setState((prevState) => ({ ...prevState, isFormNotValid: false }));
 
 				let organizationFormData = new FormData();
-				if(phoneNumber) {
+				if (phoneNumber) {
 					organizationFormData.append("phoneNumber", phoneNumber);
 				}
 				organizationFormData.append("organizationId", organizationId as string);
@@ -113,13 +116,13 @@ const OrganizationInfo: React.FC = () => {
 				organizationFormData.append("website", website as string);
 				organizationFormData.append("imagePath", imagePath as string);
 
-				if (organizationId){
-					dispatch(updateOrganization(organizationFormData));													
+				if (organizationId) {
+					dispatch(updateOrganization(organizationFormData));
 				}
-		} else {
-			setState((prevState) => ({ ...prevState, isFormNotValid: true}));
+			} else {
+				setState((prevState) => ({ ...prevState, isFormNotValid: true }));
+			}
 		}
-	}
 	};
 
 	return (
@@ -169,7 +172,13 @@ const OrganizationInfo: React.FC = () => {
 							{!isEditEnable ? (
 								<span>{organization && organization.university}</span>
 							) : (
-								<input type="text" name="university" value={university as string} onChange={onChange} className="form-control" />
+								<input
+									type="text"
+									name="university"
+									value={university as string}
+									onChange={onChange}
+									className="form-control"
+								/>
 							)}
 						</p>
 						<p className="info-text">
@@ -178,7 +187,13 @@ const OrganizationInfo: React.FC = () => {
 							{!isEditEnable ? (
 								<span>{organization && organization.address}</span>
 							) : (
-								<input type="text" name="address" value={address as string} onChange={onChange} className="form-control" />
+								<input
+									type="text"
+									name="address"
+									value={address as string}
+									onChange={onChange}
+									className="form-control"
+								/>
 							)}
 						</p>
 						<p className="info-text">
@@ -189,7 +204,13 @@ const OrganizationInfo: React.FC = () => {
 									{organization && organization.website}
 								</a>
 							) : (
-								<input type="text" name="website" value={website as string} onChange={onChange} className="form-control" />
+								<input
+									type="text"
+									name="website"
+									value={website as string}
+									onChange={onChange}
+									className="form-control"
+								/>
 							)}
 						</p>
 					</div>
