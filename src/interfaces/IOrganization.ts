@@ -9,14 +9,27 @@ interface IOrganization {
 	updatedBy: IModifiedBy[];
 	imagePath: string;
 }
-interface IIOrganizationState {
+
+interface IOrganizationFormData{
+	organizationId: string | null;
 	name: string | null;
 	email: string | null;
 	phoneNumber?: string | null;
 	university: string | null;
 	address: string | null;
 	website: string | null;
-	imagePath: string;
+	imagePath: any | null;
+}
+interface IIOrganizationState {
+	organizationId: string | null;
+	name: string | null;
+	email: string | null;
+	phoneNumber?: string | null;
+	university: string | null;
+	address: string | null;
+	website: string | null;
+	imagePath: any;
+	isFormNotValid: boolean;
 }
 interface IOrganizationStore {
 	createOrganization: IOrganization | null;
@@ -27,4 +40,4 @@ interface IOrganizationStore {
 	error: any | null;
 }
 
-export type { IOrganization, IOrganizationStore, IIOrganizationState };
+export type { IOrganization, IOrganizationStore, IOrganizationFormData, IIOrganizationState };

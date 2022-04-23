@@ -1,17 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { IOrganization, IIOrganizationState } from "../../../interfaces";
-import { getOrganizationInfo } from "../../../store/organization-store/organizationActions";
+import { IOrganization, IIOrganizationState, IOrganizationFormData } from "../../../interfaces";
+import { getOrganizationInfo, updateOrganization } from "../../../store/organization-store/organizationActions";
 import { translation } from "../../../locales/en-US/translation.json";
 
 const initialState: IIOrganizationState = {
+	organizationId: "",
 	name: "",
 	email: "",
 	phoneNumber: "",
 	university: "",
 	address: "",
 	website: "",
-	imagePath: "",
+	imagePath: "",	
+	isFormNotValid: false,
+};
+
+let formData: IOrganizationFormData = {
+	organizationId: null,
+	name: null,
+	email: null,
+	phoneNumber: null,
+	university: null,
+	address: null,
+	website: null,
+	imagePath: null,
 };
 
 const OrganizationInfo: React.FC = () => {
@@ -19,7 +32,7 @@ const OrganizationInfo: React.FC = () => {
 	const state = useSelector((state) => state.organizationReducer);
 	const [isEditEnable, setEditEnable] = useState<boolean>(false);
 	const [organization, setOrganization] = useState<IOrganization>();
-	const [{ name, email, phoneNumber, university, address, website, imagePath }, setState] = useState(initialState);
+	const [{ organizationId, name, email, phoneNumber, university, address, website, imagePath, isFormNotValid }, setState] = useState(initialState);
 
 	useEffect(() => {
 		dispatch(getOrganizationInfo());
@@ -35,7 +48,7 @@ const OrganizationInfo: React.FC = () => {
 			university: state.organization?.university,
 			address: state.organization?.address,
 			website: state.organization?.website,
-			imagePath: "organization-images/1640356477197-322336.jpg",
+			imagePath: state.organization?.imagePath,
 		}));
 	}, [state.organization]);
 
@@ -53,6 +66,56 @@ const OrganizationInfo: React.FC = () => {
 	const handleCancelEdit = (event: any) => {
 		if (event) {
 			setEditEnable(false);
+		}
+	};
+
+	//form validation
+	const validateForm = () =>{
+		const data = {
+			organizationId: organizationId,
+			name : name && name.trim().length > 0 ? name : null,
+			email : email && email.trim().length > 0 ? email : null,
+			phoneNumber : phoneNumber && phoneNumber.trim().length > 0 ? phoneNumber : null,
+			university : university && university.trim().length > 0 ? university : null,
+			address : address && address.trim().length > 0 ? address : null,
+			website : website && website.trim().length > 0 ? website : null,
+			imagePath : imagePath && imagePath.trim().length > 0 ? imagePath : null,
+		};
+
+		formData = Object.assign({}, data);
+		return true;
+	};
+
+	//form submission
+	const onSubmit = (event: any) => {
+		event.preventDefault();
+
+		const isFormValid = validateForm();
+
+		if(isFormValid){
+			let data = Object.values(formData).map((item) => {
+				return item !== null;
+			});
+			if(!data.includes(false)){
+				setState((prevState) => ({ ...prevState, isFormNotValid: false}));
+
+				let organizationFormData = new FormData();
+				if(phoneNumber) {
+					organizationFormData.append("phoneNumber", phoneNumber);
+				}
+				organizationFormData.append("organizationId", organizationId as string);
+				organizationFormData.append("name", name as string);
+				organizationFormData.append("email", email as string);
+				organizationFormData.append("phoneNumber", phoneNumber as string);
+				organizationFormData.append("university", university as string);
+				organizationFormData.append("address", address as string);
+				organizationFormData.append("website", website as string);
+				organizationFormData.append("imagePath", imagePath);
+
+				dispatch(updateOrganization(organizationFormData));				
+			};
+		}else {
+			setState((prevState) => ({ ...prevState, isFormNotValid: true}));
 		}
 	};
 
@@ -133,7 +196,7 @@ const OrganizationInfo: React.FC = () => {
 							<button className="btn btn-light btn-sm btn-rounded shadow-none" onClick={handleCancelEdit}>
 								{translation.buttons.common.cancel}
 							</button>
-							<button className="btn btn-primary btn-sm btn-rounded shadow-none">
+							<button className="btn btn-primary btn-sm btn-rounded shadow-none" onClick={onSubmit}>
 								{translation.buttons.common.save}
 							</button>
 						</div>
