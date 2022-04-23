@@ -36,7 +36,7 @@ const OrganizationInfo: React.FC = () => {
 
 	useEffect(() => {
 		dispatch(getOrganizationInfo());
-	}, [dispatch]);
+	}, [dispatch, state.updatedOrganization]);
 
 	useEffect(() => {
 		setOrganization(state.organization);
@@ -50,7 +50,8 @@ const OrganizationInfo: React.FC = () => {
 			address: state.organization?.address,
 			website: state.organization?.website,
 			imagePath: state.organization?.imagePath,
-		}));
+		}));				
+		setEditEnable(false);
 	}, [state.organization]);
 
 	const onChange = (event: any) => {
@@ -113,7 +114,7 @@ const OrganizationInfo: React.FC = () => {
 				organizationFormData.append("imagePath", imagePath as string);
 
 				if (organizationId){
-					dispatch(updateOrganization(organizationFormData));								
+					dispatch(updateOrganization(organizationFormData));													
 				}
 		} else {
 			setState((prevState) => ({ ...prevState, isFormNotValid: true}));
