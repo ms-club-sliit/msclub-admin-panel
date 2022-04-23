@@ -167,6 +167,7 @@ const UpdateWebinar: React.FC = () => {
 
 				if (webinarId) {
 					dispatch(updatedWebinar(webinarId, webinarFormData));
+					location.reload();
 				}
 			} else {
 				setState((prevState) => ({ ...prevState, isFormNotValid: true }));
