@@ -42,6 +42,7 @@ const OrganizationInfo: React.FC = () => {
 		setOrganization(state.organization);
 		setState((prevState) => ({
 			...prevState,
+			organizationId: state.organization?._id,
 			name: state.organization?.name,
 			email: state.organization?.email,
 			phoneNumber: state.organization?.phoneNumber,
@@ -106,17 +107,18 @@ const OrganizationInfo: React.FC = () => {
 				organizationFormData.append("organizationId", organizationId as string);
 				organizationFormData.append("name", name as string);
 				organizationFormData.append("email", email as string);
-				organizationFormData.append("phoneNumber", phoneNumber as string);
 				organizationFormData.append("university", university as string);
 				organizationFormData.append("address", address as string);
 				organizationFormData.append("website", website as string);
-				organizationFormData.append("imagePath", imagePath);
+				organizationFormData.append("imagePath", imagePath as string);
 
-				dispatch(updateOrganization(organizationFormData));				
-			};
-		}else {
+				if (organizationId){
+					dispatch(updateOrganization(organizationFormData));								
+				}
+		} else {
 			setState((prevState) => ({ ...prevState, isFormNotValid: true}));
 		}
+	}
 	};
 
 	return (
