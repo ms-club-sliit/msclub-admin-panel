@@ -1,22 +1,66 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { IOrganization } from "../../../interfaces";
-import { getOrganizationInfo } from "../../../store/organization-store/organizationActions";
+import { IOrganization, IIOrganizationState, IOrganizationFormData } from "../../../interfaces";
+import { getOrganizationInfo, updateOrganization } from "../../../store/organization-store/organizationActions";
 import { translation } from "../../../locales/en-US/translation.json";
+
+const initialState: IIOrganizationState = {
+	organizationId: "",
+	name: "",
+	email: "",
+	phoneNumber: "",
+	university: "",
+	address: "",
+	website: "",
+	imagePath: "",
+	isFormNotValid: false,
+};
+
+let formData: IOrganizationFormData = {
+	organizationId: null,
+	name: null,
+	email: null,
+	phoneNumber: null,
+	university: null,
+	address: null,
+	website: null,
+	imagePath: null,
+};
 
 const OrganizationInfo: React.FC = () => {
 	const dispatch = useDispatch();
 	const state = useSelector((state) => state.organizationReducer);
 	const [isEditEnable, setEditEnable] = useState<boolean>(false);
 	const [organization, setOrganization] = useState<IOrganization>();
+	const [
+		{ organizationId, name, email, phoneNumber, university, address, website, imagePath, isFormNotValid },
+		setState,
+	] = useState(initialState);
 
 	useEffect(() => {
 		dispatch(getOrganizationInfo());
-	}, [dispatch]);
+	}, [dispatch, state.updatedOrganization]);
 
 	useEffect(() => {
 		setOrganization(state.organization);
+		setState((prevState) => ({
+			...prevState,
+			organizationId: state.organization?._id,
+			name: state.organization?.name,
+			email: state.organization?.email,
+			phoneNumber: state.organization?.phoneNumber,
+			university: state.organization?.university,
+			address: state.organization?.address,
+			website: state.organization?.website,
+			imagePath: state.organization?.imagePath,
+		}));
+		setEditEnable(false);
 	}, [state.organization]);
+
+	const onChange = (event: any) => {
+		const { name, value } = event.target;
+		setState((prevState) => ({ ...prevState, [name]: value }));
+	};
 
 	const handleEditClick = (event: any) => {
 		if (event) {
@@ -27,6 +71,57 @@ const OrganizationInfo: React.FC = () => {
 	const handleCancelEdit = (event: any) => {
 		if (event) {
 			setEditEnable(false);
+		}
+	};
+
+	//form validation
+	const validateForm = () => {
+		const data = {
+			organizationId: organizationId,
+			name: name && name.trim().length > 0 ? name : null,
+			email: email && email.trim().length > 0 ? email : null,
+			phoneNumber: phoneNumber && phoneNumber.trim().length > 0 ? phoneNumber : null,
+			university: university && university.trim().length > 0 ? university : null,
+			address: address && address.trim().length > 0 ? address : null,
+			website: website && website.trim().length > 0 ? website : null,
+			imagePath: imagePath && imagePath.trim().length > 0 ? imagePath : null,
+		};
+
+		formData = Object.assign({}, data);
+		return true;
+	};
+
+	//form submission
+	const onSubmit = (event: any) => {
+		event.preventDefault();
+
+		const isFormValid = validateForm();
+
+		if (isFormValid) {
+			let data = Object.values(formData).map((item) => {
+				return item !== null;
+			});
+			if (!data.includes(false)) {
+				setState((prevState) => ({ ...prevState, isFormNotValid: false }));
+
+				let organizationFormData = new FormData();
+				if (phoneNumber) {
+					organizationFormData.append("phoneNumber", phoneNumber);
+				}
+				organizationFormData.append("organizationId", organizationId as string);
+				organizationFormData.append("name", name as string);
+				organizationFormData.append("email", email as string);
+				organizationFormData.append("university", university as string);
+				organizationFormData.append("address", address as string);
+				organizationFormData.append("website", website as string);
+				organizationFormData.append("imagePath", imagePath as string);
+
+				if (organizationId) {
+					dispatch(updateOrganization(organizationFormData));
+				}
+			} else {
+				setState((prevState) => ({ ...prevState, isFormNotValid: true }));
+			}
 		}
 	};
 
@@ -59,7 +154,7 @@ const OrganizationInfo: React.FC = () => {
 							{!isEditEnable ? (
 								<span>{organization && organization.name}</span>
 							) : (
-								<input type="text" value={organization && organization.name} className="form-control" />
+								<input type="text" name="name" value={name as string} onChange={onChange} className="form-control" />
 							)}
 						</p>
 						<p className="info-text">
@@ -68,7 +163,7 @@ const OrganizationInfo: React.FC = () => {
 							{!isEditEnable ? (
 								<a href={`mailto:${organization && organization.email}`}>{organization && organization.email}</a>
 							) : (
-								<input type="text" value={organization && organization.email} className="form-control" />
+								<input type="text" name="email" value={email as string} onChange={onChange} className="form-control" />
 							)}
 						</p>
 						<p className="info-text">
@@ -79,7 +174,9 @@ const OrganizationInfo: React.FC = () => {
 							) : (
 								<input
 									type="text"
-									value={organization && (organization.university as string)}
+									name="university"
+									value={university as string}
+									onChange={onChange}
 									className="form-control"
 								/>
 							)}
@@ -90,7 +187,13 @@ const OrganizationInfo: React.FC = () => {
 							{!isEditEnable ? (
 								<span>{organization && organization.address}</span>
 							) : (
-								<input type="text" value={organization && (organization.address as string)} className="form-control" />
+								<input
+									type="text"
+									name="address"
+									value={address as string}
+									onChange={onChange}
+									className="form-control"
+								/>
 							)}
 						</p>
 						<p className="info-text">
@@ -101,7 +204,13 @@ const OrganizationInfo: React.FC = () => {
 									{organization && organization.website}
 								</a>
 							) : (
-								<input type="text" value={organization && (organization.website as string)} className="form-control" />
+								<input
+									type="text"
+									name="website"
+									value={website as string}
+									onChange={onChange}
+									className="form-control"
+								/>
 							)}
 						</p>
 					</div>
@@ -111,7 +220,7 @@ const OrganizationInfo: React.FC = () => {
 							<button className="btn btn-light btn-sm btn-rounded shadow-none" onClick={handleCancelEdit}>
 								{translation.buttons.common.cancel}
 							</button>
-							<button className="btn btn-primary btn-sm btn-rounded shadow-none">
+							<button className="btn btn-primary btn-sm btn-rounded shadow-none" onClick={onSubmit}>
 								{translation.buttons.common.save}
 							</button>
 						</div>

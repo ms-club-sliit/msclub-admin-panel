@@ -5,6 +5,7 @@ import RecentLogin from "./login_info";
 import RecentApplication from "./application_info";
 import ApplicationStatus from "./application_status";
 import MSShort from "./msshort";
+import MeetingScheduler from "./meeting_scheduler";
 import { applications as getApplications } from "../../store/application-store/applicationActions";
 import { getAllUsers } from "../../store/user-store/userActions";
 import { getEvents } from "../../store/event-store/eventActions";
@@ -42,6 +43,9 @@ const Dashboard: React.FC = () => {
 				</div>
 				<div className="col-md-4 my-2 d-flex justify-content-center">
 					<MSShort />
+				</div>
+				<div className="col-md-4 my-2 d-flex justify-content-center">
+					<MeetingScheduler />
 				</div>
 			</div>
 		</div>

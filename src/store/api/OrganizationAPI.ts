@@ -17,8 +17,8 @@ class OrganizationAPI {
 		return axios.get(`${BASE_URL}/admin/organization/`, requestConfig);
 	}
 
-	static updateOrganization(updateInfo: IOrganization): Promise<IOrganization> {
-		return axios.put(`${BASE_URL}/admin/organization/`, updateInfo, requestConfig);
+	static updateOrganization(data: FormData): Promise<IOrganization> {
+		return axios.put(`${BASE_URL}/admin/organization/`, data, requestConfig);
 	}
 }
 
