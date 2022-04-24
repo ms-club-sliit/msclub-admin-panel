@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import ImageCanvas from "../../../components/image-canvas";
 import { IOrganization, IIOrganizationState, IOrganizationFormData } from "../../../interfaces";
 import {
 	getOrganizationInfo,
@@ -21,6 +22,7 @@ const initialState: IIOrganizationState = {
 };
 
 let formData: IOrganizationFormData = {
+	imageSrc: null,
 	organizationId: null,
 	name: null,
 	email: null,
@@ -37,7 +39,7 @@ const OrganizationInfo: React.FC = () => {
 	const [isEditEnable, setEditEnable] = useState<boolean>(false);
 	const [organization, setOrganization] = useState<IOrganization>();
 	const [
-		{ organizationId, name, email, phoneNumber, university, address, website, imagePath, isFormNotValid },
+		{ imageSrc, organizationId, name, email, phoneNumber, university, address, website, imagePath, isFormNotValid },
 		setState,
 	] = useState(initialState);
 
@@ -66,6 +68,10 @@ const OrganizationInfo: React.FC = () => {
 		setState((prevState) => ({ ...prevState, [name]: value }));
 	};
 
+	const handleImage = (data: any) => {
+		setState((prevState) => ({ ...prevState, imageSrc: data }));
+	};
+
 	const handleEditClick = (event: any) => {
 		if (event) {
 			setEditEnable(true);
@@ -81,6 +87,7 @@ const OrganizationInfo: React.FC = () => {
 	//form validation
 	const validateForm = () => {
 		const data = {
+			imageSrc: imageSrc ? imageSrc : null,
 			organizationId: organizationId,
 			name: name && name.trim().length > 0 ? name : null,
 			email: email && email.trim().length > 0 ? email : null,
@@ -105,28 +112,25 @@ const OrganizationInfo: React.FC = () => {
 			let data = Object.values(formData).map((item) => {
 				return item !== null;
 			});
-			if (!data.includes(false)) {
-				setState((prevState) => ({ ...prevState, isFormNotValid: false }));
+			setState((prevState) => ({ ...prevState, isFormNotValid: false }));
 
-				let organizationFormData = new FormData();
-				if (phoneNumber) {
-					organizationFormData.append("phoneNumber", phoneNumber);
-				}
-				organizationFormData.append("organizationId", organizationId as string);
-				organizationFormData.append("name", name as string);
-				organizationFormData.append("email", email as string);
-				organizationFormData.append("university", university as string);
-				organizationFormData.append("address", address as string);
-				organizationFormData.append("website", website as string);
-				organizationFormData.append("imagePath", imagePath as string);
+			let organizationFormData = new FormData();
+			if (phoneNumber) {
+				organizationFormData.append("phoneNumber", phoneNumber);
+			}
+			organizationFormData.append("organizationLogo", imageSrc);
+			organizationFormData.append("organizationId", organizationId as string);
+			organizationFormData.append("name", name as string);
+			organizationFormData.append("email", email as string);
+			organizationFormData.append("university", university as string);
+			organizationFormData.append("address", address as string);
+			organizationFormData.append("website", website as string);
+			organizationFormData.append("imagePath", imagePath as string);
 
-				if (organizationId) {
-					dispatch(updateOrganization(organizationFormData));
-				} else {
-					dispatch(createOrganization(organizationFormData));
-				}
+			if (organizationId === undefined) {
+				dispatch(createOrganization(organizationFormData));
 			} else {
-				setState((prevState) => ({ ...prevState, isFormNotValid: true }));
+				dispatch(updateOrganization(organizationFormData));
 			}
 		}
 	};
@@ -136,15 +140,27 @@ const OrganizationInfo: React.FC = () => {
 			<div className="row">
 				<div className="col-md-6">
 					<div className="d-flex justify-content-center">
-						{organization && organization.imagePath ? (
-							<img
-								src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${organization.imagePath}`}
-								alt="ms-club"
-								className="logo"
-							/>
-						) : (
-							<img src="/images/ms_club_logo.png" alt="ms-club" className="logo" />
-						)}
+						<div className="row">
+							{organization && organization.imagePath ? (
+								<img
+									src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${organization.imagePath}`}
+									alt="ms-club"
+									className="logo"
+								/>
+							) : (
+								<img src="/images/ms_club_logo.png" alt="ms-club" className="logo" />
+							)}
+						</div>
+						<div className="row">
+							<ImageCanvas width={320} height={180} getEditedImage={handleImage} />
+							<div className="d-flex justify-content-center">
+								{formData.imageSrc === null && isFormNotValid ? (
+									<span className="text-danger validation-message my-2">
+										{translation.forms.webinar["validation-message"]["webinar-file"]}
+									</span>
+								) : null}
+							</div>
+						</div>
 					</div>
 				</div>
 				<div className="col-md-6">

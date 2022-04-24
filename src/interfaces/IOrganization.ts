@@ -11,6 +11,7 @@ interface IOrganization {
 }
 
 interface IOrganizationFormData {
+	imageSrc?: any | null;
 	organizationId: string | null;
 	name: string | null;
 	email: string | null;
@@ -26,6 +27,7 @@ interface IIOrganizationState {
 	email: string | null;
 	phoneNumber?: string | null;
 	university: string | null;
+	imageSrc?: any;
 	address: string | null;
 	website: string | null;
 	imagePath: any;
