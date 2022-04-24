@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IOrganization, IIOrganizationState, IOrganizationFormData } from "../../../interfaces";
-import { getOrganizationInfo, updateOrganization } from "../../../store/organization-store/organizationActions";
+import {
+	getOrganizationInfo,
+	updateOrganization,
+	createOrganization,
+} from "../../../store/organization-store/organizationActions";
 import { translation } from "../../../locales/en-US/translation.json";
 
 const initialState: IIOrganizationState = {
@@ -118,6 +122,8 @@ const OrganizationInfo: React.FC = () => {
 
 				if (organizationId) {
 					dispatch(updateOrganization(organizationFormData));
+				} else {
+					dispatch(createOrganization(organizationFormData));
 				}
 			} else {
 				setState((prevState) => ({ ...prevState, isFormNotValid: true }));
