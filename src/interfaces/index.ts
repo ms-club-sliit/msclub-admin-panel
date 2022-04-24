@@ -5,7 +5,7 @@ import { IInterviewState, IInterviewFormData } from "./IInterview";
 import { IApplication, IApplicationStore } from "./IApplication";
 import { IInquiry, IInquiryStore, IInquiryReplyFormData, IInquiryReplyState } from "./IInquiry";
 import { ILoginState, ILoginFormData } from "./ILogin";
-import { IOrganization, IOrganizationStore } from "./IOrganization";
+import { IOrganization, IOrganizationStore, IOrganizationFormData, IIOrganizationState } from "./IOrganization";
 import { IWebinar, IWebinarStore, IwebinarFormData, IWebinarState } from "./IWebinar";
 import { ILoginFaceAuthenticationState } from "./ILoginFaceAuthentication";
 
@@ -38,6 +38,8 @@ export type {
 	ILoginState,
 	IOrganization,
 	IOrganizationStore,
+	IOrganizationFormData,
+	IIOrganizationState,
 	IInterviewState,
 	IInterviewFormData,
 	ILoginFaceAuthenticationState,
