@@ -167,6 +167,7 @@ const UpdateEvent: React.FC = () => {
 
 				if (eventId) {
 					dispatch(updateEvent(eventId, eventFormData));
+					location.reload();
 				}
 			} else {
 				setState((prevState) => ({ ...prevState, isFormNotValid: true }));
