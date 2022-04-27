@@ -15,6 +15,7 @@ import ApplicationInterviewForm from "../interview";
 import DeleteApplication from "../delete";
 import ApplicationLoader from "../loader";
 import { translation } from "../../../locales/en-US/translation.json";
+import ApplicationMeetingDetailsView from "./../view-interview-details/index";
 
 const ApplicationList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -145,6 +146,11 @@ const ApplicationList: React.FC = () => {
 				</span>
 			</span>
 		);
+	};
+
+	const handleSetViewMeetingData = (applicationId: string) => {
+		dispatch(setApplicationId(applicationId));
+		$("#meetingDataViewModal").modal("show");
 	};
 
 	const handleSetViewApplication = (applicationId: string) => {
@@ -293,7 +299,7 @@ const ApplicationList: React.FC = () => {
 
 					<div className="col-md-4 col-sm-12">
 						<div className="row">
-							<div className="col-md-4 col-sm-12">
+							<div className="col-md-3 col-sm-12">
 								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
 									<button
 										className={`btn btn-sm btn-primary ${row.status === "INTERVIEW" ? "disabled" : ""}`}
@@ -305,8 +311,20 @@ const ApplicationList: React.FC = () => {
 									</button>
 								)}
 							</div>
+							{(permission === "ROOT_ADMIN" || permission === "ADMIN") && row.status === "INTERVIEW" && (
+								<div className="col-md-3 col-sm-12">
+									<button
+										className={`btn btn-sm btn-info ${row.status === "INTERVIEW" ? "active" : "disabled"}`}
+										onClick={() => {
+											handleSetViewMeetingData(row._id);
+										}}
+									>
+										{translation["table-data-filter-label"].view}
+									</button>
+								</div>
+							)}
 
-							<div className="col-md-4 col-sm-12">
+							<div className="col-md-3 col-sm-12">
 								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
 									<button
 										className={`btn  btn-sm btn-success ${row.status === "SELECTED" ? "disabled" : ""}`}
@@ -319,7 +337,7 @@ const ApplicationList: React.FC = () => {
 								)}
 							</div>
 
-							<div className="col-md-4 col-sm-12">
+							<div className="col-md-3 col-sm-12">
 								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
 									<button
 										className={`btn  btn-sm btn-danger ${row.status === "REJECTED" ? "disabled" : ""}`}
@@ -466,6 +484,7 @@ const ApplicationList: React.FC = () => {
 			)}
 			<ApplicationInterviewForm />
 			<DeleteApplication />
+			<ApplicationMeetingDetailsView />
 		</div>
 	);
 };

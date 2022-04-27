@@ -145,6 +145,7 @@
 			"selected": "Selected",
 			"rejected": "Rejected",
 			"go-back": "Go Back",
+			"view": "View",
 			"applications": {
 				"pending": "PENDING",
 				"interview": "INTERVIEW",
@@ -372,6 +373,17 @@
 				"edit": {
 					"title": "Edit Top Speaker",
 					"current-top-speakers-image": "Current Top Speaker Image"
+				}
+			},
+			"application": {
+				"view": {
+					"title": "Meeting Details:",
+					"applicant-name": "Applicant Name:",
+					"start-date": "Start Date:",
+					"end-date": "End Date:",
+					"attendees": "Attendees:",
+					"meeting-link": "Meeting Link",
+					"click-here": "Click Here"
 				}
 			},
 			"inqury": {
