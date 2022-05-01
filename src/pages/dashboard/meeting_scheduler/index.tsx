@@ -12,7 +12,7 @@ const MeetingScheduler: React.FC = () => {
 				<div className="card-body">
 					<img className="card-img-top" src="/images/meetingscheduler.svg" alt="urlshort-img" />
 					<p className="mt-2">{translation.dashboard["meeting-scheduler"].description}</p>
-					<a href="#" rel="noreferrer" target="_blank">
+					<a href={process.env.REACT_APP_MS_SCHEDULER} rel="noreferrer" target="_blank">
 						<button className="btn btn-primary">{translation.dashboard["meeting-scheduler"]["schduler-button"]}</button>
 					</a>
 				</div>
