@@ -383,7 +383,8 @@
 					"end-date": "End Date:",
 					"attendees": "Attendees:",
 					"meeting-link": "Meeting Link",
-					"click-here": "Click Here"
+					"click-here": "Click Here",
+					"join-meeting": "Join Meeting"
 				}
 			},
 			"inqury": {

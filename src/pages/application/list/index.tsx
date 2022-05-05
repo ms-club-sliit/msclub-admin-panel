@@ -296,11 +296,14 @@ const ApplicationList: React.FC = () => {
 							</div>
 						</>
 					) : null}
+					<div className="col-md-4 col-sm-12">
+						<div className="row"></div>
+					</div>
 
 					<div className="col-md-4 col-sm-12">
 						<div className="row">
 							<div className="col-md-3 col-sm-12">
-								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
+								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && row.meeting?.meetingId === null && (
 									<button
 										className={`btn btn-sm btn-primary ${row.status === "INTERVIEW" ? "disabled" : ""}`}
 										onClick={() => {
@@ -311,19 +314,18 @@ const ApplicationList: React.FC = () => {
 									</button>
 								)}
 							</div>
-							{(permission === "ROOT_ADMIN" || permission === "ADMIN") && row.status === "INTERVIEW" && (
-								<div className="col-md-3 col-sm-12">
+							<div className="col-md-3 col-sm-12">
+								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && row.meeting?.meetingId != null && (
 									<button
 										className={`btn btn-sm btn-info ${row.status === "INTERVIEW" ? "active" : "disabled"}`}
 										onClick={() => {
 											handleSetViewMeetingData(row._id);
 										}}
 									>
-										{translation["table-data-filter-label"].view}
+										Details
 									</button>
-								</div>
-							)}
-
+								)}
+							</div>
 							<div className="col-md-3 col-sm-12">
 								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
 									<button
@@ -336,7 +338,6 @@ const ApplicationList: React.FC = () => {
 									</button>
 								)}
 							</div>
-
 							<div className="col-md-3 col-sm-12">
 								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && (
 									<button

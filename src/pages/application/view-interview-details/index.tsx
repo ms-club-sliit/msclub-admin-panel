@@ -1,13 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment";
-import { IApplication } from "../../../interfaces";
+import { IApplication, IInterviewState } from "../../../interfaces";
 import { translation } from "../../../locales/en-US/translation.json";
+import { MultiSelect } from "react-multi-select-component";
+
+const options = [
+	{ value: "it19132310@my.sliit.lk", label: "Lasal Hettiarchchi" },
+	{ value: "it19139036@my.sliit.lk", label: "Senura Jayadeva" },
+	{ value: "it19104218@my.sliit.lk", label: "Rusiru Abisheak" },
+	{ value: "it19131184@my.sliit.lk", label: "Yasiru Randika" },
+	{ value: "it19120980@my.sliit.lk", label: "Dilmi Palliyaguruge" },
+	{ value: "it20281632@my.sliit.lk", label: "Nisal Palliyaguru" },
+	{ value: "it19963402@my.sliit.lk", label: "Miyuru Gnanarathna" },
+	{ value: "it19115344@my.sliit.lk", label: "Hansidu Maniyangama" },
+	{ value: "it19102924@my.sliit.lk", label: "Lahiru Jayasinghe" },
+	{ value: "it20633790@my.sliit.lk", label: "Susith Rupasinghe" },
+	{ value: "it20006884@my.sliit.lk", label: "Shivani Rajkumar" },
+	{ value: "it20224820@my.sliit.lk", label: "Upendra Ihalagedara" },
+	{ value: "it20023614@my.sliit.lk", label: "Pasindu Wijesingha" },
+];
+
+let platform: any;
 
 const ApplicationMeetingDetailsView: React.FC = () => {
 	const HtmlToReactParser = require("html-to-react").Parser;
 	const state = useSelector((state) => state.applicationReducer);
 	const [meetingDetails, setinterviesDetails] = useState<IApplication>();
+	const [selected, setSelected] = useState([]);
+	const [selectedPlatform, setState] = useState(platform);
 
 	const convertToPlain = (html: string) => {
 		const htmlToParser = new HtmlToReactParser();
@@ -19,7 +40,19 @@ const ApplicationMeetingDetailsView: React.FC = () => {
 		let meetingDetails = state.applications.find(
 			(application: IApplication) => state.selectedApplicationId === application._id
 		);
+
 		setinterviesDetails(meetingDetails);
+		let selectedOption: any = [];
+		options.forEach((option) => {
+			meetingDetails?.meeting?.emailList.forEach((email: any) => {
+				if (option.value == email) {
+					selectedOption.push(option);
+				}
+			});
+		});
+
+		setinterviesDetails(meetingDetails);
+		setSelected(selectedOption);
 	}, [state.selectedApplicationId, state.applications]);
 
 	return (
@@ -41,103 +74,59 @@ const ApplicationMeetingDetailsView: React.FC = () => {
 							</h5>
 							<button type="button" className="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
 						</div>
-						<div className="modal-body">
-							<div className="event-view">
-								<h5 className="header">{translation.forms["common-row-view"].information}</h5>
-								<div className="form-group row mx-5">
-									<label className="col-sm-3 text-dark text">
-										<i className="far fa-file-alt fa-sm" />
-										&nbsp;{translation.forms.application.view["applicant-name"]}
-									</label>
-									<span className="col-sm-9 text-dark text">{meetingDetails?.meeting?.meetingName}</span>
+						<div className="modal-body update-event">
+							<div className="form-group row my-3 mx-5">
+								<label className="col-sm-3 col-form-label form-label text-dark">
+									<i className="far fa-clock fa-sm" />
+									&nbsp;{translation["action-modal"].applications.interview["start-time"]}
+								</label>
+								<div className="col-sm-9">
+									<input
+										type="datetime-local"
+										id="applicationStartDateTime"
+										name="applicationStartDateTime"
+										value={moment(meetingDetails?.meeting?.startDateTime).format("YYYY-MM-DDTHH:mm")}
+										className="form-control"
+									/>
 								</div>
-								<div className="form-group row mx-5 my-2">
-									<label className="col-sm-3 text-dark text">
-										<i className="far fa-clock fa-sm" />
-										&nbsp;{translation.forms.application.view["start-date"]}
-									</label>
-									<span className="col-sm-9 text-dark text">
-										{moment(meetingDetails?.meeting?.startDateTime).format("LLL")}
-									</span>
-								</div>
-								<div className="form-group row mx-5 my-2">
-									<label className="col-sm-3 text-dark text">
-										<i className="far fa-clock fa-sm" />
-										&nbsp;{translation.forms.application.view["end-date"]}
-									</label>
-									<span className="col-sm-9 text-dark text">
-										{moment(meetingDetails?.meeting?.endDateTime).format("LLL")}
-									</span>
-								</div>
-								<div className="form-group row mx-5 my-2">
-									<label className="col-sm-3 text-dark text">
-										<i className="fas fa-link fa-sm" />
-										&nbsp;{translation.forms.application.view.attendees}
-									</label>
-									{meetingDetails?.meeting?.emailList.map((email, index) => (
-										<a key={index} href={email} target="_blank" className="col-sm-9 text" rel="noreferrer">
-											{email}
-										</a>
-									))}
-								</div>
-								<div className="form-group row mx-5 my-2">
-									<label className="col-sm-3 text-dark text">
-										<i className="fas fa-link fa-sm" />
-										&nbsp;{translation.forms.application.view["meeting-link"]}
-									</label>
+							</div>
 
-									<a
-										href={meetingDetails?.meeting?.meetingLink}
-										target="_blank"
-										className="col-sm-9 text"
-										rel="noreferrer"
-									>
-										{translation.forms.application.view["click-here"]}
-									</a>
+							<div className="form-group row my-3 mx-5">
+								<label className="col-sm-3 col-form-label form-label text-dark">
+									<i className="far fa-clock fa-sm" />
+									&nbsp;{translation["action-modal"].applications.interview["end-time"]}
+								</label>
+								<div className="col-sm-9">
+									<input
+										type="datetime-local"
+										id="applicationEndDateTime"
+										name="applicationEndDateTime"
+										value={moment(meetingDetails?.meeting?.endDateTime).format("YYYY-MM-DDTHH:mm")}
+										className="form-control disabled"
+									/>
 								</div>
-								<div className="form-group row mx-5 my-2">
-									<label className="col text-dark text">
-										<i className="far fa-edit fa-sm" />
-										&nbsp;{translation.forms["common-row-view"]["modification-info"]}
-									</label>
-								</div>
-								<div className="form-group row mx-5 my-2">
-									<ul className="timeline">
-										{meetingDetails?.meeting?.updatedBy &&
-											meetingDetails?.meeting?.updatedBy.map((user, index) => (
-												<li key={index} className="modify-user-item">
-													<span className="d-flex my-0">
-														<img
-															src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/
-																${process.env.REACT_APP_STORAGE_BUCKET_NAME}/
-																${user.user.profileImage}`}
-															className="profile-img"
-															alt="event-flyer"
-														/>
-														<p className="mt-0 pt-0 text-dark">
-															{user.user.firstName} {user.user.lastName}
-														</p>
-														<p>
-															<span
-																className={`badge rounded-pill ${
-																	user.user.permissionLevel === "ROOT_ADMIN" ? "bg-primary" : null
-																} ${user.user.permissionLevel === "ADMIN" ? "bg-info text-dark" : null} ${
-																	user.user.permissionLevel === "EDITOR" ? "bg-secondary" : null
-																}`}
-															>
-																{user.user.permissionLevel === "ROOT_ADMIN" ? "Root Admin" : null}
-																{user.user.permissionLevel === "ADMIN" ? "Administrator" : null}
-																{user.user.permissionLevel === "EDITOR" ? "Editor" : null}
-															</span>
-														</p>
-														|<p className="text-dark date-time">{moment(user.updatedAt).format("LLL")}</p>
-														<p className="text-dark date-time">
-															<i className="text-muted mx-1">({moment(user.updatedAt).startOf("hour").fromNow()})</i>
-														</p>
-													</span>
-												</li>
-											))}
-									</ul>
+							</div>
+							<div className="form-group row mx-5 my-2">
+								<label className="col-sm-3 text-dark text">
+									<i className="fas fa-link fa-sm" />
+									&nbsp;{translation.forms.application.view["meeting-link"]}
+								</label>
+								<a
+									href={meetingDetails && meetingDetails?.meeting?.sheduledLink}
+									target="_blank"
+									className="col-sm-9 text"
+									rel="noreferrer"
+								>
+									{translation.forms.application.view["join-meeting"]}
+								</a>
+							</div>
+							<div className="form-group row mx-5 my-3">
+								<label className="col-sm-3 col-form-label form-label text-dark">
+									<i className="fas fa-user fa-sm" />
+									&nbsp;{translation["action-modal"].applications.interview.attendees}
+								</label>
+								<div className="col-sm-9">
+									<MultiSelect options={options} value={selected} labelledBy="Select" />
 								</div>
 							</div>
 						</div>

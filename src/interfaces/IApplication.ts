@@ -44,15 +44,12 @@ interface IApplicationStore {
 //Meeting interface
 interface IMeeting{
 	meetingId:string;
-	format: string;
 	meetingName:string;
-	startDateTime: Date;
-	endDateTime: Date;
+	startDateTime: string;
+	endDateTime: string;
 	emailList: [];
-	meetingLink:string;
-	createdAt:Date;
-	updatedBy:IModifiedBy[],
-	updatedAt:Date
+	sheduledLink:string;
+	
 }
 
 export type { IApplicationStore, IApplication };
