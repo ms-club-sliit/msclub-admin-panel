@@ -300,7 +300,6 @@ const ApplicationList: React.FC = () => {
 					<div className="col-md-4 col-sm-12">
 						<div className="row">
 							<div className="col-md-3 col-sm-12">
-								{console.log(row.meeting?.meetingId)}
 								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && row.meeting?.meetingId === undefined && (
 									<button
 										className={`btn btn-sm btn-primary ${row.status === "INTERVIEW" ? "disabled" : ""}`}
