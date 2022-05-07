@@ -296,9 +296,6 @@ const ApplicationList: React.FC = () => {
 							</div>
 						</>
 					) : null}
-					<div className="col-md-4 col-sm-12">
-						<div className="row"></div>
-					</div>
 
 					<div className="col-md-4 col-sm-12">
 						<div className="row">
@@ -313,8 +310,6 @@ const ApplicationList: React.FC = () => {
 										{translation["table-data-filter-label"].applications.interview}
 									</button>
 								)}
-							</div>
-							<div className="col-md-3 col-sm-12">
 								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && row.meeting?.meetingId != null && (
 									<button
 										className={`btn btn-sm btn-info ${row.status === "INTERVIEW" ? "active" : "disabled"}`}
@@ -322,7 +317,7 @@ const ApplicationList: React.FC = () => {
 											handleSetViewMeetingData(row._id);
 										}}
 									>
-										Details
+										{translation["table-data-filter-label"].applications.interview}
 									</button>
 								)}
 							</div>
