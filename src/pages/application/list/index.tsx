@@ -300,7 +300,8 @@ const ApplicationList: React.FC = () => {
 					<div className="col-md-4 col-sm-12">
 						<div className="row">
 							<div className="col-md-3 col-sm-12">
-								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && row.meeting?.meetingId === null && (
+								{console.log(row.meeting?.meetingId)}
+								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && row.meeting?.meetingId === undefined && (
 									<button
 										className={`btn btn-sm btn-primary ${row.status === "INTERVIEW" ? "disabled" : ""}`}
 										onClick={() => {
@@ -310,7 +311,7 @@ const ApplicationList: React.FC = () => {
 										{translation["table-data-filter-label"].applications.interview}
 									</button>
 								)}
-								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && row.meeting?.meetingId != null && (
+								{(permission === "ROOT_ADMIN" || permission === "ADMIN") && row.meeting?.meetingId !== undefined && (
 									<button
 										className={`btn btn-sm btn-info ${row.status === "INTERVIEW" ? "active" : "disabled"}`}
 										onClick={() => {
