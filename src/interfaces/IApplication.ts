@@ -46,7 +46,7 @@ interface IMeeting {
 	startDateTime: string;
 	endDateTime: string;
 	emailList: [];
-	sheduledLink: string;
+	scheduledLink: string;
 }
 
 export type { IApplicationStore, IApplication };

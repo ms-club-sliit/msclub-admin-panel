@@ -112,7 +112,7 @@ const ApplicationMeetingDetailsView: React.FC = () => {
 									&nbsp;{translation.forms.application.view["meeting-link"]}
 								</label>
 								<a
-									href={meetingDetails && meetingDetails?.meeting?.sheduledLink}
+									href={meetingDetails && meetingDetails?.meeting?.scheduledLink}
 									target="_blank"
 									className="col-sm-9 text"
 									rel="noreferrer"
