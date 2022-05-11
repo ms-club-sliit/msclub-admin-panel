@@ -23,6 +23,7 @@ interface IApplication {
 	createdBy: IModifiedBy;
 	updatedBy: IModifiedBy[];
 	deletedBy?: IModifiedBy;
+	meeting?: IMeeting;
 }
 
 // Application Store Interface
@@ -36,6 +37,16 @@ interface IApplicationStore {
 	errorApplication: IApplication | null;
 	loading: boolean;
 	error: string | null;
+}
+
+//Meeting interface
+interface IMeeting {
+	meetingId: string;
+	meetingName: string;
+	startDateTime: string;
+	endDateTime: string;
+	emailList: [];
+	scheduledLink: string;
 }
 
 export type { IApplicationStore, IApplication };
