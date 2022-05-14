@@ -2,6 +2,7 @@ import { IUser } from "./IUser";
 
 interface ILoginsStore {
 	recentLogins: IRecentLogin[] | null;
+	loading: boolean;
 }
 
 interface IRecentLogin {

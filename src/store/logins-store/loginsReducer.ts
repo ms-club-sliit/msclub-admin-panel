@@ -3,6 +3,7 @@ import UserActionTypes from "./loginsActionTypes";
 
 const initialState: ILoginsStore = {
 	recentLogins: [],
+	loading: false,
 };
 
 const loginsReducer = (state = initialState, action: any) => {

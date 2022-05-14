@@ -1,5 +1,6 @@
 import moment from "moment";
 import React, { useEffect } from "react";
+import Loader from "../loader";
 import { useDispatch, useSelector } from "react-redux";
 import { IRecentLogin } from "../../../interfaces/ILogins";
 import { getLoginInfo } from "../../../store/logins-store/loginsActions";
@@ -16,27 +17,31 @@ const RecentLogin: React.FC = () => {
 	return (
 		<div className="resent__login">
 			<div className="card">
-				<div>
-					<h5 className="m-0">
-						<i className="fa fa-sign-in text-info"></i>&nbsp;Recent Logins
-					</h5>
-					<div className="card-body">
-						{recentLogins.recentLogins &&
-							recentLogins.recentLogins.length &&
-							recentLogins.recentLogins
-								.slice(0, 6)
-								.map((recentLogin: IRecentLogin) => (
-									<LoginItem
-										key={recentLogin._id}
-										dateTime={recentLogin.loggedAt}
-										firstName={recentLogin.user.firstName}
-										lastName={recentLogin.user.lastName}
-										role={recentLogin.user.permissionLevel}
-										profileIcon={URL + recentLogin.user.profileImage}
-									/>
-								))}
+				{!recentLogins.loading ? (
+					<div>
+						<h5 className="m-0">
+							<i className="fa fa-sign-in text-info"></i>&nbsp;Recent Logins
+						</h5>
+						<div className="card-body">
+							{recentLogins.recentLogins &&
+								recentLogins.recentLogins.length &&
+								recentLogins.recentLogins
+									.slice(0, 6)
+									.map((recentLogin: IRecentLogin) => (
+										<LoginItem
+											key={recentLogin._id}
+											dateTime={recentLogin.loggedAt}
+											firstName={recentLogin.user.firstName}
+											lastName={recentLogin.user.lastName}
+											role={recentLogin.user.permissionLevel}
+											profileIcon={URL + recentLogin.user.profileImage}
+										/>
+									))}
+						</div>
 					</div>
-				</div>
+				) : (
+					<Loader type="login_loader" />
+				)}
 			</div>
 		</div>
 	);
