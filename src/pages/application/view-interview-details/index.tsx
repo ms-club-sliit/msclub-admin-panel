@@ -126,7 +126,7 @@ const ApplicationMeetingDetailsView: React.FC = () => {
 									&nbsp;{translation["action-modal"].applications.interview.attendees}
 								</label>
 								<div className="col-sm-9">
-									<MultiSelect options={options} value={selected} labelledBy="Select" />
+									<MultiSelect options={options} value={selected} onChange={setSelected} labelledBy="Select" />
 								</div>
 							</div>
 						</div>
