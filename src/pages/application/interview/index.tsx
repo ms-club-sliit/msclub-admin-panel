@@ -8,6 +8,7 @@ import {
 } from "../../../store/application-store/applicationActions";
 import { IInterviewState, IInterviewFormData, IApplication } from "../../../interfaces";
 import { translation } from "../../../locales/en-US/translation.json";
+import DeletedInterviewList from "./delete";
 
 const options = [
 	{ value: "it19132310@my.sliit.lk", label: "Lasal Hettiarchchi" },
