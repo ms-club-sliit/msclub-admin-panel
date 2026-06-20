@@ -37,6 +37,7 @@ const ToolBarConfig: ToolbarConfig = {
 		{ label: "UL", style: "unordered-list-item" },
 		{ label: "OL", style: "ordered-list-item" },
 	],
+	BLOCK_ALIGNMENT_BUTTONS: [],
 };
 
 const toastNotification = (message: string, status: string) => {

@@ -206,7 +206,12 @@ const ViewUser: React.FC = () => {
 					<div className="modal-body">
 						{imgURL !== null && (
 							<div className="d-flex justify-content-center mb-3">
-								<img src={`${imgURL}${userDetails?.profileImage}`} width="200px" height="200px" object-fit="cover" />
+								<img
+									src={`${imgURL}${userDetails?.profileImage}`}
+									width="200px"
+									height="200px"
+									style={{ objectFit: "cover" }}
+								/>
 							</div>
 						)}
 						{edit && <ImageCanvas width={200} height={200} getEditedImage={handleImage} />}
