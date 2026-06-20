@@ -24,7 +24,7 @@
 		"jquery": "^3.6.0",
 		"mdbreact": "^5.2.0",
 		"moment": "^2.29.1",
-		"node-sass": "4.14.1",
+		"sass": "^1.101.0",
 		"react": "^17.0.2",
 		"react-avatar-editor": "^12.0.0",
 		"react-bootstrap-table-next": "^4.0.3",
@@ -51,9 +51,9 @@
 		"yup": "^0.32.11"
 	},
 	"scripts": {
-		"start": "react-scripts start",
+		"start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
 		"start:local": "env-cmd -f .env.local react-scripts start",
-		"build": "react-scripts build",
+		"build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"lint": "eslint .",
