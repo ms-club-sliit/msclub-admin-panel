@@ -14,8 +14,11 @@ class ApplicationAPI {
 		return axios.get(`${BASE_URL}/admin/application/${studentId}`, requestConfig);
 	}
 
-	static getApplications(): Promise<IApplication[]> {
-		return axios.get(`${BASE_URL}/admin/application/`, requestConfig);
+	static getApplications(page = 1, limit = 10, status = ""): Promise<any> {
+		return axios.get(`${BASE_URL}/admin/application/`, {
+			...requestConfig,
+			params: { page, limit, ...(status ? { status } : {}) },
+		});
 	}
 
 	static getDeletedApplications(): Promise<IApplication[]> {
