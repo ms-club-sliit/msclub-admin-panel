@@ -26,6 +26,16 @@ interface IApplication {
 	meeting?: IMeeting;
 }
 
+// Pagination Metadata Interface
+interface IPagination {
+	totalRecords: number;
+	totalPages: number;
+	currentPage: number;
+	limit: number;
+	hasNextPage: boolean;
+	hasPrevPage: boolean;
+}
+
 // Application Store Interface
 interface IApplicationStore {
 	application: IApplication | null;
@@ -35,6 +45,7 @@ interface IApplicationStore {
 	selectedApplicationId: IApplication | null;
 	deletedApplication: IApplication | null;
 	errorApplication: IApplication | null;
+	pagination: IPagination | null;
 	loading: boolean;
 	error: string | null;
 }
@@ -49,4 +60,4 @@ interface IMeeting {
 	scheduledLink: string;
 }
 
-export type { IApplicationStore, IApplication };
+export type { IApplicationStore, IApplication, IPagination };

@@ -9,6 +9,7 @@ const initialState: IApplicationStore = {
 	selectedApplicationId: null,
 	deletedApplication: null,
 	errorApplication: null,
+	pagination: null,
 	loading: false,
 	error: null,
 };
@@ -26,8 +27,10 @@ const applicationReducer = (state = initialState, action: any) => {
 			let application = action.payload.data;
 			return { ...state, loading: false, application };
 		case `${ApplicationActionTypes.GET_ALL_APPLICATION}_FULFILLED`:
-			let applications = action.payload.data;
-			return { ...state, loading: false, applications };
+			const responseData = action.payload.data;
+			const applications = Array.isArray(responseData) ? responseData : responseData.data;
+			const pagination = Array.isArray(responseData) ? null : responseData.pagination ?? null;
+			return { ...state, loading: false, applications, pagination };
 		case `${ApplicationActionTypes.GET_ARCHIVE_APPLICATIONS}_FULFILLED`:
 			let deletedApplications = action.payload.data;
 			return { ...state, loading: false, deletedApplications };

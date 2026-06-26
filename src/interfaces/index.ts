@@ -2,7 +2,7 @@ import { IEvent, IEventStore, IEventState, IEventFormData } from "./IEvent";
 import { IModifiedBy, IUser, IUserStore, IAuthUser, IUserFormData, IUserState } from "./IUser";
 import { ITopSpeaker, ITopSpeakerStore, ITopSpeakerFormData, ITopSpeakerState } from "./ITopSpeaker";
 import { IInterviewState, IInterviewFormData } from "./IInterview";
-import { IApplication, IApplicationStore } from "./IApplication";
+import { IApplication, IApplicationStore, IPagination } from "./IApplication";
 import { IInquiry, IInquiryStore, IInquiryReplyFormData, IInquiryReplyState } from "./IInquiry";
 import { ILoginState, ILoginFormData } from "./ILogin";
 import { IOrganization, IOrganizationStore, IOrganizationFormData, IIOrganizationState } from "./IOrganization";
@@ -21,6 +21,7 @@ export type {
 	IModifiedBy,
 	IApplication,
 	IApplicationStore,
+	IPagination,
 	IUser,
 	IUserStore,
 	IAuthUser,
