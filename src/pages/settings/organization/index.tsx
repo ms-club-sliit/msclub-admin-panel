@@ -8,6 +8,7 @@ import {
 	createOrganization,
 } from "../../../store/organization-store/organizationActions";
 import { translation } from "../../../locales/en-US/translation.json";
+import configs from "../../../configs";
 
 const initialState: IIOrganizationState = {
 	organizationId: "",
@@ -142,11 +143,7 @@ const OrganizationInfo: React.FC = () => {
 					<div className="d-flex justify-content-center">
 						<div className="row">
 							{organization && organization.imagePath ? (
-								<img
-									src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${organization.imagePath}`}
-									alt="ms-club"
-									className="logo"
-								/>
+								<img src={`${configs.storage.storageUrl}${organization.imagePath}`} alt="ms-club" className="logo" />
 							) : (
 								<img src="/images/ms_club_logo.png" alt="ms-club" className="logo" />
 							)}

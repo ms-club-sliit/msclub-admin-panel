@@ -4,6 +4,7 @@ import Loader from "../loader";
 import { useDispatch, useSelector } from "react-redux";
 import { IRecentLogin } from "../../../interfaces/ILogins";
 import { getLoginInfo } from "../../../store/logins-store/loginsActions";
+import configs from "../../../configs";
 
 const RecentLogin: React.FC = () => {
 	const recentLogins = useSelector((state) => state.loginsReducer);
@@ -12,7 +13,7 @@ const RecentLogin: React.FC = () => {
 		dispatch(getLoginInfo());
 	}, [dispatch]);
 
-	const URL = `${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/`;
+	const URL = `${configs.storage.storageUrl}`;
 
 	return (
 		<div className="resent__login">
