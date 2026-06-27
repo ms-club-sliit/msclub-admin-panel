@@ -1,8 +1,9 @@
 import axios from "axios";
 import { IWebinar } from "../../interfaces";
 import requestConfig from "./config";
+import configs from "../../configs";
 
-const BASE_URL = process.env.REACT_APP_API_ENDPOINT as string;
+const BASE_URL = configs.api.baseUrl as string;
 
 class WebinarAPI {
 	static createWebinar(webinarData: IWebinar): Promise<IWebinar> {

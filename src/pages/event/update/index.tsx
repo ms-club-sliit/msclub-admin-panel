@@ -7,6 +7,7 @@ import moment from "moment";
 import RichTextEditor from "react-rte";
 import { ToolBarConfig } from "../../../constants";
 import { translation } from "../../../locales/en-US/translation.json";
+import configs from "../../../configs";
 
 let formData: IEventFormData = {
 	imageSrc: null,
@@ -200,7 +201,7 @@ const UpdateEvent: React.FC = () => {
 								<div className="col-md-6">
 									<span className="flyer-title">{translation.forms.event.edit["current-event-flyer"]}</span>
 									<img
-										src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${eventDetails?.imageUrl}`}
+										src={`${configs.storage.storageUrl}${eventDetails?.imageUrl}`}
 										className="flyer"
 										alt="event-flyer"
 									/>

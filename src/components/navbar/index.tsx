@@ -3,6 +3,7 @@ import { ApplicationConstants } from "../../constants";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { translation } from "../../locales/en-US/translation.json";
+import configs from "../../configs";
 
 const NavBar: React.FC = () => {
 	const state = useSelector((state) => state.userReducer);
@@ -77,7 +78,7 @@ const NavBar: React.FC = () => {
 								aria-expanded="false"
 							>
 								<img
-									src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${imagePath}`}
+									src={`${configs.storage.storageUrl}${imagePath}`}
 									className="rounded-circle"
 									height="35"
 									alt="Black and White Portrait of a Man"

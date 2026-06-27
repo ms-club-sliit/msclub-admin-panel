@@ -2,8 +2,9 @@ import axios from "axios";
 import requestConfig from "./config";
 import requestConfigJson from "./configJson";
 import { IUser } from "../../interfaces";
+import configs from "../../configs";
 
-const BASE_URL = process.env.REACT_APP_API_ENDPOINT as string;
+const BASE_URL = configs.api.baseUrl as string;
 
 class UserAPI {
 	static createUser(userData: IUser): Promise<IUser> {

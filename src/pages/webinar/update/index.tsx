@@ -7,6 +7,7 @@ import moment from "moment";
 import RichTextEditor from "react-rte";
 import { ToolBarConfig } from "../../../constants";
 import { translation } from "../../../locales/en-US/translation.json";
+import configs from "../../../configs";
 
 let formData: IwebinarFormData = {
 	imageSrc: null,
@@ -200,7 +201,7 @@ const UpdateWebinar: React.FC = () => {
 								<div className="col-md-6">
 									<span className="flyer-title">{translation.forms.webinar.edit["current-webinar-flyer"]}</span>
 									<img
-										src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${webinarDetails?.imageUrl}`}
+										src={`${configs.storage.storageUrl}${webinarDetails?.imageUrl}`}
 										className="flyer"
 										alt="webinar-flyer"
 									/>
