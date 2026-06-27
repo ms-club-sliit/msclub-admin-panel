@@ -12,6 +12,7 @@ import DeletedApplicationList from "./application/list/delete";
 import TopSpeakerList from "./top-speaker/list";
 import DeletedTopSpeakerList from "./top-speaker/list/delete";
 import LoginFaceAuthentication from "./login-face-authentication";
+import MyProfile from "./my-profile";
 
 export {
 	DeletedTopSpeakerList,
@@ -28,4 +29,5 @@ export {
 	DeletedInquiryList,
 	Dashboard,
 	DeletedApplicationList,
+	MyProfile,
 };
