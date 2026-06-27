@@ -21,7 +21,6 @@ const MyProfile: React.FC = () => {
 	const dispatch = useDispatch();
 	const state = useSelector((state) => state.userReducer);
 
-	// Where uploaded profile images are served from (same pattern the rest of the app uses).
 	const STORAGE_URL = process.env.REACT_APP_STORAGE_BUCKET_URL + "/" + process.env.REACT_APP_STORAGE_BUCKET_NAME + "/";
 
 	const [currentImagePath, setCurrentImagePath] = useState<string | null>(null);
@@ -46,12 +45,10 @@ const MyProfile: React.FC = () => {
 		setFormState,
 	] = useState(initialState);
 
-	// 1. On open, load all users (this is how the app fetches full user details).
 	useEffect(() => {
 		dispatch(getAllUsers());
 	}, [dispatch]);
 
-	// 2. Once the list and the logged-in id are ready, pre-fill the form with MY details.
 	useEffect(() => {
 		if (state.users && state.authUser) {
 			const me = state.users.find((user: IUser) => user._id === state.authUser._id);
@@ -71,21 +68,17 @@ const MyProfile: React.FC = () => {
 		}
 	}, [state.users, state.authUser]);
 
-	// 3. After a successful save, show a message and reload the fresh details.
 	useEffect(() => {
 		if (hasSubmitted && state.updatedUser !== "" && state.updatedUser !== null) {
 			setErrorMessage("");
 			setSuccessMessage("Your profile has been updated successfully.");
 			setChangePassword(false);
 			setHasSubmitted(false);
-			// Clear the just-picked image so the refreshed stored image can show again.
 			setFormState((prev) => ({ ...prev, profileImage: null }));
 			dispatch(getAllUsers());
 		}
 	}, [state.updatedUser]);
 
-	// 4. If the save failed, show an error message (best-effort: the app also has a
-	// global "log out on any error" rule, so a backend failure may redirect to sign-in).
 	useEffect(() => {
 		if (hasSubmitted && state.error) {
 			setSuccessMessage("");
@@ -113,7 +106,6 @@ const MyProfile: React.FC = () => {
 	const onSubmit = (event: any) => {
 		event.preventDefault();
 
-		// Required fields, plus email format and (when changing it) a password rule.
 		const formValid =
 			isFilled(firstName) &&
 			isFilled(lastName) &&
@@ -147,7 +139,7 @@ const MyProfile: React.FC = () => {
 		if (profileImage !== null && profileImage !== undefined) {
 			userFormData.append("profileImage", profileImage);
 		}
-		// Send the existing permission level unchanged (user can't edit their own).
+
 		userFormData.append("permissionLevel", permissionLevel as string);
 
 		dispatch(updateUser(userFormData));
