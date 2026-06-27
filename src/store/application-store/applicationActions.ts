@@ -8,10 +8,10 @@ export const application = (studentId: string) => {
 	};
 };
 
-export const applications = () => {
+export const applications = (page = 1, limit = 10, status = "") => {
 	return {
 		type: ApplicationActionTypes.GET_ALL_APPLICATION,
-		payload: ApplicationAPI.getApplications(),
+		payload: ApplicationAPI.getApplications(page, limit, status),
 	};
 };
 

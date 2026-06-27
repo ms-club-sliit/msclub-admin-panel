@@ -2,8 +2,9 @@ import axios from "axios";
 import { IApplication } from "../../interfaces";
 import requestConfig from "./config";
 import requestConfigJson from "./configJson";
+import configs from "../../configs";
 
-const BASE_URL = process.env.REACT_APP_API_ENDPOINT as string;
+const BASE_URL = configs.api.baseUrl as string;
 
 class ApplicationAPI {
 	static createApplication(applicationData: IApplication): Promise<IApplication> {
@@ -14,8 +15,11 @@ class ApplicationAPI {
 		return axios.get(`${BASE_URL}/admin/application/${studentId}`, requestConfig);
 	}
 
-	static getApplications(): Promise<IApplication[]> {
-		return axios.get(`${BASE_URL}/admin/application/`, requestConfig);
+	static getApplications(page = 1, limit = 10, status = ""): Promise<any> {
+		return axios.get(`${BASE_URL}/admin/application/`, {
+			...requestConfig,
+			params: { page, limit, ...(status ? { status } : {}) },
+		});
 	}
 
 	static getDeletedApplications(): Promise<IApplication[]> {

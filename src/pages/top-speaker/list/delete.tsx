@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 import RecoverDeletedTopSpeaker from "../recover-delete";
 import PermanentDeleteTopSpeaker from "../permenent-delete";
 import { translation } from "../../../locales/en-US/translation.json";
+import configs from "../../../configs";
 
 const DeletedTopSpeakerList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -98,7 +99,7 @@ const DeletedTopSpeakerList: React.FC = () => {
 					<div>
 						<span>
 							<img
-								src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${lastModifiedUser.user.profileImage}`}
+								src={`${configs.storage.storageUrl}${lastModifiedUser.user.profileImage}`}
 								className="table-profile-img"
 								alt="updated-by-user"
 							/>
@@ -189,7 +190,7 @@ const DeletedTopSpeakerList: React.FC = () => {
 				<div className="row">
 					<div className="col-md-3 col-sm-12">
 						<img
-							src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${row.imageUrl}`}
+							src={`${configs.storage.storageUrl}${row.imageUrl}`}
 							className="topSpeaker-flyer"
 							alt="topSpeaker-flyer"
 						/>

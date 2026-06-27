@@ -6,10 +6,9 @@ import {
 	changeApplicationStatusIntoSelected,
 	changeApplicationStatusIntoRejected,
 } from "../../../store/application-store/applicationActions";
-import { IApplication } from "../../../interfaces";
+import { IApplication, IPagination } from "../../../interfaces";
 import BootstrapTable from "react-bootstrap-table-next";
 import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
-import paginationFactory from "react-bootstrap-table2-paginator";
 import { useHistory } from "react-router-dom";
 import ApplicationInterviewForm from "../interview";
 import DeleteApplication from "../delete";
@@ -20,36 +19,49 @@ import ApplicationMeetingDetailsView from "./../view-interview-details/index";
 const ApplicationList: React.FC = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
-	//const HtmlToReactParser = require("html-to-react").Parser;
 	const state = useSelector((state) => state.applicationReducer);
-	const applications: IApplication[] = state.applications;
-	const [selectedTypeApplications, setSelectedTypeApplications] = useState<IApplication[]>(applications);
+	const applications: IApplication[] = state.applications ?? [];
+	const pagination: IPagination | null = state.pagination ?? null;
+
 	const [selectedTab, setSelectedTab] = useState<string>("All");
+	const [currentPage, setCurrentPage] = useState<number>(1);
+	const [limit, setLimit] = useState<number>(10);
+
 	const userState = useSelector((userState) => userState.userReducer);
 	const [permission, setPermission] = useState<string>("");
 
-	// Table confuguration
+	// Table configuration
 	const { SearchBar } = Search;
-	const options = {
-		paginationSize: 4,
-		pageStartIndex: 1,
-		sizePerPage: 15,
-		hideSizePerPage: true,
-		alwaysShowAllBtns: true,
-	};
 
-	// Fetch applications information
+	// Fetch applications from the server whenever page, limit, or status filter changes
 	useEffect(() => {
-		dispatch(getApplications());
-	}, [selectedTypeApplications, dispatch]);
+		const status = selectedTab === "All" ? "" : selectedTab;
+		dispatch(getApplications(currentPage, limit, status));
+		window.scrollTo(0, 0);
+	}, [currentPage, limit, selectedTab, dispatch]);
 
+	// Refetch after an application status is updated
 	useEffect(() => {
-		dispatch(getApplications());
-	}, [state.updatedApplication, dispatch]);
+		if (state.updatedApplication) {
+			const status = selectedTab === "All" ? "" : selectedTab;
+			dispatch(getApplications(currentPage, limit, status));
+		}
+	}, [state.updatedApplication]);
 
+	// Refetch after an application is deleted
 	useEffect(() => {
-		dispatch(getApplications());
-	}, [state.deletedApplication, dispatch]);
+		if (state.deletedApplication) {
+			const status = selectedTab === "All" ? "" : selectedTab;
+			dispatch(getApplications(currentPage, limit, status));
+		}
+	}, [state.deletedApplication]);
+
+	// Sync user permission level from auth state
+	useEffect(() => {
+		if (userState.authUser && userState.authUser.permissionLevel) {
+			setPermission(userState.authUser.permissionLevel);
+		}
+	}, [userState.authUser, setPermission]);
 
 	// Change Application Status Into Selected
 	const onSumbitSelected = (applicationId: string) => {
@@ -64,12 +76,6 @@ const ApplicationList: React.FC = () => {
 			dispatch(changeApplicationStatusIntoRejected(applicationId));
 		}
 	};
-
-	useEffect(() => {
-		if (userState.authUser && userState.authUser.permissionLevel) {
-			setPermission(userState.authUser.permissionLevel);
-		}
-	}, [userState.authUser, setPermission]);
 
 	// Table column configurations
 	const tableColumnData = [
@@ -352,33 +358,27 @@ const ApplicationList: React.FC = () => {
 		),
 	};
 
-	const handleViewClick = (application: any, type: string) => {
-		Promise.resolve()
-			.then(() => {
-				setSelectedTab(type);
-				return type;
-			})
-			.then((data) => {
-				if (data === "All") {
-					setSelectedTypeApplications(applications);
-				} else if (data === "PENDING") {
-					setSelectedTypeApplications(applications.filter((application) => application.status === "PENDING"));
-				} else if (data === "INTERVIEW") {
-					setSelectedTypeApplications(applications.filter((application) => application.status === "INTERVIEW"));
-				} else if (data === "SELECTED") {
-					setSelectedTypeApplications(applications.filter((application) => application.status === "SELECTED"));
-				} else if (data === "REJECTED") {
-					setSelectedTypeApplications(applications.filter((application) => application.status === "REJECTED"));
-				} else if (data === "Deleted") {
-					setSelectedTypeApplications(applications.filter((application) => application.deletedAt !== null));
-				}
-			});
+	// Handle status filter tab change — resets to page 1 to avoid empty page results
+	const handleViewClick = (_event: any, type: string) => {
+		setSelectedTab(type);
+		setCurrentPage(1);
 	};
 
 	const handleDeletedApplicationClick = (application: any) => {
 		if (application) {
 			history.push("/applications/deleted");
 		}
+	};
+
+	// Handle page navigation
+	const handlePageChange = (newPage: number) => {
+		setCurrentPage(newPage);
+	};
+
+	// Handle page size change — resets to page 1 so results are coherent
+	const handleLimitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		setLimit(Number(e.target.value));
+		setCurrentPage(1);
 	};
 
 	return (
@@ -446,12 +446,7 @@ const ApplicationList: React.FC = () => {
 						</div>
 					</div>
 
-					<ToolkitProvider
-						keyField="_id"
-						data={selectedTab === "All" ? applications : selectedTypeApplications}
-						columns={tableColumnData}
-						search
-					>
+					<ToolkitProvider keyField="_id" data={applications} columns={tableColumnData} search>
 						{(props) => (
 							<div>
 								<div className="d-flex justify-content-end">
@@ -460,20 +455,63 @@ const ApplicationList: React.FC = () => {
 								<p className="table-description text-muted">
 									{translation["table-description"]["application-table-description"]}
 								</p>
-								<BootstrapTable
-									{...props.baseProps}
-									pagination={paginationFactory(options)}
-									expandRow={expandRow}
-									bordered
-									striped
-									headerClasses="header-class"
-									wrapperClasses="table-responsive"
-									hover
-									rowClasses="table-row"
-								/>
+
+								{applications.length > 0 ? (
+									<BootstrapTable
+										{...props.baseProps}
+										expandRow={expandRow}
+										bordered
+										striped
+										headerClasses="header-class"
+										wrapperClasses="table-responsive"
+										hover
+										rowClasses="table-row"
+									/>
+								) : (
+									<div className="applications-empty-state">
+										<i className="fas fa-inbox" />
+										<p>No applications found for the selected filter.</p>
+									</div>
+								)}
 							</div>
 						)}
 					</ToolkitProvider>
+
+					{/* Pagination Controls */}
+					<div className="pagination-controls">
+						{/* Page size selector */}
+						<div className="page-size-selector">
+							<span>Rows per page:</span>
+							<select value={limit} onChange={handleLimitChange} disabled={state.loading}>
+								<option value={10}>10</option>
+								<option value={20}>20</option>
+								<option value={50}>50</option>
+							</select>
+						</div>
+
+						{/* Page info and navigation */}
+						<div className="pagination-actions">
+							{pagination && (
+								<span className="pagination-info">
+									Page {pagination.currentPage} of {pagination.totalPages} &nbsp;({pagination.totalRecords} total)
+								</span>
+							)}
+							<button
+								className="btn btn-sm btn-outline-secondary btn-pagination"
+								disabled={!pagination?.hasPrevPage || state.loading}
+								onClick={() => handlePageChange(currentPage - 1)}
+							>
+								<i className="fas fa-chevron-left" /> Previous
+							</button>
+							<button
+								className="btn btn-sm btn-outline-secondary btn-pagination"
+								disabled={!pagination?.hasNextPage || state.loading}
+								onClick={() => handlePageChange(currentPage + 1)}
+							>
+								Next <i className="fas fa-chevron-right" />
+							</button>
+						</div>
+					</div>
 				</div>
 			) : (
 				<ApplicationLoader />
