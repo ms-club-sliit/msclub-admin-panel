@@ -49,21 +49,21 @@ const MyProfile: React.FC = () => {
 		dispatch(getMe());
 	}, [dispatch]);
 
-useEffect(() => {
-    if (state.me) {
-        setFormState((prev) => ({
-            ...prev,
-            firstName: state.me?.firstName,
-            lastName: state.me?.lastName,
-            email: state.me?.email,
-            userName: state.me?.userName,
-            phoneNumber01: state.me?.phoneNumber01,
-            phoneNumber02: state.me?.phoneNumber02,
-            permissionLevel: state.me?.permissionLevel,
-        }));
-        setCurrentImagePath(state.me?.profileImage ?? null);
-    }
-}, [state.me]);
+	useEffect(() => {
+		if (state.me) {
+			setFormState((prev) => ({
+				...prev,
+				firstName: state.me?.firstName,
+				lastName: state.me?.lastName,
+				email: state.me?.email,
+				userName: state.me?.userName,
+				phoneNumber01: state.me?.phoneNumber01,
+				phoneNumber02: state.me?.phoneNumber02,
+				permissionLevel: state.me?.permissionLevel,
+			}));
+			setCurrentImagePath(state.me?.profileImage ?? null);
+		}
+	}, [state.me]);
 
 	useEffect(() => {
 		if (hasSubmitted && state.updatedUser !== "" && state.updatedUser !== null) {

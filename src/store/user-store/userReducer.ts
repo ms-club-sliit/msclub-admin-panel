@@ -39,8 +39,8 @@ const userReducer = (state = initialState, action: any) => {
 			let users = action.payload.data;
 			return { ...state, loading: false, users };
 		case `${UserActionTypes.GET_ME}_FULFILLED`:
-    let me = action.payload.data;
-    return { ...state, loading: false, me };
+			let me = action.payload.data;
+			return { ...state, loading: false, me };
 		case `${UserActionTypes.UPDATE_USER}_FULFILLED`:
 			let updatedUser = action.payload.data;
 			return { ...state, loading: false, updatedUser };
