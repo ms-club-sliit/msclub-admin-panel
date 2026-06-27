@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ImageCanvas from "../../../../components/image-canvas";
 import { IUser, IUserFormData, IUserState } from "../../../../interfaces";
 import { updateUser, getAllUsers, setUserId, adminUpdateUser } from "../../../../store/user-store/userActions";
+import configs from "../../../../configs";
 
 let formData: IUserFormData = {
 	firstName: null,
@@ -35,7 +36,7 @@ const ViewUser: React.FC = () => {
 	const [edit, setEdit] = useState<boolean>(false);
 	const [changePassword, setChangePassword] = useState<boolean>(false);
 	const dispatch = useDispatch();
-	const URL = process.env.REACT_APP_STORAGE_BUCKET_URL + "/" + process.env.REACT_APP_STORAGE_BUCKET_NAME + "/";
+	const URL = configs.storage.storageUrl;
 	const [imgURL, setImageURL] = useState<any>();
 	const [permission, setPermission] = useState<string>();
 

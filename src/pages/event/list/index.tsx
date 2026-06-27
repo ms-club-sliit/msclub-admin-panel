@@ -13,6 +13,7 @@ import UpdateEvent from "../update";
 import DeleteEvent from "../delete";
 import { useHistory } from "react-router-dom";
 import EventLoader from "../loader";
+import configs from "../../../configs";
 
 const EventList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -113,7 +114,7 @@ const EventList: React.FC = () => {
 					<div>
 						<span>
 							<img
-								src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${lastModifiedUser.user.profileImage}`}
+								src={`${configs.storage.storageUrl}${lastModifiedUser.user.profileImage}`}
 								className="table-profile-img"
 								alt="updated-by-user"
 							/>
@@ -205,11 +206,7 @@ const EventList: React.FC = () => {
 				<h5>{translation["table-row-information"]["event-information"]["event-information-title"]}</h5>
 				<div className="row">
 					<div className="col-md-3 col-sm-12">
-						<img
-							src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${row.imageUrl}`}
-							className="event-flyer"
-							alt="event-flyer"
-						/>
+						<img src={`${configs.storage.storageUrl}${row.imageUrl}`} className="event-flyer" alt="event-flyer" />
 					</div>
 					<div className="col-md-9 col-sm-12">
 						<h6 className="row-header">
