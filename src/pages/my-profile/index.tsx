@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ImageCanvas from "../../components/image-canvas";
-import { IUser, IUserState } from "../../interfaces";
-import { getAllUsers, updateUser } from "../../store/user-store/userActions";
+import { IUserState } from "../../interfaces";
+import { getMe, updateUser } from "../../store/user-store/userActions";
 
 const initialState: IUserState = {
 	firstName: "",
@@ -46,27 +46,24 @@ const MyProfile: React.FC = () => {
 	] = useState(initialState);
 
 	useEffect(() => {
-		dispatch(getAllUsers());
+		dispatch(getMe());
 	}, [dispatch]);
 
-	useEffect(() => {
-		if (state.users && state.authUser) {
-			const me = state.users.find((user: IUser) => user._id === state.authUser._id);
-			if (me) {
-				setFormState((prev) => ({
-					...prev,
-					firstName: me.firstName,
-					lastName: me.lastName,
-					email: me.email,
-					userName: me.userName,
-					phoneNumber01: me.phoneNumber01,
-					phoneNumber02: me.phoneNumber02,
-					permissionLevel: me.permissionLevel,
-				}));
-				setCurrentImagePath(me.profileImage);
-			}
-		}
-	}, [state.users, state.authUser]);
+useEffect(() => {
+    if (state.me) {
+        setFormState((prev) => ({
+            ...prev,
+            firstName: state.me?.firstName,
+            lastName: state.me?.lastName,
+            email: state.me?.email,
+            userName: state.me?.userName,
+            phoneNumber01: state.me?.phoneNumber01,
+            phoneNumber02: state.me?.phoneNumber02,
+            permissionLevel: state.me?.permissionLevel,
+        }));
+        setCurrentImagePath(state.me?.profileImage ?? null);
+    }
+}, [state.me]);
 
 	useEffect(() => {
 		if (hasSubmitted && state.updatedUser !== "" && state.updatedUser !== null) {
@@ -75,7 +72,7 @@ const MyProfile: React.FC = () => {
 			setChangePassword(false);
 			setHasSubmitted(false);
 			setFormState((prev) => ({ ...prev, profileImage: null }));
-			dispatch(getAllUsers());
+			dispatch(getMe());
 		}
 	}, [state.updatedUser]);
 

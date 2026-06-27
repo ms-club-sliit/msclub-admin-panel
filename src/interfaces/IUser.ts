@@ -50,6 +50,7 @@ interface IAuthUser {
 interface IUserStore {
 	user: IUser | null;
 	users: IUser[] | null;
+	me: IUser | null;
 	newUser: IUser | null;
 	updatedUser: IUser | null;
 	adminUpdatedUser: IUser | null;

@@ -18,6 +18,10 @@ class UserAPI {
 		return axios.get(`${BASE_URL}/user/auth/`, requestConfig);
 	}
 
+	static getMe(): Promise<IUser> {
+    return axios.get(`${BASE_URL}/user/me`, requestConfig);
+}
+
 	static getAllUser(): Promise<IUser[]> {
 		return axios.get(`${BASE_URL}/user/all/`, requestConfig);
 	}
