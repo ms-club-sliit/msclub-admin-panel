@@ -3,6 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import ImageCanvas from "../../components/image-canvas";
 import { IUserState } from "../../interfaces";
 import { getMe, updateUser } from "../../store/user-store/userActions";
+import configs from "../../configs";
+
+const permissionLabels: Record<string, string> = {
+	ROOT_ADMIN: "Root Admin",
+	ADMIN: "Admin",
+	EDITOR: "Editor",
+};
 
 const initialState: IUserState = {
 	firstName: "",
@@ -21,7 +28,7 @@ const MyProfile: React.FC = () => {
 	const dispatch = useDispatch();
 	const state = useSelector((state) => state.userReducer);
 
-	const STORAGE_URL = process.env.REACT_APP_STORAGE_BUCKET_URL + "/" + process.env.REACT_APP_STORAGE_BUCKET_NAME + "/";
+	const STORAGE_URL = configs.storage.storageUrl;
 
 	const [currentImagePath, setCurrentImagePath] = useState<string | null>(null);
 	const [changePassword, setChangePassword] = useState<boolean>(false);
@@ -257,7 +264,7 @@ const MyProfile: React.FC = () => {
 				<div className="form-group row my-3">
 					<label className="col-sm-3 col-form-label form-label text-dark">Permission Level</label>
 					<div className="col-sm-9 d-flex align-items-center">
-						<span>{permissionLevel}</span>
+						<span>{permissionLabels[permissionLevel as string] || permissionLevel}</span>
 					</div>
 				</div>
 

@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 import { IWebinar } from "../../../interfaces";
 import { translation } from "../../../locales/en-US/translation.json";
+import configs from "../../../configs";
 
 const WebinarView: React.FC = () => {
 	const HtmlToReactParser = require("html-to-react").Parser;
@@ -167,8 +168,7 @@ const WebinarView: React.FC = () => {
 												<li key={index} className="modify-user-item">
 													<span className="d-flex my-0">
 														<img
-															src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/
-																${process.env.REACT_APP_STORAGE_BUCKET_NAME}/
+															src={`${configs.storage.storageUrl}
 																${user.user.profileImage}`}
 															className="profile-img"
 															alt="event-flyer"

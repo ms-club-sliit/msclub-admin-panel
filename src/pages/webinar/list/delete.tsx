@@ -10,6 +10,7 @@ import moment from "moment";
 import { useHistory } from "react-router-dom";
 import RecoverDeletedWebinar from "../recover-delete";
 import { translation } from "../../../locales/en-US/translation.json";
+import configs from "../../../configs";
 
 const DeletedWebinarList: React.FC = () => {
 	const dispatch = useDispatch();
@@ -110,7 +111,7 @@ const DeletedWebinarList: React.FC = () => {
 					<div>
 						<span>
 							<img
-								src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${lastModifiedUser.user.profileImage}`}
+								src={`${configs.storage.storageUrl}${lastModifiedUser.user.profileImage}`}
 								className="table-profile-img"
 								alt="updated-by-user"
 							/>
@@ -198,11 +199,7 @@ const DeletedWebinarList: React.FC = () => {
 				<h5>{translation["table-row-information"]["webinar-information"]["webinar-information-title"]}</h5>
 				<div className="row">
 					<div className="col-md-3 col-sm-12">
-						<img
-							src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${row.imageUrl}`}
-							className="event-flyer"
-							alt="event-flyer"
-						/>
+						<img src={`${configs.storage.storageUrl}${row.imageUrl}`} className="event-flyer" alt="event-flyer" />
 					</div>
 					<div className="col-md-9 col-sm-12">
 						<h6 className="row-header">

@@ -1,8 +1,9 @@
 import axios from "axios";
 import requestConfig from "./config";
 import { ITopSpeaker } from "../../interfaces";
+import configs from "../../configs";
 
-const BASE_URL = process.env.REACT_APP_API_ENDPOINT as string;
+const BASE_URL = configs.api.baseUrl as string;
 
 class TopSpeakerAPI {
 	static createTopSpeaker(topSpeakerData: ITopSpeaker): Promise<ITopSpeaker> {

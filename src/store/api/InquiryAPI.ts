@@ -2,7 +2,8 @@ import axios from "axios";
 import requestConfig from "./config";
 import requestConfigJson from "./configJson";
 import { IInquiry } from "../../interfaces";
-const BASE_URL = process.env.REACT_APP_API_ENDPOINT as string;
+import configs from "../../configs";
+const BASE_URL = configs.api.baseUrl as string;
 
 class InquiryAPI {
 	static getInquiries(): Promise<IInquiry[]> {

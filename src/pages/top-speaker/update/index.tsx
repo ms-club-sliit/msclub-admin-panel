@@ -6,6 +6,7 @@ import ImageCanvas from "../../../components/image-canvas";
 import RichTextEditor from "react-rte";
 import { ToolBarConfig } from "../../../constants";
 import { translation } from "../../../locales/en-US/translation.json";
+import configs from "../../../configs";
 
 let formData: ITopSpeakerFormData = {
 	imageSrc: null,
@@ -190,7 +191,7 @@ const UpdateTopSpeaker: React.FC = () => {
 									{translation.forms["top-speakers"].edit["current-top-speakers-image"]}
 								</span>
 								<img
-									src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${topSpeakerDetails?.imageUrl}`}
+									src={`${configs.storage.storageUrl}${topSpeakerDetails?.imageUrl}`}
 									className="flyer"
 									alt="top-speaker-image"
 								/>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserId } from "../../../../store/user-store/userActions";
+import configs from "../../../../configs";
 interface IUserProps {
 	id: string;
 	firstName: string;
@@ -42,10 +43,7 @@ const User: React.FC<IUserProps> = (props: IUserProps) => {
 			<div className="card border shadow-none">
 				<div className="row">
 					<div className="col-md-4">
-						<img
-							src={`${process.env.REACT_APP_STORAGE_BUCKET_URL}/${process.env.REACT_APP_STORAGE_BUCKET_NAME}/${props.imagePath}`}
-							className="image"
-						/>
+						<img src={`${configs.storage.storageUrl}${props.imagePath}`} className="image" />
 					</div>
 
 					<div className="col-md-8">
