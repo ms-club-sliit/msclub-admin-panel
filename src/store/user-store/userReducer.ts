@@ -4,6 +4,7 @@ import UserActionTypes from "./userActionTypes";
 const initialState: IUserStore = {
 	user: null,
 	users: [],
+	me: null,
 	newUser: null,
 	updatedUser: null,
 	adminUpdatedUser: null,
@@ -20,6 +21,7 @@ const userReducer = (state = initialState, action: any) => {
 		case `${UserActionTypes.CREATE_USER}_PENDING`:
 		case `${UserActionTypes.GET_USER}_PENDING`:
 		case `${UserActionTypes.GET_ALL_USERS}_PENDING`:
+		case `${UserActionTypes.GET_ME}_PENDING`:
 		case `${UserActionTypes.UPDATE_USER}_PENDING`:
 		case `${UserActionTypes.ADMIN_UPDATE_USER}_PENDING`:
 		case `${UserActionTypes.DELETE_USER}_PENDING`:
@@ -36,6 +38,9 @@ const userReducer = (state = initialState, action: any) => {
 		case `${UserActionTypes.GET_ALL_USERS}_FULFILLED`:
 			let users = action.payload.data;
 			return { ...state, loading: false, users };
+		case `${UserActionTypes.GET_ME}_FULFILLED`:
+			let me = action.payload.data;
+			return { ...state, loading: false, me };
 		case `${UserActionTypes.UPDATE_USER}_FULFILLED`:
 			let updatedUser = action.payload.data;
 			return { ...state, loading: false, updatedUser };
@@ -58,6 +63,7 @@ const userReducer = (state = initialState, action: any) => {
 		case `${UserActionTypes.CREATE_USER}_REJECTED`:
 		case `${UserActionTypes.GET_USER}_REJECTED`:
 		case `${UserActionTypes.GET_ALL_USERS}_REJECTED`:
+		case `${UserActionTypes.GET_ME}_REJECTED`:
 		case `${UserActionTypes.UPDATE_USER}_REJECTED`:
 		case `${UserActionTypes.ADMIN_UPDATE_USER}_REJECTED`:
 		case `${UserActionTypes.DELETE_USER}_REJECTED`:

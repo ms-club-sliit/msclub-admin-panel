@@ -16,6 +16,13 @@ export const getUserInfo = () => {
 	};
 };
 
+export const getMe = () => {
+	return {
+		type: UserActionTypes.GET_ME,
+		payload: UserAPI.getMe(),
+	};
+};
+
 export const refreshToken = () => {
 	return {
 		type: UserActionTypes.REFRESH_TOKEN,
